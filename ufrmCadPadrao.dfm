@@ -65,8 +65,14 @@ object frmCadBase: TfrmCadBase
   end
   object fdqEdicao: TFDQuery
     BeforeOpen = fdqEdicaoBeforeOpen
+    CachedUpdates = True
     Connection = dtmcon.conexao
     Left = 104
+    Top = 32
+  end
+  object dtsEdicao: TDataSource
+    DataSet = fdqEdicao
+    Left = 144
     Top = 32
   end
 end

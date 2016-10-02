@@ -16,12 +16,18 @@ type
     fdqEdicaoCODIGO: TLargeintField;
     fdqEdicaoDESCRICAO: TStringField;
     fdqEdicaoATIVA: TBooleanField;
+    dbchkATIVA: TDBCheckBox;
+    lbl1: TLabel;
+    lbl2: TLabel;
   private
+  protected
+    function verificaCampos: Boolean; override;
     { Private declarations }
 
   public
     class function inserir(Aowner: TComponent): Boolean; override;
     class function editar(Aowner: TComponent; AId: Int64): Boolean; override;
+
     { Public declarations }
   end;
 
@@ -29,6 +35,9 @@ type
   //frmCadMesas: TfrmCadMesas;
 
 implementation
+
+uses
+  udtmCon;
 
 {$R *.dfm}
 
@@ -42,6 +51,7 @@ begin
   try
     frmCadMesas.FId := AId;
     frmCadMesas.fdqEdicao.Open();
+    frmCadMesas.fdqEdicao.Edit;
     if frmCadMesas.ShowModal = mrOk then
     begin
       frmCadMesas.fdqEdicao.Post;
@@ -61,6 +71,8 @@ begin
     frmCadMesas.FId := -1;
     frmCadMesas.fdqEdicao.Open();
     frmCadMesas.fdqEdicao.Insert;
+    frmCadMesas.dbedtCodigo.Field.AsLargeInt :=  dtmcon.getNextCod('mesa','codigo');
+    frmCadMesas.dbchkATIVA.Field.AsBoolean :=True;
     if frmCadMesas.ShowModal = mrOk then
     begin
       frmCadMesas.fdqEdicao.Post;
@@ -69,6 +81,32 @@ begin
   finally
     tryFreeAndNil(frmCadMesas);
   end;
+end;
+
+function TfrmCadMesas.verificaCampos: Boolean;
+begin
+  ActiveControl := nil;
+  Result := true;
+  if dbedtDescricao.Text = EmptyStr then
+  begin
+    ShowMessage('Informe a descrição.');
+    ActiveControl := dbedtDescricao;
+    Result := False;
+  end;
+
+  if dbedtCodigo.Text = EmptyStr then
+  begin
+     dbedtCodigo.Field.AsLargeInt :=  dtmcon.getNextCod('mesa','codigo');
+  end
+  else
+  if dtmcon.existsCod(fdqEdicaoID_MESA.Value, fdqEdicaoCODIGO.Value,'mesa'
+    ,fdqEdicaoID_MESA.FieldName, fdqEdicaoCODIGO.FieldName) then
+  begin
+    ShowMessage('Código já cadastrado.');
+    ActiveControl := dbedtDescricao;
+    Result := False;
+  end;
+
 end;
 
 end.

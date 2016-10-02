@@ -19,6 +19,7 @@ type
     pnl2: TPanel;
     dbedtCodigo: TDBEdit;
     dbedtDescricao: TDBEdit;
+    dtsEdicao: TDataSource;
     procedure fdqEdicaoBeforeOpen(DataSet: TDataSet);
     procedure btnOkClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
