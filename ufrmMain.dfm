@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet4
+    ActivePage = TabSheet3
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -53,7 +53,7 @@ object frmMain: TfrmMain
           TabOrder = 1
         end
         object btnNovaMesa: TButton
-          Left = 791
+          Left = 775
           Top = 8
           Width = 105
           Height = 41
@@ -71,7 +71,7 @@ object frmMain: TfrmMain
           TabOrder = 3
         end
         object btn1: TButton
-          Left = 902
+          Left = 886
           Top = 8
           Width = 105
           Height = 41
@@ -81,7 +81,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 1013
+          Left = 997
           Top = 20
           Width = 97
           Height = 17
@@ -180,8 +180,13 @@ object frmMain: TfrmMain
         Align = alTop
         BevelKind = bkSoft
         TabOrder = 0
-        ExplicitLeft = -3
-        ExplicitTop = -6
+        object lbl1: TLabel
+          Left = 656
+          Top = 29
+          Width = 16
+          Height = 13
+          Caption = 'lbl1'
+        end
         object btnAddProduto: TButton
           Left = 16
           Top = 8
@@ -206,6 +211,15 @@ object frmMain: TfrmMain
           Caption = 'Excluir'
           TabOrder = 2
         end
+        object btnEditProdutoGrd: TButton
+          Left = 680
+          Top = 8
+          Width = 121
+          Height = 41
+          Caption = 'Editar na Grade'
+          TabOrder = 3
+          OnClick = btnEditProdutoGrdClick
+        end
       end
       object dbgProdutos: TJvDBGrid
         Left = 0
@@ -214,7 +228,7 @@ object frmMain: TfrmMain
         Height = 649
         Align = alClient
         DataSource = dtsprodutos
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -225,7 +239,6 @@ object frmMain: TfrmMain
         SelectColumnsDialogStrings.Caption = 'Select columns'
         SelectColumnsDialogStrings.OK = '&OK'
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
-        CanDelete = False
         EditControls = <>
         RowsHeight = 17
         TitleRowHeight = 17
@@ -237,28 +250,24 @@ object frmMain: TfrmMain
           end
           item
             Expanded = False
-            FieldName = 'CODIGO'
-            Title.Caption = 'C'#243'digo'
-            Width = 55
-            Visible = True
-          end
-          item
-            Expanded = False
             FieldName = 'FK_TEMPORADA'
             Visible = False
           end
           item
             Expanded = False
+            FieldName = 'CODIGO'
+            Width = 57
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'NOME'
-            Title.Caption = 'Nome'
-            Width = 406
+            Width = 315
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_UNI'
-            Title.Caption = 'Valor Unit'#225'rio'
-            Width = 84
             Visible = True
           end>
       end
@@ -396,7 +405,10 @@ object frmMain: TfrmMain
     Top = 176
   end
   object fdqProdutos: TFDQuery
+    AfterInsert = fdqProdutosAfterInsert
+    BeforePost = fdqProdutosBeforePost
     Connection = dtmcon.conexao
+    OnError = fdqProdutosError
     SQL.Strings = (
       'select'
       '  p.id_rodutos,'
@@ -418,28 +430,31 @@ object frmMain: TfrmMain
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Visible = False
     end
-    object fdqProdutosCODIGO: TLargeintField
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      Required = True
-    end
     object fdqProdutosFK_TEMPORADA: TLargeintField
       FieldName = 'FK_TEMPORADA'
       Origin = 'FK_TEMPORADA'
       Required = True
       Visible = False
     end
+    object fdqProdutosCODIGO: TLargeintField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
     object fdqProdutosNOME: TStringField
+      DisplayLabel = 'Nome'
       FieldName = 'NOME'
       Origin = 'NOME'
       Required = True
       Size = 150
     end
     object fdqProdutosVALOR_UNI: TBCDField
+      DisplayLabel = 'R$'
       FieldName = 'VALOR_UNI'
       Origin = 'VALOR_UNI'
       Required = True
-      currency = True
+      DisplayFormat = '0.,00'
       Precision = 18
     end
   end
@@ -447,5 +462,94 @@ object frmMain: TfrmMain
     DataSet = fdqProdutos
     Left = 292
     Top = 192
+  end
+  object fdqConfiguracoes: TFDQuery
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'select'
+      '  t.id_temporadas,'
+      '  t.cod_temp,'
+      '  t.periodo_inicial,'
+      '  t.periodo_final,'
+      '  t.descricao,'
+      '  t.ativo,'
+      '  exists('
+      '      select'
+      '        1'
+      '      from'
+      '        pedido p'
+      '      where'
+      '        p.fk_temporada = t.id_temporadas'
+      '  ) tem_movimentacao'
+      'from'
+      '  temporadas t'
+      'where t.ativo   ')
+    Left = 492
+    Top = 184
+    object fdqConfiguracoesID_TEMPORADAS: TLargeintField
+      FieldName = 'ID_TEMPORADAS'
+      Origin = 'ID_TEMPORADAS'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqConfiguracoesCOD_TEMP: TSmallintField
+      FieldName = 'COD_TEMP'
+      Origin = 'COD_TEMP'
+      Required = True
+    end
+    object fdqConfiguracoesPERIODO_INICIAL: TDateField
+      FieldName = 'PERIODO_INICIAL'
+      Origin = 'PERIODO_INICIAL'
+      Required = True
+    end
+    object fdqConfiguracoesPERIODO_FINAL: TDateField
+      FieldName = 'PERIODO_FINAL'
+      Origin = 'PERIODO_FINAL'
+    end
+    object fdqConfiguracoesDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Required = True
+      Size = 150
+    end
+    object fdqConfiguracoesATIVO: TBooleanField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object fdqConfiguracoesTEM_MOVIMENTACAO: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'TEM_MOVIMENTACAO'
+      Origin = 'TEM_MOVIMENTACAO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object dtsConfiguracoes: TDataSource
+    DataSet = fdqConfiguracoes
+    Left = 516
+    Top = 184
+  end
+  object bdsdb1: TBindSourceDB
+    DataSet = fdqConfiguracoes
+    ScopeMappings = <>
+    Left = 560
+    Top = 376
+  end
+  object bdl1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
+    object lpfCaption1: TLinkPropertyToField
+      Category = 'Quick Bindings'
+      DataSource = bdsdb1
+      FieldName = 'TEM_MOVIMENTACAO'
+      Component = lbl1
+      CustomFormat = 
+        #39'a'#39'+IfThen(owner.fieldbyname('#39'tem_movimentacao'#39').asBoolean,'#39'test' +
+        'e'#39','#39'porra'#39')'
+      ComponentProperty = 'Caption'
+    end
   end
 end

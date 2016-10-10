@@ -70,31 +70,32 @@ begin
 end;
 
 procedure TfrmCadTemporada.desativaOutrasTemporadas(idTemporada: Integer);
-const
-  DESATIVA_TEMPORADAS =
-    '  update temporadas t' + sLineBreak +
-    '  set' + sLineBreak +
-    '    t.ativo = false' + sLineBreak +
-    '  where' + sLineBreak +
-    '    T.ativo' + sLineBreak +
-    '    and t.id_temporadas <> :id_temporadas';
-var
-  tipes:array[1..1] of TFieldType;
+//const
+//  DESATIVA_TEMPORADAS =
+//    '  update temporadas t' + sLineBreak +
+//    '  set' + sLineBreak +
+//    '    t.ativo = false' + sLineBreak +
+//    '  where' + sLineBreak +
+//    '    T.ativo' + sLineBreak +
+//    '    and t.id_temporadas <> :id_temporadas';
+//var
+//  tipes:array[1..1] of TFieldType;
 begin
-  tipes[1]:= ftInteger;
-  dtmcon.conexao.ExecSQL(DESATIVA_TEMPORADAS, [idTemporada],tipes );
+// transferido para trigger
+//  tipes[1]:= ftInteger;
+//  dtmcon.conexao.ExecSQL(DESATIVA_TEMPORADAS, [idTemporada],tipes );
 end;
 
 
 class function TfrmCadTemporada.inserir(Aowner: TComponent): Boolean;
-Const
-  FINALIZA_TEMPORADA =
-    '  update temporadas t' + sLineBreak +
-    '  set' + sLineBreak +
-    '    t.periodo_final = dateadd(day,-1,Cast(:data_inicio as date))' + sLineBreak +
-    '  where' + sLineBreak +
-    '    T.periodo_final is null' + sLineBreak +
-    '    and t.periodo_inicial < dateadd(day,-1,cast(:data_inicio as date))';
+//Const
+//  FINALIZA_TEMPORADA =
+//    '  update temporadas t' + sLineBreak +
+//    '  set' + sLineBreak +
+//    '    t.periodo_final = dateadd(day,-1,Cast(:data_inicio as date))' + sLineBreak +
+//    '  where' + sLineBreak +
+//    '    T.periodo_final is null' + sLineBreak +
+//    '    and t.periodo_inicial < dateadd(day,-1,cast(:data_inicio as date))';
 
 var
   frmCadTemporada: TfrmCadTemporada;
@@ -107,7 +108,8 @@ begin
     frmCadTemporada.FId := -1;
     frmCadTemporada.fdqEdicao.Open();
     frmCadTemporada.fdqEdicao.Insert;
-    frmCadTemporada.dbedtCodigo.Field.AsInteger :=  CurrentYear;
+    frmCadTemporada.dbedtCodigo.Field.AsInteger := dtmcon.getNextCod('temporadas','cod_temp');
+    frmCadTemporada.dbedtDescricao.Field.AsInteger := CurrentYear;
     frmCadTemporada.dbchkATIVO.Field.AsBoolean :=True;
     frmCadTemporada.dbedtPERIODO_INICIAL.Field.AsDateTime := Now;
     if frmCadTemporada.ShowModal = mrOk then
@@ -118,9 +120,10 @@ begin
           dtmcon.conexao.StartTransaction;
         if frmCadTemporada.fdqEdicaoATIVO.AsBoolean then
           frmCadTemporada.desativaOutrasTemporadas(0);
-        dtmcon.conexao.ExecSQL(FINALIZA_TEMPORADA,
-            [frmCadTemporada.fdqEdicaoPERIODO_INICIAL.AsDateTime]
-            , [ftDate]);
+//  inserido em trigger
+//        dtmcon.conexao.ExecSQL(FINALIZA_TEMPORADA,
+//            [frmCadTemporada.fdqEdicaoPERIODO_INICIAL.AsDateTime]
+//            , [ftDate]);
 
         frmCadTemporada.fdqEdicao.Post;
         frmCadTemporada.fdqEdicao.ApplyUpdates(-1);
@@ -140,7 +143,26 @@ end;
 
 function TfrmCadTemporada.verificaCampos: Boolean;
 begin
+  ActiveControl := nil;
   Result:= True;
+  if dbedtCodigo.Field.IsNull then
+  begin
+    ShowMessage('Código deve ser preenchido');
+    Result := False;
+  end;
+
+  if dbedtDescricao.Field.IsNull then
+  begin
+    ShowMessage('Descrição deve ser preenchido');
+    Result := False;
+  end;
+
+  if dbedtPERIODO_INICIAL.Field.IsNull then
+  begin
+    ShowMessage('Data inicial da temporada deve ser preenchido');
+    Result := False;
+  end;
+
 end;
 
 end.
