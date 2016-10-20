@@ -14,7 +14,8 @@ uses
   ufrmCadMesas in 'ufrmCadMesas.pas' {frmCadMesas},
   UConexao in 'UConexao.pas',
   ufrmTemporada in 'ufrmTemporada.pas' {frmTemporadas},
-  UfrmCadTemporada in 'UfrmCadTemporada.pas' {frmCadTemporada};
+  UfrmCadTemporada in 'UfrmCadTemporada.pas' {frmCadTemporada},
+  ufrmCadProdutos in 'ufrmCadProdutos.pas' {frmCadProduto};
 
 {$R *.res}
 
@@ -25,5 +26,6 @@ begin
   Application.CreateForm(Tdtmcon, dtmcon);
   Application.CreateForm(TfrmTemporadas, frmTemporadas);
   Application.CreateForm(TfrmCadTemporada, frmCadTemporada);
+  Application.CreateForm(TfrmCadProduto, frmCadProduto);
   Application.Run;
 end.

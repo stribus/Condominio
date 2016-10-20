@@ -53,7 +53,7 @@ object frmMain: TfrmMain
           TabOrder = 1
         end
         object btnNovaMesa: TButton
-          Left = 775
+          Left = 755
           Top = 8
           Width = 105
           Height = 41
@@ -71,7 +71,7 @@ object frmMain: TfrmMain
           TabOrder = 3
         end
         object btn1: TButton
-          Left = 886
+          Left = 866
           Top = 8
           Width = 105
           Height = 41
@@ -81,7 +81,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 997
+          Left = 977
           Top = 20
           Width = 97
           Height = 17
@@ -180,13 +180,6 @@ object frmMain: TfrmMain
         Align = alTop
         BevelKind = bkSoft
         TabOrder = 0
-        object lbl1: TLabel
-          Left = 656
-          Top = 29
-          Width = 16
-          Height = 13
-          Caption = 'lbl1'
-        end
         object btnAddProduto: TButton
           Left = 16
           Top = 8
@@ -236,6 +229,10 @@ object frmMain: TfrmMain
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnTitleClick = dbgProdutosTitleClick
+        SortMarker = smUp
+        TitleButtons = True
+        SortedField = 'NOME'
         SelectColumnsDialogStrings.Caption = 'Select columns'
         SelectColumnsDialogStrings.OK = '&OK'
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
@@ -332,7 +329,7 @@ object frmMain: TfrmMain
       '    ) k on k.fk_mesa = m.id_mesa'
       '  left join cliente c on c.id_cliente = k.fk_cliente'
       'where'
-      '  ((m.ativa) or ( not :soativas))'
+      '  ((m.ativa) or ( not Cast(:soativas as Boolean)))'
       '  or k.fk_mesa is not null')
     Left = 108
     Top = 176
@@ -465,6 +462,8 @@ object frmMain: TfrmMain
   end
   object fdqConfiguracoes: TFDQuery
     Connection = dtmcon.conexao
+    FormatOptions.AssignedValues = [fvDefaultParamDataType]
+    FormatOptions.DefaultParamDataType = ftLargeint
     SQL.Strings = (
       'select'
       '  t.id_temporadas,'
@@ -522,7 +521,6 @@ object frmMain: TfrmMain
       FieldName = 'TEM_MOVIMENTACAO'
       Origin = 'TEM_MOVIMENTACAO'
       ProviderFlags = []
-      ReadOnly = True
     end
   end
   object dtsConfiguracoes: TDataSource
@@ -539,17 +537,15 @@ object frmMain: TfrmMain
   object bdl1: TBindingsList
     Methods = <>
     OutputConverters = <>
-    Left = 20
-    Top = 5
-    object lpfCaption1: TLinkPropertyToField
+    Left = 60
+    Top = 189
+    object lpfVisible: TLinkPropertyToField
       Category = 'Quick Bindings'
       DataSource = bdsdb1
       FieldName = 'TEM_MOVIMENTACAO'
-      Component = lbl1
-      CustomFormat = 
-        #39'a'#39'+IfThen(owner.fieldbyname('#39'tem_movimentacao'#39').asBoolean,'#39'test' +
-        'e'#39','#39'porra'#39')'
-      ComponentProperty = 'Caption'
+      Component = btnEditProdutoGrd
+      CustomFormat = 'IfThen(%s='#39'False'#39', True,False)'
+      ComponentProperty = 'Visible'
     end
   end
 end

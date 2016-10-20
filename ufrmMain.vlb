@@ -1,165 +1,162 @@
 ﻿[TabSheet2]
-Coordinates=171,322,66,33
+Coordinates=171,322,77,36
 
 [dtsmesas]
-Coordinates=134,1,61,33
+Coordinates=134,1,69,36
 
 [fdqMesasCOD_CLIENTE]
-Coordinates=433,56,134,33
+Coordinates=433,56,159,36
 
 [Panel2]
-Coordinates=411,10,47,51
+Coordinates=411,10,54,58
 
 [fdqMesasID_PEDIDO]
-Coordinates=433,111,117,33
+Coordinates=433,111,139,36
 
 [btnAbrir]
-Coordinates=187,254,54,51
+Coordinates=187,254,60,58
 
 [fdqMesasTOTAL]
-Coordinates=433,166,96,33
+Coordinates=433,166,111,36
 
 [btn1]
-Coordinates=10,254,41,51
+Coordinates=10,254,49,58
 
 [Panel1]
-Coordinates=297,10,47,51
+Coordinates=297,10,54,58
 
 [btn2]
-Coordinates=475,10,41,51
+Coordinates=475,10,49,58
 
 [fdqMesasCODIGO]
-Coordinates=433,276,103,33
+Coordinates=433,276,122,36
 
 [TabSheet3]
-Coordinates=10,322,66,33
+Coordinates=10,322,77,36
 
 [JvPageControl1]
-Coordinates=505,254,92,33
+Coordinates=505,254,106,36
 
 [btn4]
-Coordinates=135,10,41,51
+Coordinates=135,10,49,58
 
 [DBGrid2]
-Coordinates=431,254,56,33
+Coordinates=431,254,64,36
 
 [TabSheet4]
-Coordinates=344,254,66,33
+Coordinates=344,254,77,36
 
 [fdqMesas]
-Coordinates=10,10,96,195
+Coordinates=10,10,115,234
 
 [TabSheet1]
-Coordinates=257,254,66,33
+Coordinates=257,254,77,36
 
 [fdqMesasDESCRICAO]
-Coordinates=630,1,123,33
+Coordinates=630,1,146,36
 
 [edt1]
-Coordinates=361,10,40,51
+Coordinates=361,10,40,58
 
 [fdqMesasNOME]
-Coordinates=166,445,92,33
+Coordinates=166,445,108,36
 
 [fdqMesasDTHR_ABERTURA]
-Coordinates=630,56,153,33
+Coordinates=630,56,182,36
 
 [fdqMesasID_MESA]
-Coordinates=37,445,107,33
+Coordinates=37,445,126,36
 
 [Panel3]
-Coordinates=534,10,47,51
+Coordinates=534,10,54,58
 
 [dtmcon.fdqCons]
-Coordinates=69,254,96,51
+Coordinates=69,254,108,58
 
 [btnNovaMesa]
-Coordinates=194,10,81,51
+Coordinates=194,10,93,58
 
 []
-Coordinates=630,250,41,51
+Coordinates=695,331,85,36
 
 [dbgrdMesas]
-Coordinates=97,322,75,33
+Coordinates=97,322,85,36
 
 [btnEdtProduto]
-Coordinates=50,415,86,51
+Coordinates=50,415,97,58
 
 [btnNovaTemporada]
-Coordinates=287,274,111,51
+Coordinates=287,274,128,58
 
 [fdqConfiguracoesPERIODO_INICIAL]
-Coordinates=630,111,192,33
+Coordinates=630,111,226,36
 
 [fdqConfiguracoesATIVO]
-Coordinates=503,331,133,33
+Coordinates=503,331,154,36
 
 [fdqConfiguracoesID_TEMPORADAS]
-Coordinates=630,166,191,33
+Coordinates=630,166,224,36
 
 [fdqProdutosNOME]
-Coordinates=372,351,106,33
+Coordinates=372,351,122,36
 
 [dtsprodutos]
-Coordinates=0,0,74,33
+Coordinates=0,0,82,36
 
 [btnAddProduto]
-Coordinates=503,166,89,51
+Coordinates=503,166,100,58
 
 [fdqProdutosID_RODUTOS]
-Coordinates=630,221,143,33
+Coordinates=630,221,167,36
 
 [btnDelProduto]
-Coordinates=268,415,85,51
+Coordinates=268,415,97,58
 
 [fdqProdutosCODIGO]
-Coordinates=459,406,117,33
+Coordinates=459,406,135,36
 
 [chkMesasAtivas]
-Coordinates=149,415,95,51
+Coordinates=149,415,114,58
 
 [fdqConfiguracoes]
-Coordinates=690,50,102,33
+Coordinates=690,50,115,36
 Visible=False
 
 [fdqProdutosFK_TEMPORADA]
-Coordinates=630,276,161,33
+Coordinates=630,276,188,36
 
 [fdqProdutos]
-Coordinates=287,87,90,141
+Coordinates=287,87,107,168
 
 [fdqConfiguracoesCOD_TEMP]
-Coordinates=630,386,159,33
+Coordinates=630,386,186,36
 
 [dtsConfiguracoes]
-Coordinates=301,492,101,33
+Coordinates=301,492,115,36
 
 [fdqConfiguracoesDESCRICAO]
-Coordinates=894,1,164,33
+Coordinates=894,1,191,36
 
 [fdqConfiguracoesPERIODO_FINAL]
-Coordinates=894,56,186,33
+Coordinates=894,56,217,36
 
 [fdqProdutosVALOR_UNI]
-Coordinates=894,111,135,33
+Coordinates=894,111,156,36
 
 [dbgProdutos]
-Coordinates=532,461,78,33
+Coordinates=532,461,87,36
 
 [fdqConfiguracoesTEM_MOVIMENTACAO]
-Coordinates=1149,1,215,33
+Coordinates=1149,1,254,36
 
 [btnEditProdutoGrd]
-Coordinates=287,351,107,69
+Coordinates=287,351,121,80
 Visible=True
 ExplicitSubNodes=Visible
 
 [bdsdb1]
-Coordinates=690,50,118,195
+Coordinates=690,50,141,234
 
 [bdl1]
-Coordinates=144,87,40,33
-
-[lbl1]
-Coordinates=600,80,41,51
+Coordinates=144,87,40,36
 

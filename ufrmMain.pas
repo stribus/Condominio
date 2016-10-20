@@ -12,7 +12,7 @@ uses
   JvToolEdit, Vcl.Mask, JvExMask, JvMaskEdit, JvCheckedMaskEdit,
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt,
   Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
-  Data.Bind.Components, Data.Bind.DBScope;
+  Data.Bind.Components, Data.Bind.DBScope, Vcl.DBCtrls;
 
 type
   TfrmMain = class(TForm)
@@ -67,8 +67,7 @@ type
     fdqConfiguracoesTEM_MOVIMENTACAO: TBooleanField;
     bdsdb1: TBindSourceDB;
     bdl1: TBindingsList;
-    lbl1: TLabel;
-    lpfCaption1: TLinkPropertyToField;
+    lpfVisible: TLinkPropertyToField;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -80,6 +79,7 @@ type
     procedure fdqProdutosError(ASender, AInitiator: TObject;
       var AException: Exception);
     procedure btnEditProdutoGrdClick(Sender: TObject);
+    procedure dbgProdutosTitleClick(Column: TColumn);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -95,7 +95,7 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada;
+  ufrmCadMesas, ufrmTemporada, UGeral;
 
 {$R *.dfm}
 
@@ -139,6 +139,11 @@ end;
 procedure TfrmMain.chkMesasAtivasClick(Sender: TObject);
 begin
   atualizaDatasets;
+end;
+
+procedure TfrmMain.dbgProdutosTitleClick(Column: TColumn);
+begin
+  sortColumn(TFDQuery(dbgProdutos.DataSource.DataSet),Column);
 end;
 
 procedure TfrmMain.fdqMesasBeforeOpen(DataSet: TDataSet);
