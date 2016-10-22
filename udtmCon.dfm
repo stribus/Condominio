@@ -1,17 +1,16 @@
 object dtmcon: Tdtmcon
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 678
-  Width = 1107
+  Height = 310
+  Width = 639
   object conexao: TFDConnection
     Params.Strings = (
-      'DriverID=FB'
       'User_Name=sysdba'
       'Password=masterkey'
       'Database=D:\projetos\Condominio\DADOS.FDB'
-      'Server=localhost')
+      'Server=localhost'
+      'ConnectionDef=Condominio')
     LoginPrompt = False
-    BeforeConnect = con1BeforeConnect
     Left = 40
     Top = 32
   end
@@ -24,5 +23,14 @@ object dtmcon: Tdtmcon
     Connection = conexao
     Left = 96
     Top = 96
+  end
+  object fdmConfigIni: TFDManager
+    ConnectionDefFileName = '.\teste.ini'
+    FormatOptions.AssignedValues = [fvMapRules]
+    FormatOptions.OwnMapRules = True
+    FormatOptions.MapRules = <>
+    Active = True
+    Left = 112
+    Top = 32
   end
 end

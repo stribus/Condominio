@@ -16,6 +16,7 @@ type
     conexao: TFDConnection;
     wcs1: TFDGUIxWaitCursor;
     fdqCons: TFDQuery;
+    fdmConfigIni: TFDManager;
     procedure DataModuleCreate(Sender: TObject);
     procedure con1BeforeConnect(Sender: TObject);
   private
@@ -46,26 +47,30 @@ var
   conexaoClass: TConexao;
   Conexao :TFDConnection;
 begin
-  try
-    conexaoClass := TConexao.Create(ExtractFilePath(ParamStr(0)) + 'Config.ini', 'Conexao');
-    conexaoClass.LeINI;
-    Conexao := TFDConnection(Sender);
-    Conexao.LoginPrompt := false;
-    Conexao.Params.Clear;
-    Conexao.Params.Add('hostname=' + conexaoClass.Servidor);
-    Conexao.Params.Add('user_name=' + conexaoClass.Usuario);
-    Conexao.Params.Add('password=' + conexaoClass.Senha);
-    Conexao.Params.Add('port=' + IntToStr(conexaoClass.Porta));
-    Conexao.Params.Add('Database=' + conexaoClass.Database);
-    Conexao.Params.Add('DriverID=' + conexaoClass.Driver);
-  except
-    on E: Exception do
-      ShowMessage('Erro ao carregar parâmetros de conexão!'#13#10 + E.Message);
-  end;
+//mudado para  connectionsdefs
+//  try
+//    conexaoClass := TConexao.Create(ExtractFilePath(ParamStr(0)) + 'Config.ini', 'Conexao');
+//    conexaoClass.LeINI;
+//    Conexao := TFDConnection(Sender);
+//    Conexao.LoginPrompt := false;
+//    Conexao.Params.Clear;
+//    Conexao.Params.Add('hostname=' + conexaoClass.Servidor);
+//    Conexao.Params.Add('user_name=' + conexaoClass.Usuario);
+//    Conexao.Params.Add('password=' + conexaoClass.Senha);
+//    Conexao.Params.Add('port=' + IntToStr(conexaoClass.Porta));
+//    Conexao.Params.Add('Database=' + conexaoClass.Database);
+//    Conexao.Params.Add('DriverID=' + conexaoClass.Driver);
+//  except
+//    on E: Exception do
+//      ShowMessage('Erro ao carregar parâmetros de conexão!'#13#10 + E.Message);
+//  end;
 end;
 
 procedure Tdtmcon.DataModuleCreate(Sender: TObject);
 begin
+  if not fdmConfigIni.Active then
+     fdmConfigIni.Active := True;
+
   if not conexao.Connected then
      conexao.Connected := True;
 end;
