@@ -114,13 +114,14 @@ var
 begin
   lSql := TStringBuilder.Create;
   try
-    fdqCons.Close;
+    //fdqCons.Close;
     lSql.AppendFormat(SELECT,[Acampo,Atabela]);
     if AWhere <> '' then
       lSql.AppendLine.Append(' where ').AppendLine.Append(AWhere);
-    fdqCons.Open(lSql.ToString);
-    result:=fdqCons.FieldByName('max').AsInteger+1;
-    fdqCons.Close;
+    //fdqCons.Open(lSql.ToString);
+    //result:=fdqCons.FieldByName('max').AsInteger+1;
+    //fdqCons.Close;
+    Result := conexao.ExecSQLScalar(lSql.ToString)+1;
   finally
     tryFreeAndNil(lsql);
   end;

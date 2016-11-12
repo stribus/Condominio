@@ -53,7 +53,7 @@ object frmMain: TfrmMain
           TabOrder = 1
         end
         object btnNovaMesa: TButton
-          Left = 755
+          Left = 747
           Top = 8
           Width = 105
           Height = 41
@@ -71,7 +71,7 @@ object frmMain: TfrmMain
           TabOrder = 3
         end
         object btn1: TButton
-          Left = 866
+          Left = 858
           Top = 8
           Width = 105
           Height = 41
@@ -81,7 +81,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 977
+          Left = 969
           Top = 20
           Width = 97
           Height = 17
@@ -267,6 +267,71 @@ object frmMain: TfrmMain
             FieldName = 'VALOR_UNI'
             Visible = True
           end>
+      end
+    end
+    object tsEntradasSaidas: TTabSheet
+      Caption = 'Entradas/Saidas'
+      ImageIndex = 4
+      object pnl1: TPanel
+        Left = 0
+        Top = 0
+        Width = 1118
+        Height = 65
+        Align = alTop
+        BevelKind = bkSoft
+        TabOrder = 0
+        ExplicitTop = 8
+        object btn3: TButton
+          Left = 16
+          Top = 8
+          Width = 105
+          Height = 41
+          Caption = 'Adicionar'
+          TabOrder = 0
+        end
+        object btn5: TButton
+          Left = 127
+          Top = 8
+          Width = 105
+          Height = 41
+          Caption = 'Editar'
+          TabOrder = 1
+        end
+        object btn6: TButton
+          Left = 238
+          Top = 8
+          Width = 105
+          Height = 41
+          Caption = 'Excluir'
+          TabOrder = 2
+        end
+      end
+      object dbg1: TJvDBGrid
+        Left = 0
+        Top = 65
+        Width = 1118
+        Height = 649
+        Align = alClient
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ReadOnly = True
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnTitleClick = dbgProdutosTitleClick
+        SortMarker = smUp
+        TitleButtons = True
+        SortedField = 'NOME'
+        SelectColumnsDialogStrings.Caption = 'Select columns'
+        SelectColumnsDialogStrings.OK = '&OK'
+        SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
+        CanDelete = False
+        EditControls = <>
+        RowsHeight = 17
+        TitleRowHeight = 17
+        BooleanEditor = False
       end
     end
     object TabSheet4: TTabSheet

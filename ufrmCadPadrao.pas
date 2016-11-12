@@ -27,7 +27,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    class function inserir(Aowner: TComponent): Boolean; virtual; abstract;
+    class function inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean; virtual; abstract;
     class function editar(Aowner: TComponent; AId: Int64): Boolean; virtual; abstract;
   protected
     FId: Int64;

@@ -68,6 +68,12 @@ type
     bdsdb1: TBindSourceDB;
     bdl1: TBindingsList;
     lpfVisible: TLinkPropertyToField;
+    tsEntradasSaidas: TTabSheet;
+    pnl1: TPanel;
+    btn3: TButton;
+    btn5: TButton;
+    btn6: TButton;
+    dbg1: TJvDBGrid;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -120,13 +126,13 @@ end;
 
 procedure TfrmMain.btnNovaMesaClick(Sender: TObject);
 begin
-  TfrmCadMesas.inserir(Self);
+  TfrmCadMesas.inserir(Self, AIdTemporada);
   atualizaDatasets;
 end;
 
 procedure TfrmMain.btnNovaTemporadaClick(Sender: TObject);
 begin
-  TfrmCadTemporada.inserir(Self)
+  TfrmCadTemporada.inserir(Self, AIdTemporada)
 end;
 
 procedure TfrmMain.carregaConfiguracoes;

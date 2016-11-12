@@ -27,7 +27,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    class function inserir(Aowner: TComponent): Boolean; override;
+    class function inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean; override;
     class function editar(Aowner: TComponent; AId: Int64): Boolean; override;
   end;
 
@@ -43,13 +43,56 @@ uses UGeral;
 { TfrmCadProduto }
 
 class function TfrmCadProduto.editar(Aowner: TComponent; AId: Int64): Boolean;
+var
+  cadProduto:TfrmCadProduto;
 begin
-
+  try
+    cadProduto:=TfrmCadProduto.Create(Aowner);
+    with cadProduto do
+    begin
+      FId := AId;
+      fdqEdicao.Open();
+      fdqEdicao.Edit;
+      if ShowModal = mrOk then
+      begin
+        fdqEdicao.Post;
+        fdqEdicao.ApplyUpdates(-1);
+      end
+      else
+        fdqEdicao.Cancel;
+      fdqEdicao.Close;
+    end;
+  finally
+    tryFreeAndNil(cadProduto);
+  end;
 end;
 
-class function TfrmCadProduto.inserir(Aowner: TComponent): Boolean;
+class function TfrmCadProduto.inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean;
+var
+  cadProduto:TfrmCadProduto;
 begin
-
+  try
+    cadProduto:=TfrmCadProduto.Create(Aowner);
+    with cadProduto do
+    begin
+      FId := -1;
+      fdqEdicao.Open();
+      fdqEdicao.Insert;
+      fdqEdicaoCODIGO.AsLargeInt := dtmcon.getNextCod('mesa','codigo',
+                          'p.fk_temporada = '+inttoStr(AIdTemporada));
+      fdqEdicaoFK_TEMPORADA.AsInteger := AIdTemporada;
+      if ShowModal = mrOk then
+      begin
+        fdqEdicao.Post;
+        fdqEdicao.ApplyUpdates(-1);
+      end
+      else
+        fdqEdicao.Cancel;
+      fdqEdicao.Close;
+    end;
+  finally
+    tryFreeAndNil(cadProduto);
+  end;
 end;
 
 function TfrmCadProduto.verificaCampos: Boolean;

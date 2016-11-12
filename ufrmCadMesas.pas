@@ -25,7 +25,7 @@ type
     { Private declarations }
 
   public
-    class function inserir(Aowner: TComponent): Boolean; override;
+    class function inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean; override;
     class function editar(Aowner: TComponent; AId: Int64): Boolean; override;
 
     { Public declarations }
@@ -62,7 +62,7 @@ begin
   end;
 end;
 
-class function TfrmCadMesas.inserir(Aowner: TComponent): Boolean;
+class function TfrmCadMesas.inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean;
 var
   frmCadMesas: TfrmCadMesas;
 begin

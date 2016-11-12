@@ -32,7 +32,7 @@ type
     function verificaCampos: Boolean; override;
     { Private declarations }
   public
-    class function inserir(Aowner: TComponent): Boolean; override;
+    class function inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean; override;
     class function editar(Aowner: TComponent; AId: Int64): Boolean; override;
   end;
 
@@ -87,7 +87,7 @@ begin
 end;
 
 
-class function TfrmCadTemporada.inserir(Aowner: TComponent): Boolean;
+class function TfrmCadTemporada.inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean;
 //Const
 //  FINALIZA_TEMPORADA =
 //    '  update temporadas t' + sLineBreak +

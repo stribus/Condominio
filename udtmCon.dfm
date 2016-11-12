@@ -5,9 +5,6 @@ object dtmcon: Tdtmcon
   Width = 639
   object conexao: TFDConnection
     Params.Strings = (
-      'User_Name=sysdba'
-      'Password=masterkey'
-      'Database=D:\projetos\Condominio\DADOS.FDB'
       'Server=localhost'
       'ConnectionDef=Condominio')
     LoginPrompt = False
@@ -25,7 +22,7 @@ object dtmcon: Tdtmcon
     Top = 96
   end
   object fdmConfigIni: TFDManager
-    ConnectionDefFileName = '.\teste.ini'
+    ConnectionDefFileName = '.\config.ini'
     FormatOptions.AssignedValues = [fvMapRules]
     FormatOptions.OwnMapRules = True
     FormatOptions.MapRules = <>
