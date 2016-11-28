@@ -126,13 +126,13 @@ end;
 
 procedure TfrmMain.btnNovaMesaClick(Sender: TObject);
 begin
-  TfrmCadMesas.inserir(Self, AIdTemporada);
+  TfrmCadMesas.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger);
   atualizaDatasets;
 end;
 
 procedure TfrmMain.btnNovaTemporadaClick(Sender: TObject);
 begin
-  TfrmCadTemporada.inserir(Self, AIdTemporada)
+  TfrmCadTemporada.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger)
 end;
 
 procedure TfrmMain.carregaConfiguracoes;

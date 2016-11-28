@@ -27,6 +27,7 @@ object dtmcon: Tdtmcon
     FormatOptions.OwnMapRules = True
     FormatOptions.MapRules = <>
     Active = True
+    BeforeLoadConnectionDefFile = fdmConfigIniBeforeLoadConnectionDefFile
     Left = 112
     Top = 32
   end

@@ -19,6 +19,7 @@ type
     fdmConfigIni: TFDManager;
     procedure DataModuleCreate(Sender: TObject);
     procedure con1BeforeConnect(Sender: TObject);
+    procedure fdmConfigIniBeforeLoadConnectionDefFile(Sender: TObject);
   private
 
 
@@ -100,6 +101,11 @@ begin
   finally
     tryFreeAndNil(lsql);
   end;
+end;
+
+procedure Tdtmcon.fdmConfigIniBeforeLoadConnectionDefFile(Sender: TObject);
+begin
+  //fdmConfigIni.ConnectionDefFileName := ExtractFilePath(ParamStr(0)) + 'config.ini';
 end;
 
 function Tdtmcon.getNextCod(ATabela, ACampo: String; AWhere: String=''): Int64;
