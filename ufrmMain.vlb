@@ -40,9 +40,6 @@ Coordinates=505,254,106,36
 [btn4]
 Coordinates=135,10,49,58
 
-[DBGrid2]
-Coordinates=431,254,64,36
-
 [TabSheet4]
 Coordinates=344,254,77,36
 
@@ -159,4 +156,7 @@ Coordinates=690,50,141,234
 
 [bdl1]
 Coordinates=144,87,40,36
+
+[dbgrdClientes]
+Coordinates=431,254,64,36
 

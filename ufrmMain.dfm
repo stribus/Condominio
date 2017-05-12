@@ -20,15 +20,17 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Mesas'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -47,6 +49,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Gerenciar Mesa'
           TabOrder = 0
+          OnClick = btnAbrirClick
         end
         object btn2: TButton
           Left = 127
@@ -55,9 +58,10 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Fechar Mesa'
           TabOrder = 1
+          OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 743
+          Left = 731
           Top = 8
           Width = 105
           Height = 41
@@ -65,7 +69,6 @@ object frmMain: TfrmMain
           Caption = 'Cadastrar Mesas'
           TabOrder = 2
           OnClick = btnNovaMesaClick
-          ExplicitLeft = 747
         end
         object btn4: TButton
           Left = 238
@@ -74,9 +77,10 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Cancelar Mesa'
           TabOrder = 3
+          OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 854
+          Left = 842
           Top = 8
           Width = 105
           Height = 41
@@ -84,10 +88,9 @@ object frmMain: TfrmMain
           Caption = 'Editar Mesas'
           TabOrder = 4
           OnClick = btn1Click
-          ExplicitLeft = 858
         end
         object chkMesasAtivas: TCheckBox
-          Left = 965
+          Left = 953
           Top = 20
           Width = 97
           Height = 17
@@ -97,7 +100,6 @@ object frmMain: TfrmMain
           State = cbChecked
           TabOrder = 5
           OnClick = chkMesasAtivasClick
-          ExplicitLeft = 969
         end
       end
       object dbgrdMesas: TDBGrid
@@ -107,6 +109,12 @@ object frmMain: TfrmMain
         Height = 649
         Align = alClient
         DataSource = dtsmesas
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -119,33 +127,35 @@ object frmMain: TfrmMain
             Expanded = False
             FieldName = 'CODIGO'
             Title.Caption = 'C'#243'digo'
+            Width = 104
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO'
             Title.Caption = 'Descri'#231#227'o Mesa'
-            Width = 200
+            Width = 233
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DTHR_ABERTURA'
             Title.Caption = 'Aberto Desde'
-            Width = 100
+            Width = 146
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
             Title.Caption = 'Cliente'
-            Width = 200
+            Width = 217
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL'
             Title.Caption = 'A pagar'
+            Width = 161
             Visible = True
           end>
       end
@@ -153,10 +163,6 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Clientes'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -166,27 +172,70 @@ object frmMain: TfrmMain
         BevelKind = bkSoft
         TabOrder = 0
       end
-      object DBGrid2: TDBGrid
+      object dbgrdClientes: TDBGrid
         Left = 0
         Top = 65
         Width = 1118
         Height = 649
         Align = alClient
+        DataSource = dtsClientes
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ID_CLIENTE'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'CODIGO'
+            Title.Caption = 'C'#243'digo'
+            Width = 44
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME'
+            Title.Caption = 'Nome'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ENDERECO'
+            Title.Caption = 'Endere'#231'o'
+            Width = 200
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CONTATO'
+            Title.Caption = 'Contato'
+            Width = 200
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ATIVO'
+            Title.Caption = 'Ativo'
+            Visible = True
+          end>
       end
     end
     object TabSheet3: TTabSheet
       Caption = 'Produtos'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -202,6 +251,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Adicionar'
           TabOrder = 0
+          OnClick = btnAddProdutoClick
         end
         object btnEdtProduto: TButton
           Left = 127
@@ -210,6 +260,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Editar'
           TabOrder = 1
+          OnClick = btnEdtProdutoClick
         end
         object btnDelProduto: TButton
           Left = 238
@@ -218,6 +269,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Excluir'
           TabOrder = 2
+          OnClick = btnDelProdutoClick
         end
         object btnEditProdutoGrd: TButton
           Left = 680
@@ -236,7 +288,13 @@ object frmMain: TfrmMain
         Height = 649
         Align = alClient
         DataSource = dtsprodutos
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ParentFont = False
         ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -252,7 +310,7 @@ object frmMain: TfrmMain
         SelectColumnsDialogStrings.OK = '&OK'
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
         EditControls = <>
-        RowsHeight = 17
+        RowsHeight = 23
         TitleRowHeight = 17
         Columns = <
           item
@@ -287,10 +345,6 @@ object frmMain: TfrmMain
     object tsEntradasSaidas: TTabSheet
       Caption = 'Entradas/Saidas'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnl1: TPanel
         Left = 0
         Top = 0
@@ -299,7 +353,6 @@ object frmMain: TfrmMain
         Align = alTop
         BevelKind = bkSoft
         TabOrder = 0
-        ExplicitTop = 8
         object btn3: TButton
           Left = 16
           Top = 8
@@ -307,6 +360,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Adicionar'
           TabOrder = 0
+          OnClick = btn3Click
         end
         object btn5: TButton
           Left = 127
@@ -315,6 +369,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Editar'
           TabOrder = 1
+          OnClick = btn5Click
         end
         object btn6: TButton
           Left = 238
@@ -323,6 +378,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Excluir'
           TabOrder = 2
+          OnClick = btn6Click
         end
       end
       object dbg1: TJvDBGrid
@@ -331,7 +387,13 @@ object frmMain: TfrmMain
         Width = 1118
         Height = 649
         Align = alClient
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ParentFont = False
         ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -348,7 +410,7 @@ object frmMain: TfrmMain
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
         CanDelete = False
         EditControls = <>
-        RowsHeight = 17
+        RowsHeight = 23
         TitleRowHeight = 17
         BooleanEditor = False
       end
@@ -356,10 +418,6 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Config/Relat'#243'rios'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object edt1: TEdit
         Left = 16
         Top = 48
@@ -635,5 +693,64 @@ object frmMain: TfrmMain
       CustomFormat = 'IfThen(%s='#39'False'#39', True,False)'
       ComponentProperty = 'Visible'
     end
+  end
+  object fdqClientes: TFDQuery
+    AfterInsert = fdqProdutosAfterInsert
+    BeforePost = fdqProdutosBeforePost
+    Connection = dtmcon.conexao
+    OnError = fdqProdutosError
+    SQL.Strings = (
+      'select'
+      '  id_cliente,'
+      '  codigo,'
+      '  nome,'
+      '  endereco,'
+      '  contato,'
+      '  iif(ativo,'#39'Sim'#39','#39'N'#227'o'#39') ativo'
+      'from'
+      '  cliente')
+    Left = 172
+    Top = 288
+    object fdqClientesID_CLIENTE: TLargeintField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqClientesCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqClientesNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqClientesENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      Size = 150
+    end
+    object fdqClientesCONTATO: TStringField
+      FieldName = 'CONTATO'
+      Origin = 'CONTATO'
+      Size = 150
+    end
+    object fdqClientesATIVO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 3
+    end
+  end
+  object dtsClientes: TDataSource
+    DataSet = fdqClientes
+    Left = 196
+    Top = 288
   end
 end

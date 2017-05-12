@@ -35,7 +35,9 @@ object frmCadBase: TfrmCadBase
       Top = 9
       Width = 75
       Height = 33
+      Cancel = True
       Caption = 'Cancelar'
+      ModalResult = 2
       TabOrder = 1
     end
   end

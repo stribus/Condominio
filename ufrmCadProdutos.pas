@@ -12,15 +12,15 @@ uses
 
 type
   TfrmCadProduto = class(TfrmCadBase)
+    lbl1: TLabel;
+    dbedtVALOR_UNI: TDBEdit;
+    lbl2: TLabel;
+    lbl3: TLabel;
     fdqEdicaoID_RODUTOS: TLargeintField;
     fdqEdicaoCODIGO: TLargeintField;
     fdqEdicaoFK_TEMPORADA: TLargeintField;
     fdqEdicaoNOME: TStringField;
     fdqEdicaoVALOR_UNI: TBCDField;
-    lbl1: TLabel;
-    dbedtVALOR_UNI: TDBEdit;
-    lbl2: TLabel;
-    lbl3: TLabel;
   private
   protected
     function verificaCampos: Boolean; override;
@@ -78,8 +78,8 @@ begin
       FId := -1;
       fdqEdicao.Open();
       fdqEdicao.Insert;
-      fdqEdicaoCODIGO.AsLargeInt := dtmcon.getNextCod('mesa','codigo',
-                          'p.fk_temporada = '+inttoStr(AIdTemporada));
+      fdqEdicaoCODIGO.AsLargeInt := dtmcon.getNextCod('PRODUTOS','codigo',
+                          'fk_temporada = '+inttoStr(AIdTemporada));
       fdqEdicaoFK_TEMPORADA.AsInteger := AIdTemporada;
       if ShowModal = mrOk then
       begin

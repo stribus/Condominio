@@ -1,8 +1,14 @@
 inherited frmCadProduto: TfrmCadProduto
   Caption = 'Produto'
+  ClientWidth = 439
+  ExplicitWidth = 455
   PixelsPerInch = 96
   TextHeight = 13
+  inherited pnl1: TPanel
+    Width = 439
+  end
   inherited pnl2: TPanel
+    Width = 439
     object lbl1: TLabel [0]
       Left = 16
       Top = 105
@@ -77,7 +83,6 @@ inherited frmCadProduto: TfrmCadProduto
       FieldName = 'ID_RODUTOS'
       Origin = 'ID_RODUTOS'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object fdqEdicaoCODIGO: TLargeintField
       FieldName = 'CODIGO'
@@ -99,6 +104,7 @@ inherited frmCadProduto: TfrmCadProduto
       FieldName = 'VALOR_UNI'
       Origin = 'VALOR_UNI'
       Required = True
+      currency = True
       Precision = 18
     end
   end

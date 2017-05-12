@@ -5,7 +5,6 @@ object dtmcon: Tdtmcon
   Width = 639
   object conexao: TFDConnection
     Params.Strings = (
-      'Server=localhost'
       'ConnectionDef=Condominio')
     LoginPrompt = False
     Left = 40

@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, JvExDBGrids, JvDBGrid,
-  JvToolEdit, Vcl.Mask, JvExMask, JvMaskEdit, JvCheckedMaskEdit,
+  JvToolEdit, Vcl.Mask, JvExMask, JvMaskEdit, JvCheckedMaskEdit, ufrmCadProdutos,
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt,
   Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.Components, Data.Bind.DBScope, Vcl.DBCtrls;
@@ -24,7 +24,7 @@ type
     Panel1: TPanel;
     dbgrdMesas: TDBGrid;
     Panel2: TPanel;
-    DBGrid2: TDBGrid;
+    dbgrdClientes: TDBGrid;
     Panel3: TPanel;
     btnAbrir: TButton;
     btn2: TButton;
@@ -74,6 +74,14 @@ type
     btn5: TButton;
     btn6: TButton;
     dbg1: TJvDBGrid;
+    fdqClientes: TFDQuery;
+    dtsClientes: TDataSource;
+    fdqClientesID_CLIENTE: TLargeintField;
+    fdqClientesCODIGO: TLargeintField;
+    fdqClientesNOME: TStringField;
+    fdqClientesENDERECO: TStringField;
+    fdqClientesCONTATO: TStringField;
+    fdqClientesATIVO: TStringField;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -86,11 +94,21 @@ type
       var AException: Exception);
     procedure btnEditProdutoGrdClick(Sender: TObject);
     procedure dbgProdutosTitleClick(Column: TColumn);
+    procedure btnAbrirClick(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
+    procedure btn4Click(Sender: TObject);
+    procedure btnAddProdutoClick(Sender: TObject);
+    procedure btnEdtProdutoClick(Sender: TObject);
+    procedure btnDelProdutoClick(Sender: TObject);
+    procedure btn3Click(Sender: TObject);
+    procedure btn5Click(Sender: TObject);
+    procedure btn6Click(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
     procedure carregaConfiguracoes;
     procedure habilitarEdicaoProdutosGrade(habilitar:Boolean);
+    procedure refresh(dataset:TDataSet);
   public
     { Public declarations }
   end;
@@ -107,10 +125,8 @@ uses
 
 procedure TfrmMain.atualizaDatasets;
 begin
-  fdqMesas.Close;
-  fdqMesas.Open();
-  fdqProdutos.Close;
-  fdqProdutos.Open();
+  refresh(fdqMesas);
+  refresh(fdqProdutos);
 end;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
@@ -119,9 +135,56 @@ begin
   atualizaDatasets;
 end;
 
+procedure TfrmMain.btn2Click(Sender: TObject);
+begin
+{}
+end;
+
+procedure TfrmMain.btn3Click(Sender: TObject);
+begin
+{}
+end;
+
+procedure TfrmMain.btn4Click(Sender: TObject);
+begin
+{}
+end;
+
+procedure TfrmMain.btn5Click(Sender: TObject);
+begin
+{}
+end;
+
+procedure TfrmMain.btn6Click(Sender: TObject);
+begin
+{}
+end;
+
+procedure TfrmMain.btnAbrirClick(Sender: TObject);
+begin
+{}
+end;
+
+procedure TfrmMain.btnAddProdutoClick(Sender: TObject);
+begin
+  TfrmCadProduto.inserir(Self,fdqConfiguracoesID_TEMPORADAS.AsInteger);
+  atualizaDatasets;
+end;
+
+procedure TfrmMain.btnDelProdutoClick(Sender: TObject);
+begin
+{}
+end;
+
 procedure TfrmMain.btnEditProdutoGrdClick(Sender: TObject);
 begin
     habilitarEdicaoProdutosGrade(dbgProdutos.ReadOnly);
+end;
+
+procedure TfrmMain.btnEdtProdutoClick(Sender: TObject);
+begin
+  TfrmCadProduto.editar(Self,fdqProdutosID_RODUTOS.AsInteger);
+  atualizaDatasets;
 end;
 
 procedure TfrmMain.btnNovaMesaClick(Sender: TObject);
@@ -202,6 +265,17 @@ begin
   else
     dbgProdutos.Options := dbgProdutos.Options + [dgrowselect] - [dgediting];
   fdqProdutos.Open();
+end;
+
+procedure TfrmMain.refresh(dataset: TDataSet);
+var
+  bkm:TBookmark;
+begin
+  bkm:= dataset.Bookmark;
+  dataset.Close;
+  dataset.Open;
+  if dataset.BookmarkValid(bkm) then
+    dataset.GotoBookmark(bkm);
 end;
 
 end.

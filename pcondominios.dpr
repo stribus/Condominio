@@ -15,7 +15,8 @@ uses
   UConexao in 'UConexao.pas',
   ufrmTemporada in 'ufrmTemporada.pas' {frmTemporadas},
   UfrmCadTemporada in 'UfrmCadTemporada.pas' {frmCadTemporada},
-  ufrmCadProdutos in 'ufrmCadProdutos.pas' {frmCadProduto};
+  ufrmCadProdutos in 'ufrmCadProdutos.pas' {frmCadProduto},
+  ufrmManutencaoMesa in 'ufrmManutencaoMesa.pas' {frmManutencaoMesa};
 
 {$R *.res}
 
