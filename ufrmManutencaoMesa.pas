@@ -3,15 +3,11 @@ unit ufrmManutencaoMesa;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf,
-  FireDAC.Stan.Option,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
-  FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Buttons,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons,
   JvExButtons, JvBitBtn, Vcl.DBCtrls, Vcl.Mask, JvExMask, JvToolEdit,
   JvBaseEdits;
 
@@ -58,9 +54,9 @@ type
     btn2: TJvBitBtn;
     btn3: TJvBitBtn;
     btnAdicionar: TJvBitBtn;
-    lbledt2: TJvCalcEdit;
+    edtQtd: TJvCalcEdit;
     lbl5: TLabel;
-    edtlbledt3: TEdit;
+    edtProduto: TEdit;
     lbl6: TLabel;
     fdqClientesID_CLIENTE: TLargeintField;
     fdqClientesCODIGO: TLargeintField;
@@ -84,11 +80,15 @@ type
     fdqPedidoANOTAR: TBooleanField;
     fdqPedidoID_CLIENTE: TLargeintField;
     fdqPedidoTOTAL: TBCDField;
+    fdqPedidoDESCRICAO: TStringField;
     procedure FormShow(Sender: TObject);
+    procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
+    procedure btnAdicionarClick(Sender: TObject);
   private
     { Private declarations }
+    function getPedidoId:Integer;
   public
-    class function inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean;
+    class function Editar(Aowner: TComponent; AMesa: Integer; AIdTemporada: Integer): Boolean;
   protected
     FId: Int64;
     function verificaCampos: Boolean;
@@ -100,6 +100,19 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmManutencaoMesa.edtProdutoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key in ['x', 'X', '*'] then
+  begin
+    key := #0;
+    edtQtd.Text := edtProduto.Text;
+    edtProduto.Clear;
+  end;
+  if not (key in ['0'..'9', #8, ',', #9]) then
+    key := #0;
+
+end;
 
 procedure TfrmManutencaoMesa.FormShow(Sender: TObject);
 begin
@@ -113,4 +126,57 @@ begin
     fdqPedido.Open();
 end;
 
+function TfrmManutencaoMesa.getPedidoId: Integer;
+begin
+   if fdqPedidoID_PEDIDO.IsNull then
+   begin
+     if not fdqPedido.State in dsEditModes then
+       fdqPedido.Edit;
+     fdqPedidoID_PEDIDO.AsInteger :=
+   end;
+end;
+
+procedure TfrmManutencaoMesa.btnAdicionarClick(Sender: TObject);
+begin
+  if (edtQtd.Value > 0) and (fdqProdutos.Locate('CODIGO', edtProduto.Text, [])) then
+  begin
+    fdqMovProduto.Append;
+    fdqMovProdutoFK_PEDIDO
+
+  end;
+
+end;
+
+class function TfrmManutencaoMesa.Editar(Aowner: TComponent; AMesa, AIdTemporada: Integer): Boolean;
+var
+  frm: TfrmManutencaoMesa;
+begin
+
+  frm := TfrmManutencaoMesa.Create(Aowner);
+  with frm do
+  try
+    FId := AMesa;
+    fdqPedido.ParamByName(fdqPedido.UpdateOptions.KeyFields).AsLargeInt := FId;
+    fdqPedido.Open();
+    fdqPedido.Edit;
+    if fdqPedidoID_PEDIDO.IsNull then
+
+    if frm.ShowModal = mrOk then
+    begin
+      fdqPedidoFK_TEMPORADA.AsInteger := AIdTemporada;
+    end;
+
+  finally
+    if Assigned(frm) then
+      frm.Free;
+  end;
+
+end;
+
+function TfrmManutencaoMesa.verificaCampos: Boolean;
+begin
+
+end;
+
 end.
+

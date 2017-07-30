@@ -61,7 +61,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 731
+          Left = 723
           Top = 8
           Width = 105
           Height = 41
@@ -80,7 +80,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 842
+          Left = 834
           Top = 8
           Width = 105
           Height = 41
@@ -90,7 +90,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 953
+          Left = 945
           Top = 20
           Width = 97
           Height = 17
@@ -114,6 +114,7 @@ object frmMain: TfrmMain
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
@@ -122,6 +123,7 @@ object frmMain: TfrmMain
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDblClick = dbgrdMesasDblClick
         Columns = <
           item
             Expanded = False

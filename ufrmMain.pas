@@ -103,6 +103,7 @@ type
     procedure btn3Click(Sender: TObject);
     procedure btn5Click(Sender: TObject);
     procedure btn6Click(Sender: TObject);
+    procedure dbgrdMesasDblClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -119,7 +120,7 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada, UGeral;
+  ufrmCadMesas, ufrmTemporada, UGeral,ufrmManutencaoMesa;
 
 {$R *.dfm}
 
@@ -162,7 +163,7 @@ end;
 
 procedure TfrmMain.btnAbrirClick(Sender: TObject);
 begin
-{}
+  TfrmManutencaoMesa.editar(self,fdqMesasID_MESA.AsInteger,fdqConfiguracoesID_TEMPORADAS.AsInteger);
 end;
 
 procedure TfrmMain.btnAddProdutoClick(Sender: TObject);
@@ -213,6 +214,11 @@ end;
 procedure TfrmMain.dbgProdutosTitleClick(Column: TColumn);
 begin
   sortColumn(TFDQuery(dbgProdutos.DataSource.DataSet),Column);
+end;
+
+procedure TfrmMain.dbgrdMesasDblClick(Sender: TObject);
+begin
+  btnAbrirClick(Sender);
 end;
 
 procedure TfrmMain.fdqMesasBeforeOpen(DataSet: TDataSet);

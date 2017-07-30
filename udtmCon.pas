@@ -3,13 +3,12 @@ unit udtmCon;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DBXFirebird, FireDAC.Stan.Intf,
-  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
-  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
-  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.Comp.Client, Data.DB,UGeral,
-  Data.SqlExpr, FireDAC.Phys.IBBase, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
-  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-  FireDAC.Comp.DataSet;
+  System.SysUtils, System.Classes, Data.DBXFirebird, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, FireDAC.Phys.FBDef,
+  FireDAC.Comp.Client, Data.DB, UGeral, Data.SqlExpr, FireDAC.Phys.IBBase,
+  FireDAC.VCLUI.Wait, FireDAC.Comp.UI, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet;
 
 type
   Tdtmcon = class(TDataModule)
@@ -25,9 +24,9 @@ type
 
     { Private declarations }
   public
-    function getNextCod(ATabela, ACampo: String; AWhere: String = ''): Int64;
-    function existsCod(AValId,AValCod:Largeint;ATabela:string;ANomeId:string='id';
-          ANomeCod:string='codigo'):Boolean;
+    function getNextCod(ATabela, ACampo: string; AWhere: string = ''): Int64;
+    function existsCod(AValId, AValCod: Largeint; ATabela: string; ANomeId: string = 'id'; ANomeCod: string = 'codigo'): Boolean;
+    function genNextId(AGenerator: string; Aincremento: Integer = 1): Integer;
   end;
 
 var
@@ -42,11 +41,10 @@ uses
 
 {$R *.dfm}
 
-
 procedure Tdtmcon.con1BeforeConnect(Sender: TObject);
 var
   conexaoClass: TConexao;
-  Conexao :TFDConnection;
+  Conexao: TFDConnection;
 begin
 //mudado para  connectionsdefs
 //  try
@@ -70,15 +68,13 @@ end;
 procedure Tdtmcon.DataModuleCreate(Sender: TObject);
 begin
   if not fdmConfigIni.Active then
-     fdmConfigIni.Active := True;
+    fdmConfigIni.Active := True;
 
   if not conexao.Connected then
-     conexao.Connected := True;
+    conexao.Connected := True;
 end;
 
-
-function Tdtmcon.existsCod(AValId, AValCod: Largeint; ATabela, ANomeId,
-  ANomeCod: string): Boolean;
+function Tdtmcon.existsCod(AValId, AValCod: Largeint; ATabela, ANomeId, ANomeCod: string): Boolean;
 const
   SELECT =
     '  select' + sLineBreak +
@@ -89,12 +85,12 @@ const
     '      x.%s = %d' + sLineBreak +
     '      and x.%s <> %d' ;
 var
-  lSql:TStringBuilder;
+  lSql: TStringBuilder;
 begin
   lSql := TStringBuilder.Create;
   try
     fdqCons.Close;
-    lSql.AppendFormat(SELECT,[Atabela,ANomeCod,AValCod,ANomeId,AValId]);
+    lSql.AppendFormat(SELECT, [Atabela, ANomeCod, AValCod, ANomeId, AValId]);
     fdqCons.Open(lSql.ToString);
     Result := not fdqCons.IsEmpty;
     fdqCons.Close;
@@ -108,30 +104,45 @@ begin
   //fdmConfigIni.ConnectionDefFileName := ExtractFilePath(ParamStr(0)) + 'config.ini';
 end;
 
-function Tdtmcon.getNextCod(ATabela, ACampo: String; AWhere: String=''): Int64;
+function Tdtmcon.genNextId(AGenerator: string; Aincremento: Integer): Integer;
 const
-  SELECT =
-          ' select' +
-          '   max(%s)' +
-          ' from' +
-          '   %s';
+  SELECT = 'select gen_id(%s, %d) from rdb$database';
 var
-  lSql:TStringBuilder;
+  lSql: TStringBuilder;
 begin
-  lSql := TStringBuilder.Create;
+    lSql := TStringBuilder.Create;
   try
-    //fdqCons.Close;
-    lSql.AppendFormat(SELECT,[Acampo,Atabela]);
-    if AWhere <> '' then
-      lSql.AppendLine.Append(' where ').AppendLine.Append(AWhere);
-    //fdqCons.Open(lSql.ToString);
-    //result:=fdqCons.FieldByName('max').AsInteger+1;
-    //fdqCons.Close;
-    Result := conexao.ExecSQLScalar(lSql.ToString)+1;
+    lSql.AppendFormat(SELECT, [AGenerator, Aincremento]);
+    Result := conexao.ExecSQLScalar(lSql.ToString);
   finally
     tryFreeAndNil(lsql);
   end;
 end;
 
+function Tdtmcon.getNextCod(ATabela, ACampo: string; AWhere: string = ''): Int64;
+const
+   SELECT =
+          ' select' +
+          '   max(%s)' +
+          ' from' +
+          '   %s';
+var
+  lSql: TStringBuilder;
+begin
+  lSql := TStringBuilder.Create;
+  try
+    //fdqCons.Close;
+    lSql.AppendFormat(SELECT, [Acampo, Atabela]);
+    if AWhere <> '' then
+      lSql.AppendLine.Append(' where ').AppendLine.Append(AWhere);
+    //fdqCons.Open(lSql.ToString);
+    //result:=fdqCons.FieldByName('max').AsInteger+1;
+    //fdqCons.Close;
+    Result := conexao.ExecSQLScalar(lSql.ToString) + 1;
+  finally
+    tryFreeAndNil(lsql);
+  end;
+end;
 
 end.
+

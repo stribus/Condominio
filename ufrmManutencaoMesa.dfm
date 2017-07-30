@@ -35,6 +35,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Width = 75
       Height = 33
       Caption = 'Ok'
+      ModalResult = 1
       TabOrder = 0
     end
     object btnCancelar: TButton
@@ -258,8 +259,9 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           F1FEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F7F8F2EFF3EAEBE9DF
           E6DCDFE6DCE8EAE7EFEDF1F7F6F7FFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 7
+        OnClick = btnAdicionarClick
       end
-      object lbledt2: TJvCalcEdit
+      object edtQtd: TJvCalcEdit
         Left = 18
         Top = 220
         Width = 87
@@ -270,13 +272,14 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Height = -13
         Font.Name = 'Tahoma'
         Font.Style = []
+        MinValue = 0.010000000000000000
         ParentFont = False
         ShowButton = False
         TabOrder = 1
         Value = 1.000000000000000000
         DecimalPlacesAlwaysShown = False
       end
-      object edtlbledt3: TEdit
+      object edtProduto: TEdit
         Left = 128
         Top = 220
         Width = 169
@@ -288,6 +291,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Style = []
         ParentFont = False
         TabOrder = 2
+        OnKeyPress = edtProdutoKeyPress
       end
     end
     object pnl4: TPanel
@@ -413,10 +417,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   object fdqPedido: TFDQuery
     CachedUpdates = True
     Connection = dtmcon.conexao
+    UpdateOptions.KeyFields = 'ID_MESA'
     SQL.Strings = (
       'select'
       '  id_mesa,'
       '  ativa,'
+      '  DESCRICAO,'
       '  id_pedido,'
       '  fk_temporada,'
       '  dthr_abertura,'
@@ -502,6 +508,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Origin = 'TOTAL'
       Precision = 18
       Size = 2
+    end
+    object fdqPedidoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 150
     end
   end
   object dtsPedido: TDataSource
