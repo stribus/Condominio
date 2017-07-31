@@ -531,7 +531,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '  quantidade,'
       '  pagamento,'
       '  valor_total,'
-      '  fk_caderneta'
+      '  fk_caderneta,'
+      '  TIPO_PAGAMENTO'
       'from'
       '  mov_produto mp'
       'where'
@@ -588,6 +589,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
       Required = True
+      currency = True
       Precision = 18
       Size = 2
     end
@@ -599,6 +601,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       LookupResultField = 'VALOR_UNI'
       KeyFields = 'FK_PRODUTO'
       Lookup = True
+    end
+    object fdqMovProdutoTIPO_PAGAMENTO: TStringField
+      FieldName = 'TIPO_PAGAMENTO'
+      Origin = 'TIPO_PAGAMENTO'
+      Size = 10
     end
   end
   object dtsMovProduto: TDataSource

@@ -81,6 +81,7 @@ type
     fdqPedidoID_CLIENTE: TLargeintField;
     fdqPedidoTOTAL: TBCDField;
     fdqPedidoDESCRICAO: TStringField;
+    fdqMovProdutoTIPO_PAGAMENTO: TStringField;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -98,6 +99,9 @@ var
   frmManutencaoMesa: TfrmManutencaoMesa;
 
 implementation
+
+uses
+  udtmCon;
 
 {$R *.dfm}
 
@@ -130,19 +134,27 @@ function TfrmManutencaoMesa.getPedidoId: Integer;
 begin
    if fdqPedidoID_PEDIDO.IsNull then
    begin
-     if not fdqPedido.State in dsEditModes then
+     if not( fdqPedido.State in dsEditModes) then
        fdqPedido.Edit;
-     fdqPedidoID_PEDIDO.AsInteger :=
+     fdqPedidoID_PEDIDO.AsInteger :=dtmCon.genNextId('gen_pedido');
    end;
+   Result := fdqPedidoID_PEDIDO.AsInteger;
 end;
 
 procedure TfrmManutencaoMesa.btnAdicionarClick(Sender: TObject);
 begin
-  if (edtQtd.Value > 0) and (fdqProdutos.Locate('CODIGO', edtProduto.Text, [])) then
+  if (edtQtd.Value > 0) and (Length(edtProduto.Text)>1)
+    and (fdqProdutos.Locate('CODIGO', edtProduto.Text, [])) then
   begin
     fdqMovProduto.Append;
-    fdqMovProdutoFK_PEDIDO
-
+    fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
+    fdqMovProdutoFK_PRODUTO.AsInteger := fdqProdutosID_RODUTOS.AsInteger;
+    fdqMovProdutoQUANTIDADE.AsFloat := edtQtd.Value;
+    fdqMovProdutoPAGAMENTO.AsBoolean := False;
+    fdqMovProdutoVALOR_TOTAL.AsFloat :=  edtQtd.Value * fdqProdutosVALOR_UNI.AsFloat;
+    fdqMovProduto.Post;
+    edtQtd.Value:=1;
+    edtProduto.Clear;
   end;
 
 end;
@@ -159,7 +171,6 @@ begin
     fdqPedido.ParamByName(fdqPedido.UpdateOptions.KeyFields).AsLargeInt := FId;
     fdqPedido.Open();
     fdqPedido.Edit;
-    if fdqPedidoID_PEDIDO.IsNull then
 
     if frm.ShowModal = mrOk then
     begin
