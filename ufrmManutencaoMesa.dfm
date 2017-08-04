@@ -305,11 +305,18 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       DesignSize = (
         480
         498)
+      object lbl7: TLabel
+        Left = 227
+        Top = 463
+        Width = 31
+        Height = 13
+        Caption = 'Total :'
+      end
       object dbgrd1: TDBGrid
         Left = 16
         Top = 16
-        Width = 449
-        Height = 441
+        Width = 458
+        Height = 425
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataSource = dtsMovProduto
         Font.Charset = DEFAULT_CHARSET
@@ -324,6 +331,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnKeyDown = dbgrd1KeyDown
         Columns = <
           item
             Expanded = False
@@ -378,9 +386,9 @@ object frmManutencaoMesa: TfrmManutencaoMesa
             Visible = False
           end>
       end
-      object btn3: TJvBitBtn
-        Left = 441
-        Top = 463
+      object btnExcluir: TJvBitBtn
+        Left = 450
+        Top = 447
         Width = 24
         Height = 24
         Glyph.Data = {
@@ -411,13 +419,38 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           EBFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F7F3F2EFE9E9ECDC
           DDE9DCDDE9E7E7EBF0F0EDF7F7F6FFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 1
+        OnClick = btnExcluirClick
+      end
+      object dbedt_total: TDBEdit
+        Left = 264
+        Top = 447
+        Width = 153
+        Height = 37
+        TabStop = False
+        Color = clInfoBk
+        DataField = 'Total'
+        DataSource = dtsMovProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 2
       end
     end
   end
   object fdqPedido: TFDQuery
+    Active = True
     CachedUpdates = True
     Connection = dtmcon.conexao
+    UpdateOptions.AssignedValues = [uvEInsert, uvEUpdate, uvUpdateChngFields, uvUpdateNonBaseFields]
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.UpdateChangedFields = False
+    UpdateOptions.UpdateNonBaseFields = True
     UpdateOptions.KeyFields = 'ID_MESA'
+    UpdateObject = fduPedidos
     SQL.Strings = (
       'select'
       '  id_mesa,'
@@ -451,6 +484,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqPedidoID_MESA: TLargeintField
       FieldName = 'ID_MESA'
       Origin = 'ID_MESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
     end
     object fdqPedidoATIVA: TBooleanField
       FieldName = 'ATIVA'
@@ -459,10 +494,14 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqPedidoID_PEDIDO: TLargeintField
       FieldName = 'ID_PEDIDO'
       Origin = 'ID_PEDIDO'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object fdqPedidoFK_TEMPORADA: TLargeintField
       FieldName = 'FK_TEMPORADA'
       Origin = 'FK_TEMPORADA'
+      ProviderFlags = [pfInUpdate]
+      Required = True
     end
     object fdqPedidoDTHR_ABERTURA: TSQLTimeStampField
       FieldName = 'DTHR_ABERTURA'
@@ -498,6 +537,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqPedidoANOTAR: TBooleanField
       FieldName = 'ANOTAR'
       Origin = 'ANOTAR'
+      ProviderFlags = [pfInUpdate]
     end
     object fdqPedidoID_CLIENTE: TLargeintField
       FieldName = 'ID_CLIENTE'
@@ -522,6 +562,13 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object fdqMovProduto: TFDQuery
     CachedUpdates = True
+    Aggregates = <
+      item
+        Name = 'Total'
+        Expression = 'SUM(VALOR_TOTAL)'
+        Active = True
+      end>
+    AggregatesActive = True
     Connection = dtmcon.conexao
     SQL.Strings = (
       'select'
@@ -578,7 +625,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqMovProdutonomeProduto: TStringField
       FieldKind = fkLookup
       FieldName = 'nomeProduto'
-      LookupDataSet = fdqProdutos
+      LookupDataSet = fdqProdutoslookup
       LookupKeyFields = 'ID_RODUTOS'
       LookupResultField = 'NOME'
       KeyFields = 'FK_PRODUTO'
@@ -596,7 +643,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqMovProdutoVlr_uni: TCurrencyField
       FieldKind = fkLookup
       FieldName = 'Vlr_uni'
-      LookupDataSet = fdqProdutos
+      LookupDataSet = fdqProdutoslookup
       LookupKeyFields = 'ID_RODUTOS'
       LookupResultField = 'VALOR_UNI'
       KeyFields = 'FK_PRODUTO'
@@ -607,13 +654,21 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Origin = 'TIPO_PAGAMENTO'
       Size = 10
     end
+    object fdqMovProdutoTotal: TAggregateField
+      FieldName = 'Total'
+      Visible = True
+      Active = True
+      currency = True
+      DisplayName = ''
+      Expression = 'SUM(VALOR_TOTAL)'
+    end
   end
   object dtsMovProduto: TDataSource
     DataSet = fdqMovProduto
     Left = 152
     Top = 104
   end
-  object fdqProdutos: TFDQuery
+  object fdqProdutoslookup: TFDQuery
     CachedUpdates = True
     Connection = dtmcon.conexao
     SQL.Strings = (
@@ -628,37 +683,37 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '                        where t.ativo) ')
     Left = 272
     Top = 136
-    object fdqProdutosID_RODUTOS: TLargeintField
+    object fdqProdutoslookupID_RODUTOS: TLargeintField
       FieldName = 'ID_RODUTOS'
       Origin = 'ID_RODUTOS'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object fdqProdutosCODIGO: TLargeintField
+    object fdqProdutoslookupCODIGO: TLargeintField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       Required = True
     end
-    object fdqProdutosFK_TEMPORADA: TLargeintField
+    object fdqProdutoslookupFK_TEMPORADA: TLargeintField
       FieldName = 'FK_TEMPORADA'
       Origin = 'FK_TEMPORADA'
       Required = True
     end
-    object fdqProdutosNOME: TStringField
+    object fdqProdutoslookupNOME: TStringField
       FieldName = 'NOME'
       Origin = 'NOME'
       Required = True
       Size = 150
     end
-    object fdqProdutosVALOR_UNI: TBCDField
+    object fdqProdutoslookupVALOR_UNI: TBCDField
       FieldName = 'VALOR_UNI'
       Origin = 'VALOR_UNI'
       Required = True
       Precision = 18
     end
   end
-  object dtsProdutos: TDataSource
-    DataSet = fdqProdutos
+  object dtsProdutoslookup: TDataSource
+    DataSet = fdqProdutoslookup
     Left = 312
     Top = 136
   end
@@ -719,5 +774,124 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     DataSet = fdqClientes
     Left = 384
     Top = 272
+  end
+  object fdqProduto: TFDQuery
+    CachedUpdates = True
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'select'
+      '  *'
+      'from'
+      '  produtos p'
+      'where p.fk_temporada = (select'
+      '                          t.id_temporadas'
+      '                        from'
+      '                          temporadas t'
+      '                        where t.ativo) '
+      'and p.CODIGO = :codigo')
+    Left = 280
+    Top = 200
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftLargeint
+        ParamType = ptInput
+      end>
+    object fdqProdutoID_RODUTOS: TLargeintField
+      FieldName = 'ID_RODUTOS'
+      Origin = 'ID_RODUTOS'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqProdutoCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqProdutoFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+      Required = True
+    end
+    object fdqProdutoNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqProdutoVALOR_UNI: TBCDField
+      FieldName = 'VALOR_UNI'
+      Origin = 'VALOR_UNI'
+      Required = True
+      Precision = 18
+    end
+  end
+  object dtsProduto: TDataSource
+    DataSet = fdqProduto
+    Left = 320
+    Top = 200
+  end
+  object fduPedidos: TFDUpdateSQL
+    Connection = dtmcon.conexao
+    InsertSQL.Strings = (
+      ' update or insert into pedido'
+      '    ('
+      '      ID_PEDIDO'
+      '      , fk_temporada'
+      '      '
+      '      , dthr_fexamento'
+      '      , fk_mesa'
+      '      , fk_dependente'
+      '      , fk_cliente'
+      '      , nome_dependente'
+      '      , anotar'
+      '    )'
+      '  values'
+      '    ('
+      '      :NEW_ID_PEDIDO'
+      '      , :NEW_FK_TEMPORADA'
+      '      , :NEW_DTHR_FEXAMENTO'
+      '      , :ID_MESA'
+      '      , :NEW_FK_DEPENDENTE'
+      '      , :NEW_ID_CLIENTE'
+      '      , :NEW_NOME_DEPENDENTE'
+      '      , :NEW_ANOTAR'
+      '    )'
+      '  matching (ID_PEDIDO);')
+    ModifySQL.Strings = (
+      ' update or insert into pedido'
+      '    ('
+      '      ID_PEDIDO'
+      '      , fk_temporada'
+      '      , dthr_fexamento'
+      '      , fk_mesa'
+      '      , fk_dependente'
+      '      , fk_cliente'
+      '      , nome_dependente'
+      '      , anotar'
+      '    )'
+      '  values'
+      '    ('
+      '      :NEW_ID_PEDIDO'
+      '      , :NEW_FK_TEMPORADA'
+      '      , :NEW_DTHR_FEXAMENTO'
+      '      , :ID_MESA'
+      '      , :NEW_FK_DEPENDENTE'
+      '      , :NEW_ID_CLIENTE'
+      '      , :NEW_NOME_DEPENDENTE'
+      '      , :NEW_ANOTAR'
+      '    )'
+      '  matching (ID_PEDIDO);')
+    DeleteSQL.Strings = (
+      'DELETE FROM PEDIDO'
+      'WHERE ID_PEDIDO = :OLD_ID_PEDIDO')
+    FetchRowSQL.Strings = (
+      'SELECT *'
+      'from'
+      '  mesa_pedido'
+      'where'
+      '  id_mesa = cast(:id_mesa as bigint)')
+    Left = 272
+    Top = 88
   end
 end

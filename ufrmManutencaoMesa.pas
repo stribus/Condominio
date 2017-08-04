@@ -3,7 +3,7 @@ unit ufrmManutencaoMesa;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
@@ -21,13 +21,13 @@ type
     dtsPedido: TDataSource;
     fdqMovProduto: TFDQuery;
     dtsMovProduto: TDataSource;
-    fdqProdutos: TFDQuery;
-    dtsProdutos: TDataSource;
-    fdqProdutosID_RODUTOS: TLargeintField;
-    fdqProdutosCODIGO: TLargeintField;
-    fdqProdutosFK_TEMPORADA: TLargeintField;
-    fdqProdutosNOME: TStringField;
-    fdqProdutosVALOR_UNI: TBCDField;
+    fdqProdutoslookup: TFDQuery;
+    dtsProdutoslookup: TDataSource;
+    fdqProdutoslookupID_RODUTOS: TLargeintField;
+    fdqProdutoslookupCODIGO: TLargeintField;
+    fdqProdutoslookupFK_TEMPORADA: TLargeintField;
+    fdqProdutoslookupNOME: TStringField;
+    fdqProdutoslookupVALOR_UNI: TBCDField;
     fdqMovProdutoID_MOV_PRODUTO: TLargeintField;
     fdqMovProdutoFK_PEDIDO: TLargeintField;
     fdqMovProdutoFK_PRODUTO: TLargeintField;
@@ -52,7 +52,7 @@ type
     lbl3: TLabel;
     lbl4: TLabel;
     btn2: TJvBitBtn;
-    btn3: TJvBitBtn;
+    btnExcluir: TJvBitBtn;
     btnAdicionar: TJvBitBtn;
     edtQtd: TJvCalcEdit;
     lbl5: TLabel;
@@ -82,9 +82,22 @@ type
     fdqPedidoTOTAL: TBCDField;
     fdqPedidoDESCRICAO: TStringField;
     fdqMovProdutoTIPO_PAGAMENTO: TStringField;
+    fdqProduto: TFDQuery;
+    dtsProduto: TDataSource;
+    fdqProdutoID_RODUTOS: TLargeintField;
+    fdqProdutoCODIGO: TLargeintField;
+    fdqProdutoFK_TEMPORADA: TLargeintField;
+    fdqProdutoNOME: TStringField;
+    fdqProdutoVALOR_UNI: TBCDField;
+    fdqMovProdutoTotal: TAggregateField;
+    lbl7: TLabel;
+    dbedt_total: TDBEdit;
+    fduPedidos: TFDUpdateSQL;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
+    procedure dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     function getPedidoId:Integer;
@@ -101,7 +114,7 @@ var
 implementation
 
 uses
-  udtmCon;
+  udtmCon, System.SysUtils;
 
 {$R *.dfm}
 
@@ -122,8 +135,8 @@ procedure TfrmManutencaoMesa.FormShow(Sender: TObject);
 begin
   if not fdqClientes.Active then
     fdqClientes.Open();
-  if not fdqProdutos.Active then
-    fdqProdutos.Open();
+  if not fdqProdutoslookup.Active then
+    fdqProdutoslookup.Open();
   if not fdqMovProduto.Active then
     fdqMovProduto.Open();
   if not fdqPedido.Active then
@@ -141,17 +154,40 @@ begin
    Result := fdqPedidoID_PEDIDO.AsInteger;
 end;
 
+procedure TfrmManutencaoMesa.btnExcluirClick(Sender: TObject);
+begin
+  if not fdqMovProduto.IsEmpty then
+     fdqMovProduto.Delete;
+end;
+
+procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_DELETE then
+    btnExcluirClick(Sender);
+end;
+
 procedure TfrmManutencaoMesa.btnAdicionarClick(Sender: TObject);
 begin
-  if (edtQtd.Value > 0) and (Length(edtProduto.Text)>1)
-    and (fdqProdutos.Locate('CODIGO', edtProduto.Text, [])) then
+  edtProduto.SetFocus;
+  if (edtQtd.Value > 0) and (Length(edtProduto.Text)>=1)then
   begin
+    fdqProduto.Close;
+    fdqProduto.Params[0].AsInteger := strToIntdef( edtProduto.Text,0);
+    fdqProduto.Open();
+    if fdqProduto.IsEmpty then
+    begin
+      Application.MessageBox('Produto não encontrado.', '', MB_OK + MB_ICONWARNING);
+      Exit;
+    end;
+
+
     fdqMovProduto.Append;
     fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
-    fdqMovProdutoFK_PRODUTO.AsInteger := fdqProdutosID_RODUTOS.AsInteger;
+    fdqMovProdutoFK_PRODUTO.AsInteger := fdqProdutoID_RODUTOS.AsInteger;
     fdqMovProdutoQUANTIDADE.AsFloat := edtQtd.Value;
     fdqMovProdutoPAGAMENTO.AsBoolean := False;
-    fdqMovProdutoVALOR_TOTAL.AsFloat :=  edtQtd.Value * fdqProdutosVALOR_UNI.AsFloat;
+    fdqMovProdutoVALOR_TOTAL.AsFloat :=  edtQtd.Value * fdqProdutoVALOR_UNI.AsFloat;
     fdqMovProduto.Post;
     edtQtd.Value:=1;
     edtProduto.Clear;
@@ -171,10 +207,16 @@ begin
     fdqPedido.ParamByName(fdqPedido.UpdateOptions.KeyFields).AsLargeInt := FId;
     fdqPedido.Open();
     fdqPedido.Edit;
+    fdqPedidoANOTAR.AsBoolean := False;
+    fdqPedidoPAGO.AsBoolean := False;
+    fdqPedidoDESCONTO.AsBoolean := False;
+    fdqPedidoVALOR_DESCONTO.AsInteger := 0;
 
     if frm.ShowModal = mrOk then
     begin
       fdqPedidoFK_TEMPORADA.AsInteger := AIdTemporada;
+      fdqPedido.ApplyUpdates();
+      fdqMovProduto.ApplyUpdates();
     end;
 
   finally
