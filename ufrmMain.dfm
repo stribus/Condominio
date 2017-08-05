@@ -61,7 +61,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 723
+          Left = 715
           Top = 8
           Width = 105
           Height = 41
@@ -80,7 +80,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 834
+          Left = 826
           Top = 8
           Width = 105
           Height = 41
@@ -90,7 +90,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 945
+          Left = 937
           Top = 20
           Width = 97
           Height = 17
@@ -540,6 +540,7 @@ object frmMain: TfrmMain
       Origin = 'TOTAL'
       ProviderFlags = []
       ReadOnly = True
+      currency = True
       Precision = 18
       Size = 2
     end

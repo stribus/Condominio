@@ -175,6 +175,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Height = 25
         Caption = 'Mover'
         TabOrder = 4
+        OnClick = btnMoveMesaClick
       end
       object dbedtMesa: TDBEdit
         Left = 18
@@ -224,6 +225,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 6
+        OnClick = btn2Click
       end
       object btnAdicionar: TJvBitBtn
         Left = 303
@@ -321,7 +323,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         DataSource = dtsMovProduto
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -19
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -442,7 +444,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     end
   end
   object fdqPedido: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = dtmcon.conexao
     UpdateOptions.AssignedValues = [uvEInsert, uvEUpdate, uvUpdateChngFields, uvUpdateNonBaseFields]
@@ -471,7 +472,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       'from'
       '  mesa_pedido'
       'where'
-      '  id_mesa = cast(:id_mesa as bigint)')
+      '  id_mesa = cast(:id_mesa as bigint)'
+      
+        '  and ((cast(:id_pedido as bigint) is null) or (id_pedido = cast' +
+        '(:id_pedido as bigint))) '
+      '')
     Left = 264
     Top = 40
     ParamData = <
@@ -480,6 +485,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         DataType = ftLargeint
         ParamType = ptInput
         Value = Null
+      end
+      item
+        Name = 'ID_PEDIDO'
+        DataType = ftLargeint
+        ParamType = ptInput
       end>
     object fdqPedidoID_MESA: TLargeintField
       FieldName = 'ID_MESA'
@@ -561,6 +571,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Top = 40
   end
   object fdqMovProduto: TFDQuery
+    BeforeOpen = fdqMovProdutoBeforeOpen
     CachedUpdates = True
     Aggregates = <
       item
@@ -570,6 +581,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end>
     AggregatesActive = True
     Connection = dtmcon.conexao
+    UpdateOptions.KeyFields = 'ID_MOV_PRODUTO'
     SQL.Strings = (
       'select'
       '  id_mov_produto,'

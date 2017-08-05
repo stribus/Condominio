@@ -163,7 +163,8 @@ end;
 
 procedure TfrmMain.btnAbrirClick(Sender: TObject);
 begin
-  TfrmManutencaoMesa.editar(self,fdqMesasID_MESA.AsInteger,fdqConfiguracoesID_TEMPORADAS.AsInteger);
+  TfrmManutencaoMesa.editar(self,fdqMesasID_MESA.AsInteger,fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
+  atualizaDatasets;
 end;
 
 procedure TfrmMain.btnAddProdutoClick(Sender: TObject);

@@ -98,11 +98,14 @@ type
     procedure btnAdicionarClick(Sender: TObject);
     procedure dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnExcluirClick(Sender: TObject);
+    procedure btnMoveMesaClick(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
+    procedure fdqMovProdutoBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
     function getPedidoId:Integer;
   public
-    class function Editar(Aowner: TComponent; AMesa: Integer; AIdTemporada: Integer): Boolean;
+    class function Editar(Aowner: TComponent; AMesa: Integer; AIdTemporada: Integer;AIdPedido:integer): Boolean;
   protected
     FId: Int64;
     function verificaCampos: Boolean;
@@ -131,16 +134,22 @@ begin
 
 end;
 
+procedure TfrmManutencaoMesa.fdqMovProdutoBeforeOpen(DataSet: TDataSet);
+begin
+  fdqMovProduto.ParamByName('pedido').AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+end;
+
 procedure TfrmManutencaoMesa.FormShow(Sender: TObject);
 begin
   if not fdqClientes.Active then
     fdqClientes.Open();
   if not fdqProdutoslookup.Active then
     fdqProdutoslookup.Open();
-  if not fdqMovProduto.Active then
-    fdqMovProduto.Open();
   if not fdqPedido.Active then
     fdqPedido.Open();
+  if not fdqMovProduto.Active then
+    fdqMovProduto.Open();
+
 end;
 
 function TfrmManutencaoMesa.getPedidoId: Integer;
@@ -160,11 +169,21 @@ begin
      fdqMovProduto.Delete;
 end;
 
+procedure TfrmManutencaoMesa.btnMoveMesaClick(Sender: TObject);
+begin
+{}
+end;
+
 procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = VK_DELETE then
     btnExcluirClick(Sender);
+end;
+
+procedure TfrmManutencaoMesa.btn2Click(Sender: TObject);
+begin
+{}
 end;
 
 procedure TfrmManutencaoMesa.btnAdicionarClick(Sender: TObject);
@@ -195,7 +214,7 @@ begin
 
 end;
 
-class function TfrmManutencaoMesa.Editar(Aowner: TComponent; AMesa, AIdTemporada: Integer): Boolean;
+class function TfrmManutencaoMesa.Editar(Aowner: TComponent; AMesa, AIdTemporada,AIdPedido: Integer): Boolean;
 var
   frm: TfrmManutencaoMesa;
 begin
@@ -204,7 +223,11 @@ begin
   with frm do
   try
     FId := AMesa;
-    fdqPedido.ParamByName(fdqPedido.UpdateOptions.KeyFields).AsLargeInt := FId;
+    fdqPedido.ParamByName('ID_MESA').AsLargeInt := AMesa;
+    if AIdPedido > 0 then
+      fdqPedido.ParamByName('ID_PEDIDO').AsLargeInt := AIdPedido
+    else
+      fdqPedido.ParamByName('ID_PEDIDO').Clear();
     fdqPedido.Open();
     fdqPedido.Edit;
     fdqPedidoANOTAR.AsBoolean := False;
