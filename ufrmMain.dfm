@@ -31,8 +31,6 @@ object frmMain: TfrmMain
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Mesas'
-      ExplicitTop = 24
-      ExplicitHeight = 714
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -69,7 +67,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 711
+          Left = 707
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +86,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 822
+          Left = 818
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +96,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 933
+          Left = 929
           Top = 20
           Width = 97
           Height = 17
@@ -173,8 +171,6 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Clientes'
       ImageIndex = 1
-      ExplicitTop = 24
-      ExplicitHeight = 714
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -249,8 +245,6 @@ object frmMain: TfrmMain
     object TabSheet3: TTabSheet
       Caption = 'Produtos'
       ImageIndex = 2
-      ExplicitTop = 24
-      ExplicitHeight = 714
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -360,8 +354,6 @@ object frmMain: TfrmMain
     object tsEntradasSaidas: TTabSheet
       Caption = 'Entradas/Saidas'
       ImageIndex = 4
-      ExplicitTop = 24
-      ExplicitHeight = 714
       object pnl1: TPanel
         Left = 0
         Top = 0
@@ -435,8 +427,6 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Config/Relat'#243'rios'
       ImageIndex = 3
-      ExplicitTop = 24
-      ExplicitHeight = 714
       object edt1: TEdit
         Left = 16
         Top = 48
@@ -465,37 +455,12 @@ object frmMain: TfrmMain
     UpdateOptions.EnableUpdate = False
     SQL.Strings = (
       'select '
-      '  m.id_mesa'
-      '  ,m.codigo'
-      '  ,m.descricao'
-      '  ,k.id_pedido'
-      '  ,k.dthr_abertura'
-      '  ,c.nome'
-      '  ,c.codigo Cod_cliente'
-      '  ,('
-      '    select '
-      '      sum(iif(v.pagamento, (- 1), 1) * v.valor_total)'
-      '    from '
-      '      mov_produto v'
-      '    where '
-      '      v.fk_pedido = k.id_pedido'
-      '    ) Total'
+      ' *'
       'from '
-      '  mesa m'
-      '  left join ('
-      '    select '
-      '      *'
-      '    from '
-      '      pedido p'
-      '      left join temporadas t on t.id_temporadas = p.fk_temporada'
-      '    where '
-      '      t.ativo = true'
-      '      and p.dthr_fexamento is null'
-      '    ) k on k.fk_mesa = m.id_mesa'
-      '  left join cliente c on c.id_cliente = k.fk_cliente'
+      '  MESA_PEDIDO m'
       'where'
       '  ((m.ativa) or ( not Cast(:soativas as Boolean)))'
-      '  or k.fk_mesa is not null')
+      '  or m.ativa is null')
     Left = 108
     Top = 176
     ParamData = <
@@ -560,6 +525,49 @@ object frmMain: TfrmMain
       currency = True
       Precision = 18
       Size = 2
+    end
+    object fdqMesasATIVA: TBooleanField
+      FieldName = 'ATIVA'
+      Origin = 'ATIVA'
+    end
+    object fdqMesasFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+    end
+    object fdqMesasDTHR_FEXAMENTO: TSQLTimeStampField
+      FieldName = 'DTHR_FEXAMENTO'
+      Origin = 'DTHR_FEXAMENTO'
+    end
+    object fdqMesasFK_DEPENDENTE: TLargeintField
+      FieldName = 'FK_DEPENDENTE'
+      Origin = 'FK_DEPENDENTE'
+    end
+    object fdqMesasDESCONTO: TBooleanField
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+    end
+    object fdqMesasVALOR_DESCONTO: TBCDField
+      FieldName = 'VALOR_DESCONTO'
+      Origin = 'VALOR_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdqMesasPAGO: TBooleanField
+      FieldName = 'PAGO'
+      Origin = 'PAGO'
+    end
+    object fdqMesasNOME_DEPENDENTE: TStringField
+      FieldName = 'NOME_DEPENDENTE'
+      Origin = 'NOME_DEPENDENTE'
+      Size = 150
+    end
+    object fdqMesasANOTAR: TBooleanField
+      FieldName = 'ANOTAR'
+      Origin = 'ANOTAR'
+    end
+    object fdqMesasID_CLIENTE: TLargeintField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
     end
   end
   object dtsmesas: TDataSource

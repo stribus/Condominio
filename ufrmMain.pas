@@ -82,6 +82,16 @@ type
     fdqClientesENDERECO: TStringField;
     fdqClientesCONTATO: TStringField;
     fdqClientesATIVO: TStringField;
+    fdqMesasATIVA: TBooleanField;
+    fdqMesasFK_TEMPORADA: TLargeintField;
+    fdqMesasDTHR_FEXAMENTO: TSQLTimeStampField;
+    fdqMesasFK_DEPENDENTE: TLargeintField;
+    fdqMesasDESCONTO: TBooleanField;
+    fdqMesasVALOR_DESCONTO: TBCDField;
+    fdqMesasPAGO: TBooleanField;
+    fdqMesasNOME_DEPENDENTE: TStringField;
+    fdqMesasANOTAR: TBooleanField;
+    fdqMesasID_CLIENTE: TLargeintField;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);

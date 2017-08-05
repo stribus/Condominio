@@ -201,6 +201,7 @@ begin
   begin
     fdqMovProduto.Append;
     fdqMovProdutoFKS.AsString := 'T'+IntToStr(tipoPag);
+    fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
     fdqMovProdutoPAGAMENTO.AsBoolean := True;
     fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
     fdqMovProdutoQUANTIDADE.AsInteger := 1;
