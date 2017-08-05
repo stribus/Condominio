@@ -3,20 +3,20 @@ unit ufrmMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids, udtmCon,
-  Vcl.ExtCtrls, Vcl.ComCtrls, JvExComCtrls, JvComCtrls, FireDAC.Stan.Intf,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  udtmCon, Vcl.ExtCtrls, Vcl.ComCtrls, JvExComCtrls, JvComCtrls, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, JvExDBGrids, JvDBGrid,
   JvToolEdit, Vcl.Mask, JvExMask, JvMaskEdit, JvCheckedMaskEdit, ufrmCadProdutos,
-  JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt,
-  Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
-  Data.Bind.Components, Data.Bind.DBScope, Vcl.DBCtrls;
+  JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
+  System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
+  Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento;
 
 type
   TfrmMain = class(TForm)
-    JvPageControl1: TJvPageControl;
+    pgcMain: TJvPageControl;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
@@ -90,8 +90,7 @@ type
     procedure btnNovaTemporadaClick(Sender: TObject);
     procedure fdqProdutosAfterInsert(DataSet: TDataSet);
     procedure fdqProdutosBeforePost(DataSet: TDataSet);
-    procedure fdqProdutosError(ASender, AInitiator: TObject;
-      var AException: Exception);
+    procedure fdqProdutosError(ASender, AInitiator: TObject; var AException: Exception);
     procedure btnEditProdutoGrdClick(Sender: TObject);
     procedure dbgProdutosTitleClick(Column: TColumn);
     procedure btnAbrirClick(Sender: TObject);
@@ -108,8 +107,8 @@ type
     { Private declarations }
     procedure atualizaDatasets;
     procedure carregaConfiguracoes;
-    procedure habilitarEdicaoProdutosGrade(habilitar:Boolean);
-    procedure refresh(dataset:TDataSet);
+    procedure habilitarEdicaoProdutosGrade(habilitar: Boolean);
+    procedure refresh(dataset: TDataSet);
   public
     { Public declarations }
   end;
@@ -120,7 +119,7 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada, UGeral,ufrmManutencaoMesa;
+  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa;
 
 {$R *.dfm}
 
@@ -132,13 +131,13 @@ end;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
 begin
-  TfrmCadMesas.editar(Self,fdqMesasID_MESA.AsInteger);
+  TfrmCadMesas.editar(Self, fdqMesasID_MESA.AsInteger);
   atualizaDatasets;
 end;
 
 procedure TfrmMain.btn2Click(Sender: TObject);
 begin
-{}
+{} //   TfrmPagamento.Create(self);
 end;
 
 procedure TfrmMain.btn3Click(Sender: TObject);
@@ -147,8 +146,29 @@ begin
 end;
 
 procedure TfrmMain.btn4Click(Sender: TObject);
+const
+   SELECT =
+    'delete from pedido p' + sLineBreak +
+    '  where p.id_pedido = %d';
+var
+  lSql: TStringBuilder;
 begin
-{}
+
+  if  (not fdqMesasID_PEDIDO.IsNull)
+   and (Application.MessageBox('Deseja deletar pedido?', 'Confirmação - Deseja cancelar',
+   MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES) then
+  begin
+    lSql := TStringBuilder.Create;
+    try
+      lSql.AppendFormat(SELECT, [fdqMesasID_PEDIDO.AsInteger]);
+      dtmcon.conexao.ExecSQL(lSql.ToString);
+      fdqMesas.Close;
+      fdqMesas.Open();
+    finally
+      tryFreeAndNil(lsql);
+    end;
+  end;
+
 end;
 
 procedure TfrmMain.btn5Click(Sender: TObject);
@@ -163,13 +183,13 @@ end;
 
 procedure TfrmMain.btnAbrirClick(Sender: TObject);
 begin
-  TfrmManutencaoMesa.editar(self,fdqMesasID_MESA.AsInteger,fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
+  TfrmManutencaoMesa.editar(self, fdqMesasID_MESA.AsInteger, fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
   atualizaDatasets;
 end;
 
 procedure TfrmMain.btnAddProdutoClick(Sender: TObject);
 begin
-  TfrmCadProduto.inserir(Self,fdqConfiguracoesID_TEMPORADAS.AsInteger);
+  TfrmCadProduto.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger);
   atualizaDatasets;
 end;
 
@@ -180,12 +200,12 @@ end;
 
 procedure TfrmMain.btnEditProdutoGrdClick(Sender: TObject);
 begin
-    habilitarEdicaoProdutosGrade(dbgProdutos.ReadOnly);
+  habilitarEdicaoProdutosGrade(dbgProdutos.ReadOnly);
 end;
 
 procedure TfrmMain.btnEdtProdutoClick(Sender: TObject);
 begin
-  TfrmCadProduto.editar(Self,fdqProdutosID_RODUTOS.AsInteger);
+  TfrmCadProduto.editar(Self, fdqProdutosID_RODUTOS.AsInteger);
   atualizaDatasets;
 end;
 
@@ -204,7 +224,7 @@ procedure TfrmMain.carregaConfiguracoes;
 begin
   fdqConfiguracoes.Close;
   fdqConfiguracoes.Open();
-  Self.Caption := 'Condominio - Temporada: '+fdqConfiguracoesDESCRICAO.AsString;
+  Self.Caption := 'Condominio - Temporada: ' + fdqConfiguracoesDESCRICAO.AsString;
 end;
 
 procedure TfrmMain.chkMesasAtivasClick(Sender: TObject);
@@ -214,7 +234,7 @@ end;
 
 procedure TfrmMain.dbgProdutosTitleClick(Column: TColumn);
 begin
-  sortColumn(TFDQuery(dbgProdutos.DataSource.DataSet),Column);
+  sortColumn(TFDQuery(dbgProdutos.DataSource.DataSet), Column);
 end;
 
 procedure TfrmMain.dbgrdMesasDblClick(Sender: TObject);
@@ -224,12 +244,12 @@ end;
 
 procedure TfrmMain.fdqMesasBeforeOpen(DataSet: TDataSet);
 begin
-  fdqMesas.ParamByName('soativas').AsBoolean:= chkMesasAtivas.Checked;
+  fdqMesas.ParamByName('soativas').AsBoolean := chkMesasAtivas.Checked;
 end;
 
 procedure TfrmMain.fdqProdutosAfterInsert(DataSet: TDataSet);
 begin
-  fdqProdutosCODIGO.AsInteger := dtmcon.getNextCod('produtos','codigo','fk_temporada='+fdqConfiguracoesID_TEMPORADAS.AsString);
+  fdqProdutosCODIGO.AsInteger := dtmcon.getNextCod('produtos', 'codigo', 'fk_temporada=' + fdqConfiguracoesID_TEMPORADAS.AsString);
   fdqProdutosFK_TEMPORADA.AsLargeInt := fdqConfiguracoesID_TEMPORADAS.AsLargeInt;
 end;
 
@@ -243,10 +263,9 @@ begin
     fdqProdutosVALOR_UNI.AsInteger := 0;
 end;
 
-procedure TfrmMain.fdqProdutosError(ASender, AInitiator: TObject;
-  var AException: Exception);
+procedure TfrmMain.fdqProdutosError(ASender, AInitiator: TObject; var AException: Exception);
 begin
-  if pos('UK_PRODUTO_TEMPORADA',AException.Message)> 0 then
+  if pos('UK_PRODUTO_TEMPORADA', AException.Message) > 0 then
   begin
     ShowMessage('O código informado está sendo usado por outro produto');
     AException := EAbort.Create('O código informado está sendo usado por outro produto');
@@ -265,10 +284,10 @@ begin
   fdqProdutos.Close;
   fdqProdutos.UpdateOptions.ReadOnly := not habilitar;
   dbgProdutos.AutoAppend := habilitar;
-  dbgProdutos.CanDelete:= habilitar;
+  dbgProdutos.CanDelete := habilitar;
   dbgProdutos.ReadOnly := not habilitar;
   if habilitar then
-    dbgProdutos.Options := dbgProdutos.Options -[dgrowselect] + [dgediting]
+    dbgProdutos.Options := dbgProdutos.Options - [dgrowselect] + [dgediting]
   else
     dbgProdutos.Options := dbgProdutos.Options + [dgrowselect] - [dgediting];
   fdqProdutos.Open();
@@ -276,9 +295,9 @@ end;
 
 procedure TfrmMain.refresh(dataset: TDataSet);
 var
-  bkm:TBookmark;
+  bkm: TBookmark;
 begin
-  bkm:= dataset.Bookmark;
+  bkm := dataset.Bookmark;
   dataset.Close;
   dataset.Open;
   if dataset.BookmarkValid(bkm) then
@@ -286,3 +305,4 @@ begin
 end;
 
 end.
+

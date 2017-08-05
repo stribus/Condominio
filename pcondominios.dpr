@@ -16,7 +16,8 @@ uses
   ufrmTemporada in 'ufrmTemporada.pas' {frmTemporadas},
   UfrmCadTemporada in 'UfrmCadTemporada.pas' {frmCadTemporada},
   ufrmCadProdutos in 'ufrmCadProdutos.pas' {frmCadProduto},
-  ufrmManutencaoMesa in 'ufrmManutencaoMesa.pas' {frmManutencaoMesa};
+  ufrmManutencaoMesa in 'ufrmManutencaoMesa.pas' {frmManutencaoMesa},
+  ufrmPagamento in 'ufrmPagamento.pas' {frmPagamento};
 
 {$R *.res}
 

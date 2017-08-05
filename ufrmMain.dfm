@@ -7,15 +7,15 @@ object frmMain: TfrmMain
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
-  object JvPageControl1: TJvPageControl
+  TextHeight = 16
+  object pgcMain: TJvPageControl
     Left = 0
     Top = 0
     Width = 1126
@@ -24,13 +24,15 @@ object frmMain: TfrmMain
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -13
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Mesas'
+      ExplicitTop = 24
+      ExplicitHeight = 714
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -38,6 +40,12 @@ object frmMain: TfrmMain
         Height = 65
         Align = alTop
         BevelKind = bkSoft
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
         DesignSize = (
           1114
@@ -61,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 715
+          Left = 711
           Top = 8
           Width = 105
           Height = 41
@@ -80,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 826
+          Left = 822
           Top = 8
           Width = 105
           Height = 41
@@ -90,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 937
+          Left = 933
           Top = 20
           Width = 97
           Height = 17
@@ -106,7 +114,7 @@ object frmMain: TfrmMain
         Left = 0
         Top = 65
         Width = 1118
-        Height = 649
+        Height = 646
         Align = alClient
         DataSource = dtsmesas
         Font.Charset = DEFAULT_CHARSET
@@ -114,7 +122,7 @@ object frmMain: TfrmMain
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
@@ -165,6 +173,8 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Clientes'
       ImageIndex = 1
+      ExplicitTop = 24
+      ExplicitHeight = 714
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -178,7 +188,7 @@ object frmMain: TfrmMain
         Left = 0
         Top = 65
         Width = 1118
-        Height = 649
+        Height = 646
         Align = alClient
         DataSource = dtsClientes
         Font.Charset = DEFAULT_CHARSET
@@ -186,6 +196,7 @@ object frmMain: TfrmMain
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -238,6 +249,8 @@ object frmMain: TfrmMain
     object TabSheet3: TTabSheet
       Caption = 'Produtos'
       ImageIndex = 2
+      ExplicitTop = 24
+      ExplicitHeight = 714
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -287,7 +300,7 @@ object frmMain: TfrmMain
         Left = 0
         Top = 65
         Width = 1118
-        Height = 649
+        Height = 646
         Align = alClient
         DataSource = dtsprodutos
         Font.Charset = DEFAULT_CHARSET
@@ -347,6 +360,8 @@ object frmMain: TfrmMain
     object tsEntradasSaidas: TTabSheet
       Caption = 'Entradas/Saidas'
       ImageIndex = 4
+      ExplicitTop = 24
+      ExplicitHeight = 714
       object pnl1: TPanel
         Left = 0
         Top = 0
@@ -387,14 +402,14 @@ object frmMain: TfrmMain
         Left = 0
         Top = 65
         Width = 1118
-        Height = 649
+        Height = 646
         Align = alClient
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
@@ -420,11 +435,13 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Config/Relat'#243'rios'
       ImageIndex = 3
+      ExplicitTop = 24
+      ExplicitHeight = 714
       object edt1: TEdit
         Left = 16
         Top = 48
         Width = 121
-        Height = 21
+        Height = 24
         TabOrder = 0
         Text = 'edt1'
       end

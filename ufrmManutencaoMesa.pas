@@ -23,18 +23,13 @@ type
     dtsMovProduto: TDataSource;
     fdqProdutoslookup: TFDQuery;
     dtsProdutoslookup: TDataSource;
-    fdqProdutoslookupID_RODUTOS: TLargeintField;
-    fdqProdutoslookupCODIGO: TLargeintField;
-    fdqProdutoslookupFK_TEMPORADA: TLargeintField;
-    fdqProdutoslookupNOME: TStringField;
-    fdqProdutoslookupVALOR_UNI: TBCDField;
     fdqMovProdutoID_MOV_PRODUTO: TLargeintField;
     fdqMovProdutoFK_PEDIDO: TLargeintField;
     fdqMovProdutoFK_PRODUTO: TLargeintField;
     fdqMovProdutoQUANTIDADE: TBCDField;
     fdqMovProdutoPAGAMENTO: TBooleanField;
     fdqMovProdutoFK_CADERNETA: TLargeintField;
-    btn1: TButton;
+    btnFechar: TButton;
     pnl3: TPanel;
     pnl4: TPanel;
     dbgrd1: TDBGrid;
@@ -81,7 +76,6 @@ type
     fdqPedidoID_CLIENTE: TLargeintField;
     fdqPedidoTOTAL: TBCDField;
     fdqPedidoDESCRICAO: TStringField;
-    fdqMovProdutoTIPO_PAGAMENTO: TStringField;
     fdqProduto: TFDQuery;
     dtsProduto: TDataSource;
     fdqProdutoID_RODUTOS: TLargeintField;
@@ -93,6 +87,15 @@ type
     lbl7: TLabel;
     dbedt_total: TDBEdit;
     fduPedidos: TFDUpdateSQL;
+    btnPagar: TButton;
+    fduMovProduto: TFDUpdateSQL;
+    fdqMovProdutoTIPO_PAGAMENTO: TIntegerField;
+    fdqMovProdutoFKS: TStringField;
+    fdqProdutoslookupID: TStringField;
+    fdqProdutoslookupCODIGO: TLargeintField;
+    fdqProdutoslookupFK_TEMPORADA: TLargeintField;
+    fdqProdutoslookupNOME: TStringField;
+    fdqProdutoslookupVALOR_UNI: TBCDField;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -101,6 +104,7 @@ type
     procedure btnMoveMesaClick(Sender: TObject);
     procedure btn2Click(Sender: TObject);
     procedure fdqMovProdutoBeforeOpen(DataSet: TDataSet);
+    procedure btnPagarClick(Sender: TObject);
   private
     { Private declarations }
     function getPedidoId:Integer;
@@ -111,13 +115,27 @@ type
     function verificaCampos: Boolean;
   end;
 
+//   TAggregateHelper=Class Helper for TAggregate
+//  private
+//    function GetCurrency: Currency;
+//  published
+//    Property asCurrency:Currency read GetCurrency;
+//  End;
+
+  TAggregateFieldHelper=Class Helper for TAggregateField
+  private
+    function GetCurrency: Currency;
+  published
+    Property asCurrency:Currency read GetCurrency;
+  End;
+
 var
   frmManutencaoMesa: TfrmManutencaoMesa;
 
 implementation
 
 uses
-  udtmCon, System.SysUtils;
+  udtmCon, System.SysUtils, ufrmPagamento;
 
 {$R *.dfm}
 
@@ -149,7 +167,7 @@ begin
     fdqPedido.Open();
   if not fdqMovProduto.Active then
     fdqMovProduto.Open();
-
+  edtProduto.SetFocus;
 end;
 
 function TfrmManutencaoMesa.getPedidoId: Integer;
@@ -172,6 +190,23 @@ end;
 procedure TfrmManutencaoMesa.btnMoveMesaClick(Sender: TObject);
 begin
 {}
+end;
+
+procedure TfrmManutencaoMesa.btnPagarClick(Sender: TObject);
+var
+  tipoPag:Integer;
+  valorPago:Currency;
+begin
+  if TfrmPagamento.pagar(Self,fdqMovProdutoTotal.asCurrency,valorPago,tipoPag) then
+  begin
+    fdqMovProduto.Append;
+    fdqMovProdutoFKS.AsString := 'T'+IntToStr(tipoPag);
+    fdqMovProdutoPAGAMENTO.AsBoolean := True;
+    fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
+    fdqMovProdutoQUANTIDADE.AsInteger := 1;
+    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1*valorPago;
+    fdqMovProduto.Post;
+  end;
 end;
 
 procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word;
@@ -204,6 +239,7 @@ begin
     fdqMovProduto.Append;
     fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
     fdqMovProdutoFK_PRODUTO.AsInteger := fdqProdutoID_RODUTOS.AsInteger;
+    fdqMovProdutoFKS.AsInteger := fdqProdutoID_RODUTOS.AsInteger;
     fdqMovProdutoQUANTIDADE.AsFloat := edtQtd.Value;
     fdqMovProdutoPAGAMENTO.AsBoolean := False;
     fdqMovProdutoVALOR_TOTAL.AsFloat :=  edtQtd.Value * fdqProdutoVALOR_UNI.AsFloat;
@@ -252,6 +288,15 @@ end;
 function TfrmManutencaoMesa.verificaCampos: Boolean;
 begin
 
+end;
+
+{ TAggregateFieldHelper }
+
+function TAggregateFieldHelper.GetCurrency: Currency;
+begin
+  if not VarIsNull(Value) then
+     Result := StrToCurrDef(Value,0)
+  else Result := Value;
 end;
 
 end.

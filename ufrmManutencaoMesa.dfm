@@ -28,7 +28,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Height = 48
     Align = alBottom
     ParentBackground = False
-    TabOrder = 0
+    TabOrder = 1
     object btnOk: TButton
       Left = 240
       Top = 6
@@ -39,22 +39,31 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       TabOrder = 0
     end
     object btnCancelar: TButton
-      Left = 415
+      Left = 527
       Top = 6
       Width = 75
       Height = 33
       Cancel = True
       Caption = 'Cancelar'
       ModalResult = 2
-      TabOrder = 1
+      TabOrder = 3
     end
-    object btn1: TButton
+    object btnFechar: TButton
       Left = 319
       Top = 6
       Width = 90
       Height = 33
       Caption = 'Fechar Conta'
+      TabOrder = 1
+    end
+    object btnPagar: TButton
+      Left = 415
+      Top = 6
+      Width = 106
+      Height = 33
+      Caption = 'Pagar Sem Fechar'
       TabOrder = 2
+      OnClick = btnPagarClick
     end
   end
   object pnl2: TPanel
@@ -65,7 +74,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Align = alClient
     BevelOuter = bvNone
     ParentBackground = False
-    TabOrder = 1
+    TabOrder = 0
     object pnl3: TPanel
       Left = 480
       Top = 0
@@ -73,7 +82,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Height = 498
       Align = alRight
       BevelOuter = bvNone
-      TabOrder = 0
+      TabOrder = 1
       object lbl1: TLabel
         Left = 111
         Top = 221
@@ -132,7 +141,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ListFieldIndex = 1
         ListSource = dtsClientes
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 2
       end
       object btnBuscaProduto: TJvBitBtn
         Left = 327
@@ -166,7 +175,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 3
+        TabOrder = 7
       end
       object btnMoveMesa: TButton
         Left = 309
@@ -174,7 +183,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Width = 42
         Height = 25
         Caption = 'Mover'
-        TabOrder = 4
+        TabOrder = 1
         OnClick = btnMoveMesaClick
       end
       object dbedtMesa: TDBEdit
@@ -184,13 +193,15 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Height = 24
         DataField = 'DESCRICAO'
         DataSource = dtsPedido
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 5
+        ReadOnly = True
+        TabOrder = 0
       end
       object btn2: TJvBitBtn
         Left = 327
@@ -224,7 +235,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 6
+        TabOrder = 3
         OnClick = btn2Click
       end
       object btnAdicionar: TJvBitBtn
@@ -260,7 +271,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FEFEFEF3F1F5D7E4CF8BBC6F5FA337519A23519A2360A3378BBC6FD5E2CDEEEC
           F1FEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F7F8F2EFF3EAEBE9DF
           E6DCDFE6DCE8EAE7EFEDF1F7F6F7FFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 7
+        TabOrder = 6
         OnClick = btnAdicionarClick
       end
       object edtQtd: TJvCalcEdit
@@ -277,7 +288,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         MinValue = 0.010000000000000000
         ParentFont = False
         ShowButton = False
-        TabOrder = 1
+        TabOrder = 4
         Value = 1.000000000000000000
         DecimalPlacesAlwaysShown = False
       end
@@ -292,7 +303,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 5
         OnKeyPress = edtProdutoKeyPress
       end
     end
@@ -303,7 +314,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Height = 498
       Align = alClient
       BevelOuter = bvNone
-      TabOrder = 1
+      TabOrder = 0
       DesignSize = (
         480
         498)
@@ -420,7 +431,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FEFEFEF4F3EFD2D4EB7B81D24A51C23C43BC3C43BC4A51C27B81D2D0D2E9EFEF
           EBFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F7F3F2EFE9E9ECDC
           DDE9DCDDE9E7E7EBF0F0EDF7F7F6FFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 1
+        TabOrder = 2
         OnClick = btnExcluirClick
       end
       object dbedt_total: TDBEdit
@@ -439,7 +450,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Style = []
         ParentFont = False
         ReadOnly = True
-        TabOrder = 2
+        TabOrder = 1
       end
     end
   end
@@ -581,7 +592,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end>
     AggregatesActive = True
     Connection = dtmcon.conexao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_MOV_PRODUTO'
     UpdateOptions.KeyFields = 'ID_MOV_PRODUTO'
+    UpdateOptions.AutoIncFields = 'ID_MOV_PRODUTO'
+    UpdateObject = fduMovProduto
     SQL.Strings = (
       'select'
       '  id_mov_produto,'
@@ -591,7 +607,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '  pagamento,'
       '  valor_total,'
       '  fk_caderneta,'
-      '  TIPO_PAGAMENTO'
+      '  TIPO_PAGAMENTO,'
+      
+        '  cast(coalesce(fk_produto, '#39'T'#39'||TIPO_PAGAMENTO) as varchar(20))' +
+        ' fks'
       'from'
       '  mov_produto mp'
       'where'
@@ -606,6 +625,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Value = Null
       end>
     object fdqMovProdutoID_MOV_PRODUTO: TLargeintField
+      AutoGenerateValue = arAutoInc
       FieldName = 'ID_MOV_PRODUTO'
       Origin = 'ID_MOV_PRODUTO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -638,9 +658,9 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       FieldKind = fkLookup
       FieldName = 'nomeProduto'
       LookupDataSet = fdqProdutoslookup
-      LookupKeyFields = 'ID_RODUTOS'
+      LookupKeyFields = 'ID'
       LookupResultField = 'NOME'
-      KeyFields = 'FK_PRODUTO'
+      KeyFields = 'FKS'
       Size = 100
       Lookup = True
     end
@@ -656,15 +676,20 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       FieldKind = fkLookup
       FieldName = 'Vlr_uni'
       LookupDataSet = fdqProdutoslookup
-      LookupKeyFields = 'ID_RODUTOS'
+      LookupKeyFields = 'ID'
       LookupResultField = 'VALOR_UNI'
       KeyFields = 'FK_PRODUTO'
       Lookup = True
     end
-    object fdqMovProdutoTIPO_PAGAMENTO: TStringField
+    object fdqMovProdutoTIPO_PAGAMENTO: TIntegerField
       FieldName = 'TIPO_PAGAMENTO'
       Origin = 'TIPO_PAGAMENTO'
-      Size = 10
+    end
+    object fdqMovProdutoFKS: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FKS'
+      Origin = 'FKS'
+      ProviderFlags = []
     end
     object fdqMovProdutoTotal: TAggregateField
       FieldName = 'Total'
@@ -685,21 +710,35 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Connection = dtmcon.conexao
     SQL.Strings = (
       'select'
-      '  *'
+      '  cast(ID_RODUTOS as varchar(20)) ID,'
+      '  CODIGO,'
+      '  FK_TEMPORADA,'
+      '  NOME,'
+      '  VALOR_UNI'
       'from'
       '  produtos p'
       'where p.fk_temporada = (select'
       '                          t.id_temporadas'
       '                        from'
       '                          temporadas t'
-      '                        where t.ativo) ')
+      '                        where t.ativo) '
+      'union all'
+      'select'
+      '  cast('#39'T'#39'||tp.id as varchar(20)) id,'
+      '  tp.id,'
+      '  null,'
+      '  cast(tp.descricao as varchar(150)),'
+      '  null'
+      'from'
+      '  tipo_pagamento tp')
     Left = 272
     Top = 136
-    object fdqProdutoslookupID_RODUTOS: TLargeintField
-      FieldName = 'ID_RODUTOS'
-      Origin = 'ID_RODUTOS'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+    object fdqProdutoslookupID: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = []
+      ReadOnly = True
     end
     object fdqProdutoslookupCODIGO: TLargeintField
       FieldName = 'CODIGO'
@@ -709,7 +748,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqProdutoslookupFK_TEMPORADA: TLargeintField
       FieldName = 'FK_TEMPORADA'
       Origin = 'FK_TEMPORADA'
-      Required = True
     end
     object fdqProdutoslookupNOME: TStringField
       FieldName = 'NOME'
@@ -720,7 +758,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object fdqProdutoslookupVALOR_UNI: TBCDField
       FieldName = 'VALOR_UNI'
       Origin = 'VALOR_UNI'
-      Required = True
       Precision = 18
     end
   end
@@ -905,5 +942,41 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '  id_mesa = cast(:id_mesa as bigint)')
     Left = 272
     Top = 88
+  end
+  object fduMovProduto: TFDUpdateSQL
+    Connection = dtmcon.conexao
+    InsertSQL.Strings = (
+      'INSERT INTO MOV_PRODUTO'
+      '(ID_MOV_PRODUTO, FK_PEDIDO, FK_PRODUTO, QUANTIDADE, '
+      '  PAGAMENTO, VALOR_TOTAL, FK_CADERNETA, TIPO_PAGAMENTO)'
+      
+        'VALUES (:NEW_ID_MOV_PRODUTO, :NEW_FK_PEDIDO, :NEW_FK_PRODUTO, :N' +
+        'EW_QUANTIDADE, '
+      
+        '  :NEW_PAGAMENTO, :NEW_VALOR_TOTAL, :NEW_FK_CADERNETA, :NEW_TIPO' +
+        '_PAGAMENTO)')
+    ModifySQL.Strings = (
+      'UPDATE MOV_PRODUTO'
+      
+        'SET ID_MOV_PRODUTO = :NEW_ID_MOV_PRODUTO, FK_PEDIDO = :NEW_FK_PE' +
+        'DIDO, '
+      '  FK_PRODUTO = :NEW_FK_PRODUTO, QUANTIDADE = :NEW_QUANTIDADE, '
+      '  PAGAMENTO = :NEW_PAGAMENTO, VALOR_TOTAL = :NEW_VALOR_TOTAL, '
+      
+        '  FK_CADERNETA = :NEW_FK_CADERNETA, TIPO_PAGAMENTO = :NEW_TIPO_P' +
+        'AGAMENTO'
+      'WHERE ID_MOV_PRODUTO = :OLD_ID_MOV_PRODUTO')
+    DeleteSQL.Strings = (
+      'DELETE FROM MOV_PRODUTO'
+      'WHERE ID_MOV_PRODUTO = :OLD_ID_MOV_PRODUTO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ID_MOV_PRODUTO, FK_PEDIDO, FK_PRODUTO, QUANTIDADE, PAGAME' +
+        'NTO, '
+      '  VALOR_TOTAL, FK_CADERNETA, DATA_HORA, TIPO_PAGAMENTO'
+      'FROM MOV_PRODUTO'
+      'WHERE ID_MOV_PRODUTO = :ID_MOV_PRODUTO')
+    Left = 112
+    Top = 160
   end
 end
