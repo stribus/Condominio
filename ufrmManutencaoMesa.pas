@@ -197,7 +197,8 @@ var
   tipoPag:Integer;
   valorPago:Currency;
 begin
-  if TfrmPagamento.pagar(Self,fdqMovProdutoTotal.asCurrency,valorPago,tipoPag) then
+  if (not fdqMovProdutoTotal.IsNull) and
+  TfrmPagamento.pagar(Self,fdqMovProdutoTotal.asCurrency,valorPago,tipoPag) then
   begin
     fdqMovProduto.Append;
     fdqMovProdutoFKS.AsString := 'T'+IntToStr(tipoPag);

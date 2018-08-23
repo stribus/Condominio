@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -67,7 +67,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 707
+          Left = 703
           Top = 8
           Width = 105
           Height = 41
@@ -86,7 +86,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 818
+          Left = 814
           Top = 8
           Width = 105
           Height = 41
@@ -96,7 +96,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 929
+          Left = 925
           Top = 20
           Width = 97
           Height = 17
@@ -149,7 +149,7 @@ object frmMain: TfrmMain
             Expanded = False
             FieldName = 'DTHR_ABERTURA'
             Title.Caption = 'Aberto Desde'
-            Width = 146
+            Width = 165
             Visible = True
           end
           item
@@ -179,6 +179,31 @@ object frmMain: TfrmMain
         Align = alTop
         BevelKind = bkSoft
         TabOrder = 0
+        object btnAddCliente: TButton
+          Left = 16
+          Top = 8
+          Width = 105
+          Height = 41
+          Caption = 'Incluir Cliente'
+          TabOrder = 0
+          OnClick = btnAddClienteClick
+        end
+        object btnAlterCliente: TButton
+          Left = 127
+          Top = 8
+          Width = 105
+          Height = 41
+          Caption = 'Alterar Cliente'
+          TabOrder = 1
+        end
+        object btnCaderneta: TButton
+          Left = 238
+          Top = 8
+          Width = 105
+          Height = 41
+          Caption = 'Conta'
+          TabOrder = 2
+        end
       end
       object dbgrdClientes: TDBGrid
         Left = 0

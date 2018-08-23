@@ -92,6 +92,9 @@ type
     fdqMesasNOME_DEPENDENTE: TStringField;
     fdqMesasANOTAR: TBooleanField;
     fdqMesasID_CLIENTE: TLargeintField;
+    btnAddCliente: TButton;
+    btnAlterCliente: TButton;
+    btnCaderneta: TButton;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -113,6 +116,7 @@ type
     procedure btn5Click(Sender: TObject);
     procedure btn6Click(Sender: TObject);
     procedure dbgrdMesasDblClick(Sender: TObject);
+    procedure btnAddClienteClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -129,13 +133,14 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa;
+  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes;
 
 {$R *.dfm}
 
 procedure TfrmMain.atualizaDatasets;
 begin
   refresh(fdqMesas);
+  refresh(fdqClientes);
   refresh(fdqProdutos);
 end;
 
@@ -194,6 +199,12 @@ end;
 procedure TfrmMain.btnAbrirClick(Sender: TObject);
 begin
   TfrmManutencaoMesa.editar(self, fdqMesasID_MESA.AsInteger, fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
+  atualizaDatasets;
+end;
+
+procedure TfrmMain.btnAddClienteClick(Sender: TObject);
+begin
+  TfrmCadClientes.inserir(Self,0);
   atualizaDatasets;
 end;
 

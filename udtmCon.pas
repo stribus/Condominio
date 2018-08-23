@@ -123,7 +123,7 @@ function Tdtmcon.getNextCod(ATabela, ACampo: string; AWhere: string = ''): Int64
 const
    SELECT =
           ' select' +
-          '   max(%s)' +
+          '   COALESCE(MAX(%s),0) %s' +
           ' from' +
           '   %s';
 var
@@ -132,7 +132,7 @@ begin
   lSql := TStringBuilder.Create;
   try
     //fdqCons.Close;
-    lSql.AppendFormat(SELECT, [Acampo, Atabela]);
+    lSql.AppendFormat(SELECT, [Acampo,Acampo, Atabela]);
     if AWhere <> '' then
       lSql.AppendLine.Append(' where ').AppendLine.Append(AWhere);
     //fdqCons.Open(lSql.ToString);
