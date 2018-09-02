@@ -3,13 +3,15 @@ unit ufrmManutencaoMesa;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  Winapi.Windows, Winapi.Messages, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons,
   JvExButtons, JvBitBtn, Vcl.DBCtrls, Vcl.Mask, JvExMask, JvToolEdit,
-  JvBaseEdits;
+  JvBaseEdits, JvDBLookup, Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti,
+  System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope,
+  JvExStdCtrls, JvMemo;
 
 type
   TfrmManutencaoMesa = class(TForm)
@@ -96,6 +98,14 @@ type
     fdqProdutoslookupFK_TEMPORADA: TLargeintField;
     fdqProdutoslookupNOME: TStringField;
     fdqProdutoslookupVALOR_UNI: TBCDField;
+    bdsdb1: TBindSourceDB;
+    bdl1: TBindingsList;
+    edtCodigoCliente: TEdit;
+    mmoOBS: TJvMemo;
+    lbl8: TLabel;
+    dbcbbAUTORIZADO: TDBLookupComboBox;
+    fdqDependente: TFDQuery;
+    dtsDependentes: TDataSource;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -105,11 +115,15 @@ type
     procedure btn2Click(Sender: TObject);
     procedure fdqMovProdutoBeforeOpen(DataSet: TDataSet);
     procedure btnPagarClick(Sender: TObject);
+    procedure edtCodigoClienteExit(Sender: TObject);
+    procedure dbcbbClienteExit(Sender: TObject);
+    procedure btnBuscaProdutoClick(Sender: TObject);
   private
     { Private declarations }
-    function getPedidoId:Integer;
+    function getPedidoId: Integer;
   public
-    class function Editar(Aowner: TComponent; AMesa: Integer; AIdTemporada: Integer;AIdPedido:integer): Boolean;
+    class function Editar(Aowner: TComponent; AMesa: Integer; AIdTemporada:
+      Integer; AIdPedido: Integer): Boolean;
   protected
     FId: Int64;
     function verificaCampos: Boolean;
@@ -122,12 +136,12 @@ type
 //    Property asCurrency:Currency read GetCurrency;
 //  End;
 
-  TAggregateFieldHelper=Class Helper for TAggregateField
+  TAggregateFieldHelper = class Helper for TAggregateField
   private
     function GetCurrency: Currency;
   published
-    Property asCurrency:Currency read GetCurrency;
-  End;
+    property asCurrency: Currency read GetCurrency;
+  end;
 
 var
   frmManutencaoMesa: TfrmManutencaoMesa;
@@ -139,16 +153,31 @@ uses
 
 {$R *.dfm}
 
+procedure TfrmManutencaoMesa.edtCodigoClienteExit(Sender: TObject);
+begin
+  if (edtCodigoCliente.Text <> '') and fdqClientes.Locate('CODIGO', VarArrayOf([edtCodigoCliente.Text]),
+    [loCaseInsensitive]) then
+  begin
+    dbcbbCliente.Field.AsLargeInt := fdqClientesID_CLIENTE.AsLargeInt;
+  end
+  else
+  begin
+    edtCodigoCliente.Text := '';
+    dbcbbCliente.Field.Clear;
+  end;
+//  dbmmoOBS.Visible:=  not dbcbbCliente.Field.IsNull;
+end;
+
 procedure TfrmManutencaoMesa.edtProdutoKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key in ['x', 'X', '*'] then
   begin
-    key := #0;
+    Key := #0;
     edtQtd.Text := edtProduto.Text;
     edtProduto.Clear;
   end;
-  if not (key in ['0'..'9', #8, ',', #9]) then
-    key := #0;
+  if not (Key in ['0'..'9', #8, ',', #9]) then
+    Key := #0;
 
 end;
 
@@ -161,6 +190,7 @@ procedure TfrmManutencaoMesa.FormShow(Sender: TObject);
 begin
   if not fdqClientes.Active then
     fdqClientes.Open();
+    fdqDependente.Open();
   if not fdqProdutoslookup.Active then
     fdqProdutoslookup.Open();
   if not fdqPedido.Active then
@@ -168,23 +198,33 @@ begin
   if not fdqMovProduto.Active then
     fdqMovProduto.Open();
   edtProduto.SetFocus;
+//  dbmmoOBS.Visible := not dbcbbCliente.Field.IsNull;
+  if (dbcbbCliente.Field.IsNull) then
+  begin
+    edtCodigoCliente.Text := '';
+
+  end
+  else
+  begin
+    edtCodigoCliente.Text := fdqClientesCODIGO.AsString;
+  end;
 end;
 
 function TfrmManutencaoMesa.getPedidoId: Integer;
 begin
-   if fdqPedidoID_PEDIDO.IsNull then
-   begin
-     if not( fdqPedido.State in dsEditModes) then
-       fdqPedido.Edit;
-     fdqPedidoID_PEDIDO.AsInteger :=dtmCon.genNextId('gen_pedido');
-   end;
-   Result := fdqPedidoID_PEDIDO.AsInteger;
+  if fdqPedidoID_PEDIDO.IsNull then
+  begin
+    if not (fdqPedido.State in dsEditModes) then
+      fdqPedido.Edit;
+    fdqPedidoID_PEDIDO.AsInteger := dtmcon.genNextId('gen_pedido');
+  end;
+  Result := fdqPedidoID_PEDIDO.AsInteger;
 end;
 
 procedure TfrmManutencaoMesa.btnExcluirClick(Sender: TObject);
 begin
   if not fdqMovProduto.IsEmpty then
-     fdqMovProduto.Delete;
+    fdqMovProduto.Delete;
 end;
 
 procedure TfrmManutencaoMesa.btnMoveMesaClick(Sender: TObject);
@@ -194,25 +234,38 @@ end;
 
 procedure TfrmManutencaoMesa.btnPagarClick(Sender: TObject);
 var
-  tipoPag:Integer;
-  valorPago:Currency;
+  tipoPag: Integer;
+  valorPago: Currency;
 begin
-  if (not fdqMovProdutoTotal.IsNull) and
-  TfrmPagamento.pagar(Self,fdqMovProdutoTotal.asCurrency,valorPago,tipoPag) then
+  if (not fdqMovProdutoTotal.IsNull) and TfrmPagamento.pagar(Self,
+    fdqMovProdutoTotal.asCurrency, valorPago, tipoPag) then
   begin
     fdqMovProduto.Append;
-    fdqMovProdutoFKS.AsString := 'T'+IntToStr(tipoPag);
+    fdqMovProdutoFKS.AsString := 'T' + IntToStr(tipoPag);
     fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
     fdqMovProdutoPAGAMENTO.AsBoolean := True;
     fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
     fdqMovProdutoQUANTIDADE.AsInteger := 1;
-    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1*valorPago;
+    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * valorPago;
     fdqMovProduto.Post;
   end;
 end;
 
-procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TfrmManutencaoMesa.dbcbbClienteExit(Sender: TObject);
+begin
+  if (dbcbbCliente.Field.IsNull) then
+  begin
+    edtCodigoCliente.Text := '';
+  end
+  else
+  begin
+    edtCodigoCliente.Text := fdqClientesCODIGO.AsString;
+  end;
+//  mmoOBS.Visible:=  not dbcbbCliente.Field.IsNull;
+end;
+
+procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift:
+  TShiftState);
 begin
   if Key = VK_DELETE then
     btnExcluirClick(Sender);
@@ -226,10 +279,10 @@ end;
 procedure TfrmManutencaoMesa.btnAdicionarClick(Sender: TObject);
 begin
   edtProduto.SetFocus;
-  if (edtQtd.Value > 0) and (Length(edtProduto.Text)>=1)then
+  if (edtQtd.Value > 0) and (Length(edtProduto.Text) >= 1) then
   begin
     fdqProduto.Close;
-    fdqProduto.Params[0].AsInteger := strToIntdef( edtProduto.Text,0);
+    fdqProduto.Params[0].AsInteger := StrToIntDef(edtProduto.Text, 0);
     fdqProduto.Open();
     if fdqProduto.IsEmpty then
     begin
@@ -237,22 +290,27 @@ begin
       Exit;
     end;
 
-
     fdqMovProduto.Append;
     fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
     fdqMovProdutoFK_PRODUTO.AsInteger := fdqProdutoID_RODUTOS.AsInteger;
     fdqMovProdutoFKS.AsInteger := fdqProdutoID_RODUTOS.AsInteger;
     fdqMovProdutoQUANTIDADE.AsFloat := edtQtd.Value;
     fdqMovProdutoPAGAMENTO.AsBoolean := False;
-    fdqMovProdutoVALOR_TOTAL.AsFloat :=  edtQtd.Value * fdqProdutoVALOR_UNI.AsFloat;
+    fdqMovProdutoVALOR_TOTAL.AsFloat := edtQtd.Value * fdqProdutoVALOR_UNI.AsFloat;
     fdqMovProduto.Post;
-    edtQtd.Value:=1;
+    edtQtd.Value := 1;
     edtProduto.Clear;
   end;
 
 end;
 
-class function TfrmManutencaoMesa.Editar(Aowner: TComponent; AMesa, AIdTemporada,AIdPedido: Integer): Boolean;
+procedure TfrmManutencaoMesa.btnBuscaProdutoClick(Sender: TObject);
+begin
+{}
+end;
+
+class function TfrmManutencaoMesa.Editar(Aowner: TComponent; AMesa, AIdTemporada,
+  AIdPedido: Integer): Boolean;
 var
   frm: TfrmManutencaoMesa;
 begin
@@ -297,8 +355,9 @@ end;
 function TAggregateFieldHelper.GetCurrency: Currency;
 begin
   if not VarIsNull(Value) then
-     Result := StrToCurrDef(Value,0)
-  else Result := Value;
+    Result := StrToCurrDef(Value, 0)
+  else
+    Result := Value;
 end;
 
 end.

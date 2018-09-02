@@ -12,10 +12,10 @@ uses
 
 type
   Tdtmcon = class(TDataModule)
-    conexao: TFDConnection;
     wcs1: TFDGUIxWaitCursor;
     fdqCons: TFDQuery;
     fdmConfigIni: TFDManager;
+    conexao: TFDConnection;
     procedure DataModuleCreate(Sender: TObject);
     procedure con1BeforeConnect(Sender: TObject);
     procedure fdmConfigIniBeforeLoadConnectionDefFile(Sender: TObject);

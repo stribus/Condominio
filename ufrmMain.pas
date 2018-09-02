@@ -117,12 +117,13 @@ type
     procedure btn6Click(Sender: TObject);
     procedure dbgrdMesasDblClick(Sender: TObject);
     procedure btnAddClienteClick(Sender: TObject);
+    procedure btnAlterClienteClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
     procedure carregaConfiguracoes;
     procedure habilitarEdicaoProdutosGrade(habilitar: Boolean);
-    procedure refresh(dataset: TDataSet);
+    procedure Refresh(dataset: TDataSet);
   public
     { Public declarations }
   end;
@@ -139,9 +140,9 @@ uses
 
 procedure TfrmMain.atualizaDatasets;
 begin
-  refresh(fdqMesas);
-  refresh(fdqClientes);
-  refresh(fdqProdutos);
+  Refresh(fdqMesas);
+  Refresh(fdqClientes);
+  Refresh(fdqProdutos);
 end;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
@@ -162,16 +163,14 @@ end;
 
 procedure TfrmMain.btn4Click(Sender: TObject);
 const
-   SELECT =
-    'delete from pedido p' + sLineBreak +
-    '  where p.id_pedido = %d';
+  SELECT = 'delete from pedido p' + sLineBreak + '  where p.id_pedido = %d';
 var
   lSql: TStringBuilder;
 begin
 
-  if  (not fdqMesasID_PEDIDO.IsNull)
-   and (Application.MessageBox('Deseja deletar pedido?', 'Confirmação - Deseja cancelar',
-   MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES) then
+  if (not fdqMesasID_PEDIDO.IsNull) and (Application.MessageBox('Deseja deletar pedido?',
+    'Confirmação - Deseja cancelar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2)
+    = IDYES) then
   begin
     lSql := TStringBuilder.Create;
     try
@@ -180,7 +179,7 @@ begin
       fdqMesas.Close;
       fdqMesas.Open();
     finally
-      tryFreeAndNil(lsql);
+      tryFreeAndNil(lSql);
     end;
   end;
 
@@ -198,13 +197,14 @@ end;
 
 procedure TfrmMain.btnAbrirClick(Sender: TObject);
 begin
-  TfrmManutencaoMesa.editar(self, fdqMesasID_MESA.AsInteger, fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
+  TfrmManutencaoMesa.editar(self, fdqMesasID_MESA.AsInteger,
+    fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
   atualizaDatasets;
 end;
 
 procedure TfrmMain.btnAddClienteClick(Sender: TObject);
 begin
-  TfrmCadClientes.inserir(Self,0);
+  TfrmCadClientes.inserir(Self, 0);
   atualizaDatasets;
 end;
 
@@ -214,9 +214,31 @@ begin
   atualizaDatasets;
 end;
 
+procedure TfrmMain.btnAlterClienteClick(Sender: TObject);
+begin
+  TfrmCadClientes.editar(Self, fdqClientesID_CLIENTE.AsInteger);
+  atualizaDatasets;
+end;
+
 procedure TfrmMain.btnDelProdutoClick(Sender: TObject);
 begin
-{}
+//  if (not fdqProdutos.IsEmpty) and Application.MessageBox('Tem certesa que deseja excluir este produto?',
+//    PChar('Exclusão'), MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+//  begin
+//    try
+//      try
+//        fdqProdutos.Delete;
+//        fdqProdutos.ApplyUpdates(-1);
+//      except
+//        fdqProdutos.Cancel
+//
+//      end;
+//
+//    finally
+//      atualizaDatasets;
+//    end;
+//  end;
+
 end;
 
 procedure TfrmMain.btnEditProdutoGrdClick(Sender: TObject);
@@ -270,7 +292,8 @@ end;
 
 procedure TfrmMain.fdqProdutosAfterInsert(DataSet: TDataSet);
 begin
-  fdqProdutosCODIGO.AsInteger := dtmcon.getNextCod('produtos', 'codigo', 'fk_temporada=' + fdqConfiguracoesID_TEMPORADAS.AsString);
+  fdqProdutosCODIGO.AsInteger := dtmcon.getNextCod('produtos', 'codigo',
+    'fk_temporada=' + fdqConfiguracoesID_TEMPORADAS.AsString);
   fdqProdutosFK_TEMPORADA.AsLargeInt := fdqConfiguracoesID_TEMPORADAS.AsLargeInt;
 end;
 
@@ -284,7 +307,8 @@ begin
     fdqProdutosVALOR_UNI.AsInteger := 0;
 end;
 
-procedure TfrmMain.fdqProdutosError(ASender, AInitiator: TObject; var AException: Exception);
+procedure TfrmMain.fdqProdutosError(ASender, AInitiator: TObject; var AException:
+  Exception);
 begin
   if pos('UK_PRODUTO_TEMPORADA', AException.Message) > 0 then
   begin
@@ -314,7 +338,7 @@ begin
   fdqProdutos.Open();
 end;
 
-procedure TfrmMain.refresh(dataset: TDataSet);
+procedure TfrmMain.Refresh(dataset: TDataSet);
 var
   bkm: TBookmark;
 begin

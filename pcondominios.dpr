@@ -19,7 +19,9 @@ uses
   ufrmManutencaoMesa in 'ufrmManutencaoMesa.pas' {frmManutencaoMesa},
   ufrmPagamento in 'ufrmPagamento.pas' {frmPagamento},
   ufrmCadClientes in 'ufrmCadClientes.pas' {frmCadClientes},
-  ufrmCadDependentes in 'ufrmCadDependentes.pas' {frmCadDependente};
+  ufrmCadDependentes in 'ufrmCadDependentes.pas' {frmCadDependente},
+  uFrmConta in 'uFrmConta.pas' {frmConta},
+  ufrmPesqProduto in 'ufrmPesqProduto.pas' {frmPesqProduto};
 
 {$R *.res}
 

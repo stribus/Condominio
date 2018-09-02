@@ -62,7 +62,7 @@ end;
 
 procedure TfrmCadBase.FormShow(Sender: TObject);
 begin
-  if not fdqEdicao.Active then
+  if (not fdqEdicao.Active) and (fdqEdicao.SQL.Count >0) then
     fdqEdicao.Open;
 end;
 

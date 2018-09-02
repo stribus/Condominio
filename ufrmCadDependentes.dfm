@@ -1,11 +1,15 @@
 inherited frmCadDependente: TfrmCadDependente
   Caption = 'Dependentes'
+  ClientHeight = 249
+  ExplicitHeight = 287
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnl1: TPanel
+    Top = 201
     TabOrder = 1
   end
   inherited pnl2: TPanel
+    Height = 201
     TabOrder = 0
     object lbl1: TLabel [0]
       Left = 16
@@ -50,15 +54,6 @@ inherited frmCadDependente: TfrmCadDependente
       ExplicitTop = 34
       ExplicitWidth = 345
     end
-    object dbedtObs: TDBEdit
-      Left = 16
-      Top = 133
-      Width = 345
-      Height = 21
-      DataField = 'OBS'
-      DataSource = dtsEdicao
-      TabOrder = 3
-    end
     object chkPERMITIR_RETIRAR: TJvDBCheckBox
       Left = 240
       Top = 84
@@ -68,6 +63,15 @@ inherited frmCadDependente: TfrmCadDependente
       DataField = 'PERMITIR_RETIRAR'
       DataSource = dtsEdicao
       TabOrder = 2
+    end
+    object dbmmoOBS: TDBMemo
+      Left = 16
+      Top = 131
+      Width = 425
+      Height = 54
+      DataField = 'OBS'
+      DataSource = dtsEdicao
+      TabOrder = 3
     end
   end
   inherited fdqEdicao: TFDQuery

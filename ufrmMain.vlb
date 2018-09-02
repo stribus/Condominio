@@ -160,3 +160,6 @@ Coordinates=431,254,64,36
 [pgcMain]
 Coordinates=505,254,106,36
 
+[frmManutencaoMesa.fdqPedido]
+Visible=False
+

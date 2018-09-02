@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -67,7 +67,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 703
+          Left = 691
           Top = 8
           Width = 105
           Height = 41
@@ -86,7 +86,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 814
+          Left = 802
           Top = 8
           Width = 105
           Height = 41
@@ -96,7 +96,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 925
+          Left = 913
           Top = 20
           Width = 97
           Height = 17
@@ -195,6 +195,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Alterar Cliente'
           TabOrder = 1
+          OnClick = btnAlterClienteClick
         end
         object btnCaderneta: TButton
           Left = 238

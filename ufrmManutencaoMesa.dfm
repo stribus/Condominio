@@ -30,7 +30,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     ParentBackground = False
     TabOrder = 1
     object btnOk: TButton
-      Left = 240
+      Left = 208
       Top = 6
       Width = 75
       Height = 33
@@ -49,7 +49,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       TabOrder = 3
     end
     object btnFechar: TButton
-      Left = 319
+      Left = 289
       Top = 6
       Width = 90
       Height = 33
@@ -57,7 +57,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       TabOrder = 1
     end
     object btnPagar: TButton
-      Left = 415
+      Left = 398
       Top = 6
       Width = 106
       Height = 33
@@ -124,10 +124,17 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Height = 13
         Caption = 'C'#243'digo Produto'
       end
+      object lbl8: TLabel
+        Left = 6
+        Top = 322
+        Width = 75
+        Height = 13
+        Caption = 'Autorizado por:'
+      end
       object dbcbbCliente: TDBLookupComboBox
-        Left = 18
+        Left = 79
         Top = 170
-        Width = 303
+        Width = 242
         Height = 24
         DataField = 'ID_CLIENTE'
         DataSource = dtsPedido
@@ -141,7 +148,9 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ListFieldIndex = 1
         ListSource = dtsClientes
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 3
+        OnClick = dbcbbClienteExit
+        OnExit = dbcbbClienteExit
       end
       object btnBuscaProduto: TJvBitBtn
         Left = 327
@@ -175,7 +184,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 7
+        TabOrder = 8
+        OnClick = btnBuscaProdutoClick
       end
       object btnMoveMesa: TButton
         Left = 309
@@ -235,7 +245,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 3
+        TabOrder = 4
         OnClick = btn2Click
       end
       object btnAdicionar: TJvBitBtn
@@ -271,7 +281,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FEFEFEF3F1F5D7E4CF8BBC6F5FA337519A23519A2360A3378BBC6FD5E2CDEEEC
           F1FEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F7F8F2EFF3EAEBE9DF
           E6DCDFE6DCE8EAE7EFEDF1F7F6F7FFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 6
+        TabOrder = 7
         OnClick = btnAdicionarClick
       end
       object edtQtd: TJvCalcEdit
@@ -288,7 +298,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         MinValue = 0.010000000000000000
         ParentFont = False
         ShowButton = False
-        TabOrder = 4
+        TabOrder = 5
         Value = 1.000000000000000000
         DecimalPlacesAlwaysShown = False
       end
@@ -303,8 +313,53 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 6
         OnKeyPress = edtProdutoKeyPress
+      end
+      object edtCodigoCliente: TEdit
+        Left = 18
+        Top = 170
+        Width = 57
+        Height = 25
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
+        TabOrder = 2
+        OnExit = edtCodigoClienteExit
+      end
+      object mmoOBS: TJvMemo
+        Left = 6
+        Top = 368
+        Width = 355
+        Height = 124
+        TabStop = False
+        Color = 14803425
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFlat = False
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 9
+      end
+      object dbcbbAUTORIZADO: TDBLookupComboBox
+        Left = 6
+        Top = 341
+        Width = 315
+        Height = 21
+        DataField = 'FK_DEPENDENTE'
+        DataSource = dtsPedido
+        KeyField = 'ID_DEPENDENTES'
+        ListField = 'NOME'
+        ListSource = dtsDependentes
+        TabOrder = 10
       end
     end
     object pnl4: TPanel
@@ -978,5 +1033,42 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       'WHERE ID_MOV_PRODUTO = :ID_MOV_PRODUTO')
     Left = 112
     Top = 160
+  end
+  object bdsdb1: TBindSourceDB
+    DataSet = fdqPedido
+    ScopeMappings = <>
+    Left = 416
+    Top = 280
+  end
+  object bdl1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
+  end
+  object fdqDependente: TFDQuery
+    MasterSource = dtsClientes
+    MasterFields = 'ID_CLIENTE'
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'SELECT * FROM DEPENDENTES'
+      'WHERE '
+      'FK_CLIENTE = :ID_CLIENTE'
+      'AND '
+      'PERMITIR_RETIRAR = TRUE')
+    Left = 336
+    Top = 344
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object dtsDependentes: TDataSource
+    DataSet = fdqDependente
+    Left = 384
+    Top = 344
   end
 end

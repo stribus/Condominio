@@ -3,20 +3,20 @@ unit ufrmCadClientes;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadPadrao, FireDAC.Stan.Intf,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadPadrao, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Mask,
-  Vcl.DBCtrls, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, udtmCon, Vcl.Buttons,
-  JvExDBGrids, JvDBGrid;
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, udtmCon, Vcl.Buttons, JvExDBGrids,
+  JvDBGrid, ufrmCadDependentes;
 
 type
   TfrmCadClientes = class(TfrmCadBase)
     pnl4: TPanel;
     pnl3: TPanel;
     btn_Add: TButton;
-    btn_Remove: TButton;
+    btnAlter: TButton;
     pnl5: TPanel;
     pnl6: TPanel;
     lbl1: TLabel;
@@ -31,14 +31,12 @@ type
     dbedtCODIGO1: TDBEdit;
     fdqDependente: TFDQuery;
     dtsDependente: TDataSource;
-    btn1: TButton;
+    btnRemover: TButton;
     fdqDependenteID_DEPENDENTES: TLargeintField;
     fdqDependenteCODIGO: TLargeintField;
     fdqDependenteNOME: TStringField;
     fdqDependenteFK_CLIENTE: TLargeintField;
     fdqDependenteFONE: TStringField;
-    fdqDependenteOBS: TMemoField;
-    fdqDependentePERMITIR_RETIRAR: TBooleanField;
     fdqEdicaoID_CLIENTE: TLargeintField;
     fdqEdicaoCODIGO: TLargeintField;
     fdqEdicaoNOME: TStringField;
@@ -50,12 +48,16 @@ type
     dbchkATIVO: TDBCheckBox;
     dbchkPERMITIR_SALDO_NEGATIVO: TDBCheckBox;
     fduedicao: TFDUpdateSQL;
-    dbgrd_Dependetes: TJvDBGrid;
+    dbgDependetes: TJvDBGrid;
+    fdqDependentePERMITIR_RETIRAR: TBooleanField;
+    fdqDependenteOBS: TMemoField;
     procedure fdqDependenteBeforeOpen(DataSet: TDataSet);
-    procedure dbgrd_DependetesDblClick(Sender: TObject);
+    procedure dbgDependetesDblClick(Sender: TObject);
+    procedure btn_AddClick(Sender: TObject);
+    procedure btnAlterClick(Sender: TObject);
   private
     { Private declarations }
- protected
+  protected
     function verificaCampos: Boolean; override;
     { Private declarations }
   public
@@ -76,24 +78,70 @@ uses
 
 { TfrmCadBase2 }
 
-procedure TfrmCadClientes.dbgrd_DependetesDblClick(Sender: TObject);
+procedure TfrmCadClientes.btn_AddClick(Sender: TObject);
 begin
   inherited;
-  if(fdqDependente.Active and not fdqDependente.IsEmpty) then
+  try
+//    dbgDependetes.DataSource := nil;
+    fdqDependente.Insert;
+    fdqDependenteCODIGO.AsInteger := fdqDependente.RecordCount;
+    fdqDependentePERMITIR_RETIRAR.AsBoolean := True;
+    if TfrmCadDependente.inserir(Self, 0) then
+    begin
+      fdqDependenteFK_CLIENTE.AsInteger := FId;
+      fdqDependente.Post;
+    end
+    else
+    begin
+      fdqDependente.Cancel;
+    end;
+  finally
+    dbgDependetes.DataSource := dtsDependente;
+  end;
+
+end;
+
+procedure TfrmCadClientes.btnAlterClick(Sender: TObject);
+begin
+  inherited;
+  if (fdqDependente.Active and not fdqDependente.IsEmpty) then
+  try
+//    dbgDependetes.DataSource := nil;
+    fdqDependente.Edit;
+//    fdqDependenteCODIGO.AsInteger :=  fdqDependente.RecordCount;
+//    fdqDependentePERMITIR_RETIRAR.AsBoolean :=True;
+    if TfrmCadDependente.editar(Self, 0) then
+    begin
+      fdqDependenteFK_CLIENTE.AsInteger := FId;
+      fdqDependente.Post;
+    end
+    else
+    begin
+      fdqDependente.Cancel;
+    end;
+  finally
+    dbgDependetes.DataSource := dtsDependente;
+  end;
+end;
+
+procedure TfrmCadClientes.dbgDependetesDblClick(Sender: TObject);
+begin
+  inherited;
+  if (fdqDependente.Active and not fdqDependente.IsEmpty) then
   begin
-     fdqDependente.Edit;
-     fdqDependentePERMITIR_RETIRAR.AsBoolean := not fdqDependentePERMITIR_RETIRAR.AsBoolean;
+    btnAlterClick(Sender);
   end;
 end;
 
 class function TfrmCadClientes.editar(Aowner: TComponent; AId: Int64): Boolean;
 begin
-   try
-     frmCadClientes := TfrmCadClientes.Create(Aowner);
-     with frmCadClientes do
+  try
+    frmCadClientes := TfrmCadClientes.Create(Aowner);
+    with frmCadClientes do
     begin
       FId := AId;
       fdqEdicao.Open();
+      fdqEdicao.Edit;
       fdqDependente.Open();
       if ShowModal = mrOk then
       begin
@@ -116,27 +164,27 @@ end;
 procedure TfrmCadClientes.fdqDependenteBeforeOpen(DataSet: TDataSet);
 begin
   inherited;
-   if FId >= 0 then
-      fdqDependente.ParamByName('FK_CLIENTE').AsLargeInt := FId
-    else
-      fdqDependente.ParamByName('FK_CLIENTE').Clear;
+  if FId >= 0 then
+    fdqDependente.ParamByName('FK_CLIENTE').AsLargeInt := FId
+  else
+    fdqDependente.ParamByName('FK_CLIENTE').Clear;
 
 end;
 
-class function TfrmCadClientes.inserir(Aowner: TComponent;  AIdTemporada: Integer): Boolean;
+class function TfrmCadClientes.inserir(Aowner: TComponent; AIdTemporada: Integer): Boolean;
 begin
-   try
-     frmCadClientes := TfrmCadClientes.Create(Aowner);
-     with frmCadClientes do
+  try
+    frmCadClientes := TfrmCadClientes.Create(Aowner);
+    with frmCadClientes do
     begin
-      FId := dtmcon.genNextId(fdqEdicao.UpdateOptions.GeneratorName,1);
+      FId := dtmcon.genNextId(fdqEdicao.UpdateOptions.GeneratorName, 1);
       fdqEdicao.Open();
       fdqEdicao.Insert;
-      fdqEdicaoID_CLIENTE.AsInteger :=FId;
-      fdqEdicaoCODIGO.AsLargeInt := dtmcon.getNextCod('CLIENTE','codigo');
-      fdqEdicaoNOME.AsString :='';
+      fdqEdicaoID_CLIENTE.AsInteger := FId;
+      fdqEdicaoCODIGO.AsLargeInt := dtmcon.getNextCod('CLIENTE', 'codigo');
+      fdqEdicaoNOME.AsString := '';
       fdqEdicaoATIVO.AsBoolean := True;
-      fdqEdicaoPERMITIR_SALDO_NEGATIVO.AsBoolean:= True;
+      fdqEdicaoPERMITIR_SALDO_NEGATIVO.AsBoolean := True;
       fdqDependente.Open();
       if ShowModal = mrOk then
       begin
@@ -149,19 +197,20 @@ begin
       begin
         fdqDependente.Cancel;
         fdqEdicao.Cancel;
-        fdqEdicao.Delete;
         fdqEdicao.ApplyUpdates(-1);
       end;
       fdqEdicao.Close;
     end;
-   finally
-       tryFreeAndNil(frmCadClientes);
-   end;
+  finally
+    tryFreeAndNil(frmCadClientes);
+  end;
 end;
 
 function TfrmCadClientes.verificaCampos: Boolean;
-function exists(AValId: Largeint; ANomeCol,AValCol:string): Boolean;
+
+  function exists(AValId: Largeint; ANomeCol, AValCol: string): Boolean;
   const
+  {(*}
       SELECT =
       '  select' + sLineBreak +
       '      first 1 1' + sLineBreak +
@@ -171,6 +220,7 @@ function exists(AValId: Largeint; ANomeCol,AValCol:string): Boolean;
       '      x.%s = ''%s''' + sLineBreak +
       '      and x.ID_CLIENTE <> %d'      + sLineBreak +
       '       '    ;
+      {*)}
   var
     lSql: TStringBuilder;
   begin
@@ -178,27 +228,26 @@ function exists(AValId: Largeint; ANomeCol,AValCol:string): Boolean;
     with dtmcon do
     try
       fdqCons.Close;
-      lSql.AppendFormat(SELECT, [AnomeCol,AValCol, AValId]);
+      lSql.AppendFormat(SELECT, [ANomeCol, AValCol, AValId]);
       fdqCons.Open(lSql.ToString);
       Result := not fdqCons.IsEmpty;
       fdqCons.Close;
     finally
-      tryFreeAndNil(lsql);
+      tryFreeAndNil(lSql);
     end;
   end;
+
 begin
-    ActiveControl := nil;
+  ActiveControl := nil;
   Result := True;
 
-  if(Trim(fdqEdicaoNOME.AsString)='') then
+  if (Trim(fdqEdicaoNOME.AsString) = '') then
   begin
     ShowMessage('Nome não informado');
     Result := False;
   end;
 
-  if exists(fdqEdicaoID_CLIENTE.AsInteger
-    ,'nome'
-    ,fdqEdicaoNOME.AsString) then
+  if exists(fdqEdicaoID_CLIENTE.AsInteger, 'nome', fdqEdicaoNOME.AsString) then
   begin
     ShowMessage('Cliente já cadastrado');
     Result := False;
@@ -207,3 +256,4 @@ begin
 end;
 
 end.
+

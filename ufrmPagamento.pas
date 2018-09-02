@@ -9,27 +9,45 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Vcl.Mask, JvExMask, JvToolEdit, JvBaseEdits, Vcl.DBCtrls,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ComCtrls, JvExComCtrls,
+  JvComCtrls, Vcl.Buttons;
 
 type
   TfrmPagamento = class(TForm)
-    pnl2: TPanel;
-    pnl1: TPanel;
-    btnOk: TButton;
-    btnCancelar: TButton;
-    lbl2: TLabel;
-    lbl1: TLabel;
     dtspag: TDataSource;
     fdqTipoPag: TFDQuery;
     fdqTipoPagID: TIntegerField;
     fdqTipoPagDESCRICAO: TStringField;
     fdqTipoPagATIVO: TBooleanField;
+    pgc1: TJvPageControl;
+    tsPagamento: TTabSheet;
+    pnl2: TPanel;
+    lbl2: TLabel;
+    lbl1: TLabel;
+    lbl3: TLabel;
     dbcbbTpPag: TDBLookupComboBox;
     edtPago: TJvCalcEdit;
-    lbl3: TLabel;
     pnl3: TPanel;
     edtTotal: TJvCalcEdit;
-    procedure FormShow(Sender: TObject);
+    tsAnotar: TTabSheet;
+    tsModoFechamento: TTabSheet;
+    pnl1: TPanel;
+    btnOk: TButton;
+    btnCancelar: TButton;
+    pnl4: TPanel;
+    pnl5: TPanel;
+    btn1: TButton;
+    btn2: TButton;
+    btnAnotar: TBitBtn;
+    btnPagar: TBitBtn;
+    lbl4: TLabel;
+    edt1: TJvCalcEdit;
+    fdqDependentes: TFDQuery;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    BooleanField1: TBooleanField;
+    dtsDependentes: TDataSource;
+    dbcbb1: TDBLookupComboBox;
     procedure btnOkClick(Sender: TObject);
 
   private
@@ -79,12 +97,6 @@ begin
 
 end;
 
-procedure TfrmPagamento.FormShow(Sender: TObject);
-begin
-  if fdqTipoPag.Active then
-    fdqTipoPag.Open();
-end;
-
 class function TfrmPagamento.pagar(Aowner: TComponent; AValorTotal: Currency;
   out OValorPago: Currency; out OTipoPag:Integer): Boolean;
 var
@@ -98,6 +110,7 @@ begin
     frm.fdqTipoPag.Filtered := True;
     frm.fdqTipoPag.Open();
     frm.FParcial := True;
+    frm.pgc1.ActivePage := frm.tsPagamento;
     if frm.ShowModal = mrOk then
     begin
       Result := True;

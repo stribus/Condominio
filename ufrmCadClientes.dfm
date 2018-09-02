@@ -75,8 +75,9 @@ inherited frmCadClientes: TfrmCadClientes
           Font.Style = []
           ParentFont = False
           TabOrder = 0
+          OnClick = btn_AddClick
         end
-        object btn_Remove: TButton
+        object btnAlter: TButton
           Left = 112
           Top = 10
           Width = 91
@@ -89,8 +90,9 @@ inherited frmCadClientes: TfrmCadClientes
           Font.Style = []
           ParentFont = False
           TabOrder = 1
+          OnClick = btnAlterClick
         end
-        object btn1: TButton
+        object btnRemover: TButton
           Left = 257
           Top = 10
           Width = 91
@@ -114,7 +116,7 @@ inherited frmCadClientes: TfrmCadClientes
         Caption = 'pnl5'
         TabOrder = 2
       end
-      object dbgrd_Dependetes: TJvDBGrid
+      object dbgDependetes: TJvDBGrid
         Left = 0
         Top = 41
         Width = 547
@@ -127,7 +129,7 @@ inherited frmCadClientes: TfrmCadClientes
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
-        Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -135,7 +137,7 @@ inherited frmCadClientes: TfrmCadClientes
         TitleFont.Height = -16
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnDblClick = dbgrd_DependetesDblClick
+        OnDblClick = dbgDependetesDblClick
         AutoAppend = False
         SelectColumnsDialogStrings.Caption = 'Select columns'
         SelectColumnsDialogStrings.OK = '&OK'
@@ -310,6 +312,7 @@ inherited frmCadClientes: TfrmCadClientes
     end
   end
   inherited fdqEdicao: TFDQuery
+    ConnectionName = 'Condominio'
     UpdateOptions.AssignedValues = [uvEInsert, uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_CLIENTE'
@@ -405,8 +408,8 @@ inherited frmCadClientes: TfrmCadClientes
       #9'DEPENDENTES'
       'WHERE'
       #9'FK_CLIENTE = CAST(:FK_CLIENTE AS BIGINT )')
-    Left = 565
-    Top = 144
+    Left = 597
+    Top = 160
     ParamData = <
       item
         Name = 'FK_CLIENTE'
@@ -440,14 +443,15 @@ inherited frmCadClientes: TfrmCadClientes
       Origin = 'FONE'
       Size = 150
     end
+    object fdqDependentePERMITIR_RETIRAR: TBooleanField
+      FieldName = 'PERMITIR_RETIRAR'
+      Origin = 'PERMITIR_RETIRAR'
+      Required = True
+    end
     object fdqDependenteOBS: TMemoField
       FieldName = 'OBS'
       Origin = 'OBS'
       BlobType = ftMemo
-    end
-    object fdqDependentePERMITIR_RETIRAR: TBooleanField
-      FieldName = 'PERMITIR_RETIRAR'
-      Origin = 'PERMITIR_RETIRAR'
     end
   end
   object dtsDependente: TDataSource

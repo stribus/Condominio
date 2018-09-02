@@ -3,20 +3,13 @@ object dtmcon: Tdtmcon
   OnCreate = DataModuleCreate
   Height = 310
   Width = 639
-  object conexao: TFDConnection
-    Params.Strings = (
-      'ConnectionDef=Condominio')
-    LoginPrompt = False
-    Left = 40
-    Top = 32
-  end
   object wcs1: TFDGUIxWaitCursor
     Provider = 'Forms'
     Left = 40
     Top = 96
   end
   object fdqCons: TFDQuery
-    Connection = conexao
+    ConnectionName = 'Condominio'
     Left = 96
     Top = 96
   end
@@ -28,6 +21,14 @@ object dtmcon: Tdtmcon
     Active = True
     BeforeLoadConnectionDefFile = fdmConfigIniBeforeLoadConnectionDefFile
     Left = 112
+    Top = 32
+  end
+  object conexao: TFDConnection
+    Params.Strings = (
+      'ConnectionDef=Condominio'
+      'DropDatabase=No')
+    LoginPrompt = False
+    Left = 40
     Top = 32
   end
 end

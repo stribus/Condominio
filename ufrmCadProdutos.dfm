@@ -6,9 +6,11 @@ inherited frmCadProduto: TfrmCadProduto
   TextHeight = 13
   inherited pnl1: TPanel
     Width = 439
+    ExplicitWidth = 439
   end
   inherited pnl2: TPanel
     Width = 439
+    ExplicitWidth = 439
     object lbl1: TLabel [0]
       Left = 16
       Top = 105
