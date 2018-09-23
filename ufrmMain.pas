@@ -12,14 +12,15 @@ uses
   JvToolEdit, Vcl.Mask, JvExMask, JvMaskEdit, JvCheckedMaskEdit, ufrmCadProdutos,
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
-  Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento;
+  Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet,
+  frxExportPDF;
 
 type
   TfrmMain = class(TForm)
     pgcMain: TJvPageControl;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    TabSheet3: TTabSheet;
+    tsMesas: TTabSheet;
+    tsClientes: TTabSheet;
+    tsProdutos: TTabSheet;
     TabSheet4: TTabSheet;
     Panel1: TPanel;
     dbgrdMesas: TDBGrid;
@@ -30,7 +31,6 @@ type
     btn2: TButton;
     btnNovaMesa: TButton;
     btn4: TButton;
-    edt1: TEdit;
     fdqMesas: TFDQuery;
     dtsmesas: TDataSource;
     btn1: TButton;
@@ -95,6 +95,12 @@ type
     btnAddCliente: TButton;
     btnAlterCliente: TButton;
     btnCaderneta: TButton;
+    frepPagamentos: TfrxReport;
+    frxPDFExport1: TfrxPDFExport;
+    fdsRelPagamentos: TfrxDBDataset;
+    fdqRelPagamentos: TFDQuery;
+    grp3: TGroupBox;
+    btnRelatorioPg: TButton;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -118,6 +124,7 @@ type
     procedure dbgrdMesasDblClick(Sender: TObject);
     procedure btnAddClienteClick(Sender: TObject);
     procedure btnAlterClienteClick(Sender: TObject);
+    procedure btnRelatorioPgClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -154,6 +161,11 @@ end;
 procedure TfrmMain.btn2Click(Sender: TObject);
 begin
 {} //   TfrmPagamento.Create(self);
+  if(not fdqMesasID_PEDIDO.IsNull )then
+  begin
+     tfrmPagamento.FecharConta(Self,fdqMesasID_PEDIDO.AsInteger);
+  end;
+  Refresh(fdqMesas);
 end;
 
 procedure TfrmMain.btn3Click(Sender: TObject);
@@ -263,6 +275,11 @@ begin
   TfrmCadTemporada.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger)
 end;
 
+procedure TfrmMain.btnRelatorioPgClick(Sender: TObject);
+begin
+  frepPagamentos.ShowReport(true);
+end;
+
 procedure TfrmMain.carregaConfiguracoes;
 begin
   fdqConfiguracoes.Close;
@@ -295,6 +312,7 @@ begin
   fdqProdutosCODIGO.AsInteger := dtmcon.getNextCod('produtos', 'codigo',
     'fk_temporada=' + fdqConfiguracoesID_TEMPORADAS.AsString);
   fdqProdutosFK_TEMPORADA.AsLargeInt := fdqConfiguracoesID_TEMPORADAS.AsLargeInt;
+  fdqProdutosID_RODUTOS.AsInteger := dtmcon.genNextId('gen_produto',1);
 end;
 
 procedure TfrmMain.fdqProdutosBeforePost(DataSet: TDataSet);
@@ -321,6 +339,7 @@ end;
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   atualizaDatasets;
+  tsMesas.Show;
   carregaConfiguracoes;
 end;
 

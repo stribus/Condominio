@@ -55,6 +55,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Height = 33
       Caption = 'Fechar Conta'
       TabOrder = 1
+      OnClick = btnFecharClick
     end
     object btnPagar: TButton
       Left = 398
@@ -320,7 +321,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Left = 18
         Top = 170
         Width = 57
-        Height = 25
+        Height = 24
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -534,6 +535,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '  nome_dependente,'
       '  anotar,'
       '  id_cliente,'
+      '  tp_pagamento,'
       '  total'
       'from'
       '  mesa_pedido'
@@ -629,6 +631,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       FieldName = 'DESCRICAO'
       Origin = 'DESCRICAO'
       Size = 150
+    end
+    object fdqPedidoTP_PAGAMENTO: TIntegerField
+      FieldName = 'TP_PAGAMENTO'
+      Origin = 'TP_PAGAMENTO'
     end
   end
   object dtsPedido: TDataSource
@@ -949,6 +955,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '      , fk_cliente'
       '      , nome_dependente'
       '      , anotar'
+      '      , tp_pagamento'
       '    )'
       '  values'
       '    ('
@@ -960,6 +967,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '      , :NEW_ID_CLIENTE'
       '      , :NEW_NOME_DEPENDENTE'
       '      , :NEW_ANOTAR'
+      '      , :NEW_TP_PAGAMENTO'
       '    )'
       '  matching (ID_PEDIDO);')
     ModifySQL.Strings = (

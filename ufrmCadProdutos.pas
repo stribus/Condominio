@@ -83,6 +83,7 @@ begin
       fdqEdicaoFK_TEMPORADA.AsInteger := AIdTemporada;
       if ShowModal = mrOk then
       begin
+        fdqEdicaoID_RODUTOS.AsInteger := dtmcon.genNextId('gen_produto',1);
         fdqEdicao.Post;
         fdqEdicao.ApplyUpdates(-1);
       end

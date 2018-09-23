@@ -106,6 +106,7 @@ type
     dbcbbAUTORIZADO: TDBLookupComboBox;
     fdqDependente: TFDQuery;
     dtsDependentes: TDataSource;
+    fdqPedidoTP_PAGAMENTO: TIntegerField;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -118,6 +119,7 @@ type
     procedure edtCodigoClienteExit(Sender: TObject);
     procedure dbcbbClienteExit(Sender: TObject);
     procedure btnBuscaProdutoClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
   private
     { Private declarations }
     function getPedidoId: Integer;
@@ -176,6 +178,8 @@ begin
     edtQtd.Text := edtProduto.Text;
     edtProduto.Clear;
   end;
+  if Key = '.' then
+    Key := ',';
   if not (Key in ['0'..'9', #8, ',', #9]) then
     Key := #0;
 
@@ -225,6 +229,29 @@ procedure TfrmManutencaoMesa.btnExcluirClick(Sender: TObject);
 begin
   if not fdqMovProduto.IsEmpty then
     fdqMovProduto.Delete;
+end;
+
+procedure TfrmManutencaoMesa.btnFecharClick(Sender: TObject);
+var
+  pedidoId: Largeint;
+begin
+  pedidoId := getPedidoId;
+  fdqPedido.ApplyUpdates();
+  fdqMovProduto.ApplyUpdates();
+  if ((not fdqMovProdutoTotal.IsNull) and (tfrmPagamento.FecharConta(Self,
+    pedidoId))) then
+  begin
+    ModalResult := mrClose;
+  end
+  else
+  begin
+    fdqPedido.Close();
+    fdqMovProduto.Close();
+    fdqPedido.ParamByName('ID_PEDIDO').AsLargeInt := pedidoId;
+    fdqPedido.Open();
+    fdqPedido.Edit;
+    fdqMovProduto.Open();
+  end;
 end;
 
 procedure TfrmManutencaoMesa.btnMoveMesaClick(Sender: TObject);
@@ -326,14 +353,14 @@ begin
       fdqPedido.ParamByName('ID_PEDIDO').Clear();
     fdqPedido.Open();
     fdqPedido.Edit;
+    fdqPedidoFK_TEMPORADA.AsInteger := AIdTemporada;
     fdqPedidoANOTAR.AsBoolean := False;
     fdqPedidoPAGO.AsBoolean := False;
     fdqPedidoDESCONTO.AsBoolean := False;
     fdqPedidoVALOR_DESCONTO.AsInteger := 0;
 
-    if frm.ShowModal = mrOk then
+    if (frm.ShowModal = mrOk) and (not fdqPedidoID_PEDIDO.IsNull) then
     begin
-      fdqPedidoFK_TEMPORADA.AsInteger := AIdTemporada;
       fdqPedido.ApplyUpdates();
       fdqMovProduto.ApplyUpdates();
     end;

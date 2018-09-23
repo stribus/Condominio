@@ -1,7 +1,4 @@
-﻿[TabSheet2]
-Coordinates=171,322,77,36
-
-[dtsmesas]
+﻿[dtsmesas]
 Coordinates=134,1,69,36
 
 [fdqMesasCOD_CLIENTE]
@@ -31,9 +28,6 @@ Coordinates=475,10,49,58
 [fdqMesasCODIGO]
 Coordinates=433,276,122,36
 
-[TabSheet3]
-Coordinates=10,322,77,36
-
 [btn4]
 Coordinates=135,10,49,58
 
@@ -43,14 +37,8 @@ Coordinates=344,254,77,36
 [fdqMesas]
 Coordinates=10,10,115,234
 
-[TabSheet1]
-Coordinates=257,254,77,36
-
 [fdqMesasDESCRICAO]
 Coordinates=630,1,146,36
-
-[edt1]
-Coordinates=361,10,40,58
 
 [fdqMesasNOME]
 Coordinates=166,445,108,36
@@ -71,7 +59,7 @@ Coordinates=69,254,108,58
 Coordinates=194,10,93,58
 
 []
-Coordinates=695,331,85,36
+Coordinates=361,10,40,58
 
 [dbgrdMesas]
 Coordinates=97,322,85,36
@@ -160,6 +148,12 @@ Coordinates=431,254,64,36
 [pgcMain]
 Coordinates=505,254,106,36
 
-[frmManutencaoMesa.fdqPedido]
-Visible=False
+[tsMesas]
+Coordinates=257,254,77,36
+
+[tsClientes]
+Coordinates=171,322,77,36
+
+[tsProdutos]
+Coordinates=10,322,77,36
 
