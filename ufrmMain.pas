@@ -13,7 +13,7 @@ uses
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet,
-  frxExportPDF;
+  frxExportPDF, System.Actions, Vcl.ActnList;
 
 type
   TfrmMain = class(TForm)
@@ -27,7 +27,7 @@ type
     Panel2: TPanel;
     dbgrdClientes: TDBGrid;
     Panel3: TPanel;
-    btnAbrir: TButton;
+    btnAbrirMesa: TButton;
     btn2: TButton;
     btnNovaMesa: TButton;
     btn4: TButton;
@@ -101,6 +101,11 @@ type
     fdqRelPagamentos: TFDQuery;
     grp3: TGroupBox;
     btnRelatorioPg: TButton;
+    actlst1: TActionList;
+    actGerenciaMesa: TAction;
+    actFecharMesa: TAction;
+    actConta: TAction;
+    actAdicionarEntrada: TAction;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -112,7 +117,7 @@ type
     procedure fdqProdutosError(ASender, AInitiator: TObject; var AException: Exception);
     procedure btnEditProdutoGrdClick(Sender: TObject);
     procedure dbgProdutosTitleClick(Column: TColumn);
-    procedure btnAbrirClick(Sender: TObject);
+    procedure btnAbrirMesaClick(Sender: TObject);
     procedure btn2Click(Sender: TObject);
     procedure btn4Click(Sender: TObject);
     procedure btnAddProdutoClick(Sender: TObject);
@@ -125,12 +130,15 @@ type
     procedure btnAddClienteClick(Sender: TObject);
     procedure btnAlterClienteClick(Sender: TObject);
     procedure btnRelatorioPgClick(Sender: TObject);
+    procedure dbgrdMesasTitleClick(Column: TColumn);
+    procedure tsMesasShow(Sender: TObject);
+    procedure btnCadernetaClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
     procedure carregaConfiguracoes;
     procedure habilitarEdicaoProdutosGrade(habilitar: Boolean);
-    procedure Refresh(dataset: TDataSet);
+    procedure Refresh(dataset: TFDQuery;field:string);
   public
     { Public declarations }
   end;
@@ -141,15 +149,15 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes;
+  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes,uFrmConta;
 
 {$R *.dfm}
 
 procedure TfrmMain.atualizaDatasets;
 begin
-  Refresh(fdqMesas);
-  Refresh(fdqClientes);
-  Refresh(fdqProdutos);
+  Refresh(fdqMesas,'ID_MESA');
+  Refresh(fdqClientes,'ID_CLIENTE');
+  Refresh(fdqProdutos,'ID_RODUTOS');
 end;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
@@ -165,7 +173,7 @@ begin
   begin
      tfrmPagamento.FecharConta(Self,fdqMesasID_PEDIDO.AsInteger);
   end;
-  Refresh(fdqMesas);
+  Refresh(fdqMesas,'ID_MESA');
 end;
 
 procedure TfrmMain.btn3Click(Sender: TObject);
@@ -207,29 +215,35 @@ begin
 {}
 end;
 
-procedure TfrmMain.btnAbrirClick(Sender: TObject);
+procedure TfrmMain.btnAbrirMesaClick(Sender: TObject);
 begin
   TfrmManutencaoMesa.editar(self, fdqMesasID_MESA.AsInteger,
     fdqConfiguracoesID_TEMPORADAS.AsInteger, fdqMesasID_PEDIDO.AsInteger);
-  atualizaDatasets;
+  Refresh(fdqMesas,'ID_MESA');
 end;
 
 procedure TfrmMain.btnAddClienteClick(Sender: TObject);
 begin
   TfrmCadClientes.inserir(Self, 0);
-  atualizaDatasets;
+  Refresh(fdqClientes,'ID_CLIENTE');
 end;
 
 procedure TfrmMain.btnAddProdutoClick(Sender: TObject);
 begin
   TfrmCadProduto.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger);
-  atualizaDatasets;
+  Refresh(fdqProdutos,'ID_RODUTOS');
 end;
 
 procedure TfrmMain.btnAlterClienteClick(Sender: TObject);
 begin
   TfrmCadClientes.editar(Self, fdqClientesID_CLIENTE.AsInteger);
-  atualizaDatasets;
+  Refresh(fdqClientes,'ID_CLIENTE');
+end;
+
+procedure TfrmMain.btnCadernetaClick(Sender: TObject);
+begin
+  TfrmConta.Editar(Self,fdqClientesID_CLIENTE.AsInteger,fdqConfiguracoesID_TEMPORADAS.AsInteger)   ;
+  Refresh(fdqClientes,'id_cliente');
 end;
 
 procedure TfrmMain.btnDelProdutoClick(Sender: TObject);
@@ -261,7 +275,7 @@ end;
 procedure TfrmMain.btnEdtProdutoClick(Sender: TObject);
 begin
   TfrmCadProduto.editar(Self, fdqProdutosID_RODUTOS.AsInteger);
-  atualizaDatasets;
+  Refresh(fdqProdutos,'ID_RODUTOS');
 end;
 
 procedure TfrmMain.btnNovaMesaClick(Sender: TObject);
@@ -272,7 +286,8 @@ end;
 
 procedure TfrmMain.btnNovaTemporadaClick(Sender: TObject);
 begin
-  TfrmCadTemporada.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger)
+  TfrmCadTemporada.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger);
+  atualizaDatasets;
 end;
 
 procedure TfrmMain.btnRelatorioPgClick(Sender: TObject);
@@ -289,7 +304,7 @@ end;
 
 procedure TfrmMain.chkMesasAtivasClick(Sender: TObject);
 begin
-  atualizaDatasets;
+  Refresh(fdqMesas,'ID_MESA');
 end;
 
 procedure TfrmMain.dbgProdutosTitleClick(Column: TColumn);
@@ -299,7 +314,12 @@ end;
 
 procedure TfrmMain.dbgrdMesasDblClick(Sender: TObject);
 begin
-  btnAbrirClick(Sender);
+  btnAbrirMesaClick(Sender);
+end;
+
+procedure TfrmMain.dbgrdMesasTitleClick(Column: TColumn);
+begin
+  sortColumn(fdqMesas,Column);
 end;
 
 procedure TfrmMain.fdqMesasBeforeOpen(DataSet: TDataSet);
@@ -357,15 +377,22 @@ begin
   fdqProdutos.Open();
 end;
 
-procedure TfrmMain.Refresh(dataset: TDataSet);
+procedure TfrmMain.Refresh(dataset: TFDQuery; field: string);
 var
-  bkm: TBookmark;
+  vLocale:string;
 begin
-  bkm := dataset.Bookmark;
-  dataset.Close;
-  dataset.Open;
-  if dataset.BookmarkValid(bkm) then
-    dataset.GotoBookmark(bkm);
+   vLocale := dataset.FieldByName(field).AsString;
+   dataset.Close;
+   dataset.Open;
+   if vLocale <> '' then
+    dataset.Locate(field,vLocale,[loCaseInsensitive, loPartialKey]);
+end;
+
+
+
+procedure TfrmMain.tsMesasShow(Sender: TObject);
+begin
+  Refresh(fdqMesas, 'ID_MESA');
 end;
 
 end.

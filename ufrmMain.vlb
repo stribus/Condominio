@@ -10,9 +10,6 @@ Coordinates=411,10,54,58
 [fdqMesasID_PEDIDO]
 Coordinates=433,111,139,36
 
-[btnAbrir]
-Coordinates=187,254,60,58
-
 [fdqMesasTOTAL]
 Coordinates=433,166,111,36
 
@@ -156,4 +153,7 @@ Coordinates=171,322,77,36
 
 [tsProdutos]
 Coordinates=10,322,77,36
+
+[btnAbrirMesa]
+Coordinates=187,254,60,58
 

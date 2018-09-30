@@ -11,13 +11,12 @@ uses
   JvExButtons, JvBitBtn, Vcl.DBCtrls, Vcl.Mask, JvExMask, JvToolEdit,
   JvBaseEdits, JvDBLookup, Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope,
-  JvExStdCtrls, JvMemo;
+  JvExStdCtrls, JvMemo, System.Actions, Vcl.ActnList, Vcl.StdActns, JvExDBGrids,
+  JvDBGrid, JvMaskEdit, JvDBFindEdit, frxClass, frxDBSet;
 
 type
   TfrmManutencaoMesa = class(TForm)
     pnl1: TPanel;
-    btnOk: TButton;
-    btnCancelar: TButton;
     pnl2: TPanel;
     fdqPedido: TFDQuery;
     dtsPedido: TDataSource;
@@ -31,7 +30,6 @@ type
     fdqMovProdutoQUANTIDADE: TBCDField;
     fdqMovProdutoPAGAMENTO: TBooleanField;
     fdqMovProdutoFK_CADERNETA: TLargeintField;
-    btnFechar: TButton;
     pnl3: TPanel;
     pnl4: TPanel;
     dbgrd1: TDBGrid;
@@ -48,7 +46,7 @@ type
     dbedtMesa: TDBEdit;
     lbl3: TLabel;
     lbl4: TLabel;
-    btn2: TJvBitBtn;
+    btnPesqCliente: TJvBitBtn;
     btnExcluir: TJvBitBtn;
     btnAdicionar: TJvBitBtn;
     edtQtd: TJvCalcEdit;
@@ -89,7 +87,6 @@ type
     lbl7: TLabel;
     dbedt_total: TDBEdit;
     fduPedidos: TFDUpdateSQL;
-    btnPagar: TButton;
     fduMovProduto: TFDUpdateSQL;
     fdqMovProdutoTIPO_PAGAMENTO: TIntegerField;
     fdqMovProdutoFKS: TStringField;
@@ -107,19 +104,46 @@ type
     fdqDependente: TFDQuery;
     dtsDependentes: TDataSource;
     fdqPedidoTP_PAGAMENTO: TIntegerField;
+    actlst1: TActionList;
+    actPesquisaProduto: TAction;
+    pnl5: TPanel;
+    btnOk: TButton;
+    btnFechar: TButton;
+    btnPagar: TButton;
+    btnCancelar: TButton;
+    pnlPesquisa: TPanel;
+    dbfdtProduto: TJvDBFindEdit;
+    dbgPesquisaProduto: TJvDBGrid;
+    fdqPesqProduto: TFDQuery;
+    dtsPesqProduto: TDataSource;
+    fdqPesqProdutoID_RODUTOS: TLargeintField;
+    fdqPesqProdutoCODIGO: TLargeintField;
+    fdqPesqProdutoFK_TEMPORADA: TLargeintField;
+    fdqPesqProdutoNOME: TStringField;
+    fdqPesqProdutoVALOR_UNI: TBCDField;
+    btnImprimir: TButton;
+    frepRelMesa: TfrxReport;
+    fdsMovProduto: TfrxDBDataset;
+    fdsPedido: TfrxDBDataset;
+    dbcbbFindMesa: TDBLookupComboBox;
+    fdqPesqMesa: TFDQuery;
+    dtsPesqMesa: TDataSource;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
     procedure dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnMoveMesaClick(Sender: TObject);
-    procedure btn2Click(Sender: TObject);
+    procedure btnPesqClienteClick(Sender: TObject);
     procedure fdqMovProdutoBeforeOpen(DataSet: TDataSet);
     procedure btnPagarClick(Sender: TObject);
     procedure edtCodigoClienteExit(Sender: TObject);
     procedure dbcbbClienteExit(Sender: TObject);
     procedure btnBuscaProdutoClick(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
+    procedure dbgPesquisaProdutoResize(Sender: TObject);
+    procedure dbgPesquisaProdutoDblClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
   private
     { Private declarations }
     function getPedidoId: Integer;
@@ -254,9 +278,33 @@ begin
   end;
 end;
 
+procedure TfrmManutencaoMesa.btnImprimirClick(Sender: TObject);
+begin
+  frepRelMesa.ShowReport(true);
+end;
+
 procedure TfrmManutencaoMesa.btnMoveMesaClick(Sender: TObject);
 begin
-{}
+
+  if(not dbcbbFindMesa.Visible)then
+  begin
+    fdqPesqMesa.Close;
+    fdqPesqMesa.Open();
+    dbcbbFindMesa.DataSource := dtsPedido;
+    dbcbbFindMesa.Visible:= True;
+    dbedtMesa.Visible := false ;
+  end
+  else  if not fdqPedidoID_MESA.IsNull then
+  begin
+    dbcbbFindMesa.Visible:= false;
+    dbedtMesa.Visible := true ;
+    fdqPedidoDESCRICAO.AsString := dbcbbFindMesa.Text;
+    dbcbbFindMesa.DataSource := nil;
+    fdqPesqMesa.Close;
+  end;
+  btnFechar.Enabled := dbedtMesa.Visible;
+  btnPagar.Enabled := dbedtMesa.Visible;
+  btnOk.Enabled := dbedtMesa.Visible;
 end;
 
 procedure TfrmManutencaoMesa.btnPagarClick(Sender: TObject);
@@ -291,6 +339,25 @@ begin
 //  mmoOBS.Visible:=  not dbcbbCliente.Field.IsNull;
 end;
 
+procedure TfrmManutencaoMesa.dbgPesquisaProdutoDblClick(Sender: TObject);
+begin
+  if not(fdqPesqProduto.IsEmpty) then
+  begin
+    edtProduto.Text := fdqPesqProdutoCODIGO.AsString;
+    btnAdicionarClick(Sender);
+  end;
+end;
+
+procedure TfrmManutencaoMesa.dbgPesquisaProdutoResize(Sender: TObject);
+var
+  tamanho : Integer;
+begin
+  tamanho := dbgPesquisaProduto.Width - 220;
+  if(tamanho < 150)then
+    tamanho := 150;
+  dbgPesquisaProduto.Columns[1].Width := tamanho;
+end;
+
 procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift:
   TShiftState);
 begin
@@ -298,7 +365,7 @@ begin
     btnExcluirClick(Sender);
 end;
 
-procedure TfrmManutencaoMesa.btn2Click(Sender: TObject);
+procedure TfrmManutencaoMesa.btnPesqClienteClick(Sender: TObject);
 begin
 {}
 end;
@@ -306,6 +373,12 @@ end;
 procedure TfrmManutencaoMesa.btnAdicionarClick(Sender: TObject);
 begin
   edtProduto.SetFocus;
+  if(Length(edtProduto.Text) = 0) and (fdqPesqProduto.Active)
+    and (not fdqPesqProdutoCODIGO.IsNull)then
+  begin
+    edtProduto.Text := fdqPesqProdutoCODIGO.AsString;
+    dbfdtProduto.Text := '';
+  end;
   if (edtQtd.Value > 0) and (Length(edtProduto.Text) >= 1) then
   begin
     fdqProduto.Close;
@@ -333,7 +406,15 @@ end;
 
 procedure TfrmManutencaoMesa.btnBuscaProdutoClick(Sender: TObject);
 begin
-{}
+  fdqPesqProduto.Close;
+  if(not pnlPesquisa.Visible) then
+  begin
+    dbfdtProduto.Text := '';
+    fdqPesqProduto.Open();
+  end  ;
+  pnlPesquisa.Visible := not pnlPesquisa.Visible;
+  if(dbfdtProduto.CanFocus)then
+    dbfdtProduto.SetFocus;
 end;
 
 class function TfrmManutencaoMesa.Editar(Aowner: TComponent; AMesa, AIdTemporada,
@@ -358,7 +439,7 @@ begin
     fdqPedidoPAGO.AsBoolean := False;
     fdqPedidoDESCONTO.AsBoolean := False;
     fdqPedidoVALOR_DESCONTO.AsInteger := 0;
-
+    Caption := 'Mesa: '+fdqPedidoDESCRICAO.AsString;
     if (frm.ShowModal = mrOk) and (not fdqPedidoID_PEDIDO.IsNull) then
     begin
       fdqPedido.ApplyUpdates();

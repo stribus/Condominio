@@ -1,9 +1,9 @@
 object frmConta: TfrmConta
-  Left = 0
-  Top = 0
-  Caption = 'frmConta'
-  ClientHeight = 432
-  ClientWidth = 935
+  Left = 100
+  Top = 100
+  Caption = 'Conta'
+  ClientHeight = 440
+  ClientWidth = 968
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,18 +11,20 @@ object frmConta: TfrmConta
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object jvpnl1: TJvPanel
     Left = 0
     Top = 0
     Width = 321
-    Height = 377
+    Height = 385
     Align = alLeft
     BevelOuter = bvNone
+    Enabled = False
     TabOrder = 0
-    ExplicitTop = -21
-    ExplicitHeight = 394
+    ExplicitHeight = 377
     object lbl5: TLabel
       Left = 24
       Top = 41
@@ -51,7 +53,8 @@ object frmConta: TfrmConta
       Height = 21
       CharCase = ecUpperCase
       DataField = 'NOME'
-      DataSource = Dao.src_cliente
+      DataSource = dtsCliente
+      ReadOnly = True
       TabOrder = 0
     end
     object dbedt_endereco: TDBEdit
@@ -60,7 +63,8 @@ object frmConta: TfrmConta
       Width = 265
       Height = 21
       DataField = 'ENDERECO'
-      DataSource = Dao.src_cliente
+      DataSource = dtsCliente
+      ReadOnly = True
       TabOrder = 1
     end
     object dbedt_Telefone: TDBEdit
@@ -68,30 +72,29 @@ object frmConta: TfrmConta
       Top = 182
       Width = 265
       Height = 21
-      DataField = 'TELEFONE'
-      DataSource = Dao.src_cliente
+      DataField = 'CONTATO'
+      DataSource = dtsCliente
+      ReadOnly = True
       TabOrder = 2
     end
   end
   object jvpnl2: TJvPanel
     Left = 321
     Top = 0
-    Width = 614
-    Height = 377
+    Width = 647
+    Height = 385
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 94
-    ExplicitTop = -21
-    ExplicitWidth = 573
-    ExplicitHeight = 394
+    ExplicitWidth = 614
+    ExplicitHeight = 377
     object dbgjvdbgrd1: TJvDBGrid
       Left = 0
       Top = 25
-      Width = 604
-      Height = 287
+      Width = 637
+      Height = 295
       Align = alClient
-      DataSource = Dao.src_conta
+      DataSource = dtsCaderneta
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -115,60 +118,58 @@ object frmConta: TfrmConta
       Columns = <
         item
           Expanded = False
-          FieldName = 'DATA'
-          Title.Caption = 'Data'
-          Width = 67
+          FieldName = 'DTHR_LANCAMENTO'
+          Title.Caption = 'Data/Hora'
+          Width = 137
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'HORA'
-          Title.Caption = 'Hora'
-          Width = 63
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'DESCRICAO'
+          FieldName = 'NomeProduto'
           Title.Caption = 'Produto'
-          Width = 165
+          Width = 229
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'QUANTIDADE'
           Title.Caption = 'quant'
-          Width = 46
+          Width = 49
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'TOTAL'
+          FieldName = 'VALOR_TOTAL'
           Title.Caption = 'valor total'
-          Width = 74
+          Width = 83
           Visible = True
         end
         item
           Color = clCream
           Expanded = False
-          FieldName = 'Acomulado'
+          FieldName = 'SALDO'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Title.Caption = 'Acomulado'
+          Width = 109
           Visible = True
         end>
     end
     object jvpnl3: TJvPanel
       Left = 0
       Top = 0
-      Width = 614
+      Width = 647
       Height = 25
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 573
+      ExplicitWidth = 614
+      DesignSize = (
+        647
+        25)
       object btn_incluir: TJvXPButton
         Left = 432
         Top = 0
@@ -208,6 +209,7 @@ object frmConta: TfrmConta
           0B0F4C33234815830635391B3D40142A3454085116830B3B493E001438361F31
           292EA82721585A4E1E425747A785263B091E0953032C5B87443035220203183F
           8D3C24190C1856932E074F18084C12E400048F8108070502003B}
+        Anchors = [akTop, akRight]
         ParentShowHint = False
         ShowHint = True
         Style.Theme = OfficeXP
@@ -250,6 +252,7 @@ object frmConta: TfrmConta
           0582B6729329DAFA07D749B23295A633D5803A4A30AD647C969D00AC4E303B17
           CDE1E416631C6C05900891458742EFDFE9EB7DB882F1CC96316D03E00070F700
           244C3393FF0DA9AE41BD54559B220000000049454E44AE426082}
+        Anchors = [akTop, akRight]
         ParentShowHint = False
         ShowHint = True
         Style.Theme = OfficeXP
@@ -258,19 +261,23 @@ object frmConta: TfrmConta
     end
     object jvpnl4: TJvPanel
       Left = 0
-      Top = 312
-      Width = 614
+      Top = 320
+      Width = 647
       Height = 65
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 3
-      ExplicitTop = 329
-      ExplicitWidth = 573
+      ExplicitTop = 312
+      ExplicitWidth = 614
+      DesignSize = (
+        647
+        65)
       object lbl2: TLabel
         Left = 60
         Top = 16
         Width = 61
         Height = 16
+        Anchors = [akTop, akRight]
         Caption = 'consumido'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -284,6 +291,7 @@ object frmConta: TfrmConta
         Top = 16
         Width = 28
         Height = 16
+        Anchors = [akTop, akRight]
         Caption = 'pago'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -297,6 +305,7 @@ object frmConta: TfrmConta
         Top = 3
         Width = 32
         Height = 16
+        Anchors = [akTop, akRight]
         Caption = 'Saldo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -311,6 +320,7 @@ object frmConta: TfrmConta
         Width = 114
         Height = 27
         ParentCustomHint = False
+        Anchors = [akTop, akRight]
         BiDiMode = bdLeftToRight
         Color = 15527167
         Ctl3D = True
@@ -334,6 +344,7 @@ object frmConta: TfrmConta
         Top = 32
         Width = 117
         Height = 21
+        Anchors = [akTop, akRight]
         Color = 15794145
         DataField = 'PAGO'
         DataSource = Dao.src_total
@@ -345,6 +356,7 @@ object frmConta: TfrmConta
         Top = 22
         Width = 138
         Height = 37
+        Anchors = [akTop, akRight]
         Color = 14680063
         DataField = 'DEBITO'
         DataSource = Dao.src_total
@@ -359,34 +371,36 @@ object frmConta: TfrmConta
       end
     end
     object jvpnl6: TJvPanel
-      Left = 604
+      Left = 637
       Top = 25
       Width = 10
-      Height = 287
+      Height = 295
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitLeft = 563
-      ExplicitHeight = 304
+      ExplicitLeft = 604
+      ExplicitHeight = 287
     end
   end
   object jvpnl5: TJvPanel
     Left = 0
-    Top = 377
-    Width = 935
+    Top = 385
+    Width = 968
     Height = 55
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = -227
-    ExplicitTop = 318
-    ExplicitWidth = 894
+    ExplicitTop = 377
+    ExplicitWidth = 935
+    DesignSize = (
+      968
+      55)
     object btn_ok: TButton
       Left = 199
       Top = 6
       Width = 95
       Height = 40
       Cancel = True
-      Caption = 'OK'
+      Caption = '&OK'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -415,6 +429,7 @@ object frmConta: TfrmConta
       Top = 6
       Width = 95
       Height = 40
+      Anchors = [akTop]
       Caption = 'Pagar'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -424,5 +439,238 @@ object frmConta: TfrmConta
       ParentFont = False
       TabOrder = 2
     end
+  end
+  object fdqCliente: TFDQuery
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT *'
+      'FROM CLIENTE'
+      'where'
+      ' id_cliente = :id_cliente')
+    Left = 264
+    Top = 16
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object dtsCliente: TDataSource
+    DataSet = fdqCliente
+    Left = 288
+    Top = 16
+  end
+  object fdqTotais: TFDQuery
+    ConnectionName = 'Condominio'
+    Left = 224
+    Top = 232
+  end
+  object dtsTotais: TDataSource
+    DataSet = fdqTotais
+    Left = 248
+    Top = 232
+  end
+  object fdqCaderneta: TFDQuery
+    BeforeOpen = fdqCadernetaBeforeOpen
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT'
+      #9'cc.id_caderneta ,'
+      #9'cc.dthr_lancamento ,'
+      #9'ped.fk_temporada ,'
+      #9'cc.fk_cliente ,'
+      #9'cc.fk_dependente ,'
+      #9'mv.id_mov_produto ,'
+      
+        #9'CAST(COALESCE(mv.fk_produto,'#39'T'#39' || mv.tipo_pagamento) AS VARCHA' +
+        'R(20)) fks ,'
+      #9'mv.quantidade ,'
+      #9'mv.pagamento ,'
+      #9'mv.valor_total ,'
+      
+        #9'SUM(mv.valor_total) OVER (PARTITION BY ped.fk_temporada,cc.fk_c' +
+        'liente ORDER BY'#9'dthr_lancamento,mv.id_mov_produto) Saldo'
+      'FROM'
+      #9'caderneta_cliente cc'
+      #9'JOIN mov_produto mv ON'
+      #9#9'cc.id_caderneta = mv.fk_caderneta'
+      #9'LEFT JOIN produtos pr ON'
+      #9#9'pr.id_rodutos = mv.fk_produto'
+      #9'LEFT JOIN pedido ped ON'
+      #9#9'ped.id_pedido = mv.fk_pedido'
+      'WHERE'
+      #9'cc.FK_CLIENTE =:id_cliente'
+      #9'AND ped.FK_TEMPORADA = :id_temporada'
+      'ORDER BY'#9
+      '     dthr_lancamento,mv.id_mov_produto'#9)
+    Left = 408
+    Top = 152
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'ID_TEMPORADA'
+        DataType = ftLargeint
+        ParamType = ptInput
+      end>
+    object fdqCadernetaID_CADERNETA: TLargeintField
+      FieldName = 'ID_CADERNETA'
+      Origin = 'ID_CADERNETA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqCadernetaDTHR_LANCAMENTO: TSQLTimeStampField
+      FieldName = 'DTHR_LANCAMENTO'
+      Origin = 'DTHR_LANCAMENTO'
+      Required = True
+    end
+    object fdqCadernetaFK_TEMPORADA: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqCadernetaFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqCadernetaFK_DEPENDENTE: TLargeintField
+      FieldName = 'FK_DEPENDENTE'
+      Origin = 'FK_DEPENDENTE'
+      Required = True
+    end
+    object fdqCadernetaID_MOV_PRODUTO: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID_MOV_PRODUTO'
+      Origin = 'ID_MOV_PRODUTO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqCadernetaFKS: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FKS'
+      Origin = 'FKS'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqCadernetaQUANTIDADE: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+    end
+    object fdqCadernetaPAGAMENTO: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGAMENTO'
+      Origin = 'PAGAMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqCadernetaVALOR_TOTAL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      ProviderFlags = []
+      ReadOnly = True
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqCadernetaSALDO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      ProviderFlags = []
+      ReadOnly = True
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqCadernetaNomeProduto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'NomeProduto'
+      LookupDataSet = fdqProdutoslookup
+      LookupKeyFields = 'ID'
+      LookupResultField = 'NOME'
+      KeyFields = 'FKS'
+      Size = 150
+      Lookup = True
+    end
+  end
+  object dtsCaderneta: TDataSource
+    DataSet = fdqCaderneta
+    Left = 432
+    Top = 152
+  end
+  object fdqProdutoslookup: TFDQuery
+    CachedUpdates = True
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'select'
+      '  cast(ID_RODUTOS as varchar(20)) ID,'
+      '  CODIGO,'
+      '  FK_TEMPORADA,'
+      '  NOME,'
+      '  VALOR_UNI'
+      'from'
+      '  produtos p'
+      'where p.fk_temporada = (select'
+      '                          t.id_temporadas'
+      '                        from'
+      '                          temporadas t'
+      '                        where t.ativo) '
+      'union all'
+      'select'
+      '  cast('#39'T'#39'||tp.id as varchar(20)) id,'
+      '  tp.id,'
+      '  null,'
+      '  cast(tp.descricao as varchar(150)),'
+      '  null'
+      'from'
+      '  tipo_pagamento tp')
+    Left = 272
+    Top = 136
+    object fdqProdutoslookupID: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqProdutoslookupCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqProdutoslookupFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+    end
+    object fdqProdutoslookupNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqProdutoslookupVALOR_UNI: TBCDField
+      FieldName = 'VALOR_UNI'
+      Origin = 'VALOR_UNI'
+      Precision = 18
+    end
+  end
+  object dtsProdutoslookup: TDataSource
+    DataSet = fdqProdutoslookup
+    Left = 312
+    Top = 136
   end
 end

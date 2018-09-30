@@ -37,7 +37,7 @@ type
     pnl4: TPanel;
     pnl5: TPanel;
     btnokAnota: TButton;
-    btnCancel: TButton;
+    btnCancelarAnotar: TButton;
     btnAnotar: TBitBtn;
     btnPagar: TBitBtn;
     lbl4: TLabel;
@@ -99,6 +99,8 @@ type
     fdqMovProdutoPAGAMENTO: TBooleanField;
     fdqMovProdutoVALOR_TOTAL: TBCDField;
     fdqMovProdutoTIPO_PAGAMENTO: TIntegerField;
+    fdspPagar: TFDStoredProc;
+    fdspAnotar: TFDStoredProc;
     procedure btnOkClick(Sender: TObject);
     procedure btnokAnotaClick(Sender: TObject);
     procedure btnAnotarClick(Sender: TObject);
@@ -106,6 +108,8 @@ type
     procedure edtCodigoClienteExit(Sender: TObject);
     procedure dbcbbClienteExit(Sender: TObject);
     procedure edtPagoKeyPress(Sender: TObject; var Key: Char);
+    procedure tsAnotarShow(Sender: TObject);
+    procedure tsPagamentoShow(Sender: TObject);
 
   private
      var
@@ -150,17 +154,24 @@ begin
     ShowMessage('Informe o Dependente.');
     Exit;
   end;
-  fdqPedidoTP_PAGAMENTO.AsInteger := 1;
-  fdqPedidoANOTAR.AsBoolean := True;
-  fdqPedidoNOME_DEPENDENTE.AsString := dbcbbNomeDependente.Text;
 
-  fdqCaderneta.Open();
-  fdqCaderneta.Insert;
-  fdqCadernetaDTHR_LANCAMENTO.AsDateTime := Now;
-  fdqCadernetaFK_CLIENTE.AsInteger := fdqPedidoID_CLIENTE.AsInteger;
-  fdqCadernetaFK_DEPENDENTE.AsInteger := fdqPedidoFK_DEPENDENTE.AsInteger;
-  fdqCadernetaFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
-  fdqCaderneta.Post;
+  fdspAnotar.ParamByName('IN_PEDIDO').Value := fdqPedidoID_PEDIDO.AsInteger;
+  fdspAnotar.ParamByName('IN_CLIENTE').Value := fdqPedidoID_CLIENTE.AsInteger;
+  fdspAnotar.ParamByName('IN_DEPENDENTE').Value := fdqPedidoFK_DEPENDENTE.AsInteger;
+  fdspAnotar.ParamByName('IN_DESC_DEPENDENTE').AsString := dbcbbNomeDependente.Text;
+  fdspAnotar.Prepare;
+  fdspAnotar.ExecProc;
+//  fdqPedidoTP_PAGAMENTO.AsInteger := 1;
+//  fdqPedidoANOTAR.AsBoolean := True;
+//  fdqPedidoNOME_DEPENDENTE.AsString := dbcbbNomeDependente.Text;
+//
+//  fdqCaderneta.Open();
+//  fdqCaderneta.Insert;
+//  fdqCadernetaDTHR_LANCAMENTO.AsDateTime := Now;
+//  fdqCadernetaFK_CLIENTE.AsInteger := fdqPedidoID_CLIENTE.AsInteger;
+//  fdqCadernetaFK_DEPENDENTE.AsInteger := fdqPedidoFK_DEPENDENTE.AsInteger;
+//  fdqCadernetaFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+//  fdqCaderneta.Post;
   ModalResult := mrOk;
 end;
 
@@ -190,22 +201,27 @@ begin
   begin
     if (edtPago.Value > edtTotal.Value) then
     begin
-      troco := edtTotal.Value - edtPago.Value;
+      troco := (edtTotal.Value - edtPago.Value)*(-1);
       ShowMessage('Troco : R$ '+ FormatCurr('0.00',troco));
     end;
-    fdqPedidoANOTAR.AsBoolean :=  False;
-    fdqPedidoTP_PAGAMENTO.AsInteger :=  dbcbbTpPag.KeyValue;
-    fdqMovProduto.Open();
-    fdqMovProduto.Append;
-    fdqMovProdutoID_MOV_PRODUTO.AsInteger := dtmcon.genNextId('GEN_MOV_PRODUTO');
-    fdqMovProdutoFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
-    fdqMovProdutoPAGAMENTO.AsBoolean := True;
-    fdqMovProdutoTIPO_PAGAMENTO.AsInteger := fdqPedidoTP_PAGAMENTO.AsInteger;
-    fdqMovProdutoQUANTIDADE.AsInteger := 1;
-    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * edtTotal.Value;
-    fdqMovProduto.Post;
-//    fdqMovProduto.ApplyUpdates();
-    fdqMovProduto.Close;
+    fdspPagar.ParamByName('IN_PEDIDO').AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+    fdspPagar.ParamByName('IN_VALOR').Value := edtTotal.Value;
+    fdspPagar.ParamByName('IN_TP_PAGAMENTO').AsInteger := fdqPedidoTP_PAGAMENTO.AsInteger;
+    fdspPagar.Prepare;
+    fdspPagar.ExecProc;
+//    fdqPedidoANOTAR.AsBoolean :=  False;
+//    fdqPedidoTP_PAGAMENTO.AsInteger :=  dbcbbTpPag.KeyValue;
+//    fdqMovProduto.Open();
+//    fdqMovProduto.Append;
+//    fdqMovProdutoID_MOV_PRODUTO.AsInteger := dtmcon.genNextId('GEN_MOV_PRODUTO');
+//    fdqMovProdutoFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+//    fdqMovProdutoPAGAMENTO.AsBoolean := True;
+//    fdqMovProdutoTIPO_PAGAMENTO.AsInteger := fdqPedidoTP_PAGAMENTO.AsInteger;
+//    fdqMovProdutoQUANTIDADE.AsInteger := 1;
+//    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * edtTotal.Value;
+//    fdqMovProduto.Post;
+////    fdqMovProduto.ApplyUpdates();
+//    fdqMovProduto.Close;
 
   end;
 
@@ -273,9 +289,9 @@ begin
     frm.pgc1.ActivePage := frm.tsModoFechamento;
     if frm.ShowModal = mrOk then
     begin
-      frm.fdqPedidoDTHR_FEXAMENTO.AsDateTime := Now;
+//      frm.fdqPedidoDTHR_FEXAMENTO.AsDateTime := Now;
       Result := True;
-      frm.fdqPedido.Post();
+//      frm.fdqPedido.Post();
       frm.fdqPedido.Close;
     end;
 
@@ -312,6 +328,18 @@ begin
     if Assigned(frm) then
       frm.Free;
   end;
+end;
+
+procedure TfrmPagamento.tsAnotarShow(Sender: TObject);
+begin
+  btnokAnota.Caption := '&OK';
+  btnCancelarAnotar.Caption := '&Cancelar';
+end;
+
+procedure TfrmPagamento.tsPagamentoShow(Sender: TObject);
+begin
+  btnOk.Caption := '&OK';
+  btnCancelar.Caption := '&Cancelar';
 end;
 
 end.

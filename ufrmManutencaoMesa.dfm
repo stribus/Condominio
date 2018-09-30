@@ -2,8 +2,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   Left = 0
   Top = 0
   Caption = 'Mesa - x'
-  ClientHeight = 546
-  ClientWidth = 851
+  ClientHeight = 750
+  ClientWidth = 950
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -23,55 +24,77 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object pnl1: TPanel
     Left = 0
-    Top = 498
-    Width = 851
+    Top = 702
+    Width = 950
     Height = 48
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    object btnOk: TButton
-      Left = 208
-      Top = 6
-      Width = 75
-      Height = 33
-      Caption = 'Ok'
-      ModalResult = 1
+    DesignSize = (
+      950
+      48)
+    object pnl5: TPanel
+      AlignWithMargins = True
+      Left = 0
+      Top = 0
+      Width = 761
+      Height = 43
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      BevelOuter = bvNone
       TabOrder = 0
-    end
-    object btnCancelar: TButton
-      Left = 527
-      Top = 6
-      Width = 75
-      Height = 33
-      Cancel = True
-      Caption = 'Cancelar'
-      ModalResult = 2
-      TabOrder = 3
-    end
-    object btnFechar: TButton
-      Left = 289
-      Top = 6
-      Width = 90
-      Height = 33
-      Caption = 'Fechar Conta'
-      TabOrder = 1
-      OnClick = btnFecharClick
-    end
-    object btnPagar: TButton
-      Left = 398
-      Top = 6
-      Width = 106
-      Height = 33
-      Caption = 'Pagar Sem Fechar'
-      TabOrder = 2
-      OnClick = btnPagarClick
+      object btnOk: TButton
+        Left = 272
+        Top = 6
+        Width = 75
+        Height = 33
+        Caption = '&Ok'
+        ModalResult = 1
+        TabOrder = 0
+      end
+      object btnFechar: TButton
+        Left = 434
+        Top = 6
+        Width = 90
+        Height = 33
+        Caption = '&Fechar Conta'
+        TabOrder = 2
+        OnClick = btnFecharClick
+      end
+      object btnPagar: TButton
+        Left = 530
+        Top = 6
+        Width = 106
+        Height = 33
+        Caption = 'Pagar &Sem Fechar'
+        TabOrder = 3
+        OnClick = btnPagarClick
+      end
+      object btnCancelar: TButton
+        Left = 353
+        Top = 6
+        Width = 75
+        Height = 33
+        Cancel = True
+        Caption = '&Cancelar'
+        ModalResult = 2
+        TabOrder = 1
+      end
+      object btnImprimir: TButton
+        Left = 642
+        Top = 6
+        Width = 90
+        Height = 33
+        Caption = '&Imprimir'
+        TabOrder = 4
+        OnClick = btnImprimirClick
+      end
     end
   end
   object pnl2: TPanel
     Left = 0
     Top = 0
-    Width = 851
-    Height = 498
+    Width = 950
+    Height = 702
     Align = alClient
     BevelOuter = bvNone
     ParentBackground = False
@@ -79,14 +102,17 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     object pnl3: TPanel
       Left = 480
       Top = 0
-      Width = 371
-      Height = 498
-      Align = alRight
+      Width = 470
+      Height = 702
+      Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
+      DesignSize = (
+        470
+        702)
       object lbl1: TLabel
         Left = 111
-        Top = 221
+        Top = 173
         Width = 11
         Height = 19
         Caption = 'X'
@@ -99,44 +125,46 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object lbl3: TLabel
         Left = 18
-        Top = 97
+        Top = 49
         Width = 25
         Height = 13
         Caption = 'Mesa'
       end
       object lbl4: TLabel
         Left = 18
-        Top = 151
+        Top = 103
         Width = 33
         Height = 13
         Caption = 'Cliente'
       end
       object lbl5: TLabel
         Left = 18
-        Top = 201
+        Top = 153
         Width = 56
         Height = 13
         Caption = 'Quantidade'
       end
       object lbl6: TLabel
         Left = 128
-        Top = 201
+        Top = 153
         Width = 74
         Height = 13
         Caption = 'C'#243'digo Produto'
       end
       object lbl8: TLabel
         Left = 6
-        Top = 322
+        Top = 526
         Width = 75
         Height = 13
+        Anchors = [akLeft, akRight, akBottom]
         Caption = 'Autorizado por:'
       end
       object dbcbbCliente: TDBLookupComboBox
         Left = 79
-        Top = 170
-        Width = 242
+        Top = 122
+        Width = 346
         Height = 24
+        Anchors = [akLeft, akTop, akRight]
         DataField = 'ID_CLIENTE'
         DataSource = dtsPedido
         Font.Charset = DEFAULT_CHARSET
@@ -149,15 +177,17 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ListFieldIndex = 1
         ListSource = dtsClientes
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 4
         OnClick = dbcbbClienteExit
         OnExit = dbcbbClienteExit
       end
       object btnBuscaProduto: TJvBitBtn
-        Left = 327
-        Top = 220
-        Width = 24
+        Left = 432
+        Top = 172
+        Width = 23
         Height = 24
+        Action = actPesquisaProduto
+        Anchors = [akTop, akRight]
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
@@ -185,23 +215,24 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 8
-        OnClick = btnBuscaProdutoClick
+        TabOrder = 9
       end
       object btnMoveMesa: TButton
-        Left = 309
-        Top = 116
-        Width = 42
-        Height = 25
-        Caption = 'Mover'
-        TabOrder = 1
+        Left = 412
+        Top = 68
+        Width = 43
+        Height = 24
+        Anchors = [akTop, akRight]
+        Caption = '&Mover'
+        TabOrder = 2
         OnClick = btnMoveMesaClick
       end
       object dbedtMesa: TDBEdit
         Left = 18
-        Top = 116
-        Width = 285
+        Top = 68
+        Width = 389
         Height = 24
+        Anchors = [akLeft, akTop, akRight]
         DataField = 'DESCRICAO'
         DataSource = dtsPedido
         Enabled = False
@@ -212,13 +243,14 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Style = []
         ParentFont = False
         ReadOnly = True
-        TabOrder = 0
+        TabOrder = 1
       end
-      object btn2: TJvBitBtn
-        Left = 327
-        Top = 170
+      object btnPesqCliente: TJvBitBtn
+        Left = 431
+        Top = 122
         Width = 24
         Height = 24
+        Anchors = [akTop, akRight]
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
@@ -246,14 +278,16 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 4
-        OnClick = btn2Click
+        TabOrder = 5
+        Visible = False
+        OnClick = btnPesqClienteClick
       end
       object btnAdicionar: TJvBitBtn
-        Left = 303
-        Top = 220
+        Left = 407
+        Top = 172
         Width = 24
         Height = 24
+        Anchors = [akTop, akRight]
         Default = True
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
@@ -282,12 +316,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FEFEFEF3F1F5D7E4CF8BBC6F5FA337519A23519A2360A3378BBC6FD5E2CDEEEC
           F1FEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F7F8F2EFF3EAEBE9DF
           E6DCDFE6DCE8EAE7EFEDF1F7F6F7FFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 7
+        TabOrder = 8
         OnClick = btnAdicionarClick
       end
       object edtQtd: TJvCalcEdit
         Left = 18
-        Top = 220
+        Top = 172
         Width = 87
         Height = 24
         Alignment = taLeftJustify
@@ -299,27 +333,28 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         MinValue = 0.010000000000000000
         ParentFont = False
         ShowButton = False
-        TabOrder = 5
+        TabOrder = 6
         Value = 1.000000000000000000
         DecimalPlacesAlwaysShown = False
       end
       object edtProduto: TEdit
         Left = 128
-        Top = 220
-        Width = 169
+        Top = 172
+        Width = 273
         Height = 24
+        Anchors = [akLeft, akTop, akRight]
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 6
+        TabOrder = 7
         OnKeyPress = edtProdutoKeyPress
       end
       object edtCodigoCliente: TEdit
         Left = 18
-        Top = 170
+        Top = 122
         Width = 57
         Height = 24
         Font.Charset = DEFAULT_CHARSET
@@ -329,15 +364,16 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Style = []
         NumbersOnly = True
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 3
         OnExit = edtCodigoClienteExit
       end
       object mmoOBS: TJvMemo
         Left = 6
-        Top = 368
-        Width = 355
+        Top = 572
+        Width = 454
         Height = 124
         TabStop = False
+        Anchors = [akLeft, akRight, akBottom]
         Color = 14803425
         Flat = True
         Font.Charset = DEFAULT_CHARSET
@@ -348,44 +384,139 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFlat = False
         ParentFont = False
         ReadOnly = True
-        TabOrder = 9
+        TabOrder = 12
       end
       object dbcbbAUTORIZADO: TDBLookupComboBox
         Left = 6
-        Top = 341
-        Width = 315
+        Top = 545
+        Width = 414
         Height = 21
+        Anchors = [akLeft, akRight, akBottom]
         DataField = 'FK_DEPENDENTE'
         DataSource = dtsPedido
         KeyField = 'ID_DEPENDENTES'
         ListField = 'NOME'
         ListSource = dtsDependentes
+        TabOrder = 11
+      end
+      object pnlPesquisa: TPanel
+        Left = 6
+        Top = 202
+        Width = 451
+        Height = 318
+        Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 10
+        Visible = False
+        DesignSize = (
+          451
+          318)
+        object dbfdtProduto: TJvDBFindEdit
+          Left = 72
+          Top = 13
+          Width = 329
+          Height = 21
+          TabOrder = 0
+          Text = ''
+          DataField = 'NOME'
+          DataSource = dtsPesqProduto
+          FindStyle = fsFilter
+        end
+        object dbgPesquisaProduto: TJvDBGrid
+          Left = 16
+          Top = 40
+          Width = 425
+          Height = 270
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          DataSource = dtsPesqProduto
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleHotTrack]
+          ReadOnly = True
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+          OnDblClick = dbgPesquisaProdutoDblClick
+          OnResize = dbgPesquisaProdutoResize
+          SelectColumnsDialogStrings.Caption = 'Select columns'
+          SelectColumnsDialogStrings.OK = '&OK'
+          SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
+          CanDelete = False
+          EditControls = <>
+          RowsHeight = 17
+          TitleRowHeight = 17
+          BooleanEditor = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'CODIGO'
+              Title.Caption = 'C'#243'digo'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NOME'
+              Title.Caption = 'Nome'
+              Width = 221
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR_UNI'
+              Title.Caption = 'Valor'
+              Width = 70
+              Visible = True
+            end>
+        end
+      end
+      object dbcbbFindMesa: TDBLookupComboBox
+        Left = 18
+        Top = 68
+        Width = 388
+        Height = 24
+        Anchors = [akLeft, akTop, akRight]
+        DataField = 'ID_MESA'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        KeyField = 'ID_MESA'
+        ListField = 'CODIGO;DESCRICAO'
+        ListFieldIndex = 1
+        ListSource = dtsPesqMesa
+        ParentFont = False
+        TabOrder = 0
+        Visible = False
+        OnClick = dbcbbClienteExit
+        OnExit = dbcbbClienteExit
       end
     end
     object pnl4: TPanel
       Left = 0
       Top = 0
       Width = 480
-      Height = 498
-      Align = alClient
+      Height = 702
+      Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
       DesignSize = (
         480
-        498)
+        702)
       object lbl7: TLabel
         Left = 227
-        Top = 463
+        Top = 667
         Width = 31
         Height = 13
+        Anchors = [akLeft, akBottom]
         Caption = 'Total :'
+        ExplicitTop = 463
       end
       object dbgrd1: TDBGrid
         Left = 16
         Top = 16
         Width = 458
-        Height = 425
+        Height = 629
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataSource = dtsMovProduto
         Font.Charset = DEFAULT_CHARSET
@@ -457,9 +588,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object btnExcluir: TJvBitBtn
         Left = 450
-        Top = 447
+        Top = 651
         Width = 24
         Height = 24
+        Anchors = [akLeft, akBottom]
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
@@ -492,10 +624,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object dbedt_total: TDBEdit
         Left = 264
-        Top = 447
+        Top = 651
         Width = 153
         Height = 37
         TabStop = False
+        Anchors = [akLeft, akBottom]
         Color = clInfoBk
         DataField = 'Total'
         DataSource = dtsMovProduto
@@ -1078,5 +1211,294 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     DataSet = fdqDependente
     Left = 384
     Top = 344
+  end
+  object actlst1: TActionList
+    Left = 368
+    Top = 96
+    object actPesquisaProduto: TAction
+      ShortCut = 16464
+      OnExecute = btnBuscaProdutoClick
+    end
+  end
+  object fdqPesqProduto: TFDQuery
+    CachedUpdates = True
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'select'
+      '  *'
+      'from'
+      '  produtos p'
+      'where p.fk_temporada = (select'
+      '                          t.id_temporadas'
+      '                        from'
+      '                          temporadas t'
+      '                        where t.ativo) '
+      'order by nome')
+    Left = 392
+    Top = 216
+    object fdqPesqProdutoID_RODUTOS: TLargeintField
+      FieldName = 'ID_RODUTOS'
+      Origin = 'ID_RODUTOS'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqPesqProdutoCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqPesqProdutoFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+      Required = True
+    end
+    object fdqPesqProdutoNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqPesqProdutoVALOR_UNI: TBCDField
+      FieldName = 'VALOR_UNI'
+      Origin = 'VALOR_UNI'
+      Required = True
+      currency = True
+      Precision = 18
+    end
+  end
+  object dtsPesqProduto: TDataSource
+    DataSet = fdqPesqProduto
+    Left = 432
+    Top = 216
+  end
+  object frepRelMesa: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43372.716040243050000000
+    ReportOptions.LastChange = 43372.729009872690000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 560
+    Top = 424
+    Datasets = <
+      item
+        DataSet = fdsMovProduto
+        DataSetName = 'frxDBMovProduto'
+      end
+      item
+        DataSet = fdsPedido
+        DataSetName = 'frxDBPedido'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Height = 71.811070000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Top = 3.779530000000000000
+          Width = 718.110700000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -24
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Conta:')
+          ParentFont = False
+        end
+        object frxDBPedidoDESCRICAO: TfrxMemoView
+          Top = 34.015770000000000000
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          DataField = 'DESCRICAO'
+          DataSet = fdsPedido
+          DataSetName = 'frxDBPedido'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDBPedido."DESCRICAO"]')
+          ParentFont = False
+        end
+      end
+      object ColumnHeader1: TfrxColumnHeader
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 113.385900000000000000
+        Width = 718.110700000000000000
+        object Memo3: TfrxMemoView
+          Top = 3.779530000000000000
+          Width = 136.063080000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Produto')
+        end
+        object Memo4: TfrxMemoView
+          Left = 434.645950000000000000
+          Top = 3.779530000000000000
+          Width = 136.063080000000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Quantidade')
+        end
+        object Memo5: TfrxMemoView
+          Left = 582.047620000000000000
+          Top = 3.779530000000000000
+          Width = 136.063080000000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor')
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 196.535560000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsMovProduto
+        DataSetName = 'frxDBMovProduto'
+        RowCount = 0
+        object frxDBMovProdutonomeProduto: TfrxMemoView
+          Width = 328.819110000000000000
+          Height = 18.897650000000000000
+          DataField = 'nomeProduto'
+          DataSet = fdsMovProduto
+          DataSetName = 'frxDBMovProduto'
+          Memo.UTF8W = (
+            '[frxDBMovProduto."nomeProduto"]')
+        end
+        object frxDBMovProdutoQUANTIDADE: TfrxMemoView
+          Left = 419.527830000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsMovProduto
+          DataSetName = 'frxDBMovProduto'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBMovProduto."QUANTIDADE"]')
+        end
+        object frxDBMovProdutoTotal: TfrxMemoView
+          Left = 585.827150000000000000
+          Width = 132.283550000000000000
+          Height = 18.897650000000000000
+          DataField = 'VALOR_TOTAL'
+          DataSet = fdsMovProduto
+          DataSetName = 'frxDBMovProduto'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBMovProduto."VALOR_TOTAL"]')
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        FillType = ftBrush
+        Height = 30.236240000000000000
+        Top = 279.685220000000000000
+        Width = 718.110700000000000000
+        object Memo2: TfrxMemoView
+          Left = 438.425480000000000000
+          Top = 3.779530000000000000
+          Width = 132.283550000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'Total')
+          ParentFont = False
+        end
+        object Line1: TfrxLineView
+          Left = 434.645950000000000000
+          Top = 3.779530000000000000
+          Width = 279.685220000000000000
+          Color = clBlack
+          Diagonal = True
+        end
+        object Memo6: TfrxMemoView
+          Left = 582.047620000000000000
+          Top = 3.779530000000000000
+          Width = 136.063080000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBMovProduto."VALOR_TOTAL">,MasterData1)]')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object fdsMovProduto: TfrxDBDataset
+    UserName = 'frxDBMovProduto'
+    CloseDataSource = False
+    DataSource = dtsMovProduto
+    BCDToCurrency = True
+    Left = 608
+    Top = 424
+  end
+  object fdsPedido: TfrxDBDataset
+    UserName = 'frxDBPedido'
+    CloseDataSource = False
+    DataSource = dtsPedido
+    BCDToCurrency = True
+    Left = 672
+    Top = 424
+  end
+  object fdqPesqMesa: TFDQuery
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT ID_MESA, CODIGO, DESCRICAO'
+      'FROM MESA'
+      'WHERE ATIVA = true')
+    Left = 448
+    Top = 56
+  end
+  object dtsPesqMesa: TDataSource
+    DataSet = fdqPesqMesa
+    Left = 472
+    Top = 56
   end
 end

@@ -28,17 +28,11 @@ Coordinates=1066,1,195,33
 [fdqPedidoID_MESA]
 Coordinates=807,166,110,33
 
-[btnOk]
-Coordinates=69,408,44,51
-
 [dtmcon.fdqCons]
 Coordinates=128,408,96,51
 
 [fdqPedidoANOTAR]
 Coordinates=807,221,108,33
-
-[btnCancelar]
-Coordinates=410,408,73,51
 
 [dbedtMesa]
 Coordinates=162,544,68,33
@@ -100,9 +94,6 @@ Coordinates=355,476,41,51
 [dbgrd1]
 Coordinates=98,544,49,33
 
-[btnPagar]
-Coordinates=728,476,58,51
-
 [fdqMovProdutonomeProduto]
 Coordinates=1066,56,157,33
 
@@ -151,9 +142,6 @@ Coordinates=563,408,41,51
 
 [fdqPedidoPAGO]
 Coordinates=807,936,95,33
-
-[btn2]
-Coordinates=731,10,41,51
 
 [fdqClientesPERMITIR_SALDO_NEGATIVO]
 Coordinates=1330,1,220,33
@@ -218,9 +206,6 @@ Coordinates=1066,716,111,33
 [dtsProduto]
 Coordinates=126,1,69,33
 
-[btnFechar]
-Coordinates=91,476,64,51
-
 [fdqProdutoFK_TEMPORADA]
 Coordinates=1066,771,155,33
 
@@ -252,7 +237,7 @@ Coordinates=504,408,41,51
 Coordinates=1066,936,174,33
 
 []
-Coordinates=142,296,53,33
+Coordinates=410,408,73,51
 Visible=True
 ExplicitSubNodes=LookupDisplay;LookupValue
 
@@ -261,4 +246,7 @@ Coordinates=10,10,113,339
 
 [bdl1]
 Coordinates=142,296,40,33
+
+[btnPesqCliente]
+Coordinates=731,10,41,51
 

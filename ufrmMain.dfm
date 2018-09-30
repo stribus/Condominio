@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet4
+    ActivePage = tsClientes
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -30,7 +30,8 @@ object frmMain: TfrmMain
     ParentFont = False
     TabOrder = 0
     object tsMesas: TTabSheet
-      Caption = 'Mesas'
+      Caption = '&Mesas'
+      OnShow = tsMesasShow
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -48,26 +49,26 @@ object frmMain: TfrmMain
         DesignSize = (
           1114
           61)
-        object btnAbrir: TButton
+        object btnAbrirMesa: TButton
           Left = 16
           Top = 8
-          Width = 105
+          Width = 121
           Height = 41
-          Caption = 'Gerenciar Mesa'
+          Caption = '&Gerenciar Mesa(F2)'
           TabOrder = 0
-          OnClick = btnAbrirClick
+          OnClick = btnAbrirMesaClick
         end
         object btn2: TButton
-          Left = 127
+          Left = 143
           Top = 8
-          Width = 105
+          Width = 114
           Height = 41
-          Caption = 'Fechar Mesa'
+          Caption = '&Fechar Mesa(F4)'
           TabOrder = 1
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 679
+          Left = 671
           Top = 8
           Width = 105
           Height = 41
@@ -77,7 +78,7 @@ object frmMain: TfrmMain
           OnClick = btnNovaMesaClick
         end
         object btn4: TButton
-          Left = 238
+          Left = 263
           Top = 8
           Width = 105
           Height = 41
@@ -86,7 +87,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 790
+          Left = 782
           Top = 8
           Width = 105
           Height = 41
@@ -96,12 +97,12 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 901
+          Left = 893
           Top = 20
           Width = 97
           Height = 17
           Anchors = [akTop, akRight]
-          Caption = 'S'#243' mesas ativas'
+          Caption = '&S'#243' mesas ativas'
           Checked = True
           State = cbChecked
           TabOrder = 5
@@ -130,6 +131,7 @@ object frmMain: TfrmMain
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
         OnDblClick = dbgrdMesasDblClick
+        OnTitleClick = dbgrdMesasTitleClick
         Columns = <
           item
             Expanded = False
@@ -169,7 +171,7 @@ object frmMain: TfrmMain
       end
     end
     object tsClientes: TTabSheet
-      Caption = 'Clientes'
+      Caption = '&Clientes'
       ImageIndex = 1
       object Panel2: TPanel
         Left = 0
@@ -202,8 +204,9 @@ object frmMain: TfrmMain
           Top = 8
           Width = 105
           Height = 41
-          Caption = 'Conta'
+          Caption = 'Conta(F3)'
           TabOrder = 2
+          OnClick = btnCadernetaClick
         end
       end
       object dbgrdClientes: TDBGrid
@@ -218,7 +221,7 @@ object frmMain: TfrmMain
         Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
-        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -269,7 +272,7 @@ object frmMain: TfrmMain
       end
     end
     object tsProdutos: TTabSheet
-      Caption = 'Produtos'
+      Caption = '&Produtos'
       ImageIndex = 2
       object Panel3: TPanel
         Left = 0
@@ -367,7 +370,7 @@ object frmMain: TfrmMain
           item
             Expanded = False
             FieldName = 'NOME'
-            Width = 315
+            Width = 396
             Visible = True
           end
           item
@@ -378,7 +381,7 @@ object frmMain: TfrmMain
       end
     end
     object tsEntradasSaidas: TTabSheet
-      Caption = 'Entradas/Saidas'
+      Caption = '&Entradas/Saidas'
       ImageIndex = 4
       object pnl1: TPanel
         Left = 0
@@ -393,7 +396,7 @@ object frmMain: TfrmMain
           Top = 8
           Width = 105
           Height = 41
-          Caption = 'Adicionar'
+          Caption = 'Adicionar(F9)'
           TabOrder = 0
           OnClick = btn3Click
         end
@@ -451,7 +454,7 @@ object frmMain: TfrmMain
       end
     end
     object TabSheet4: TTabSheet
-      Caption = 'Config/Relat'#243'rios'
+      Caption = 'Config/&Relat'#243'rios'
       ImageIndex = 3
       object btnNovaTemporada: TButton
         Left = 814
@@ -1130,5 +1133,31 @@ object frmMain: TfrmMain
       'ORDER BY dia')
     Left = 764
     Top = 155
+  end
+  object actlst1: TActionList
+    Left = 324
+    Top = 131
+    object actGerenciaMesa: TAction
+      Category = 'Mesa'
+      Caption = 'actGerenciaMesa'
+      ShortCut = 113
+      OnExecute = btnAbrirMesaClick
+    end
+    object actFecharMesa: TAction
+      Category = 'Mesa'
+      Caption = 'actFecharMesa'
+      ShortCut = 115
+    end
+    object actConta: TAction
+      Category = 'Cliente'
+      Caption = 'actConta'
+      ShortCut = 114
+      OnExecute = btnCadernetaClick
+    end
+    object actAdicionarEntrada: TAction
+      Category = 'Entradas'
+      Caption = 'actAdicionarEntrada'
+      ShortCut = 120
+    end
   end
 end

@@ -1,7 +1,7 @@
 object frmPagamento: TfrmPagamento
   Left = 0
   Top = 0
-  Caption = 'frmPagamento'
+  Caption = 'Pagamento'
   ClientHeight = 276
   ClientWidth = 437
   Color = clBtnFace
@@ -12,6 +12,7 @@ object frmPagamento: TfrmPagamento
   Font.Style = []
   FormStyle = fsStayOnTop
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   PixelsPerInch = 96
   TextHeight = 16
   object pgc1: TJvPageControl
@@ -19,7 +20,7 @@ object frmPagamento: TfrmPagamento
     Top = 0
     Width = 437
     Height = 276
-    ActivePage = tsPagamento
+    ActivePage = tsAnotar
     Align = alClient
     OwnerDraw = True
     Style = tsFlatButtons
@@ -27,6 +28,7 @@ object frmPagamento: TfrmPagamento
     TabStop = False
     object tsPagamento: TTabSheet
       TabVisible = False
+      OnShow = tsPagamentoShow
       object pnl2: TPanel
         Left = 0
         Top = 0
@@ -140,6 +142,7 @@ object frmPagamento: TfrmPagamento
     object tsAnotar: TTabSheet
       ImageIndex = 1
       TabVisible = False
+      OnShow = tsAnotarShow
       object pnl4: TPanel
         Left = 0
         Top = 0
@@ -245,7 +248,7 @@ object frmPagamento: TfrmPagamento
           TabOrder = 0
           OnClick = btnokAnotaClick
         end
-        object btnCancel: TButton
+        object btnCancelarAnotar: TButton
           Left = 248
           Top = 9
           Width = 75
@@ -265,7 +268,7 @@ object frmPagamento: TfrmPagamento
         Top = 80
         Width = 137
         Height = 89
-        Caption = 'Anotar'
+        Caption = '&Anotar'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -281,7 +284,7 @@ object frmPagamento: TfrmPagamento
         Top = 80
         Width = 137
         Height = 89
-        Caption = 'Pagar'
+        Caption = '&Pagar'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -679,5 +682,66 @@ object frmPagamento: TfrmPagamento
       FieldName = 'TIPO_PAGAMENTO'
       Origin = 'TIPO_PAGAMENTO'
     end
+  end
+  object fdspPagar: TFDStoredProc
+    ConnectionName = 'Condominio'
+    StoredProcName = 'PR_FECHAR_PAGAR'
+    Left = 132
+    Top = 22
+    ParamData = <
+      item
+        Position = 1
+        Name = 'IN_VALOR'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'IN_TP_PAGAMENTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'IN_PEDIDO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object fdspAnotar: TFDStoredProc
+    ConnectionName = 'Condominio'
+    StoredProcName = 'PR_FECHAR_ANOTAR'
+    Left = 52
+    Top = 70
+    ParamData = <
+      item
+        Position = 1
+        Name = 'IN_PEDIDO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'IN_CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'IN_DEPENDENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'IN_DESC_DEPENDENTE'
+        DataType = ftString
+        FDDataType = dtWideString
+        ParamType = ptInput
+        Size = 150
+        Value = '0'
+      end>
   end
 end
