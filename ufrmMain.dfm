@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = tsClientes
+    ActivePage = TabSheet4
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -68,7 +68,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 671
+          Left = 639
           Top = 8
           Width = 105
           Height = 41
@@ -87,7 +87,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 782
+          Left = 750
           Top = 8
           Width = 105
           Height = 41
@@ -97,7 +97,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 893
+          Left = 861
           Top = 20
           Width = 97
           Height = 17
@@ -316,6 +316,7 @@ object frmMain: TfrmMain
           Height = 41
           Caption = 'Editar na Grade'
           TabOrder = 3
+          Visible = False
           OnClick = btnEditProdutoGrdClick
         end
       end
@@ -456,6 +457,7 @@ object frmMain: TfrmMain
     object TabSheet4: TTabSheet
       Caption = 'Config/&Relat'#243'rios'
       ImageIndex = 3
+      OnShow = TabSheet4Show
       object btnNovaTemporada: TButton
         Left = 814
         Top = 8
@@ -465,20 +467,242 @@ object frmMain: TfrmMain
         TabOrder = 0
         OnClick = btnNovaTemporadaClick
       end
-      object grp3: TGroupBox
-        Left = 16
-        Top = 16
-        Width = 137
-        Height = 105
-        Caption = 'Pagamentos'
+      object grp1: TGroupBox
+        AlignWithMargins = True
+        Left = 15
+        Top = 3
+        Width = 392
+        Height = 169
+        Hint = 'Gera relatorio de vendas conforme configurado'
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Caption = 'Vendas'
+        Ctl3D = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Arial Black'
+        Font.Style = []
+        ParentCtl3D = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 1
-        object btnRelatorioPg: TButton
-          Left = 31
-          Top = 48
+        object lbl3: TLabel
+          Left = 15
+          Top = 36
+          Width = 33
+          Height = 23
+          Caption = 'De :'
+        end
+        object lbl4: TLabel
+          Left = 199
+          Top = 36
+          Width = 40
+          Height = 23
+          Caption = 'Ate :'
+        end
+        object Edt_movimento_datai1: TJvDateEdit
+          Left = 53
+          Top = 33
+          Width = 131
+          Height = 26
+          Hint = 'selecione uma data inicial do relatorio'
+          MinDate = 40247.000000000000000000
+          DefaultToday = True
+          DialogTitle = 'Selecione uma Data'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          ShowNullDate = False
+          StartOfWeek = Sun
+          TabOrder = 0
+        end
+        object Edt_movimento_dataf1: TJvDateEdit
+          Left = 245
+          Top = 33
+          Width = 131
+          Height = 26
+          Hint = 'selecione data final do relatorio'
+          MinDate = 40247.000000000000000000
+          DefaultToday = True
+          DialogTitle = 'Selecione uma Data'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          ShowNullDate = False
+          StartOfWeek = Sun
+          TabOrder = 1
+        end
+        object btn_relVendas: TButton
+          Left = 136
+          Top = 128
+          Width = 75
+          Height = 25
+          Caption = 'Gerar'
+          TabOrder = 2
+          OnClick = btn_relVendasClick
+        end
+        object rgTipoRelVendas: TJvRadioGroup
+          Left = 3
+          Top = 59
+          Width = 388
+          Height = 43
+          Hint = 
+            'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
+            'UTO: Gera relatorio da quantidade de produtos vendidos.'
+          Columns = 3
+          Ctl3D = False
+          ItemIndex = 0
+          Items.Strings = (
+            'Pedido'
+            'Produto')
+          ParentCtl3D = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          CaptionVisible = False
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+        end
+      end
+      object grp2: TGroupBox
+        Left = 417
+        Top = 8
+        Width = 240
+        Height = 118
+        Caption = 'Debitos Cliente'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Arial Black'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        object btnDebitosClientes: TButton
+          Left = 80
+          Top = 72
           Width = 75
           Height = 25
           Caption = 'Gerar'
           TabOrder = 0
+        end
+        object rdgCliente: TJvRadioGroup
+          Left = 3
+          Top = 23
+          Width = 235
+          Height = 43
+          Hint = 
+            'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
+            'UTO: Gera relatorio da quantidade de produtos vendidos.'
+          Caption = 'ordenar por:'
+          Columns = 2
+          Ctl3D = False
+          ItemIndex = 0
+          Items.Strings = (
+            'nome '
+            'codigo')
+          ParentCtl3D = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 1
+          CaptionVisible = False
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+        end
+      end
+      object grp5: TGroupBox
+        Left = 420
+        Top = 132
+        Width = 174
+        Height = 118
+        Caption = 'Devedores'
+        TabOrder = 3
+        object btnDevedores: TButton
+          Left = 52
+          Top = 54
+          Width = 75
+          Height = 25
+          Caption = 'gerar'
+          TabOrder = 0
+        end
+      end
+      object grp4: TGroupBox
+        Left = 16
+        Top = 192
+        Width = 393
+        Height = 137
+        Caption = 'Pagamentos'
+        TabOrder = 4
+        object lbl1: TLabel
+          Left = 15
+          Top = 36
+          Width = 24
+          Height = 16
+          Caption = 'De :'
+        end
+        object lbl2: TLabel
+          Left = 199
+          Top = 36
+          Width = 28
+          Height = 16
+          Caption = 'Ate :'
+        end
+        object Edt_pg_datai1: TJvDateEdit
+          Left = 53
+          Top = 33
+          Width = 131
+          Height = 26
+          Hint = 'selecione uma data inicial do relatorio'
+          MinDate = 40247.000000000000000000
+          DefaultToday = True
+          DialogTitle = 'Selecione uma Data'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          ShowNullDate = False
+          StartOfWeek = Sun
+          TabOrder = 0
+        end
+        object Edt_pg_dataf1: TJvDateEdit
+          Left = 245
+          Top = 33
+          Width = 131
+          Height = 26
+          Hint = 'selecione data final do relatorio'
+          MinDate = 40247.000000000000000000
+          DefaultToday = True
+          DialogTitle = 'Selecione uma Data'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+          ShowNullDate = False
+          StartOfWeek = Sun
+          TabOrder = 1
+        end
+        object btnRelPagmnto: TButton
+          Left = 135
+          Top = 88
+          Width = 75
+          Height = 25
+          Caption = 'Gerar'
+          TabOrder = 2
           OnClick = btnRelatorioPgClick
         end
       end
@@ -486,7 +710,7 @@ object frmMain: TfrmMain
   end
   object fdqMesas: TFDQuery
     BeforeOpen = fdqMesasBeforeOpen
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
     UpdateOptions.EnableDelete = False
     UpdateOptions.EnableInsert = False
@@ -616,7 +840,7 @@ object frmMain: TfrmMain
   object fdqProdutos: TFDQuery
     AfterInsert = fdqProdutosAfterInsert
     BeforePost = fdqProdutosBeforePost
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     OnError = fdqProdutosError
     SQL.Strings = (
       'select'
@@ -673,7 +897,7 @@ object frmMain: TfrmMain
     Top = 192
   end
   object fdqConfiguracoes: TFDQuery
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     FormatOptions.AssignedValues = [fvDefaultParamDataType]
     FormatOptions.DefaultParamDataType = ftLargeint
     SQL.Strings = (
@@ -763,7 +987,7 @@ object frmMain: TfrmMain
   object fdqClientes: TFDQuery
     AfterInsert = fdqProdutosAfterInsert
     BeforePost = fdqProdutosBeforePost
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     OnError = fdqProdutosError
     SQL.Strings = (
       'select'
@@ -775,8 +999,8 @@ object frmMain: TfrmMain
       '  iif(ativo,'#39'Sim'#39','#39'N'#227'o'#39') ativo'
       'from'
       '  cliente')
-    Left = 172
-    Top = 288
+    Left = 292
+    Top = 296
     object fdqClientesID_CLIENTE: TLargeintField
       FieldName = 'ID_CLIENTE'
       Origin = 'ID_CLIENTE'
@@ -816,273 +1040,8 @@ object frmMain: TfrmMain
   end
   object dtsClientes: TDataSource
     DataSet = fdqClientes
-    Left = 196
-    Top = 288
-  end
-  object frepPagamentos: TfrxReport
-    Version = '5.1.5'
-    DotMatrixReport = False
-    IniFile = '\Software\Fast Reports'
-    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
-    PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Default'
-    PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43364.710290277780000000
-    ReportOptions.LastChange = 43364.710290277780000000
-    ScriptLanguage = 'PascalScript'
-    ScriptText.Strings = (
-      'begin'
-      ''
-      'end.')
-    Left = 732
-    Top = 107
-    Datasets = <
-      item
-        DataSet = fdsRelPagamentos
-        DataSetName = 'frxDBPagamnetos'
-      end>
-    Variables = <>
-    Style = <>
-    object Data: TfrxDataPage
-      Height = 1000.000000000000000000
-      Width = 1000.000000000000000000
-    end
-    object Page1: TfrxReportPage
-      PaperWidth = 210.000000000000000000
-      PaperHeight = 297.000000000000000000
-      PaperSize = 9
-      LeftMargin = 10.000000000000000000
-      RightMargin = 10.000000000000000000
-      TopMargin = 10.000000000000000000
-      BottomMargin = 10.000000000000000000
-      object ReportTitle1: TfrxReportTitle
-        FillType = ftBrush
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        Height = 71.811070000000000000
-        ParentFont = False
-        Top = 18.897650000000000000
-        Width = 718.110700000000000000
-        object Memo1: TfrxMemoView
-          Left = 253.228510000000000000
-          Top = 3.779530000000000000
-          Width = 139.842610000000000000
-          Height = 26.456710000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -21
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8W = (
-            'Pagamentos')
-          ParentFont = False
-        end
-        object Memo2: TfrxMemoView
-          Left = 7.559060000000000000
-          Top = 52.913420000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Data')
-        end
-        object Memo3: TfrxMemoView
-          Left = 132.283550000000000000
-          Top = 52.913420000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Dinheiro')
-        end
-        object Memo4: TfrxMemoView
-          Left = 283.464750000000000000
-          Top = 52.913420000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Cheque')
-        end
-        object Memo5: TfrxMemoView
-          Left = 434.645950000000000000
-          Top = 52.913420000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Cart'#227'o')
-        end
-        object Memo6: TfrxMemoView
-          Left = 600.945270000000000000
-          Top = 52.913420000000000000
-          Width = 113.385900000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Total')
-        end
-      end
-      object MasterData1: TfrxMasterData
-        FillType = ftBrush
-        Height = 22.677180000000000000
-        Top = 151.181200000000000000
-        Width = 718.110700000000000000
-        DataSet = fdsRelPagamentos
-        DataSetName = 'frxDBPagamnetos'
-        RowCount = 0
-        object frxDBPagamnetosDIA: TfrxMemoView
-          Left = 7.559060000000000000
-          Width = 79.370130000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsRelPagamentos
-          DataSetName = 'frxDBPagamnetos'
-          DisplayFormat.FormatStr = 'dd/mm/yyyy'
-          DisplayFormat.Kind = fkDateTime
-          Memo.UTF8W = (
-            '[frxDBPagamnetos."DIA"]')
-        end
-        object frxDBPagamnetosDINHEIRO: TfrxMemoView
-          Left = 105.826840000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DataField = 'DINHEIRO'
-          DataSet = fdsRelPagamentos
-          DataSetName = 'frxDBPagamnetos'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[frxDBPagamnetos."DINHEIRO"]')
-        end
-        object Memo7: TfrxMemoView
-          Left = 257.008040000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DataField = 'CHEQUE'
-          DataSet = fdsRelPagamentos
-          DataSetName = 'frxDBPagamnetos'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[frxDBPagamnetos."CHEQUE"]')
-        end
-        object Memo8: TfrxMemoView
-          Left = 408.189240000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsRelPagamentos
-          DataSetName = 'frxDBPagamnetos'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[frxDBPagamnetos."CARTAO"]')
-        end
-        object Memo9: TfrxMemoView
-          Left = 566.929500000000000000
-          Width = 147.401670000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsRelPagamentos
-          DataSetName = 'frxDBPagamnetos'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            
-              '[(<frxDBPagamnetos."CHEQUE">+<frxDBPagamnetos."DINHEIRO">+<frxDB' +
-              'Pagamnetos."CARTAO">)]')
-        end
-      end
-      object Footer1: TfrxFooter
-        FillType = ftBrush
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        Height = 45.354360000000000000
-        ParentFont = False
-        Top = 196.535560000000000000
-        Width = 718.110700000000000000
-        object Line1: TfrxLineView
-          Left = 7.559060000000000000
-          Top = 7.559060000000000000
-          Width = 699.213050000000000000
-          Color = clBlack
-          Diagonal = True
-        end
-        object Memo10: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 15.118120000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Total')
-        end
-        object Memo11: TfrxMemoView
-          Left = 105.826840000000000000
-          Top = 15.118120000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[SUM(<frxDBPagamnetos."DINHEIRO">,MasterData1)]')
-        end
-        object Memo12: TfrxMemoView
-          Left = 257.008040000000000000
-          Top = 15.118120000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[SUM(<frxDBPagamnetos."CHEQUE">,MasterData1,2)]')
-        end
-        object Memo13: TfrxMemoView
-          Left = 408.189240000000000000
-          Top = 15.118120000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[SUM(<frxDBPagamnetos."CARTAO">,MasterData1)]')
-        end
-        object Memo14: TfrxMemoView
-          Left = 566.929500000000000000
-          Top = 15.118120000000000000
-          Width = 147.401670000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            
-              '[SUM(<frxDBPagamnetos."CHEQUE">+<frxDBPagamnetos."DINHEIRO">+<fr' +
-              'xDBPagamnetos."CARTAO">,MasterData1)]')
-        end
-      end
-    end
+    Left = 316
+    Top = 296
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -1107,32 +1066,6 @@ object frmMain: TfrmMain
     PdfA = False
     Left = 508
     Top = 291
-  end
-  object fdsRelPagamentos: TfrxDBDataset
-    UserName = 'frxDBPagamnetos'
-    CloseDataSource = True
-    DataSet = fdqRelPagamentos
-    BCDToCurrency = True
-    Left = 764
-    Top = 107
-  end
-  object fdqRelPagamentos: TFDQuery
-    Connection = dtmcon.conexao
-    SQL.Strings = (
-      'SELECT'
-      #9'cast(m.DATA_HORA AS DATE) dia,'
-      #9'sum(iif(m.TIPO_PAGAMENTO = 1,-1,0 )*VALOR_TOTAL) Anotar,'
-      #9'sum(iif(m.TIPO_PAGAMENTO = 3,-1,0 )*VALOR_TOTAL) Cheque,'#9
-      #9'sum(iif(m.TIPO_PAGAMENTO = 4,-1,0 )*VALOR_TOTAL) Dinheiro,'
-      #9'sum(iif(m.TIPO_PAGAMENTO = 6,-1,0 )*VALOR_TOTAL) Cartao'
-      'FROM'
-      #9'MOV_PRODUTO m'
-      'WHERE'
-      ' '#9'm.PAGAMENTO = TRUE'
-      'GROUP BY  dia'
-      'ORDER BY dia')
-    Left = 764
-    Top = 155
   end
   object actlst1: TActionList
     Left = 324

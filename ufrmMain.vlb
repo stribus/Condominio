@@ -157,3 +157,6 @@ Coordinates=10,322,77,36
 [btnAbrirMesa]
 Coordinates=187,254,60,58
 
+[frmManutencaoMesa.fdqPedido]
+Visible=False
+

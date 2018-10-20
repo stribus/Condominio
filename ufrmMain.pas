@@ -12,8 +12,8 @@ uses
   JvToolEdit, Vcl.Mask, JvExMask, JvMaskEdit, JvCheckedMaskEdit, ufrmCadProdutos,
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
-  Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet,
-  frxExportPDF, System.Actions, Vcl.ActnList;
+  Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet, udtmRelatorios,
+  frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup;
 
 type
   TfrmMain = class(TForm)
@@ -95,17 +95,30 @@ type
     btnAddCliente: TButton;
     btnAlterCliente: TButton;
     btnCaderneta: TButton;
-    frepPagamentos: TfrxReport;
     frxPDFExport1: TfrxPDFExport;
-    fdsRelPagamentos: TfrxDBDataset;
-    fdqRelPagamentos: TFDQuery;
-    grp3: TGroupBox;
-    btnRelatorioPg: TButton;
     actlst1: TActionList;
     actGerenciaMesa: TAction;
     actFecharMesa: TAction;
     actConta: TAction;
     actAdicionarEntrada: TAction;
+    grp1: TGroupBox;
+    lbl3: TLabel;
+    lbl4: TLabel;
+    Edt_movimento_datai1: TJvDateEdit;
+    Edt_movimento_dataf1: TJvDateEdit;
+    btn_relVendas: TButton;
+    rgTipoRelVendas: TJvRadioGroup;
+    grp2: TGroupBox;
+    btnDebitosClientes: TButton;
+    rdgCliente: TJvRadioGroup;
+    grp5: TGroupBox;
+    btnDevedores: TButton;
+    grp4: TGroupBox;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    Edt_pg_datai1: TJvDateEdit;
+    Edt_pg_dataf1: TJvDateEdit;
+    btnRelPagmnto: TButton;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -133,6 +146,8 @@ type
     procedure dbgrdMesasTitleClick(Column: TColumn);
     procedure tsMesasShow(Sender: TObject);
     procedure btnCadernetaClick(Sender: TObject);
+    procedure TabSheet4Show(Sender: TObject);
+    procedure btn_relVendasClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -292,7 +307,22 @@ end;
 
 procedure TfrmMain.btnRelatorioPgClick(Sender: TObject);
 begin
-  frepPagamentos.ShowReport(true);
+  dtmRelatorios.fdqRelPagamentos.Close;
+  dtmRelatorios.fdqRelPagamentos.ParamByName('DATAINI').Value := Edt_pg_datai1.Date;
+  dtmRelatorios.fdqRelPagamentos.ParamByName('DATAFIM').Value := Edt_pg_dataf1.Date;
+  dtmRelatorios.frepPagamentos.ShowReport(true);
+end;
+
+procedure TfrmMain.btn_relVendasClick(Sender: TObject);
+begin
+  if(rgTipoRelVendas.ItemIndex = 1)then
+  begin
+    dtmRelatorios.fdqProdutosVendidos.Close;
+    dtmRelatorios.fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;
+    dtmRelatorios.fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
+    dtmRelatorios.frepProdutosVendidos.ShowReport(true);
+  end;
+
 end;
 
 procedure TfrmMain.carregaConfiguracoes;
@@ -389,6 +419,11 @@ begin
 end;
 
 
+
+procedure TfrmMain.TabSheet4Show(Sender: TObject);
+begin
+  Edt_pg_datai1.Date := fdqConfiguracoesPERIODO_INICIAL.AsDateTime;
+end;
 
 procedure TfrmMain.tsMesasShow(Sender: TObject);
 begin

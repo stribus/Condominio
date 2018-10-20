@@ -2,7 +2,7 @@ object frmConta: TfrmConta
   Left = 100
   Top = 100
   Caption = 'Conta'
-  ClientHeight = 440
+  ClientHeight = 514
   ClientWidth = 968
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,12 +19,11 @@ object frmConta: TfrmConta
     Left = 0
     Top = 0
     Width = 321
-    Height = 385
+    Height = 459
     Align = alLeft
     BevelOuter = bvNone
     Enabled = False
     TabOrder = 0
-    ExplicitHeight = 377
     object lbl5: TLabel
       Left = 24
       Top = 41
@@ -82,17 +81,15 @@ object frmConta: TfrmConta
     Left = 321
     Top = 0
     Width = 647
-    Height = 385
+    Height = 459
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 614
-    ExplicitHeight = 377
     object dbgjvdbgrd1: TJvDBGrid
       Left = 0
       Top = 25
       Width = 637
-      Height = 295
+      Height = 369
       Align = alClient
       DataSource = dtsCaderneta
       Font.Charset = DEFAULT_CHARSET
@@ -166,13 +163,12 @@ object frmConta: TfrmConta
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 614
       DesignSize = (
         647
         25)
       object btn_incluir: TJvXPButton
-        Left = 432
-        Top = 0
+        Left = 584
+        Top = 2
         Width = 20
         Height = 20
         Hint = 'Incluir'
@@ -214,10 +210,11 @@ object frmConta: TfrmConta
         ShowHint = True
         Style.Theme = OfficeXP
         Style.UseStyleManager = False
+        OnClick = btn_incluirClick
       end
       object btn_excluir: TJvXPButton
-        Left = 375
-        Top = 0
+        Left = 556
+        Top = 2
         Width = 20
         Height = 20
         Hint = 'Excluir item selecionado'
@@ -261,19 +258,17 @@ object frmConta: TfrmConta
     end
     object jvpnl4: TJvPanel
       Left = 0
-      Top = 320
+      Top = 394
       Width = 647
       Height = 65
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 3
-      ExplicitTop = 312
-      ExplicitWidth = 614
       DesignSize = (
         647
         65)
       object lbl2: TLabel
-        Left = 60
+        Left = 244
         Top = 16
         Width = 61
         Height = 16
@@ -287,7 +282,7 @@ object frmConta: TfrmConta
         ParentFont = False
       end
       object lbl3: TLabel
-        Left = 180
+        Left = 364
         Top = 16
         Width = 28
         Height = 16
@@ -301,7 +296,7 @@ object frmConta: TfrmConta
         ParentFont = False
       end
       object lbl4: TLabel
-        Left = 308
+        Left = 492
         Top = 3
         Width = 32
         Height = 16
@@ -315,7 +310,7 @@ object frmConta: TfrmConta
         ParentFont = False
       end
       object dbedt_consumido: TDBEdit
-        Left = 60
+        Left = 244
         Top = 32
         Width = 114
         Height = 27
@@ -324,8 +319,8 @@ object frmConta: TfrmConta
         BiDiMode = bdLeftToRight
         Color = 15527167
         Ctl3D = True
-        DataField = 'CONSUMO'
-        DataSource = Dao.src_total
+        DataField = 'VALOR_GASTO'
+        DataSource = dtsTotais
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -340,26 +335,26 @@ object frmConta: TfrmConta
         TabOrder = 0
       end
       object dbedt_pago: TDBEdit
-        Left = 180
+        Left = 364
         Top = 32
         Width = 117
         Height = 21
         Anchors = [akTop, akRight]
         Color = 15794145
-        DataField = 'PAGO'
-        DataSource = Dao.src_total
+        DataField = 'VALOR_PAGO'
+        DataSource = dtsTotais
         ReadOnly = True
         TabOrder = 1
       end
       object dbedt_total: TDBEdit
-        Left = 303
+        Left = 487
         Top = 22
         Width = 138
         Height = 37
         Anchors = [akTop, akRight]
         Color = 14680063
-        DataField = 'DEBITO'
-        DataSource = Dao.src_total
+        DataField = 'SALDO'
+        DataSource = dtsTotais
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -24
@@ -374,23 +369,19 @@ object frmConta: TfrmConta
       Left = 637
       Top = 25
       Width = 10
-      Height = 295
+      Height = 369
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitLeft = 604
-      ExplicitHeight = 287
     end
   end
   object jvpnl5: TJvPanel
     Left = 0
-    Top = 385
+    Top = 459
     Width = 968
     Height = 55
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 377
-    ExplicitWidth = 935
     DesignSize = (
       968
       55)
@@ -463,9 +454,72 @@ object frmConta: TfrmConta
     Top = 16
   end
   object fdqTotais: TFDQuery
+    BeforeOpen = fdqTotaisBeforeOpen
     ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT'
+      #9'ped.fk_temporada ,'
+      #9'cc.fk_cliente ,'#9
+      #9'sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,'#9
+      #9'sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0)*-1) valor_pago'#9','
+      #9'SUM(mv.valor_total) Saldo'
+      'FROM'
+      #9'caderneta_cliente cc'
+      #9'JOIN mov_produto mv ON'
+      #9#9'cc.id_caderneta = mv.fk_caderneta'
+      #9'LEFT JOIN produtos pr ON'
+      #9#9'pr.id_rodutos = mv.fk_produto'
+      #9'LEFT JOIN pedido ped ON'
+      #9#9'ped.id_pedido = mv.fk_pedido'
+      'WHERE'
+      #9'cc.FK_CLIENTE =:id_cliente'
+      #9'AND ped.FK_TEMPORADA = :id_temporada'
+      'GROUP BY fk_temporada,FK_CLIENTE')
     Left = 224
     Top = 232
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = 26
+      end
+      item
+        Name = 'ID_TEMPORADA'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = 10
+      end>
+    object fdqTotaisFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+    end
+    object fdqTotaisFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqTotaisVALOR_GASTO: TBCDField
+      FieldName = 'VALOR_GASTO'
+      Origin = 'VALOR_GASTO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisVALOR_PAGO: TBCDField
+      FieldName = 'VALOR_PAGO'
+      Origin = 'VALOR_PAGO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisSALDO: TBCDField
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
   end
   object dtsTotais: TDataSource
     DataSet = fdqTotais

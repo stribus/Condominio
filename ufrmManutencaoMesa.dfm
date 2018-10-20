@@ -332,7 +332,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Style = []
         MinValue = 0.010000000000000000
         ParentFont = False
-        ShowButton = False
         TabOrder = 6
         Value = 1.000000000000000000
         DecimalPlacesAlwaysShown = False
@@ -389,7 +388,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       object dbcbbAUTORIZADO: TDBLookupComboBox
         Left = 6
         Top = 545
-        Width = 414
+        Width = 339
         Height = 21
         Anchors = [akLeft, akRight, akBottom]
         DataField = 'FK_DEPENDENTE'
@@ -491,6 +490,18 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         OnClick = dbcbbClienteExit
         OnExit = dbcbbClienteExit
       end
+      object dbedtRetirar: TDBEdit
+        Left = 351
+        Top = 545
+        Width = 106
+        Height = 21
+        Anchors = [akRight, akBottom]
+        DataField = 'PERMITIR_RETIRAR'
+        DataSource = dtsDependentes
+        Enabled = False
+        ReadOnly = True
+        TabOrder = 13
+      end
     end
     object pnl4: TPanel
       Left = 0
@@ -512,7 +523,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Caption = 'Total :'
         ExplicitTop = 463
       end
-      object dbgrd1: TDBGrid
+      object dbgrdMovProduto: TDBGrid
         Left = 16
         Top = 16
         Width = 458
@@ -531,7 +542,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
-        OnKeyDown = dbgrd1KeyDown
+        OnKeyDown = dbgrdMovProdutoKeyDown
+        OnTitleClick = dbgrdMovProdutoTitleClick
         Columns = <
           item
             Expanded = False
@@ -778,6 +790,18 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   object fdqMovProduto: TFDQuery
     BeforeOpen = fdqMovProdutoBeforeOpen
     CachedUpdates = True
+    Indexes = <
+      item
+        Active = True
+        Name = 'NomeProduto'
+        Fields = 'nomeProduto'
+      end
+      item
+        Active = True
+        Name = 'ID'
+        Fields = 'ID_MOV_PRODUTO'
+      end>
+    IndexesActive = False
     Aggregates = <
       item
         Name = 'Total'
@@ -1194,9 +1218,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     SQL.Strings = (
       'SELECT * FROM DEPENDENTES'
       'WHERE '
-      'FK_CLIENTE = :ID_CLIENTE'
-      'AND '
-      'PERMITIR_RETIRAR = TRUE')
+      'FK_CLIENTE = :ID_CLIENTE')
     Left = 336
     Top = 344
     ParamData = <
@@ -1206,6 +1228,44 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParamType = ptInput
         Value = Null
       end>
+    object fdqDependenteID_DEPENDENTES: TLargeintField
+      FieldName = 'ID_DEPENDENTES'
+      Origin = 'ID_DEPENDENTES'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqDependenteCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqDependenteNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqDependenteFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqDependenteFONE: TStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 150
+    end
+    object fdqDependenteOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdqDependentePERMITIR_RETIRAR: TBooleanField
+      FieldName = 'PERMITIR_RETIRAR'
+      Origin = 'PERMITIR_RETIRAR'
+      Required = True
+      OnGetText = fdqDependentePERMITIR_RETIRARGetText
+    end
   end
   object dtsDependentes: TDataSource
     DataSet = fdqDependente

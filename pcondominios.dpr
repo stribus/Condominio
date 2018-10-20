@@ -21,17 +21,17 @@ uses
   ufrmCadClientes in 'ufrmCadClientes.pas' {frmCadClientes},
   ufrmCadDependentes in 'ufrmCadDependentes.pas' {frmCadDependente},
   uFrmConta in 'uFrmConta.pas' {frmConta},
-  ufrmPesqProduto in 'ufrmPesqProduto.pas' {frmPesqProduto};
+  ufrmPesqProduto in 'ufrmPesqProduto.pas' {frmPesqProduto},
+  ufrmAnotar in 'ufrmAnotar.pas' {frmAnotar},
+  udtmRelatorios in 'udtmRelatorios.pas' {dtmRelatorios: TDataModule};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(Tdtmcon, dtmcon);
-  Application.CreateForm(TfrmTemporadas, frmTemporadas);
-  Application.CreateForm(TfrmCadTemporada, frmCadTemporada);
-  Application.CreateForm(TfrmCadProduto, frmCadProduto);
+  Application.CreateForm(TdtmRelatorios, dtmRelatorios);
+  Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

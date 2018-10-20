@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons,
-  JvExButtons, JvBitBtn, Vcl.DBCtrls, Vcl.Mask, JvExMask, JvToolEdit,
+  JvExButtons, JvBitBtn, Vcl.DBCtrls, Vcl.Mask, JvExMask, JvToolEdit,UGeral,
   JvBaseEdits, JvDBLookup, Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope,
   JvExStdCtrls, JvMemo, System.Actions, Vcl.ActnList, Vcl.StdActns, JvExDBGrids,
@@ -32,7 +32,7 @@ type
     fdqMovProdutoFK_CADERNETA: TLargeintField;
     pnl3: TPanel;
     pnl4: TPanel;
-    dbgrd1: TDBGrid;
+    dbgrdMovProduto: TDBGrid;
     fdqMovProdutonomeProduto: TStringField;
     fdqMovProdutoVALOR_TOTAL: TBCDField;
     fdqMovProdutoVlr_uni: TCurrencyField;
@@ -128,10 +128,18 @@ type
     dbcbbFindMesa: TDBLookupComboBox;
     fdqPesqMesa: TFDQuery;
     dtsPesqMesa: TDataSource;
+    dbedtRetirar: TDBEdit;
+    fdqDependenteID_DEPENDENTES: TLargeintField;
+    fdqDependenteCODIGO: TLargeintField;
+    fdqDependenteNOME: TStringField;
+    fdqDependenteFK_CLIENTE: TLargeintField;
+    fdqDependenteFONE: TStringField;
+    fdqDependenteOBS: TMemoField;
+    fdqDependentePERMITIR_RETIRAR: TBooleanField;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
-    procedure dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dbgrdMovProdutoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnMoveMesaClick(Sender: TObject);
     procedure btnPesqClienteClick(Sender: TObject);
@@ -144,6 +152,9 @@ type
     procedure dbgPesquisaProdutoResize(Sender: TObject);
     procedure dbgPesquisaProdutoDblClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
+    procedure fdqDependentePERMITIR_RETIRARGetText(Sender: TField;
+      var Text: string; DisplayText: Boolean);
+    procedure dbgrdMovProdutoTitleClick(Column: TColumn);
   private
     { Private declarations }
     function getPedidoId: Integer;
@@ -190,6 +201,8 @@ begin
   begin
     edtCodigoCliente.Text := '';
     dbcbbCliente.Field.Clear;
+    dbcbbAUTORIZADO.KeyValue := null;
+    dbedtRetirar.Repaint;
   end;
 //  dbmmoOBS.Visible:=  not dbcbbCliente.Field.IsNull;
 end;
@@ -206,6 +219,29 @@ begin
     Key := ',';
   if not (Key in ['0'..'9', #8, ',', #9]) then
     Key := #0;
+
+end;
+
+procedure TfrmManutencaoMesa.fdqDependentePERMITIR_RETIRARGetText(
+  Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+    if Sender.IsNull or VarIsNull(dbcbbAUTORIZADO.KeyValue) then
+    begin
+      Text :='';
+      DisplayText := False;
+    end
+    else
+    begin
+      DisplayText := True;
+      if Sender.AsBoolean then
+      begin
+        Text := 'Permitido Anotar';
+      end
+      else
+      begin
+        Text := 'Bloqueado Anotar';
+      end;
+    end;
 
 end;
 
@@ -331,6 +367,8 @@ begin
   if (dbcbbCliente.Field.IsNull) then
   begin
     edtCodigoCliente.Text := '';
+    dbcbbAUTORIZADO.KeyValue := null;
+    dbedtRetirar.Repaint;
   end
   else
   begin
@@ -358,11 +396,16 @@ begin
   dbgPesquisaProduto.Columns[1].Width := tamanho;
 end;
 
-procedure TfrmManutencaoMesa.dbgrd1KeyDown(Sender: TObject; var Key: Word; Shift:
+procedure TfrmManutencaoMesa.dbgrdMovProdutoKeyDown(Sender: TObject; var Key: Word; Shift:
   TShiftState);
 begin
   if Key = VK_DELETE then
     btnExcluirClick(Sender);
+end;
+
+procedure TfrmManutencaoMesa.dbgrdMovProdutoTitleClick(Column: TColumn);
+begin
+//sortColumn(fdqMovProduto,Column);
 end;
 
 procedure TfrmManutencaoMesa.btnPesqClienteClick(Sender: TObject);

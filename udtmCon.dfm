@@ -25,10 +25,19 @@ object dtmcon: Tdtmcon
   end
   object conexao: TFDConnection
     Params.Strings = (
+      'CharacterSet=WIN1252'
       'ConnectionDef=Condominio'
-      'DropDatabase=No')
+      'Protocol=TCPIP'
+      'Server=127.0.0.1'
+      'Port=3050')
     LoginPrompt = False
     Left = 40
     Top = 32
+  end
+  object fdpdl1: TFDPhysFBDriverLink
+    VendorLib = 'C:\condominio_novo\Fb3_0_embeded\fbclient.dll'
+    Embedded = True
+    Left = 192
+    Top = 152
   end
 end

@@ -16,6 +16,7 @@ type
     fdqCons: TFDQuery;
     fdmConfigIni: TFDManager;
     conexao: TFDConnection;
+    fdpdl1: TFDPhysFBDriverLink;
     procedure DataModuleCreate(Sender: TObject);
     procedure con1BeforeConnect(Sender: TObject);
     procedure fdmConfigIniBeforeLoadConnectionDefFile(Sender: TObject);
@@ -67,11 +68,25 @@ end;
 
 procedure Tdtmcon.DataModuleCreate(Sender: TObject);
 begin
+  if (DebugHook = 0) then
+  begin
+      //fdpdl1.Embedded := True;
+//    FDPhysFBDriverLink1 := TFDPhysFBDriverLink.Create(Self);
+//
+//    with FDPhysFBDriverLink1 do
+//    begin
+//      Name := 'FDPhysFBDriverLink1';
+//      Embedded := True;
+//      VendorLib := 'C:\condominio_novo\Fb3_0_embeded\fbclient.dll';
+//    end;
+
+  end;
+
   if not fdmConfigIni.Active then
     fdmConfigIni.Active := True;
-
+//  ShowMessage(conexao.Params.Database);
   if not conexao.Connected then
-    conexao.Connected := True;
+ //   conexao.Connected := True;
 end;
 
 function Tdtmcon.existsCod(AValId, AValCod: Largeint; ATabela, ANomeId, ANomeCod: string): Boolean;

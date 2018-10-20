@@ -63,9 +63,17 @@ type
     fdqProdutoslookupVALOR_UNI: TBCDField;
     dtsProdutoslookup: TDataSource;
     fdqCadernetaNomeProduto: TStringField;
+    fdqTotaisFK_TEMPORADA: TLargeintField;
+    fdqTotaisFK_CLIENTE: TLargeintField;
+    fdqTotaisVALOR_GASTO: TBCDField;
+    fdqTotaisVALOR_PAGO: TBCDField;
+    fdqTotaisSALDO: TBCDField;
     procedure fdqCadernetaBeforeOpen(DataSet: TDataSet);
+    procedure btn_incluirClick(Sender: TObject);
+    procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
   private
     { Private declarations }
+    procedure refreshConta();
   public
     class function Editar(Aowner: TComponent; AId_Cliente: Integer; AIdTemporada:
       Integer): Boolean;
@@ -82,6 +90,11 @@ implementation
 
 { TfrmConta }
 
+procedure TfrmConta.btn_incluirClick(Sender: TObject);
+begin
+{}
+end;
+
 class function TfrmConta.Editar(Aowner: TComponent; AId_Cliente,
   AIdTemporada: Integer): Boolean;
 
@@ -96,10 +109,10 @@ begin
     FIdTemporada := AIdTemporada;
     fdqCliente.ParamByName('ID_CLIENTE').AsLargeInt := FIdCliente;
     fdqCliente.Open();
-    fdqCaderneta.Open();
+    refreshConta;
     if (frm.ShowModal = mrOk) then
     begin
-      
+
     end;
 
   finally
@@ -113,6 +126,20 @@ procedure TfrmConta.fdqCadernetaBeforeOpen(DataSet: TDataSet);
 begin
   fdqCaderneta.ParamByName('ID_CLIENTE').AsInteger := FIdCliente;
   fdqCaderneta.ParamByName('id_temporada').AsInteger := FIdTemporada;
+end;
+
+procedure TfrmConta.fdqTotaisBeforeOpen(DataSet: TDataSet);
+begin
+  fdqTotais.ParamByName('ID_CLIENTE').AsInteger := FIdCliente;
+  fdqTotais.ParamByName('id_temporada').AsInteger := FIdTemporada;
+end;
+
+procedure TfrmConta.refreshConta;
+begin
+  fdqCaderneta.Close;
+  fdqCaderneta.Open();
+  fdqTotais.Close;
+  fdqTotais.Open();
 end;
 
 end.

@@ -91,9 +91,6 @@ Coordinates=807,716,101,33
 [lbl6]
 Coordinates=355,476,41,51
 
-[dbgrd1]
-Coordinates=98,544,49,33
-
 [fdqMovProdutonomeProduto]
 Coordinates=1066,56,157,33
 
@@ -249,4 +246,7 @@ Coordinates=142,296,40,33
 
 [btnPesqCliente]
 Coordinates=731,10,41,51
+
+[dbgrdMovProduto]
+Coordinates=98,544,49,33
 

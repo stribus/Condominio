@@ -690,11 +690,9 @@ object frmPagamento: TfrmPagamento
     Top = 22
     ParamData = <
       item
-        Position = 1
-        Name = 'IN_VALOR'
-        DataType = ftFMTBcd
-        Precision = 15
-        NumericScale = 2
+        Position = 3
+        Name = 'IN_PEDIDO'
+        DataType = ftInteger
         ParamType = ptInput
       end
       item
@@ -704,9 +702,12 @@ object frmPagamento: TfrmPagamento
         ParamType = ptInput
       end
       item
-        Position = 3
-        Name = 'IN_PEDIDO'
-        DataType = ftInteger
+        Position = 1
+        Name = 'IN_VALOR'
+        DataType = ftFMTBcd
+        FDDataType = dtCurrency
+        Precision = 15
+        NumericScale = 2
         ParamType = ptInput
       end>
   end

@@ -48,7 +48,11 @@ procedure sortColumn(Aqry: TFDQuery; ACol: TColumn);
 begin
   if Aqry.IndexFieldNames = ACol.FieldName then
   begin
-    Aqry.IndexFieldNames := ACol.FieldName + ':D';
+    try
+      Aqry.IndexFieldNames := ACol.FieldName + ':D';
+    except
+      Aqry.IndexName := ACol.FieldName ;
+    end;
   end
   else
     Aqry.IndexFieldNames := ACol.FieldName;
