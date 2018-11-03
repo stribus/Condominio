@@ -2,8 +2,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   Left = 0
   Top = 0
   Caption = 'Mesa - x'
-  ClientHeight = 750
-  ClientWidth = 950
+  ClientHeight = 650
+  ClientWidth = 991
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,24 +24,27 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object pnl1: TPanel
     Left = 0
-    Top = 702
-    Width = 950
+    Top = 602
+    Width = 991
     Height = 48
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 702
+    ExplicitWidth = 1001
     DesignSize = (
-      950
+      991
       48)
     object pnl5: TPanel
       AlignWithMargins = True
       Left = 0
       Top = 0
-      Width = 761
+      Width = 802
       Height = 43
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitWidth = 812
       object btnOk: TButton
         Left = 272
         Top = 6
@@ -93,23 +96,28 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   object pnl2: TPanel
     Left = 0
     Top = 0
-    Width = 950
-    Height = 702
+    Width = 991
+    Height = 602
     Align = alClient
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 1001
+    ExplicitHeight = 702
     object pnl3: TPanel
-      Left = 480
+      Left = 505
       Top = 0
-      Width = 470
-      Height = 702
+      Width = 486
+      Height = 602
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitLeft = 524
+      ExplicitWidth = 477
+      ExplicitHeight = 702
       DesignSize = (
-        470
-        702)
+        486
+        602)
       object lbl1: TLabel
         Left = 111
         Top = 173
@@ -153,16 +161,18 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object lbl8: TLabel
         Left = 6
-        Top = 526
-        Width = 75
+        Top = 426
+        Width = 84
         Height = 13
         Anchors = [akLeft, akRight, akBottom]
         Caption = 'Autorizado por:'
+        ExplicitTop = 526
+        ExplicitWidth = 75
       end
       object dbcbbCliente: TDBLookupComboBox
         Left = 79
         Top = 122
-        Width = 346
+        Width = 362
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         DataField = 'ID_CLIENTE'
@@ -180,9 +190,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TabOrder = 4
         OnClick = dbcbbClienteExit
         OnExit = dbcbbClienteExit
+        ExplicitWidth = 353
       end
       object btnBuscaProduto: TJvBitBtn
-        Left = 432
+        Left = 448
         Top = 172
         Width = 23
         Height = 24
@@ -216,9 +227,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 9
+        ExplicitLeft = 439
       end
       object btnMoveMesa: TButton
-        Left = 412
+        Left = 428
         Top = 68
         Width = 43
         Height = 24
@@ -226,11 +238,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Caption = '&Mover'
         TabOrder = 2
         OnClick = btnMoveMesaClick
+        ExplicitLeft = 419
       end
       object dbedtMesa: TDBEdit
         Left = 18
         Top = 68
-        Width = 389
+        Width = 405
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         DataField = 'DESCRICAO'
@@ -244,9 +257,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
+        ExplicitWidth = 396
       end
       object btnPesqCliente: TJvBitBtn
-        Left = 431
+        Left = 447
         Top = 122
         Width = 24
         Height = 24
@@ -281,9 +295,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TabOrder = 5
         Visible = False
         OnClick = btnPesqClienteClick
+        ExplicitLeft = 438
       end
       object btnAdicionar: TJvBitBtn
-        Left = 407
+        Left = 423
         Top = 172
         Width = 24
         Height = 24
@@ -318,6 +333,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           E6DCDFE6DCE8EAE7EFEDF1F7F6F7FFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 8
         OnClick = btnAdicionarClick
+        ExplicitLeft = 414
       end
       object edtQtd: TJvCalcEdit
         Left = 18
@@ -339,7 +355,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       object edtProduto: TEdit
         Left = 128
         Top = 172
-        Width = 273
+        Width = 289
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         Font.Charset = DEFAULT_CHARSET
@@ -350,6 +366,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         TabOrder = 7
         OnKeyPress = edtProdutoKeyPress
+        ExplicitWidth = 280
       end
       object edtCodigoCliente: TEdit
         Left = 18
@@ -368,8 +385,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object mmoOBS: TJvMemo
         Left = 6
-        Top = 572
-        Width = 454
+        Top = 472
+        Width = 470
         Height = 124
         TabStop = False
         Anchors = [akLeft, akRight, akBottom]
@@ -384,11 +401,13 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         ReadOnly = True
         TabOrder = 12
+        ExplicitTop = 572
+        ExplicitWidth = 461
       end
       object dbcbbAUTORIZADO: TDBLookupComboBox
         Left = 6
-        Top = 545
-        Width = 339
+        Top = 445
+        Width = 355
         Height = 21
         Anchors = [akLeft, akRight, akBottom]
         DataField = 'FK_DEPENDENTE'
@@ -397,18 +416,22 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ListField = 'NOME'
         ListSource = dtsDependentes
         TabOrder = 11
+        ExplicitTop = 545
+        ExplicitWidth = 346
       end
       object pnlPesquisa: TPanel
         Left = 6
         Top = 202
-        Width = 451
-        Height = 318
+        Width = 467
+        Height = 218
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 10
         Visible = False
+        ExplicitWidth = 458
+        ExplicitHeight = 318
         DesignSize = (
-          451
-          318)
+          467
+          218)
         object dbfdtProduto: TJvDBFindEdit
           Left = 72
           Top = 13
@@ -423,8 +446,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         object dbgPesquisaProduto: TJvDBGrid
           Left = 16
           Top = 40
-          Width = 425
-          Height = 270
+          Width = 441
+          Height = 170
           Anchors = [akLeft, akTop, akRight, akBottom]
           DataSource = dtsPesqProduto
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleHotTrack]
@@ -471,7 +494,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       object dbcbbFindMesa: TDBLookupComboBox
         Left = 18
         Top = 68
-        Width = 388
+        Width = 404
         Height = 24
         Anchors = [akLeft, akTop, akRight]
         DataField = 'ID_MESA'
@@ -489,10 +512,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Visible = False
         OnClick = dbcbbClienteExit
         OnExit = dbcbbClienteExit
+        ExplicitWidth = 395
       end
       object dbedtRetirar: TDBEdit
-        Left = 351
-        Top = 545
+        Left = 367
+        Top = 445
         Width = 106
         Height = 21
         Anchors = [akRight, akBottom]
@@ -501,33 +525,46 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Enabled = False
         ReadOnly = True
         TabOrder = 13
+        ExplicitLeft = 358
+        ExplicitTop = 545
       end
     end
     object pnl4: TPanel
       Left = 0
       Top = 0
-      Width = 480
-      Height = 702
+      Width = 505
+      Height = 602
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitHeight = 702
       DesignSize = (
-        480
-        702)
+        505
+        602)
       object lbl7: TLabel
         Left = 227
-        Top = 667
+        Top = 567
         Width = 31
         Height = 13
         Anchors = [akLeft, akBottom]
         Caption = 'Total :'
         ExplicitTop = 463
       end
+      object lbltotalSelecionado: TLabel
+        Left = 23
+        Top = 555
+        Width = 63
+        Height = 26
+        Anchors = [akLeft, akBottom]
+        Caption = 'Total '#13#10'selecionado :'
+        Visible = False
+        ExplicitTop = 655
+      end
       object dbgrdMovProduto: TDBGrid
         Left = 16
         Top = 16
-        Width = 458
-        Height = 629
+        Width = 483
+        Height = 529
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataSource = dtsMovProduto
         Font.Charset = DEFAULT_CHARSET
@@ -535,6 +572,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Font.Height = -19
         Font.Name = 'Tahoma'
         Font.Style = []
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -542,6 +580,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDrawColumnCell = dbgrdMovProdutoDrawColumnCell
+        OnDblClick = dbgrdMovProdutoDblClick
         OnKeyDown = dbgrdMovProdutoKeyDown
         OnTitleClick = dbgrdMovProdutoTitleClick
         Columns = <
@@ -596,11 +636,16 @@ object frmManutencaoMesa: TfrmManutencaoMesa
             Expanded = False
             FieldName = 'FK_CADERNETA'
             Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'valorMarcado'
+            Visible = False
           end>
       end
       object btnExcluir: TJvBitBtn
-        Left = 450
-        Top = 651
+        Left = 442
+        Top = 551
         Width = 24
         Height = 24
         Anchors = [akLeft, akBottom]
@@ -633,10 +678,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           DDE9DCDDE9E7E7EBF0F0EDF7F7F6FFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 2
         OnClick = btnExcluirClick
+        ExplicitTop = 651
       end
       object dbedt_total: TDBEdit
         Left = 264
-        Top = 651
+        Top = 551
         Width = 153
         Height = 37
         TabStop = False
@@ -652,6 +698,28 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
+        ExplicitTop = 651
+      end
+      object dbedttotalSelecionado: TDBEdit
+        Left = 92
+        Top = 551
+        Width = 113
+        Height = 30
+        TabStop = False
+        Anchors = [akLeft, akBottom]
+        Color = 14611114
+        DataField = 'totalMarcado'
+        DataSource = dtsMovProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 3
+        Visible = False
+        ExplicitTop = 651
       end
     end
   end
@@ -789,6 +857,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object fdqMovProduto: TFDQuery
     BeforeOpen = fdqMovProdutoBeforeOpen
+    OnCalcFields = fdqMovProdutoCalcFields
     CachedUpdates = True
     Indexes = <
       item
@@ -828,7 +897,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       '  TIPO_PAGAMENTO,'
       
         '  cast(coalesce(fk_produto, '#39'T'#39'||TIPO_PAGAMENTO) as varchar(20))' +
-        ' fks'
+        ' fks,'
+      '  false as parcial'
       'from'
       '  mov_produto mp'
       'where'
@@ -909,13 +979,31 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Origin = 'FKS'
       ProviderFlags = []
     end
+    object fdqMovProdutoPARCIAL: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'PARCIAL'
+      Origin = 'PARCIAL'
+      ProviderFlags = []
+    end
+    object fdqMovProdutovalorMarcado: TCurrencyField
+      FieldKind = fkInternalCalc
+      FieldName = 'valorMarcado'
+    end
     object fdqMovProdutoTotal: TAggregateField
       FieldName = 'Total'
       Visible = True
+      OnGetText = fdqMovProdutoTotalGetText
       Active = True
       currency = True
       DisplayName = ''
       Expression = 'SUM(VALOR_TOTAL)'
+    end
+    object fdqMovProdutototalMarcado: TAggregateField
+      FieldName = 'totalMarcado'
+      Active = True
+      currency = True
+      DisplayName = ''
+      Expression = 'SUM(valorMarcado)'
     end
   end
   object dtsMovProduto: TDataSource

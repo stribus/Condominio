@@ -3,13 +3,16 @@ unit UGeral;
 interface
 
 uses
-  JvDBGrid, Vcl.DBGrids, FireDAC.Comp.Client;
+  JvDBGrid, Vcl.DBGrids, FireDAC.Comp.Client,Vcl.Graphics , Winapi.Windows;
 
 procedure tryFreeAndNil(Obj: TObject); inline;
 
 procedure sortColumn(AGrid: TJvDBGrid; ACol: TColumn); overload;
 
 procedure sortColumn(Aqry: TFDQuery; ACol: TColumn); overload;
+
+function RGBToColor(r, g, b : Byte) : TColor;
+
 
 implementation
 
@@ -58,5 +61,11 @@ begin
     Aqry.IndexFieldNames := ACol.FieldName;
 end;
 
-end.
 
+function RGBToColor(r, g, b : Byte) : TColor;
+begin
+  Result := RGB(r, g, b);
+end;
+
+
+end.

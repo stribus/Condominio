@@ -136,6 +136,11 @@ type
     fdqDependenteFONE: TStringField;
     fdqDependenteOBS: TMemoField;
     fdqDependentePERMITIR_RETIRAR: TBooleanField;
+    fdqMovProdutoPARCIAL: TBooleanField;
+    fdqMovProdutototalMarcado: TAggregateField;
+    fdqMovProdutovalorMarcado: TCurrencyField;
+    dbedttotalSelecionado: TDBEdit;
+    lbltotalSelecionado: TLabel;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -155,6 +160,12 @@ type
     procedure fdqDependentePERMITIR_RETIRARGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
     procedure dbgrdMovProdutoTitleClick(Column: TColumn);
+    procedure dbgrdMovProdutoDblClick(Sender: TObject);
+    procedure dbgrdMovProdutoDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdqMovProdutoCalcFields(DataSet: TDataSet);
+    procedure fdqMovProdutoTotalGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
   private
     { Private declarations }
     function getPedidoId: Integer;
@@ -248,6 +259,39 @@ end;
 procedure TfrmManutencaoMesa.fdqMovProdutoBeforeOpen(DataSet: TDataSet);
 begin
   fdqMovProduto.ParamByName('pedido').AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+end;
+
+procedure TfrmManutencaoMesa.fdqMovProdutoCalcFields(DataSet: TDataSet);
+begin
+  if DataSet.State = dsCalcFields then
+  begin
+    if fdqMovProdutoPARCIAL.AsBoolean then
+    begin
+      fdqMovProdutovalorMarcado.AsCurrency := fdqMovProdutoVALOR_TOTAL.AsCurrency;
+    end
+    else
+    begin
+      fdqMovProdutovalorMarcado.AsCurrency := 0;
+    end;
+  end;
+
+end;
+
+procedure TfrmManutencaoMesa.fdqMovProdutoTotalGetText(Sender: TField;
+var Text:
+  string; DisplayText: Boolean);
+begin
+  if fdqMovProdutototalMarcado.asCurrency <> 0 then
+  begin
+    dbedttotalSelecionado.Visible := True;
+    lbltotalSelecionado.Visible := True;
+  end
+  else
+  begin
+    dbedttotalSelecionado.Visible := false;
+    lbltotalSelecionado.Visible := false;
+  end;
+
 end;
 
 procedure TfrmManutencaoMesa.FormShow(Sender: TObject);
@@ -347,18 +391,29 @@ procedure TfrmManutencaoMesa.btnPagarClick(Sender: TObject);
 var
   tipoPag: Integer;
   valorPago: Currency;
+  valortotal: Currency;
 begin
-  if (not fdqMovProdutoTotal.IsNull) and TfrmPagamento.pagar(Self,
-    fdqMovProdutoTotal.asCurrency, valorPago, tipoPag) then
+  if (not fdqMovProdutoTotal.IsNull) then
   begin
-    fdqMovProduto.Append;
-    fdqMovProdutoFKS.AsString := 'T' + IntToStr(tipoPag);
-    fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
-    fdqMovProdutoPAGAMENTO.AsBoolean := True;
-    fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
-    fdqMovProdutoQUANTIDADE.AsInteger := 1;
-    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * valorPago;
-    fdqMovProduto.Post;
+    if fdqMovProdutototalMarcado.asCurrency <> 0 then
+    begin
+      valortotal := fdqMovProdutototalMarcado.asCurrency;
+    end
+    else
+      valortotal := fdqMovProdutoTotal.asCurrency;
+
+
+    if TfrmPagamento.pagar(Self, valortotal, valorPago, tipoPag) then
+    begin
+      fdqMovProduto.Append;
+      fdqMovProdutoFKS.AsString := 'T' + IntToStr(tipoPag);
+      fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
+      fdqMovProdutoPAGAMENTO.AsBoolean := True;
+      fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
+      fdqMovProdutoQUANTIDADE.AsInteger := 1;
+      fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * valorPago;
+      fdqMovProduto.Post;
+    end;
   end;
 end;
 
@@ -394,6 +449,34 @@ begin
   if(tamanho < 150)then
     tamanho := 150;
   dbgPesquisaProduto.Columns[1].Width := tamanho;
+end;
+
+procedure TfrmManutencaoMesa.dbgrdMovProdutoDblClick(Sender: TObject);
+begin
+  if (not fdqMovProduto.IsEmpty)  then
+  begin
+    fdqMovProduto.Edit;
+    fdqMovProdutoPARCIAL.AsBoolean := not fdqMovProdutoPARCIAL.AsBoolean;
+    fdqMovProduto.Post;
+  end;
+end;
+
+procedure TfrmManutencaoMesa.dbgrdMovProdutoDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if fdqMovProdutoPARCIAL.AsBoolean then
+  begin
+    if gdselected in State then
+    begin
+       dbgrdMovProduto.Canvas.Brush.Color := RGBToColor(13, 186, 137);
+    end
+    else
+    begin
+      dbgrdMovProduto.Canvas.Brush.Color := RGBToColor(38, 224, 171);
+    end;
+
+  end;
+  dbgrdMovProduto.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
 procedure TfrmManutencaoMesa.dbgrdMovProdutoKeyDown(Sender: TObject; var Key: Word; Shift:
