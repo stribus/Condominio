@@ -304,7 +304,7 @@ inherited frmCadClientes: TfrmCadClientes
         Top = 320
         Width = 265
         Height = 17
-        Caption = 'Permitir Saldo Negativo'
+        Caption = 'Permitir Saldo Devedor'
         DataField = 'PERMITIR_SALDO_NEGATIVO'
         DataSource = dtsEdicao
         TabOrder = 6

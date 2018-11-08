@@ -745,4 +745,78 @@ object frmPagamento: TfrmPagamento
         Value = '0'
       end>
   end
+  object fdqTotais: TFDQuery
+    BeforeOpen = fdqTotaisBeforeOpen
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT'
+      '  ped.fk_temporada ,'
+      '  cc.fk_cliente ,  '
+      '  c.permitir_saldo_negativo,'
+      '  sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,  '
+      '  sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0)*-1) valor_pago  ,'
+      '  SUM(mv.valor_total) Saldo'
+      'FROM'
+      '  caderneta_cliente cc'
+      '  join cliente  c'
+      '    on   c.id_cliente = cc.fk_cliente'
+      '  JOIN mov_produto mv ON'
+      '    cc.id_caderneta = mv.fk_caderneta'
+      '  LEFT JOIN produtos pr ON'
+      '    pr.id_rodutos = mv.fk_produto'
+      '  LEFT JOIN pedido ped ON'
+      '    ped.id_pedido = mv.fk_pedido'
+      'WHERE'
+      '  cc.FK_CLIENTE =:id_cliente'
+      '  AND ped.FK_TEMPORADA = (select'
+      '                          t.id_temporadas'
+      '                        from'
+      '                          temporadas t'
+      '                        where t.ativo) '
+      'GROUP BY fk_temporada,FK_CLIENTE,permitir_saldo_negativo')
+    Left = 24
+    Top = 168
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = 26
+      end>
+    object fdqTotaisFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+    end
+    object fdqTotaisFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqTotaisVALOR_GASTO: TBCDField
+      FieldName = 'VALOR_GASTO'
+      Origin = 'VALOR_GASTO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisVALOR_PAGO: TBCDField
+      FieldName = 'VALOR_PAGO'
+      Origin = 'VALOR_PAGO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisSALDO: TBCDField
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField
+      FieldName = 'PERMITIR_SALDO_NEGATIVO'
+      Origin = 'PERMITIR_SALDO_NEGATIVO'
+      Required = True
+    end
+  end
 end

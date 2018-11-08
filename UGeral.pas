@@ -3,7 +3,7 @@ unit UGeral;
 interface
 
 uses
-  JvDBGrid, Vcl.DBGrids, FireDAC.Comp.Client,Vcl.Graphics , Winapi.Windows;
+  JvDBGrid,system.Variants, Vcl.DBGrids, FireDAC.Comp.Client,Vcl.Graphics , Winapi.Windows;
 
 procedure tryFreeAndNil(Obj: TObject); inline;
 
@@ -12,6 +12,8 @@ procedure sortColumn(AGrid: TJvDBGrid; ACol: TColumn); overload;
 procedure sortColumn(Aqry: TFDQuery; ACol: TColumn); overload;
 
 function RGBToColor(r, g, b : Byte) : TColor;
+
+function varToCurrDef(v:Variant;def:Currency):Currency;
 
 
 implementation
@@ -68,4 +70,24 @@ begin
 end;
 
 
+function varToCurrDef(v:Variant;def:Currency):Currency;
+var
+  r: Currency;
+begin
+  r:=0;
+  try
+    try
+       r := VarAsType(v,varCurrency);
+    except
+       r := def;
+    end;
+  finally
+     Result := r;
+  end;
+end;
+
+initialization
+finalization
 end.
+
+

@@ -8,7 +8,7 @@ uses
   JvMemoryDataset, Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Vcl.Mask, JvExMask, JvToolEdit, JvBaseEdits, Vcl.DBCtrls,     udtmCon,
+  Vcl.Mask, JvExMask, JvToolEdit, JvBaseEdits, Vcl.DBCtrls, udtmCon,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ComCtrls, JvExComCtrls,
   JvComCtrls, Vcl.Buttons;
 
@@ -101,6 +101,13 @@ type
     fdqMovProdutoTIPO_PAGAMENTO: TIntegerField;
     fdspPagar: TFDStoredProc;
     fdspAnotar: TFDStoredProc;
+    fdqTotais: TFDQuery;
+    fdqTotaisFK_TEMPORADA: TLargeintField;
+    fdqTotaisFK_CLIENTE: TLargeintField;
+    fdqTotaisVALOR_GASTO: TBCDField;
+    fdqTotaisVALOR_PAGO: TBCDField;
+    fdqTotaisSALDO: TBCDField;
+    fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
     procedure btnOkClick(Sender: TObject);
     procedure btnokAnotaClick(Sender: TObject);
     procedure btnAnotarClick(Sender: TObject);
@@ -110,22 +117,27 @@ type
     procedure edtPagoKeyPress(Sender: TObject; var Key: Char);
     procedure tsAnotarShow(Sender: TObject);
     procedure tsPagamentoShow(Sender: TObject);
+    procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
 
   private
-     var
-      FParcial:Boolean;
+  var
+    FParcial: Boolean;
 
     { Private declarations }
 
   public
-    class function pagar(Aowner: TComponent; AValorTotal:Currency; out OValorPago:Currency;out OTipoPag:integer): Boolean;
-    class function FecharConta(Aowner: TComponent; AIdPedido:integer): Boolean;
+    class function pagar(Aowner: TComponent; AValorTotal: Currency; out OValorPago: Currency;
+      out OTipoPag: integer): Boolean;
+    class function FecharConta(Aowner: TComponent; AIdPedido: integer): Boolean;
   end;
 
 var
   frmPagamento: TfrmPagamento;
 
 implementation
+
+uses
+  UGeral;
 
 {$R *.dfm}
 
@@ -148,10 +160,20 @@ begin
 end;
 
 procedure TfrmPagamento.btnokAnotaClick(Sender: TObject);
+var
+  Total: Currency;
 begin
   if VarIsNull(dbcbbNomeDependente.KeyValue) then
   begin
     ShowMessage('Informe o Dependente.');
+    Exit;
+  end;
+
+  Total := fdqPedidoTOTAL.AsCurrency;
+  if (not fdqTotaisPERMITIR_SALDO_NEGATIVO.AsBoolean) and
+    ((varToCurrDef(fdqTotaisSALDO.AsVariant, 0) + Total) > 0) then
+  begin
+    Application.MessageBox('Saldo indisponivel.', '', MB_OK + MB_ICONWARNING);
     Exit;
   end;
 
@@ -161,17 +183,17 @@ begin
   fdspAnotar.ParamByName('IN_DESC_DEPENDENTE').AsString := dbcbbNomeDependente.Text;
   fdspAnotar.Prepare;
   fdspAnotar.ExecProc;
-//  fdqPedidoTP_PAGAMENTO.AsInteger := 1;
-//  fdqPedidoANOTAR.AsBoolean := True;
-//  fdqPedidoNOME_DEPENDENTE.AsString := dbcbbNomeDependente.Text;
-//
-//  fdqCaderneta.Open();
-//  fdqCaderneta.Insert;
-//  fdqCadernetaDTHR_LANCAMENTO.AsDateTime := Now;
-//  fdqCadernetaFK_CLIENTE.AsInteger := fdqPedidoID_CLIENTE.AsInteger;
-//  fdqCadernetaFK_DEPENDENTE.AsInteger := fdqPedidoFK_DEPENDENTE.AsInteger;
-//  fdqCadernetaFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
-//  fdqCaderneta.Post;
+  // fdqPedidoTP_PAGAMENTO.AsInteger := 1;
+  // fdqPedidoANOTAR.AsBoolean := True;
+  // fdqPedidoNOME_DEPENDENTE.AsString := dbcbbNomeDependente.Text;
+  //
+  // fdqCaderneta.Open();
+  // fdqCaderneta.Insert;
+  // fdqCadernetaDTHR_LANCAMENTO.AsDateTime := Now;
+  // fdqCadernetaFK_CLIENTE.AsInteger := fdqPedidoID_CLIENTE.AsInteger;
+  // fdqCadernetaFK_DEPENDENTE.AsInteger := fdqPedidoFK_DEPENDENTE.AsInteger;
+  // fdqCadernetaFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+  // fdqCaderneta.Post;
   ModalResult := mrOk;
 end;
 
@@ -188,40 +210,40 @@ begin
   if edtPago.Value < 0 then
   begin
     ShowMessage('Valor pago invalido.');
-    exit;
+    Exit;
   end;
 
   if (not FParcial) and (edtPago.Value < edtTotal.Value) then
   begin
     ShowMessage('Valor não paga toda a conta');
-    Exit ;
+    Exit;
   end;
 
   if (not FParcial) then
   begin
     if (edtPago.Value > edtTotal.Value) then
     begin
-      troco := (edtTotal.Value - edtPago.Value)*(-1);
-      ShowMessage('Troco : R$ '+ FormatCurr('0.00',troco));
+      troco := (edtTotal.Value - edtPago.Value) * (-1);
+      ShowMessage('Troco : R$ ' + FormatCurr('0.00', troco));
     end;
     fdspPagar.ParamByName('IN_PEDIDO').AsInteger := fdqPedidoID_PEDIDO.AsInteger;
     fdspPagar.ParamByName('IN_VALOR').Value := edtTotal.Value;
     fdspPagar.ParamByName('IN_TP_PAGAMENTO').AsInteger := fdqPedidoTP_PAGAMENTO.AsInteger;
     fdspPagar.Prepare;
     fdspPagar.ExecProc;
-//    fdqPedidoANOTAR.AsBoolean :=  False;
-//    fdqPedidoTP_PAGAMENTO.AsInteger :=  dbcbbTpPag.KeyValue;
-//    fdqMovProduto.Open();
-//    fdqMovProduto.Append;
-//    fdqMovProdutoID_MOV_PRODUTO.AsInteger := dtmcon.genNextId('GEN_MOV_PRODUTO');
-//    fdqMovProdutoFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
-//    fdqMovProdutoPAGAMENTO.AsBoolean := True;
-//    fdqMovProdutoTIPO_PAGAMENTO.AsInteger := fdqPedidoTP_PAGAMENTO.AsInteger;
-//    fdqMovProdutoQUANTIDADE.AsInteger := 1;
-//    fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * edtTotal.Value;
-//    fdqMovProduto.Post;
-////    fdqMovProduto.ApplyUpdates();
-//    fdqMovProduto.Close;
+    // fdqPedidoANOTAR.AsBoolean :=  False;
+    // fdqPedidoTP_PAGAMENTO.AsInteger :=  dbcbbTpPag.KeyValue;
+    // fdqMovProduto.Open();
+    // fdqMovProduto.Append;
+    // fdqMovProdutoID_MOV_PRODUTO.AsInteger := dtmcon.genNextId('GEN_MOV_PRODUTO');
+    // fdqMovProdutoFK_PEDIDO.AsInteger := fdqPedidoID_PEDIDO.AsInteger;
+    // fdqMovProdutoPAGAMENTO.AsBoolean := True;
+    // fdqMovProdutoTIPO_PAGAMENTO.AsInteger := fdqPedidoTP_PAGAMENTO.AsInteger;
+    // fdqMovProdutoQUANTIDADE.AsInteger := 1;
+    // fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * edtTotal.Value;
+    // fdqMovProduto.Post;
+    /// /    fdqMovProduto.ApplyUpdates();
+    // fdqMovProduto.Close;
 
   end;
 
@@ -230,16 +252,16 @@ end;
 
 procedure TfrmPagamento.btnPagarClick(Sender: TObject);
 begin
-     dbcbbTpPag.DataSource := dtsPedido;
-     dbcbbTpPag.DataField := 'TP_PAGAMENTO';
-     edtTotal.Value := fdqPedidoTOTAL.AsExtended;
-     btnOk.Default := True;
-     pgc1.ActivePage := tsPagamento;
+  dbcbbTpPag.DataSource := dtsPedido;
+  dbcbbTpPag.DataField := 'TP_PAGAMENTO';
+  edtTotal.Value := fdqPedidoTOTAL.AsExtended;
+  btnOk.Default := True;
+  pgc1.ActivePage := tsPagamento;
 end;
 
 procedure TfrmPagamento.dbcbbClienteExit(Sender: TObject);
 begin
-{}
+  { }
   if (dbcbbCliente.Field.IsNull) then
   begin
     edtCodigoCliente.Text := '';
@@ -252,7 +274,7 @@ end;
 
 procedure TfrmPagamento.edtCodigoClienteExit(Sender: TObject);
 begin
-  {}
+  { }
   if (edtCodigoCliente.Text <> '') and fdqClientes.Locate('CODIGO', VarArrayOf([edtCodigoCliente.Text]),
     [loCaseInsensitive]) then
   begin
@@ -267,31 +289,35 @@ end;
 
 procedure TfrmPagamento.edtPagoKeyPress(Sender: TObject; var Key: Char);
 begin
- if Key = '.' then
+  if Key = '.' then
     Key := ',';
 end;
 
-class function TfrmPagamento.FecharConta(Aowner: TComponent;
-  AIdPedido: integer): Boolean;
+procedure TfrmPagamento.fdqTotaisBeforeOpen(DataSet: TDataSet);
+begin
+  fdqTotais.ParamByName('id_cliente').AsInteger := fdqClientesID_CLIENTE.AsInteger;
+end;
+
+class function TfrmPagamento.FecharConta(Aowner: TComponent; AIdPedido: integer): Boolean;
 var
- frm :  TfrmPagamento;
+  frm: TfrmPagamento;
 begin
   Result := False;
   frm := TfrmPagamento.Create(Aowner);
   try
-    frm.fdqPedido.ParamByName('ID_PEDIDO').AsInteger:= AIdPedido;
+    frm.fdqPedido.ParamByName('ID_PEDIDO').AsInteger := AIdPedido;
     frm.fdqPedido.Open();
     frm.fdqPedido.Edit;
     frm.fdqTipoPag.Filter := 'DESCRICAO <> ''ANOTAR''';
     frm.fdqTipoPag.Filtered := True;
     frm.fdqTipoPag.Open();
-    frm.FParcial := false;
+    frm.FParcial := False;
     frm.pgc1.ActivePage := frm.tsModoFechamento;
     if frm.ShowModal = mrOk then
     begin
-//      frm.fdqPedidoDTHR_FEXAMENTO.AsDateTime := Now;
+      // frm.fdqPedidoDTHR_FEXAMENTO.AsDateTime := Now;
       Result := True;
-//      frm.fdqPedido.Post();
+      // frm.fdqPedido.Post();
       frm.fdqPedido.Close;
     end;
 
@@ -301,10 +327,10 @@ begin
   end;
 end;
 
-class function TfrmPagamento.pagar(Aowner: TComponent; AValorTotal: Currency;
-  out OValorPago: Currency; out OTipoPag:Integer): Boolean;
+class function TfrmPagamento.pagar(Aowner: TComponent; AValorTotal: Currency; out OValorPago: Currency;
+  out OTipoPag: integer): Boolean;
 var
- frm :  TfrmPagamento;
+  frm: TfrmPagamento;
 begin
   Result := False;
   frm := TfrmPagamento.Create(Aowner);
@@ -314,7 +340,7 @@ begin
     frm.fdqTipoPag.Filtered := True;
     frm.fdqTipoPag.Open();
     frm.FParcial := True;
-    frm.tsModoFechamento.Enabled := false ;
+    frm.tsModoFechamento.Enabled := False;
     frm.tsAnotar.Enabled := False;
     frm.pgc1.ActivePage := frm.tsPagamento;
     if frm.ShowModal = mrOk then
@@ -341,5 +367,9 @@ begin
   btnOk.Caption := '&OK';
   btnCancelar.Caption := '&Cancelar';
 end;
+
+initialization
+
+finalization
 
 end.

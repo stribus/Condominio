@@ -12,7 +12,7 @@ uses
   JvBaseEdits, JvDBLookup, Data.Bind.EngExt, Vcl.Bind.DBEngExt, System.Rtti,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components, Data.Bind.DBScope,
   JvExStdCtrls, JvMemo, System.Actions, Vcl.ActnList, Vcl.StdActns, JvExDBGrids,
-  JvDBGrid, JvMaskEdit, JvDBFindEdit, frxClass, frxDBSet;
+  JvDBGrid, JvMaskEdit, JvDBFindEdit, frxClass, frxDBSet, JvGridPrinter;
 
 type
   TfrmManutencaoMesa = class(TForm)
@@ -32,7 +32,6 @@ type
     fdqMovProdutoFK_CADERNETA: TLargeintField;
     pnl3: TPanel;
     pnl4: TPanel;
-    dbgrdMovProduto: TDBGrid;
     fdqMovProdutonomeProduto: TStringField;
     fdqMovProdutoVALOR_TOTAL: TBCDField;
     fdqMovProdutoVlr_uni: TCurrencyField;
@@ -141,6 +140,7 @@ type
     fdqMovProdutovalorMarcado: TCurrencyField;
     dbedttotalSelecionado: TDBEdit;
     lbltotalSelecionado: TLabel;
+    dbgrdMovProduto: TJvDBGrid;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -273,23 +273,36 @@ begin
     begin
       fdqMovProdutovalorMarcado.AsCurrency := 0;
     end;
+
   end;
 
 end;
 
 procedure TfrmManutencaoMesa.fdqMovProdutoTotalGetText(Sender: TField;
-var Text:
-  string; DisplayText: Boolean);
+var Text:  string; DisplayText: Boolean);
 begin
-  if fdqMovProdutototalMarcado.asCurrency <> 0 then
+  if (not fdqMovProdutototalMarcado.isnull) and (varToCurrDef(fdqMovProdutototalMarcado.AsVariant,
+    0) <> 0) then
   begin
     dbedttotalSelecionado.Visible := True;
     lbltotalSelecionado.Visible := True;
   end
   else
   begin
-    dbedttotalSelecionado.Visible := false;
-    lbltotalSelecionado.Visible := false;
+    dbedttotalSelecionado.Visible := False;
+    lbltotalSelecionado.Visible := False;
+  end;
+  if Sender.IsNull then
+  begin
+    DisplayText := False;
+  end
+  else
+  begin
+    try
+      Text := FormatCurr('R$ 0.,00', varToCurrDef(Sender.AsVariant, 0));
+    except
+      Text := 'R$ 0,00';
+    end;
   end;
 
 end;
@@ -594,5 +607,9 @@ begin
     Result := Value;
 end;
 
+
+
+initialization
+finalization
 end.
 

@@ -429,6 +429,7 @@ object frmConta: TfrmConta
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 2
+      OnClick = btn_pagarClick
     end
   end
   object fdqCliente: TFDQuery
@@ -557,6 +558,7 @@ object frmConta: TfrmConta
       'WHERE'
       #9'cc.FK_CLIENTE =:id_cliente'
       #9'AND ped.FK_TEMPORADA = :id_temporada'
+      '        and not mv.excluido '
       'ORDER BY'#9
       '     dthr_lancamento,mv.id_mov_produto'#9)
     Left = 408

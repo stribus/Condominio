@@ -19,8 +19,8 @@ type
     btnOk: TButton;
     btnCancelar: TButton;
     fdsp_lancamentos: TFDStoredProc;
-    JvDateTimePicker1: TJvDateTimePicker;
-    JvDateTimePicker2: TJvDateTimePicker;
+    edtData: TJvDateTimePicker;
+    edtHota: TJvDateTimePicker;
     dbcbbAUTORIZADO: TDBLookupComboBox;
     lbl8: TLabel;
     lbl5: TLabel;
@@ -47,11 +47,31 @@ type
     dtsProduto: TDataSource;
     fdqDependente: TFDQuery;
     dtsDependentes: TDataSource;
+    fdqDependenteID_DEPENDENTES: TLargeintField;
+    fdqDependenteCODIGO: TLargeintField;
+    fdqDependenteNOME: TStringField;
+    fdqDependenteFK_CLIENTE: TLargeintField;
+    fdqDependenteFONE: TStringField;
+    fdqDependenteOBS: TMemoField;
+    fdqDependentePERMITIR_RETIRAR: TBooleanField;
+    fdqTotais: TFDQuery;
+    fdqTotaisFK_TEMPORADA: TLargeintField;
+    fdqTotaisFK_CLIENTE: TLargeintField;
+    fdqTotaisVALOR_GASTO: TBCDField;
+    fdqTotaisVALOR_PAGO: TBCDField;
+    fdqTotaisSALDO: TBCDField;
+    fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
     procedure btnOkClick(Sender: TObject);
+    procedure fdqDependenteBeforeOpen(DataSet: TDataSet);
+    procedure dbgPesquisaProdutoDblClick(Sender: TObject);
+    procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
   private
+    FidCliente: Integer;
+    FidTemporada: Integer;
     { Private declarations }
   public
     { Public declarations }
+    class function anotar(Aowner: TComponent; AIdCliente, ATemporada: Integer): Boolean;
   end;
 
 var
@@ -59,12 +79,34 @@ var
 
 implementation
 
+uses
+  udtmCon, UGeral;
+
 {$R *.dfm}
 
-procedure TfrmAnotar.btnOkClick(Sender: TObject);
+class function TfrmAnotar.anotar(Aowner: TComponent; AIdCliente, ATemporada: Integer): Boolean;
 begin
-  if(Length(edtProduto.Text) = 0) and (fdqPesqProduto.Active)
-    and (not fdqPesqProdutoCODIGO.IsNull)then
+  try
+    frmAnotar := TfrmAnotar.Create(Aowner);
+    with frmAnotar do
+    begin
+      FidTemporada := ATemporada;
+      FidCliente := AIdCliente;
+      fdqPesqProduto.Open();
+      fdqDependente.Open();
+      fdqTotais.Open();
+      ShowModal;
+    end;
+  finally
+    tryFreeAndNil(frmAnotar);
+  end;
+end;
+
+procedure TfrmAnotar.btnOkClick(Sender: TObject);
+var
+  Total: Currency;
+begin
+  if (Length(edtProduto.Text) = 0) and (fdqPesqProduto.Active) and (not fdqPesqProdutoCODIGO.IsNull) then
   begin
     edtProduto.Text := fdqPesqProdutoCODIGO.AsString;
     dbfdtProduto.Text := '';
@@ -80,22 +122,57 @@ begin
       Exit;
     end;
 
-    fdsp_lancamentos.ParamByName('').Value := '';
-    fdsp_lancamentos.ParamByName('').Value := '';
-    fdsp_lancamentos.ParamByName('').Value := '';
-    fdsp_lancamentos.ParamByName('').Value := '';
-    fdsp_lancamentos.ParamByName('').Value := '';
-    fdsp_lancamentos.ParamByName('').Value := '';
+    if VarIsNull(dbcbbAUTORIZADO.KeyValue) then
+    begin
+      Application.MessageBox('Não Permitido retirada.', '', MB_OK + MB_ICONWARNING);
+      Exit;
+    end;
+
+    Total := edtQtd.Value * fdqProdutoVALOR_UNI.AsCurrency;
+    if (not fdqTotaisPERMITIR_SALDO_NEGATIVO.AsBoolean) and
+      ((varToCurrDef(fdqTotaisSALDO.AsVariant, 0) + Total) > 0) then
+    begin
+      Application.MessageBox('Saldo indisponivel.', '', MB_OK + MB_ICONWARNING);
+      Exit;
+    end;
+
+    fdsp_lancamentos.ParamByName('IN_DTHR_LANCAMENTO').Value := edtData.DateTime + edtHota.DateTime;
+    fdsp_lancamentos.ParamByName('IN_CLIENTE').Value := FidCliente;
+    fdsp_lancamentos.ParamByName('IN_DEPENDENTE').Value := dbcbbAUTORIZADO.KeyValue;
+    fdsp_lancamentos.ParamByName('IN_DESC_DEPENDENTE').Value := dbcbbAUTORIZADO.Text;
+    fdsp_lancamentos.ParamByName('IN_TEMPORADA').Value := FidTemporada;
+    fdsp_lancamentos.ParamByName('IN_PRODUTO').Value := fdqProdutoID_RODUTOS.AsInteger;
+    fdsp_lancamentos.ParamByName('IN_QUANT').Value := edtQtd.Value;
+    fdsp_lancamentos.ParamByName('IN_VALOR_TOTAL').Value := edtQtd.Value * fdqProdutoVALOR_UNI.AsCurrency;
+    fdsp_lancamentos.Prepare;
+    fdsp_lancamentos.ExecProc;
     ModalResult := mrOk;
   end
   else
   begin
-      Application.MessageBox('Produto não encontrado.', '', MB_OK + MB_ICONWARNING);
-      Exit;
-    end;
-
-
-
+    Application.MessageBox('Produto não encontrado.', '', MB_OK + MB_ICONWARNING);
+    Exit;
+  end;
 end;
+
+procedure TfrmAnotar.dbgPesquisaProdutoDblClick(Sender: TObject);
+begin
+  edtProduto.Text := fdqPesqProdutoCODIGO.AsString;
+end;
+
+procedure TfrmAnotar.fdqDependenteBeforeOpen(DataSet: TDataSet);
+begin
+  fdqDependente.ParamByName('id_cliente').AsInteger := FidCliente;
+end;
+
+procedure TfrmAnotar.fdqTotaisBeforeOpen(DataSet: TDataSet);
+begin
+  fdqTotais.ParamByName('id_cliente').AsInteger := FidCliente;
+  fdqTotais.ParamByName('id_temporada').AsInteger := FidTemporada;
+end;
+
+initialization
+
+finalization
 
 end.

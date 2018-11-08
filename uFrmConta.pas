@@ -10,7 +10,7 @@ uses
   Vcl.ExtCtrls, JvExExtCtrls, JvExtComponent, JvPanel, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, ufrmPagamento, ufrmAnotar;
 
 type
   TfrmConta = class(TForm)
@@ -69,8 +69,9 @@ type
     fdqTotaisVALOR_PAGO: TBCDField;
     fdqTotaisSALDO: TBCDField;
     procedure fdqCadernetaBeforeOpen(DataSet: TDataSet);
-    procedure btn_incluirClick(Sender: TObject);
     procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
+    procedure btn_pagarClick(Sender: TObject);
+    procedure btn_incluirClick(Sender: TObject);
   private
     { Private declarations }
     procedure refreshConta();
@@ -86,13 +87,38 @@ var
 
 implementation
 
+uses
+  UGeral;
+
 {$R *.dfm}
 
 { TfrmConta }
 
 procedure TfrmConta.btn_incluirClick(Sender: TObject);
 begin
-{}
+  tfrmAnotar.anotar(Self,FIdCliente,FIdTemporada);
+  refreshConta;
+end;
+
+procedure TfrmConta.btn_pagarClick(Sender: TObject);
+var
+  valortotal: Currency;
+  valorPago: Currency;
+  tipoPag: Integer;
+begin
+    valortotal := varToCurrDef(fdqTotaisSALDO.AsVariant,0);
+    if TfrmPagamento.pagar(Self, valortotal, valorPago, tipoPag) then
+    begin
+//
+//      fdqMovProduto.Append;
+//      fdqMovProdutoFKS.AsString := 'T' + IntToStr(tipoPag);
+//      fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
+//      fdqMovProdutoPAGAMENTO.AsBoolean := True;
+//      fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
+//      fdqMovProdutoQUANTIDADE.AsInteger := 1;
+//      fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * valorPago;
+//      fdqMovProduto.Post;
+    end;
 end;
 
 class function TfrmConta.Editar(Aowner: TComponent; AId_Cliente,
@@ -142,4 +168,7 @@ begin
   fdqTotais.Open();
 end;
 
+
+initialization
+finalization
 end.

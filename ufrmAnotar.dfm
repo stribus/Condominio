@@ -60,7 +60,7 @@ object frmAnotar: TfrmAnotar
       Height = 13
       Caption = 'C'#243'digo Produto'
     end
-    object JvDateTimePicker1: TJvDateTimePicker
+    object edtData: TJvDateTimePicker
       Left = 17
       Top = 32
       Width = 96
@@ -70,7 +70,7 @@ object frmAnotar: TfrmAnotar
       TabOrder = 4
       DropDownDate = 43385.000000000000000000
     end
-    object JvDateTimePicker2: TJvDateTimePicker
+    object edtHota: TJvDateTimePicker
       Left = 119
       Top = 32
       Width = 81
@@ -87,9 +87,9 @@ object frmAnotar: TfrmAnotar
       Width = 417
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      DataField = 'FK_DEPENDENTE'
       KeyField = 'ID_DEPENDENTES'
       ListField = 'NOME'
+      ListSource = dtsDependentes
       TabOrder = 0
     end
     object edtQtd: TJvCalcEdit
@@ -161,6 +161,7 @@ object frmAnotar: TfrmAnotar
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDblClick = dbgPesquisaProdutoDblClick
         SelectColumnsDialogStrings.Caption = 'Select columns'
         SelectColumnsDialogStrings.OK = '&OK'
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
@@ -390,6 +391,7 @@ object frmAnotar: TfrmAnotar
     Top = 200
   end
   object fdqDependente: TFDQuery
+    BeforeOpen = fdqDependenteBeforeOpen
     MasterFields = 'ID_CLIENTE'
     Connection = dtmcon.conexao
     SQL.Strings = (
@@ -397,7 +399,7 @@ object frmAnotar: TfrmAnotar
       'WHERE '
       'FK_CLIENTE = :ID_CLIENTE'
       'AND '
-      'PERMITIR_RETIRAR = TRUE')
+      'PERMITIR_RETIRAR')
     Left = 416
     Top = 100
     ParamData = <
@@ -405,12 +407,126 @@ object frmAnotar: TfrmAnotar
         Name = 'ID_CLIENTE'
         DataType = ftInteger
         ParamType = ptInput
-        Value = Null
+        Size = 10
+        Value = 0
       end>
+    object fdqDependenteID_DEPENDENTES: TLargeintField
+      FieldName = 'ID_DEPENDENTES'
+      Origin = 'ID_DEPENDENTES'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqDependenteCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqDependenteNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqDependenteFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqDependenteFONE: TStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 150
+    end
+    object fdqDependenteOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdqDependentePERMITIR_RETIRAR: TBooleanField
+      FieldName = 'PERMITIR_RETIRAR'
+      Origin = 'PERMITIR_RETIRAR'
+      Required = True
+    end
   end
   object dtsDependentes: TDataSource
     DataSet = fdqDependente
     Left = 464
     Top = 100
+  end
+  object fdqTotais: TFDQuery
+    BeforeOpen = fdqTotaisBeforeOpen
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT'
+      '  ped.fk_temporada ,'
+      '  cc.fk_cliente ,  '
+      '  c.permitir_saldo_negativo,'
+      '  sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,  '
+      '  sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0)*-1) valor_pago  ,'
+      '  SUM(mv.valor_total) Saldo'
+      'FROM'
+      '  caderneta_cliente cc'
+      '  join cliente  c'
+      '    on   c.id_cliente = cc.fk_cliente'
+      '  JOIN mov_produto mv ON'
+      '    cc.id_caderneta = mv.fk_caderneta'
+      '  LEFT JOIN produtos pr ON'
+      '    pr.id_rodutos = mv.fk_produto'
+      '  LEFT JOIN pedido ped ON'
+      '    ped.id_pedido = mv.fk_pedido'
+      'WHERE'
+      '  cc.FK_CLIENTE =:id_cliente'
+      '  AND ped.FK_TEMPORADA = :id_temporada'
+      'GROUP BY fk_temporada,FK_CLIENTE,permitir_saldo_negativo')
+    Left = 224
+    Top = 232
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = 26
+      end
+      item
+        Name = 'ID_TEMPORADA'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = 10
+      end>
+    object fdqTotaisFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+    end
+    object fdqTotaisFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqTotaisVALOR_GASTO: TBCDField
+      FieldName = 'VALOR_GASTO'
+      Origin = 'VALOR_GASTO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisVALOR_PAGO: TBCDField
+      FieldName = 'VALOR_PAGO'
+      Origin = 'VALOR_PAGO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisSALDO: TBCDField
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField
+      FieldName = 'PERMITIR_SALDO_NEGATIVO'
+      Origin = 'PERMITIR_SALDO_NEGATIVO'
+      Required = True
+    end
   end
 end

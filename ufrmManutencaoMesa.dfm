@@ -30,8 +30,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 702
-    ExplicitWidth = 1001
     DesignSize = (
       991
       48)
@@ -44,7 +42,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 812
       object btnOk: TButton
         Left = 272
         Top = 6
@@ -102,8 +99,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 1001
-    ExplicitHeight = 702
     object pnl3: TPanel
       Left = 505
       Top = 0
@@ -112,9 +107,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 524
-      ExplicitWidth = 477
-      ExplicitHeight = 702
       DesignSize = (
         486
         602)
@@ -162,12 +154,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       object lbl8: TLabel
         Left = 6
         Top = 426
-        Width = 84
+        Width = 75
         Height = 13
         Anchors = [akLeft, akRight, akBottom]
         Caption = 'Autorizado por:'
-        ExplicitTop = 526
-        ExplicitWidth = 75
       end
       object dbcbbCliente: TDBLookupComboBox
         Left = 79
@@ -190,7 +180,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TabOrder = 4
         OnClick = dbcbbClienteExit
         OnExit = dbcbbClienteExit
-        ExplicitWidth = 353
       end
       object btnBuscaProduto: TJvBitBtn
         Left = 448
@@ -227,7 +216,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 9
-        ExplicitLeft = 439
       end
       object btnMoveMesa: TButton
         Left = 428
@@ -238,7 +226,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Caption = '&Mover'
         TabOrder = 2
         OnClick = btnMoveMesaClick
-        ExplicitLeft = 419
       end
       object dbedtMesa: TDBEdit
         Left = 18
@@ -257,7 +244,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         ReadOnly = True
         TabOrder = 1
-        ExplicitWidth = 396
       end
       object btnPesqCliente: TJvBitBtn
         Left = 447
@@ -295,7 +281,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TabOrder = 5
         Visible = False
         OnClick = btnPesqClienteClick
-        ExplicitLeft = 438
       end
       object btnAdicionar: TJvBitBtn
         Left = 423
@@ -333,7 +318,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           E6DCDFE6DCE8EAE7EFEDF1F7F6F7FFFFFFFFFFFFFFFFFFFFFFFF}
         TabOrder = 8
         OnClick = btnAdicionarClick
-        ExplicitLeft = 414
       end
       object edtQtd: TJvCalcEdit
         Left = 18
@@ -366,7 +350,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         TabOrder = 7
         OnKeyPress = edtProdutoKeyPress
-        ExplicitWidth = 280
       end
       object edtCodigoCliente: TEdit
         Left = 18
@@ -401,8 +384,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ParentFont = False
         ReadOnly = True
         TabOrder = 12
-        ExplicitTop = 572
-        ExplicitWidth = 461
       end
       object dbcbbAUTORIZADO: TDBLookupComboBox
         Left = 6
@@ -416,8 +397,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         ListField = 'NOME'
         ListSource = dtsDependentes
         TabOrder = 11
-        ExplicitTop = 545
-        ExplicitWidth = 346
       end
       object pnlPesquisa: TPanel
         Left = 6
@@ -427,8 +406,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 10
         Visible = False
-        ExplicitWidth = 458
-        ExplicitHeight = 318
         DesignSize = (
           467
           218)
@@ -512,7 +489,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Visible = False
         OnClick = dbcbbClienteExit
         OnExit = dbcbbClienteExit
-        ExplicitWidth = 395
       end
       object dbedtRetirar: TDBEdit
         Left = 367
@@ -525,8 +501,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Enabled = False
         ReadOnly = True
         TabOrder = 13
-        ExplicitLeft = 358
-        ExplicitTop = 545
       end
     end
     object pnl4: TPanel
@@ -537,7 +511,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitHeight = 702
       DesignSize = (
         505
         602)
@@ -560,7 +533,82 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Visible = False
         ExplicitTop = 655
       end
-      object dbgrdMovProduto: TDBGrid
+      object btnExcluir: TJvBitBtn
+        Left = 442
+        Top = 551
+        Width = 24
+        Height = 24
+        Anchors = [akLeft, akBottom]
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+          FFFFFFFFFFFFFAFAF9F9F8F4F0F4F4E3EBF5E3EBF5EFF2F3F7F6F2F9F9F8FFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9F8F4D6E0F67896EE3C60E627
+          4CE2274BE23C60E67896EED5DFF5F5F4F0FEFEFEFFFFFFFFFFFFFFFFFFFEFEFE
+          FAF8F4A2B3F31E3EDF0724DB142FDC1734DC1734DC142EDB0723DA1F3DE0A2B2
+          F3F4F4EFFEFEFEFFFFFFFFFFFFF8F7F3A2B0F30E28DB122EDC2E4AD5123EDB19
+          49E01948DF1240DE2E4CD91229D30E28DDA2AEF3F3F2EDFFFFFFFAFAF9D8DBF6
+          2033DD122FDB8297EDE4E5F24C66CE0848DD084AE04A75E6E4E8F6838CD5122A
+          D42133DFD4D7F2F8F8F7F8F8F37D84EC0920D92C4FE0EEF2FCFFFFFFEEECF441
+          65CE3E77E4EDF2FCFFFFFFEEF0F92C4AD8091FDA7E83ECF2F1EDEFEFF34C54E2
+          2C46E00F3DDD4977E7EDF2FDFFFFFFEDEDF6EDEFF8FFFFFFEDF2FD4975E60F3C
+          DE2C44E04D55E3E8E8ECE2E3F23B47DD4761E52851E10834DC4364E4E8EDFCFF
+          FFFFFFFFFFE9EBF84462E10933DD2850E1475FE43C47DDDCDDECE2E2F13B47DB
+          485FE54955E22433DD455DE2E8ECFBFFFFFFFFFFFFE9EAF54454CB2331DB4A56
+          E3485EE43C47DCDCDCEBEEEEF04A54DB434EDA454AD97276E5F0F1FCFFFFFFF0
+          F1FCF1F2FDFFFFFFEDECF46267CE4349D6444EDB4B54DCE7E7EAF6F6F17D83DE
+          2F37C85A60D8F1F2FCFFFFFFF0F1FC6A6FE36B70E4F1F2FDFFFFFFECECF55359
+          CE3038C97D82DDF0EFEBF9F9F8D5D6EE3038C3444BCB9DA1E6EAEAFA7176DD3F
+          47D44047D47277DEEAEBFA9DA1E5454CCB3139C3D0D1EAF7F7F6FFFFFFF4F4F1
+          A1A5E3262DBB444BC85B61D1444BCC4A51CE4A51CE444BCC5B61D1444AC7262E
+          BBA0A4E1EFEEEBFFFFFFFFFFFFFEFEFEF4F4F0A1A4E13038BB3037BC444AC449
+          4FC6494FC6444AC32F37BB3139BCA0A4E0EFEEEAFEFEFEFFFFFFFFFFFFFFFFFF
+          FEFEFEF4F3EFD2D4EB7B81D24A51C23C43BC3C43BC4A51C27B81D2D0D2E9EFEF
+          EBFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F7F3F2EFE9E9ECDC
+          DDE9DCDDE9E7E7EBF0F0EDF7F7F6FFFFFFFFFFFFFFFFFFFFFFFF}
+        TabOrder = 2
+        OnClick = btnExcluirClick
+      end
+      object dbedt_total: TDBEdit
+        Left = 264
+        Top = 551
+        Width = 153
+        Height = 37
+        TabStop = False
+        Anchors = [akLeft, akBottom]
+        Color = clInfoBk
+        DataField = 'Total'
+        DataSource = dtsMovProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object dbedttotalSelecionado: TDBEdit
+        Left = 92
+        Top = 551
+        Width = 113
+        Height = 31
+        TabStop = False
+        Anchors = [akLeft, akBottom]
+        Color = 14611114
+        DataField = 'totalMarcado'
+        DataSource = dtsMovProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 3
+        Visible = False
+      end
+      object dbgrdMovProduto: TJvDBGrid
         Left = 16
         Top = 16
         Width = 483
@@ -584,6 +632,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         OnDblClick = dbgrdMovProdutoDblClick
         OnKeyDown = dbgrdMovProdutoKeyDown
         OnTitleClick = dbgrdMovProdutoTitleClick
+        SelectColumnsDialogStrings.Caption = 'Select columns'
+        SelectColumnsDialogStrings.OK = '&OK'
+        SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
+        EditControls = <>
+        RowsHeight = 27
+        TitleRowHeight = 17
         Columns = <
           item
             Expanded = False
@@ -642,84 +696,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
             FieldName = 'valorMarcado'
             Visible = False
           end>
-      end
-      object btnExcluir: TJvBitBtn
-        Left = 442
-        Top = 551
-        Width = 24
-        Height = 24
-        Anchors = [akLeft, akBottom]
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFAFAF9F9F8F4F0F4F4E3EBF5E3EBF5EFF2F3F7F6F2F9F9F8FFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9F8F4D6E0F67896EE3C60E627
-          4CE2274BE23C60E67896EED5DFF5F5F4F0FEFEFEFFFFFFFFFFFFFFFFFFFEFEFE
-          FAF8F4A2B3F31E3EDF0724DB142FDC1734DC1734DC142EDB0723DA1F3DE0A2B2
-          F3F4F4EFFEFEFEFFFFFFFFFFFFF8F7F3A2B0F30E28DB122EDC2E4AD5123EDB19
-          49E01948DF1240DE2E4CD91229D30E28DDA2AEF3F3F2EDFFFFFFFAFAF9D8DBF6
-          2033DD122FDB8297EDE4E5F24C66CE0848DD084AE04A75E6E4E8F6838CD5122A
-          D42133DFD4D7F2F8F8F7F8F8F37D84EC0920D92C4FE0EEF2FCFFFFFFEEECF441
-          65CE3E77E4EDF2FCFFFFFFEEF0F92C4AD8091FDA7E83ECF2F1EDEFEFF34C54E2
-          2C46E00F3DDD4977E7EDF2FDFFFFFFEDEDF6EDEFF8FFFFFFEDF2FD4975E60F3C
-          DE2C44E04D55E3E8E8ECE2E3F23B47DD4761E52851E10834DC4364E4E8EDFCFF
-          FFFFFFFFFFE9EBF84462E10933DD2850E1475FE43C47DDDCDDECE2E2F13B47DB
-          485FE54955E22433DD455DE2E8ECFBFFFFFFFFFFFFE9EAF54454CB2331DB4A56
-          E3485EE43C47DCDCDCEBEEEEF04A54DB434EDA454AD97276E5F0F1FCFFFFFFF0
-          F1FCF1F2FDFFFFFFEDECF46267CE4349D6444EDB4B54DCE7E7EAF6F6F17D83DE
-          2F37C85A60D8F1F2FCFFFFFFF0F1FC6A6FE36B70E4F1F2FDFFFFFFECECF55359
-          CE3038C97D82DDF0EFEBF9F9F8D5D6EE3038C3444BCB9DA1E6EAEAFA7176DD3F
-          47D44047D47277DEEAEBFA9DA1E5454CCB3139C3D0D1EAF7F7F6FFFFFFF4F4F1
-          A1A5E3262DBB444BC85B61D1444BCC4A51CE4A51CE444BCC5B61D1444AC7262E
-          BBA0A4E1EFEEEBFFFFFFFFFFFFFEFEFEF4F4F0A1A4E13038BB3037BC444AC449
-          4FC6494FC6444AC32F37BB3139BCA0A4E0EFEEEAFEFEFEFFFFFFFFFFFFFFFFFF
-          FEFEFEF4F3EFD2D4EB7B81D24A51C23C43BC3C43BC4A51C27B81D2D0D2E9EFEF
-          EBFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F7F3F2EFE9E9ECDC
-          DDE9DCDDE9E7E7EBF0F0EDF7F7F6FFFFFFFFFFFFFFFFFFFFFFFF}
-        TabOrder = 2
-        OnClick = btnExcluirClick
-        ExplicitTop = 651
-      end
-      object dbedt_total: TDBEdit
-        Left = 264
-        Top = 551
-        Width = 153
-        Height = 37
-        TabStop = False
-        Anchors = [akLeft, akBottom]
-        Color = clInfoBk
-        DataField = 'Total'
-        DataSource = dtsMovProduto
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -24
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 1
-        ExplicitTop = 651
-      end
-      object dbedttotalSelecionado: TDBEdit
-        Left = 92
-        Top = 551
-        Width = 113
-        Height = 30
-        TabStop = False
-        Anchors = [akLeft, akBottom]
-        Color = 14611114
-        DataField = 'totalMarcado'
-        DataSource = dtsMovProduto
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -19
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 3
-        Visible = False
-        ExplicitTop = 651
       end
     end
   end

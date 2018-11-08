@@ -430,5 +430,8 @@ begin
   Refresh(fdqMesas, 'ID_MESA');
 end;
 
+
+initialization
+finalization
 end.
 

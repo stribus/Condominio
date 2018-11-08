@@ -234,7 +234,7 @@ Coordinates=504,408,41,51
 Coordinates=1066,936,174,33
 
 []
-Coordinates=410,408,73,51
+Coordinates=98,544,49,33
 Visible=True
 ExplicitSubNodes=LookupDisplay;LookupValue
 
@@ -246,7 +246,4 @@ Coordinates=142,296,40,33
 
 [btnPesqCliente]
 Coordinates=731,10,41,51
-
-[dbgrdMovProduto]
-Coordinates=98,544,49,33
 

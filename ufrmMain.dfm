@@ -32,6 +32,10 @@ object frmMain: TfrmMain
     object tsMesas: TTabSheet
       Caption = '&Mesas'
       OnShow = tsMesasShow
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -68,7 +72,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 639
+          Left = 635
           Top = 8
           Width = 105
           Height = 41
@@ -76,6 +80,7 @@ object frmMain: TfrmMain
           Caption = 'Cadastrar Mesas'
           TabOrder = 2
           OnClick = btnNovaMesaClick
+          ExplicitLeft = 639
         end
         object btn4: TButton
           Left = 263
@@ -87,7 +92,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 750
+          Left = 746
           Top = 8
           Width = 105
           Height = 41
@@ -95,9 +100,10 @@ object frmMain: TfrmMain
           Caption = 'Editar Mesas'
           TabOrder = 4
           OnClick = btn1Click
+          ExplicitLeft = 750
         end
         object chkMesasAtivas: TCheckBox
-          Left = 861
+          Left = 857
           Top = 20
           Width = 97
           Height = 17
@@ -107,6 +113,7 @@ object frmMain: TfrmMain
           State = cbChecked
           TabOrder = 5
           OnClick = chkMesasAtivasClick
+          ExplicitLeft = 861
         end
       end
       object dbgrdMesas: TDBGrid
@@ -173,6 +180,10 @@ object frmMain: TfrmMain
     object tsClientes: TTabSheet
       Caption = '&Clientes'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -274,6 +285,10 @@ object frmMain: TfrmMain
     object tsProdutos: TTabSheet
       Caption = '&Produtos'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -384,6 +399,10 @@ object frmMain: TfrmMain
     object tsEntradasSaidas: TTabSheet
       Caption = '&Entradas/Saidas'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnl1: TPanel
         Left = 0
         Top = 0
@@ -458,6 +477,10 @@ object frmMain: TfrmMain
       Caption = 'Config/&Relat'#243'rios'
       ImageIndex = 3
       OnShow = TabSheet4Show
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object btnNovaTemporada: TButton
         Left = 814
         Top = 8
