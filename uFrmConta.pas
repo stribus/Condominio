@@ -68,10 +68,12 @@ type
     fdqTotaisVALOR_GASTO: TBCDField;
     fdqTotaisVALOR_PAGO: TBCDField;
     fdqTotaisSALDO: TBCDField;
+    fdspPagar: TFDStoredProc;
     procedure fdqCadernetaBeforeOpen(DataSet: TDataSet);
     procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
     procedure btn_pagarClick(Sender: TObject);
     procedure btn_incluirClick(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
   private
     { Private declarations }
     procedure refreshConta();
@@ -94,6 +96,11 @@ uses
 
 { TfrmConta }
 
+procedure TfrmConta.btn_excluirClick(Sender: TObject);
+begin
+  refreshConta;
+end;
+
 procedure TfrmConta.btn_incluirClick(Sender: TObject);
 begin
   tfrmAnotar.anotar(Self,FIdCliente,FIdTemporada);
@@ -106,19 +113,22 @@ var
   valorPago: Currency;
   tipoPag: Integer;
 begin
-    valortotal := varToCurrDef(fdqTotaisSALDO.AsVariant,0);
-    if TfrmPagamento.pagar(Self, valortotal, valorPago, tipoPag) then
+  valortotal := varToCurrDef(fdqTotaisSALDO.AsVariant, 0);
+  if TfrmPagamento.pagar(Self, valortotal, valorPago, tipoPag) then
+  begin
+    if (valorPago > 0) then
     begin
-//
-//      fdqMovProduto.Append;
-//      fdqMovProdutoFKS.AsString := 'T' + IntToStr(tipoPag);
-//      fdqMovProdutoFK_PEDIDO.AsInteger := getPedidoId;
-//      fdqMovProdutoPAGAMENTO.AsBoolean := True;
-//      fdqMovProdutoTIPO_PAGAMENTO.AsInteger := tipoPag;
-//      fdqMovProdutoQUANTIDADE.AsInteger := 1;
-//      fdqMovProdutoVALOR_TOTAL.AsCurrency := -1 * valorPago;
-//      fdqMovProduto.Post;
+      fdspPagar.ParamByName('IN_DTHR_LANCAMENTO').Value := now;
+      fdspPagar.ParamByName('IN_CLIENTE').Value := FIdCliente;
+      fdspPagar.ParamByName('IN_TP_PAGAMENTO').Value := tipoPag;
+      fdspPagar.ParamByName('IN_TEMPORADA').Value := FIdTemporada;
+      fdspPagar.ParamByName('IN_VALOR_TOTAL').Value := valorPago;
+      fdspPagar.Prepare;
+      fdspPagar.ExecProc;
     end;
+
+    end;
+    refreshConta;
 end;
 
 class function TfrmConta.Editar(Aowner: TComponent; AId_Cliente,
@@ -166,6 +176,7 @@ begin
   fdqCaderneta.Open();
   fdqTotais.Close;
   fdqTotais.Open();
+  fdqCaderneta.Last;
 end;
 
 

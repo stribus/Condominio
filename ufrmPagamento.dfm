@@ -2,7 +2,7 @@ object frmPagamento: TfrmPagamento
   Left = 0
   Top = 0
   Caption = 'Pagamento'
-  ClientHeight = 276
+  ClientHeight = 305
   ClientWidth = 437
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,72 +19,71 @@ object frmPagamento: TfrmPagamento
     Left = 0
     Top = 0
     Width = 437
-    Height = 276
-    ActivePage = tsAnotar
+    Height = 305
+    ActivePage = tsPagamento
     Align = alClient
     OwnerDraw = True
     Style = tsFlatButtons
     TabOrder = 0
     TabStop = False
+    ExplicitHeight = 276
     object tsPagamento: TTabSheet
       TabVisible = False
       OnShow = tsPagamentoShow
+      ExplicitHeight = 266
       object pnl2: TPanel
         Left = 0
         Top = 0
         Width = 429
-        Height = 218
+        Height = 247
         Align = alClient
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
+        ExplicitHeight = 218
         DesignSize = (
           429
-          218)
+          247)
         object lbl2: TLabel
           Left = 114
-          Top = 21
+          Top = 8
           Width = 63
           Height = 16
           Caption = 'Valor Total'
         end
         object lbl1: TLabel
           Left = 114
-          Top = 87
+          Top = 78
           Width = 93
           Height = 16
           Caption = 'Tipo Pagamento'
         end
         object lbl3: TLabel
           Left = 114
-          Top = 139
+          Top = 177
           Width = 62
           Height = 16
           Caption = 'Valor Pago'
         end
-        object dbcbbTpPag: TDBLookupComboBox
-          Left = 114
-          Top = 109
-          Width = 223
-          Height = 24
-          KeyField = 'ID'
-          ListField = 'DESCRICAO'
-          ListSource = dtspag
-          TabOrder = 1
-        end
         object edtPago: TJvCalcEdit
           Left = 114
-          Top = 161
+          Top = 199
           Width = 223
-          Height = 24
+          Height = 31
           DisplayFormat = ',0.00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 2
           DecimalPlacesAlwaysShown = True
           OnKeyPress = edtPagoKeyPress
         end
         object pnl3: TPanel
           Left = 0
-          Top = 40
+          Top = 27
           Width = 437
           Height = 49
           Anchors = [akLeft, akTop, akRight]
@@ -109,15 +108,26 @@ object frmPagamento: TfrmPagamento
             DecimalPlacesAlwaysShown = True
           end
         end
+        object dblklstTpPagto: TDBLookupListBox
+          Left = 114
+          Top = 100
+          Width = 223
+          Height = 68
+          KeyField = 'ID'
+          ListField = 'DESCRICAO'
+          ListSource = dtspag
+          TabOrder = 1
+        end
       end
       object pnl1: TPanel
         Left = 0
-        Top = 218
+        Top = 247
         Width = 429
         Height = 48
         Align = alBottom
         ParentBackground = False
         TabOrder = 1
+        ExplicitTop = 218
         object btnOk: TButton
           Left = 160
           Top = 9
@@ -143,31 +153,33 @@ object frmPagamento: TfrmPagamento
       ImageIndex = 1
       TabVisible = False
       OnShow = tsAnotarShow
+      ExplicitHeight = 266
       object pnl4: TPanel
         Left = 0
         Top = 0
         Width = 429
-        Height = 218
+        Height = 247
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
+        ExplicitHeight = 218
         object lbl4: TLabel
-          Left = 39
-          Top = 21
+          Left = 49
+          Top = 35
           Width = 63
           Height = 16
           Caption = 'Valor Total'
         end
         object lbl5: TLabel
-          Left = 39
-          Top = 79
+          Left = 49
+          Top = 93
           Width = 39
           Height = 16
           Caption = 'Cliente'
         end
         object edtTotalAnotar: TJvCalcEdit
-          Left = 39
-          Top = 43
+          Left = 49
+          Top = 57
           Width = 333
           Height = 33
           DisplayFormat = ',0.00'
@@ -183,25 +195,31 @@ object frmPagamento: TfrmPagamento
           DecimalPlacesAlwaysShown = True
         end
         object dbcbbNomeDependente: TDBLookupComboBox
-          Left = 39
-          Top = 152
+          Left = 49
+          Top = 166
           Width = 333
-          Height = 24
+          Height = 27
           DataField = 'FK_DEPENDENTE'
           DataSource = dtsPedido
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = []
           KeyField = 'ID_DEPENDENTES'
           ListField = 'NOME'
           ListSource = dtsDependentes
+          ParentFont = False
           TabOrder = 3
         end
         object edtCodigoCliente: TEdit
-          Left = 39
-          Top = 98
+          Left = 49
+          Top = 112
           Width = 57
-          Height = 24
+          Height = 27
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = []
           NumbersOnly = True
@@ -210,15 +228,15 @@ object frmPagamento: TfrmPagamento
           OnExit = edtCodigoClienteExit
         end
         object dbcbbCliente: TDBLookupComboBox
-          Left = 100
-          Top = 98
+          Left = 110
+          Top = 112
           Width = 272
-          Height = 24
+          Height = 27
           DataField = 'ID_CLIENTE'
           DataSource = dtsPedido
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = []
           KeyField = 'ID_CLIENTE'
@@ -233,12 +251,13 @@ object frmPagamento: TfrmPagamento
       end
       object pnl5: TPanel
         Left = 0
-        Top = 218
+        Top = 247
         Width = 429
         Height = 48
         Align = alBottom
         ParentBackground = False
         TabOrder = 1
+        ExplicitTop = 218
         object btnokAnota: TButton
           Left = 160
           Top = 9
@@ -263,9 +282,10 @@ object frmPagamento: TfrmPagamento
     object tsModoFechamento: TTabSheet
       ImageIndex = 2
       TabVisible = False
+      ExplicitHeight = 266
       object btnAnotar: TBitBtn
-        Left = 40
-        Top = 80
+        Left = 56
+        Top = 104
         Width = 137
         Height = 89
         Caption = '&Anotar'
@@ -280,8 +300,8 @@ object frmPagamento: TfrmPagamento
         OnClick = btnAnotarClick
       end
       object btnPagar: TBitBtn
-        Left = 216
-        Top = 80
+        Left = 232
+        Top = 104
         Width = 137
         Height = 89
         Caption = '&Pagar'
@@ -308,7 +328,8 @@ object frmPagamento: TfrmPagamento
     Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT * FROM TIPO_PAGAMENTO'
-      'WHERE ATIVO')
+      'WHERE ATIVO'
+      'order by ID')
     Left = 368
     Top = 64
     object fdqTipoPagID: TIntegerField
@@ -750,7 +771,7 @@ object frmPagamento: TfrmPagamento
     ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT'
-      '  ped.fk_temporada ,'
+      '  cc.fk_temporada ,'
       '  cc.fk_cliente ,  '
       '  c.permitir_saldo_negativo,'
       '  sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,  '
@@ -768,7 +789,7 @@ object frmPagamento: TfrmPagamento
       '    ped.id_pedido = mv.fk_pedido'
       'WHERE'
       '  cc.FK_CLIENTE =:id_cliente'
-      '  AND ped.FK_TEMPORADA = (select'
+      '  AND cc.FK_TEMPORADA = (select'
       '                          t.id_temporadas'
       '                        from'
       '                          temporadas t'

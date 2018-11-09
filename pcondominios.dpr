@@ -23,7 +23,8 @@ uses
   uFrmConta in 'uFrmConta.pas' {frmConta},
   ufrmPesqProduto in 'ufrmPesqProduto.pas' {frmPesqProduto},
   ufrmAnotar in 'ufrmAnotar.pas' {frmAnotar},
-  udtmRelatorios in 'udtmRelatorios.pas' {dtmRelatorios: TDataModule};
+  udtmRelatorios in 'udtmRelatorios.pas' {dtmRelatorios: TDataModule},
+  ufrmCadUsuario in 'ufrmCadUsuario.pas' {frmCadUsuario};
 
 {$R *.res}
 

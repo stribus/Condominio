@@ -25,7 +25,6 @@ type
     lbl2: TLabel;
     lbl1: TLabel;
     lbl3: TLabel;
-    dbcbbTpPag: TDBLookupComboBox;
     edtPago: TJvCalcEdit;
     pnl3: TPanel;
     edtTotal: TJvCalcEdit;
@@ -108,6 +107,7 @@ type
     fdqTotaisVALOR_PAGO: TBCDField;
     fdqTotaisSALDO: TBCDField;
     fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
+    dblklstTpPagto: TDBLookupListBox;
     procedure btnOkClick(Sender: TObject);
     procedure btnokAnotaClick(Sender: TObject);
     procedure btnAnotarClick(Sender: TObject);
@@ -201,7 +201,7 @@ procedure TfrmPagamento.btnOkClick(Sender: TObject);
 var
   troco: Currency;
 begin
-  if VarIsNull(dbcbbTpPag.KeyValue) then
+  if VarIsNull(dblklstTpPagto.KeyValue) then
   begin
     ShowMessage('Informe o Tipo de Pagamento.');
     Exit;
@@ -252,8 +252,8 @@ end;
 
 procedure TfrmPagamento.btnPagarClick(Sender: TObject);
 begin
-  dbcbbTpPag.DataSource := dtsPedido;
-  dbcbbTpPag.DataField := 'TP_PAGAMENTO';
+  dblklstTpPagto.DataSource := dtsPedido;
+  dblklstTpPagto.DataField := 'TP_PAGAMENTO';
   edtTotal.Value := fdqPedidoTOTAL.AsExtended;
   btnOk.Default := True;
   pgc1.ActivePage := tsPagamento;
@@ -347,7 +347,7 @@ begin
     begin
       Result := True;
       OValorPago := frm.edtPago.Value;
-      OTipoPag := frm.dbcbbTpPag.KeyValue;
+      OTipoPag := frm.dblklstTpPagto.KeyValue;
     end;
 
   finally

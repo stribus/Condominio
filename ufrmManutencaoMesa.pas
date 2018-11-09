@@ -166,6 +166,7 @@ type
     procedure fdqMovProdutoCalcFields(DataSet: TDataSet);
     procedure fdqMovProdutoTotalGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure edtQtdKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     function getPedidoId: Integer;
@@ -231,6 +232,12 @@ begin
   if not (Key in ['0'..'9', #8, ',', #9]) then
     Key := #0;
 
+end;
+
+procedure TfrmManutencaoMesa.edtQtdKeyPress(Sender: TObject; var Key: Char);
+begin
+if Key = '.' then
+    Key := ',';
 end;
 
 procedure TfrmManutencaoMesa.fdqDependentePERMITIR_RETIRARGetText(

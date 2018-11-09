@@ -112,41 +112,41 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         602)
       object lbl1: TLabel
         Left = 111
-        Top = 173
-        Width = 11
-        Height = 19
+        Top = 157
+        Width = 14
+        Height = 25
         Caption = 'X'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -21
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
       end
       object lbl3: TLabel
         Left = 18
-        Top = 49
+        Top = 29
         Width = 25
         Height = 13
         Caption = 'Mesa'
       end
       object lbl4: TLabel
         Left = 18
-        Top = 103
+        Top = 83
         Width = 33
         Height = 13
         Caption = 'Cliente'
       end
       object lbl5: TLabel
         Left = 18
-        Top = 153
+        Top = 136
         Width = 56
         Height = 13
         Caption = 'Quantidade'
       end
       object lbl6: TLabel
         Left = 128
-        Top = 153
+        Top = 136
         Width = 74
         Height = 13
         Caption = 'C'#243'digo Produto'
@@ -161,15 +161,15 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object dbcbbCliente: TDBLookupComboBox
         Left = 79
-        Top = 122
+        Top = 102
         Width = 362
-        Height = 24
+        Height = 27
         Anchors = [akLeft, akTop, akRight]
         DataField = 'ID_CLIENTE'
         DataSource = dtsPedido
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
         KeyField = 'ID_CLIENTE'
@@ -182,10 +182,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         OnExit = dbcbbClienteExit
       end
       object btnBuscaProduto: TJvBitBtn
-        Left = 448
-        Top = 172
-        Width = 23
-        Height = 24
+        Left = 453
+        Top = 155
+        Width = 27
+        Height = 27
+        Hint = 'Pesquisar (CTRL+P)'
         Action = actPesquisaProduto
         Anchors = [akTop, akRight]
         Glyph.Data = {
@@ -215,30 +216,38 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           D3CFC8F2F0EEFDFDFDFFFEFEF8F7F5DFDBD6CECAC3FDFDFCFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E7E4CFCBC4CFCBC4D0CCC4CEC9C3DD
           DBD6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+        ParentShowHint = False
+        ShowHint = True
         TabOrder = 9
       end
       object btnMoveMesa: TButton
         Left = 428
-        Top = 68
-        Width = 43
-        Height = 24
+        Top = 48
+        Width = 53
+        Height = 27
         Anchors = [akTop, akRight]
         Caption = '&Mover'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 2
         OnClick = btnMoveMesaClick
       end
       object dbedtMesa: TDBEdit
         Left = 18
-        Top = 68
+        Top = 48
         Width = 405
-        Height = 24
+        Height = 27
         Anchors = [akLeft, akTop, akRight]
         DataField = 'DESCRICAO'
         DataSource = dtsPedido
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -247,9 +256,9 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object btnPesqCliente: TJvBitBtn
         Left = 447
-        Top = 122
-        Width = 24
-        Height = 24
+        Top = 102
+        Width = 27
+        Height = 27
         Anchors = [akTop, akRight]
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
@@ -284,9 +293,9 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object btnAdicionar: TJvBitBtn
         Left = 423
-        Top = 172
-        Width = 24
-        Height = 24
+        Top = 155
+        Width = 27
+        Height = 27
         Anchors = [akTop, akRight]
         Default = True
         Glyph.Data = {
@@ -321,13 +330,13 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object edtQtd: TJvCalcEdit
         Left = 18
-        Top = 172
+        Top = 155
         Width = 87
-        Height = 24
+        Height = 27
         Alignment = taLeftJustify
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
         MinValue = 0.010000000000000000
@@ -335,16 +344,17 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         TabOrder = 6
         Value = 1.000000000000000000
         DecimalPlacesAlwaysShown = False
+        OnKeyPress = edtQtdKeyPress
       end
       object edtProduto: TEdit
         Left = 128
-        Top = 172
+        Top = 155
         Width = 289
-        Height = 24
+        Height = 27
         Anchors = [akLeft, akTop, akRight]
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
@@ -353,12 +363,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object edtCodigoCliente: TEdit
         Left = 18
-        Top = 122
+        Top = 102
         Width = 57
-        Height = 24
+        Height = 27
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
         NumbersOnly = True
@@ -400,20 +410,26 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object pnlPesquisa: TPanel
         Left = 6
-        Top = 202
+        Top = 188
         Width = 467
-        Height = 218
+        Height = 232
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 10
         Visible = False
         DesignSize = (
           467
-          218)
+          232)
         object dbfdtProduto: TJvDBFindEdit
           Left = 72
-          Top = 13
+          Top = 7
           Width = 329
-          Height = 21
+          Height = 27
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
           Text = ''
           DataField = 'NOME'
@@ -424,10 +440,16 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           Left = 16
           Top = 40
           Width = 441
-          Height = 170
+          Height = 184
           Anchors = [akLeft, akTop, akRight, akBottom]
           DataSource = dtsPesqProduto
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = []
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleHotTrack]
+          ParentFont = False
           ReadOnly = True
           TabOrder = 1
           TitleFont.Charset = DEFAULT_CHARSET
@@ -442,7 +464,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
           CanDelete = False
           EditControls = <>
-          RowsHeight = 17
+          RowsHeight = 23
           TitleRowHeight = 17
           BooleanEditor = False
           Columns = <
@@ -450,13 +472,14 @@ object frmManutencaoMesa: TfrmManutencaoMesa
               Expanded = False
               FieldName = 'CODIGO'
               Title.Caption = 'C'#243'digo'
+              Width = 60
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'NOME'
               Title.Caption = 'Nome'
-              Width = 221
+              Width = 275
               Visible = True
             end
             item
@@ -470,14 +493,14 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       end
       object dbcbbFindMesa: TDBLookupComboBox
         Left = 18
-        Top = 68
+        Top = 48
         Width = 404
-        Height = 24
+        Height = 27
         Anchors = [akLeft, akTop, akRight]
         DataField = 'ID_MESA'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -16
         Font.Name = 'Tahoma'
         Font.Style = []
         KeyField = 'ID_MESA'

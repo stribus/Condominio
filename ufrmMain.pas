@@ -13,7 +13,7 @@ uses
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet, udtmRelatorios,
-  frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup;
+  frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup, JvBaseDlg, JvLoginForm;
 
 type
   TfrmMain = class(TForm)
@@ -50,7 +50,6 @@ type
     btnAddProduto: TButton;
     btnEdtProduto: TButton;
     btnDelProduto: TButton;
-    btnNovaTemporada: TButton;
     fdqConfiguracoes: TFDQuery;
     dtsConfiguracoes: TDataSource;
     fdqConfiguracoesID_TEMPORADAS: TLargeintField;
@@ -101,6 +100,10 @@ type
     actFecharMesa: TAction;
     actConta: TAction;
     actAdicionarEntrada: TAction;
+    pnl2: TPanel;
+    grp6: TGroupBox;
+    btnNovaTemporada: TButton;
+    pnl3: TPanel;
     grp1: TGroupBox;
     lbl3: TLabel;
     lbl4: TLabel;
@@ -119,6 +122,11 @@ type
     Edt_pg_datai1: TJvDateEdit;
     Edt_pg_dataf1: TJvDateEdit;
     btnRelPagmnto: TButton;
+    spl1: TSplitter;
+    grp3: TGroupBox;
+    btnNovoUsuario: TButton;
+    pnl4: TPanel;
+    pnl5: TPanel;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -148,6 +156,7 @@ type
     procedure btnCadernetaClick(Sender: TObject);
     procedure TabSheet4Show(Sender: TObject);
     procedure btn_relVendasClick(Sender: TObject);
+    procedure btnNovoUsuarioClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -164,7 +173,8 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes,uFrmConta;
+  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes,uFrmConta,
+  ufrmCadUsuario;
 
 {$R *.dfm}
 
@@ -303,6 +313,11 @@ procedure TfrmMain.btnNovaTemporadaClick(Sender: TObject);
 begin
   TfrmCadTemporada.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger);
   atualizaDatasets;
+end;
+
+procedure TfrmMain.btnNovoUsuarioClick(Sender: TObject);
+begin
+  TfrmCadUsuario.inserir(Self,0);
 end;
 
 procedure TfrmMain.btnRelatorioPgClick(Sender: TObject);

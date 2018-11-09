@@ -94,7 +94,7 @@ object frmConta: TfrmConta
       DataSource = dtsCaderneta
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -19
       Font.Name = 'Tahoma'
       Font.Style = []
       Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -106,39 +106,66 @@ object frmConta: TfrmConta
       TitleFont.Height = -16
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      AutoAppend = False
+      AutoSort = False
+      BeepOnError = False
+      AutoSizeColumns = True
       SelectColumnsDialogStrings.Caption = 'Select columns'
       SelectColumnsDialogStrings.OK = '&OK'
       SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
+      CanDelete = False
+      ColumnResize = gcrDataSet
       EditControls = <>
-      RowsHeight = 20
+      RowsHeight = 27
       TitleRowHeight = 23
+      BooleanEditor = False
       Columns = <
         item
           Expanded = False
           FieldName = 'DTHR_LANCAMENTO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
           Title.Caption = 'Data/Hora'
-          Width = 137
+          Width = 128
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'NomeProduto'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = []
           Title.Caption = 'Produto'
-          Width = 229
+          Width = 220
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'QUANTIDADE'
-          Title.Caption = 'quant'
-          Width = 49
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Title.Caption = 'Quant'
+          Width = 61
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VALOR_TOTAL'
-          Title.Caption = 'valor total'
-          Width = 83
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Title.Caption = 'Valor Total'
+          Width = 101
           Visible = True
         end
         item
@@ -147,11 +174,11 @@ object frmConta: TfrmConta
           FieldName = 'SALDO'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Title.Caption = 'Acomulado'
-          Width = 109
+          Width = 118
           Visible = True
         end>
     end
@@ -254,6 +281,7 @@ object frmConta: TfrmConta
         ShowHint = True
         Style.Theme = OfficeXP
         Style.UseStyleManager = False
+        OnClick = btn_excluirClick
       end
     end
     object jvpnl4: TJvPanel
@@ -459,7 +487,7 @@ object frmConta: TfrmConta
     ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT'
-      #9'ped.fk_temporada ,'
+      #9'cc.fk_temporada ,'
       #9'cc.fk_cliente ,'#9
       #9'sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,'#9
       #9'sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0)*-1) valor_pago'#9','
@@ -474,7 +502,7 @@ object frmConta: TfrmConta
       #9#9'ped.id_pedido = mv.fk_pedido'
       'WHERE'
       #9'cc.FK_CLIENTE =:id_cliente'
-      #9'AND ped.FK_TEMPORADA = :id_temporada'
+      #9'AND cc.FK_TEMPORADA = :id_temporada'
       'GROUP BY fk_temporada,FK_CLIENTE')
     Left = 224
     Top = 232
@@ -534,7 +562,7 @@ object frmConta: TfrmConta
       'SELECT'
       #9'cc.id_caderneta ,'
       #9'cc.dthr_lancamento ,'
-      #9'ped.fk_temporada ,'
+      #9'cc.fk_temporada ,'
       #9'cc.fk_cliente ,'
       #9'cc.fk_dependente ,'
       #9'mv.id_mov_produto ,'
@@ -545,19 +573,17 @@ object frmConta: TfrmConta
       #9'mv.pagamento ,'
       #9'mv.valor_total ,'
       
-        #9'SUM(mv.valor_total) OVER (PARTITION BY ped.fk_temporada,cc.fk_c' +
-        'liente ORDER BY'#9'dthr_lancamento,mv.id_mov_produto) Saldo'
+        #9'SUM(mv.valor_total) OVER (PARTITION BY cc.fk_temporada,cc.fk_cl' +
+        'iente ORDER BY'#9'dthr_lancamento,mv.id_mov_produto) Saldo'
       'FROM'
       #9'caderneta_cliente cc'
       #9'JOIN mov_produto mv ON'
       #9#9'cc.id_caderneta = mv.fk_caderneta'
       #9'LEFT JOIN produtos pr ON'
-      #9#9'pr.id_rodutos = mv.fk_produto'
-      #9'LEFT JOIN pedido ped ON'
-      #9#9'ped.id_pedido = mv.fk_pedido'
+      #9#9'pr.id_rodutos = mv.fk_produto'#9
       'WHERE'
       #9'cc.FK_CLIENTE =:id_cliente'
-      #9'AND ped.FK_TEMPORADA = :id_temporada'
+      #9'AND cc.FK_TEMPORADA = :id_temporada'
       '        and not mv.excluido '
       'ORDER BY'#9
       '     dthr_lancamento,mv.id_mov_produto'#9)
@@ -565,10 +591,11 @@ object frmConta: TfrmConta
     Top = 152
     ParamData = <
       item
+        Position = 10
         Name = 'ID_CLIENTE'
         DataType = ftLargeint
         ParamType = ptInput
-        Value = Null
+        Value = 26
       end
       item
         Name = 'ID_TEMPORADA'
@@ -728,5 +755,44 @@ object frmConta: TfrmConta
     DataSet = fdqProdutoslookup
     Left = 312
     Top = 136
+  end
+  object fdspPagar: TFDStoredProc
+    ConnectionName = 'Condominio'
+    StoredProcName = 'PR_PAGAR_CADERNETA_DIRETO'
+    Left = 393
+    Top = 256
+    ParamData = <
+      item
+        Position = 1
+        Name = 'IN_DTHR_LANCAMENTO'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'IN_CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'IN_TP_PAGAMENTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'IN_TEMPORADA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'IN_VALOR_TOTAL'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 4
+        ParamType = ptInput
+      end>
   end
 end

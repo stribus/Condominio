@@ -56,16 +56,13 @@ Coordinates=69,254,108,58
 Coordinates=194,10,93,58
 
 []
-Coordinates=361,10,40,58
+Coordinates=287,274,128,58
 
 [dbgrdMesas]
 Coordinates=97,322,85,36
 
 [btnEdtProduto]
 Coordinates=50,415,97,58
-
-[btnNovaTemporada]
-Coordinates=287,274,128,58
 
 [fdqConfiguracoesPERIODO_INICIAL]
 Coordinates=630,111,226,36

@@ -65,6 +65,8 @@ type
     procedure fdqDependenteBeforeOpen(DataSet: TDataSet);
     procedure dbgPesquisaProdutoDblClick(Sender: TObject);
     procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
+    procedure edtQtdKeyPress(Sender: TObject; var Key: Char);
+    procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
   private
     FidCliente: Integer;
     FidTemporada: Integer;
@@ -158,6 +160,26 @@ end;
 procedure TfrmAnotar.dbgPesquisaProdutoDblClick(Sender: TObject);
 begin
   edtProduto.Text := fdqPesqProdutoCODIGO.AsString;
+end;
+
+procedure TfrmAnotar.edtProdutoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key in ['x', 'X', '*'] then
+  begin
+    Key := #0;
+    edtQtd.Text := edtProduto.Text;
+    edtProduto.Clear;
+  end;
+  if Key = '.' then
+    Key := ',';
+  if not (Key in ['0'..'9', #8, ',', #9]) then
+    Key := #0;
+end;
+
+procedure TfrmAnotar.edtQtdKeyPress(Sender: TObject; var Key: Char);
+begin
+if Key = '.' then
+    Key := ',';
 end;
 
 procedure TfrmAnotar.fdqDependenteBeforeOpen(DataSet: TDataSet);

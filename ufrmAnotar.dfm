@@ -2,8 +2,8 @@ object frmAnotar: TfrmAnotar
   Left = 0
   Top = 0
   Caption = 'Adicionar'
-  ClientHeight = 368
-  ClientWidth = 662
+  ClientHeight = 461
+  ClientWidth = 695
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,46 +16,48 @@ object frmAnotar: TfrmAnotar
   object pnl2: TPanel
     Left = 0
     Top = 0
-    Width = 662
-    Height = 320
+    Width = 695
+    Height = 413
     Align = alClient
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 662
+    ExplicitHeight = 320
     DesignSize = (
-      662
-      320)
+      695
+      413)
     object lbl8: TLabel
-      Left = 222
+      Left = 238
       Top = 13
-      Width = 75
+      Width = 108
       Height = 13
       Anchors = [akLeft, akTop, akRight]
       Caption = 'Autorizado por:'
     end
     object lbl5: TLabel
       Left = 18
-      Top = 59
+      Top = 65
       Width = 56
       Height = 13
       Caption = 'Quantidade'
     end
     object lbl1: TLabel
       Left = 189
-      Top = 78
-      Width = 11
-      Height = 19
+      Top = 82
+      Width = 14
+      Height = 25
       Caption = 'X'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -16
+      Font.Height = -21
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
     end
     object lbl6: TLabel
       Left = 222
-      Top = 59
+      Top = 65
       Width = 74
       Height = 13
       Caption = 'C'#243'digo Produto'
@@ -63,44 +65,62 @@ object frmAnotar: TfrmAnotar
     object edtData: TJvDateTimePicker
       Left = 17
       Top = 32
-      Width = 96
-      Height = 21
+      Width = 128
+      Height = 27
       Date = 43385.503391666670000000
       Time = 43385.503391666670000000
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 4
       DropDownDate = 43385.000000000000000000
     end
     object edtHota: TJvDateTimePicker
-      Left = 119
+      Left = 151
       Top = 32
       Width = 81
-      Height = 21
+      Height = 27
       Date = 43385.503391666670000000
       Time = 43385.503391666670000000
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
       Kind = dtkTime
+      ParentFont = False
       TabOrder = 5
       DropDownDate = 43385.000000000000000000
     end
     object dbcbbAUTORIZADO: TDBLookupComboBox
-      Left = 222
+      Left = 238
       Top = 32
-      Width = 417
-      Height = 21
+      Width = 434
+      Height = 27
       Anchors = [akLeft, akTop, akRight]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
       KeyField = 'ID_DEPENDENTES'
       ListField = 'NOME'
       ListSource = dtsDependentes
+      ParentFont = False
       TabOrder = 0
     end
     object edtQtd: TJvCalcEdit
       Left = 18
-      Top = 78
+      Top = 84
       Width = 159
-      Height = 24
+      Height = 27
       Alignment = taLeftJustify
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = []
       MinValue = 0.010000000000000000
@@ -108,37 +128,45 @@ object frmAnotar: TfrmAnotar
       TabOrder = 1
       Value = 1.000000000000000000
       DecimalPlacesAlwaysShown = False
+      OnKeyPress = edtQtdKeyPress
     end
     object edtProduto: TEdit
       Left = 222
-      Top = 78
-      Width = 196
-      Height = 24
+      Top = 84
+      Width = 229
+      Height = 27
       Anchors = [akLeft, akTop, akRight]
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      OnKeyPress = edtProdutoKeyPress
     end
     object pnlPesquisa: TPanel
       Left = 17
-      Top = 108
-      Width = 632
-      Height = 206
+      Top = 117
+      Width = 665
+      Height = 290
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 3
       DesignSize = (
-        632
-        206)
+        665
+        290)
       object dbfdtProduto: TJvDBFindEdit
         Left = 72
         Top = 13
         Width = 329
-        Height = 21
+        Height = 27
         TabStop = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
         Text = ''
         DataField = 'NOME'
@@ -147,13 +175,19 @@ object frmAnotar: TfrmAnotar
       end
       object dbgPesquisaProduto: TJvDBGrid
         Left = 16
-        Top = 40
-        Width = 606
-        Height = 158
+        Top = 46
+        Width = 639
+        Height = 236
         TabStop = False
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataSource = dtsPesqProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Tahoma'
+        Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleHotTrack]
+        ParentFont = False
         ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
@@ -167,7 +201,7 @@ object frmAnotar: TfrmAnotar
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
         CanDelete = False
         EditControls = <>
-        RowsHeight = 17
+        RowsHeight = 27
         TitleRowHeight = 17
         BooleanEditor = False
         Columns = <
@@ -175,20 +209,21 @@ object frmAnotar: TfrmAnotar
             Expanded = False
             FieldName = 'CODIGO'
             Title.Caption = 'C'#243'digo'
+            Width = 56
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
             Title.Caption = 'Nome'
-            Width = 296
+            Width = 378
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_UNI'
             Title.Caption = 'Valor'
-            Width = 70
+            Width = 121
             Visible = True
           end>
       end
@@ -196,12 +231,14 @@ object frmAnotar: TfrmAnotar
   end
   object pnl1: TPanel
     Left = 0
-    Top = 320
-    Width = 662
+    Top = 413
+    Width = 695
     Height = 48
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 320
+    ExplicitWidth = 662
     object btnOk: TButton
       Left = 224
       Top = 6
@@ -458,7 +495,7 @@ object frmAnotar: TfrmAnotar
     ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT'
-      '  ped.fk_temporada ,'
+      '  cc.fk_temporada ,'
       '  cc.fk_cliente ,  '
       '  c.permitir_saldo_negativo,'
       '  sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,  '
@@ -476,7 +513,7 @@ object frmAnotar: TfrmAnotar
       '    ped.id_pedido = mv.fk_pedido'
       'WHERE'
       '  cc.FK_CLIENTE =:id_cliente'
-      '  AND ped.FK_TEMPORADA = :id_temporada'
+      '  AND cc.FK_TEMPORADA = :id_temporada'
       'GROUP BY fk_temporada,FK_CLIENTE,permitir_saldo_negativo')
     Left = 224
     Top = 232

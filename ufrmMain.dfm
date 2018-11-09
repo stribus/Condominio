@@ -32,10 +32,6 @@ object frmMain: TfrmMain
     object tsMesas: TTabSheet
       Caption = '&Mesas'
       OnShow = tsMesasShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -72,7 +68,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 635
+          Left = 631
           Top = 8
           Width = 105
           Height = 41
@@ -80,7 +76,6 @@ object frmMain: TfrmMain
           Caption = 'Cadastrar Mesas'
           TabOrder = 2
           OnClick = btnNovaMesaClick
-          ExplicitLeft = 639
         end
         object btn4: TButton
           Left = 263
@@ -92,7 +87,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 746
+          Left = 742
           Top = 8
           Width = 105
           Height = 41
@@ -100,10 +95,9 @@ object frmMain: TfrmMain
           Caption = 'Editar Mesas'
           TabOrder = 4
           OnClick = btn1Click
-          ExplicitLeft = 750
         end
         object chkMesasAtivas: TCheckBox
-          Left = 857
+          Left = 853
           Top = 20
           Width = 97
           Height = 17
@@ -113,7 +107,6 @@ object frmMain: TfrmMain
           State = cbChecked
           TabOrder = 5
           OnClick = chkMesasAtivasClick
-          ExplicitLeft = 861
         end
       end
       object dbgrdMesas: TDBGrid
@@ -125,7 +118,7 @@ object frmMain: TfrmMain
         DataSource = dtsmesas
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -21
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -180,10 +173,6 @@ object frmMain: TfrmMain
     object tsClientes: TTabSheet
       Caption = '&Clientes'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -229,7 +218,7 @@ object frmMain: TfrmMain
         DataSource = dtsClientes
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -21
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -285,10 +274,6 @@ object frmMain: TfrmMain
     object tsProdutos: TTabSheet
       Caption = '&Produtos'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -344,7 +329,7 @@ object frmMain: TfrmMain
         DataSource = dtsprodutos
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -21
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -364,7 +349,7 @@ object frmMain: TfrmMain
         SelectColumnsDialogStrings.OK = '&OK'
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
         EditControls = <>
-        RowsHeight = 23
+        RowsHeight = 29
         TitleRowHeight = 17
         Columns = <
           item
@@ -380,7 +365,7 @@ object frmMain: TfrmMain
           item
             Expanded = False
             FieldName = 'CODIGO'
-            Width = 57
+            Width = 66
             Visible = True
           end
           item
@@ -399,10 +384,6 @@ object frmMain: TfrmMain
     object tsEntradasSaidas: TTabSheet
       Caption = '&Entradas/Saidas'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnl1: TPanel
         Left = 0
         Top = 0
@@ -447,7 +428,7 @@ object frmMain: TfrmMain
         Align = alClient
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -21
         Font.Name = 'Tahoma'
         Font.Style = []
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -468,7 +449,7 @@ object frmMain: TfrmMain
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
         CanDelete = False
         EditControls = <>
-        RowsHeight = 23
+        RowsHeight = 29
         TitleRowHeight = 17
         BooleanEditor = False
       end
@@ -477,256 +458,379 @@ object frmMain: TfrmMain
       Caption = 'Config/&Relat'#243'rios'
       ImageIndex = 3
       OnShow = TabSheet4Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
-      object btnNovaTemporada: TButton
-        Left = 814
-        Top = 8
-        Width = 105
-        Height = 41
-        Caption = 'Nova Temporada'
+      object spl1: TSplitter
+        Left = 541
+        Top = 0
+        Height = 711
+        Align = alRight
+        Beveled = True
+        ExplicitLeft = 0
+        ExplicitTop = 200
+        ExplicitHeight = 100
+      end
+      object pnl2: TPanel
+        Left = 544
+        Top = 0
+        Width = 574
+        Height = 711
+        Align = alRight
+        BevelOuter = bvNone
         TabOrder = 0
-        OnClick = btnNovaTemporadaClick
+        ExplicitLeft = 568
+        ExplicitTop = 3
+        object grp6: TGroupBox
+          Left = 61
+          Top = 84
+          Width = 156
+          Height = 105
+          Caption = 'Temporadas'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          object btnNovaTemporada: TButton
+            Left = 16
+            Top = 31
+            Width = 89
+            Height = 41
+            Caption = 'Nova'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnClick = btnNovaTemporadaClick
+          end
+        end
+        object grp3: TGroupBox
+          Left = 301
+          Top = 84
+          Width = 156
+          Height = 89
+          Caption = 'Usu'#225'rios'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+          object btnNovoUsuario: TButton
+            Left = 32
+            Top = 31
+            Width = 105
+            Height = 41
+            Caption = 'Cadastrar'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnClick = btnNovoUsuarioClick
+          end
+        end
+        object pnl4: TPanel
+          Left = 0
+          Top = 0
+          Width = 574
+          Height = 41
+          Align = alTop
+          Caption = 'Configura'#231#245'es'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+          ExplicitLeft = 272
+          ExplicitTop = 32
+          ExplicitWidth = 185
+        end
       end
-      object grp1: TGroupBox
-        AlignWithMargins = True
-        Left = 15
-        Top = 3
-        Width = 392
-        Height = 169
-        Hint = 'Gera relatorio de vendas conforme configurado'
-        Margins.Left = 0
-        Margins.Top = 0
-        Margins.Right = 0
-        Margins.Bottom = 0
-        Caption = 'Vendas'
-        Ctl3D = True
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Arial Black'
-        Font.Style = []
-        ParentCtl3D = False
-        ParentFont = False
-        ParentShowHint = False
-        ShowHint = True
+      object pnl3: TPanel
+        Left = 0
+        Top = 0
+        Width = 541
+        Height = 711
+        Align = alClient
+        BevelOuter = bvNone
         TabOrder = 1
-        object lbl3: TLabel
-          Left = 15
-          Top = 36
-          Width = 33
-          Height = 23
-          Caption = 'De :'
-        end
-        object lbl4: TLabel
-          Left = 199
-          Top = 36
-          Width = 40
-          Height = 23
-          Caption = 'Ate :'
-        end
-        object Edt_movimento_datai1: TJvDateEdit
-          Left = 53
-          Top = 33
-          Width = 131
-          Height = 26
-          Hint = 'selecione uma data inicial do relatorio'
-          MinDate = 40247.000000000000000000
-          DefaultToday = True
-          DialogTitle = 'Selecione uma Data'
-          Font.Charset = ANSI_CHARSET
+        ExplicitLeft = -6
+        ExplicitTop = 51
+        ExplicitWidth = 696
+        object grp1: TGroupBox
+          AlignWithMargins = True
+          Left = 24
+          Top = 64
+          Width = 390
+          Height = 169
+          Hint = 'Gera relatorio de vendas conforme configurado'
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Caption = 'Vendas'
+          Ctl3D = True
+          Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
-          Font.Name = 'Arial'
+          Font.Name = 'Arial Black'
           Font.Style = []
-          ParentFont = False
-          ShowNullDate = False
-          StartOfWeek = Sun
-          TabOrder = 0
-        end
-        object Edt_movimento_dataf1: TJvDateEdit
-          Left = 245
-          Top = 33
-          Width = 131
-          Height = 26
-          Hint = 'selecione data final do relatorio'
-          MinDate = 40247.000000000000000000
-          DefaultToday = True
-          DialogTitle = 'Selecione uma Data'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
-          ShowNullDate = False
-          StartOfWeek = Sun
-          TabOrder = 1
-        end
-        object btn_relVendas: TButton
-          Left = 136
-          Top = 128
-          Width = 75
-          Height = 25
-          Caption = 'Gerar'
-          TabOrder = 2
-          OnClick = btn_relVendasClick
-        end
-        object rgTipoRelVendas: TJvRadioGroup
-          Left = 3
-          Top = 59
-          Width = 388
-          Height = 43
-          Hint = 
-            'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
-            'UTO: Gera relatorio da quantidade de produtos vendidos.'
-          Columns = 3
-          Ctl3D = False
-          ItemIndex = 0
-          Items.Strings = (
-            'Pedido'
-            'Produto')
           ParentCtl3D = False
+          ParentFont = False
           ParentShowHint = False
           ShowHint = True
+          TabOrder = 0
+          object lbl3: TLabel
+            Left = 15
+            Top = 36
+            Width = 33
+            Height = 23
+            Caption = 'De :'
+          end
+          object lbl4: TLabel
+            Left = 199
+            Top = 36
+            Width = 40
+            Height = 23
+            Caption = 'Ate :'
+          end
+          object Edt_movimento_datai1: TJvDateEdit
+            Left = 53
+            Top = 33
+            Width = 131
+            Height = 26
+            Hint = 'selecione uma data inicial do relatorio'
+            MinDate = 40247.000000000000000000
+            DefaultToday = True
+            DialogTitle = 'Selecione uma Data'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+            ShowNullDate = False
+            StartOfWeek = Sun
+            TabOrder = 0
+          end
+          object Edt_movimento_dataf1: TJvDateEdit
+            Left = 245
+            Top = 33
+            Width = 131
+            Height = 26
+            Hint = 'selecione data final do relatorio'
+            MinDate = 40247.000000000000000000
+            DefaultToday = True
+            DialogTitle = 'Selecione uma Data'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+            ShowNullDate = False
+            StartOfWeek = Sun
+            TabOrder = 1
+          end
+          object btn_relVendas: TButton
+            Left = 136
+            Top = 128
+            Width = 75
+            Height = 25
+            Caption = 'Gerar'
+            TabOrder = 2
+          end
+          object rgTipoRelVendas: TJvRadioGroup
+            Left = 3
+            Top = 59
+            Width = 388
+            Height = 43
+            Hint = 
+              'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
+              'UTO: Gera relatorio da quantidade de produtos vendidos.'
+            Columns = 3
+            Ctl3D = False
+            ItemIndex = 0
+            Items.Strings = (
+              'Pedido'
+              'Produto')
+            ParentCtl3D = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 3
+            CaptionVisible = False
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
+          end
+        end
+        object grp2: TGroupBox
+          Left = 194
+          Top = 379
+          Width = 238
+          Height = 118
+          Caption = 'Debitos Cliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial Black'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          object btnDebitosClientes: TButton
+            Left = 80
+            Top = 72
+            Width = 75
+            Height = 25
+            Caption = 'Gerar'
+            TabOrder = 0
+          end
+          object rdgCliente: TJvRadioGroup
+            Left = 3
+            Top = 23
+            Width = 235
+            Height = 43
+            Hint = 
+              'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
+              'UTO: Gera relatorio da quantidade de produtos vendidos.'
+            Caption = 'ordenar por:'
+            Columns = 2
+            Ctl3D = False
+            ItemIndex = 0
+            Items.Strings = (
+              'nome '
+              'codigo')
+            ParentCtl3D = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 1
+            CaptionVisible = False
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
+          end
+        end
+        object grp5: TGroupBox
+          Left = 16
+          Top = 379
+          Width = 172
+          Height = 118
+          Caption = 'Devedores'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+          object btnDevedores: TButton
+            Left = 52
+            Top = 54
+            Width = 75
+            Height = 25
+            Caption = 'gerar'
+            TabOrder = 0
+          end
+        end
+        object grp4: TGroupBox
+          Left = 16
+          Top = 236
+          Width = 393
+          Height = 137
+          Caption = 'Pagamentos'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
           TabOrder = 3
-          CaptionVisible = False
-          EdgeBorders = []
-          EdgeInner = esNone
-          EdgeOuter = esNone
+          object lbl1: TLabel
+            Left = 15
+            Top = 36
+            Width = 26
+            Height = 16
+            Caption = 'De :'
+          end
+          object lbl2: TLabel
+            Left = 199
+            Top = 36
+            Width = 33
+            Height = 16
+            Caption = 'Ate :'
+          end
+          object Edt_pg_datai1: TJvDateEdit
+            Left = 53
+            Top = 33
+            Width = 131
+            Height = 26
+            Hint = 'selecione uma data inicial do relatorio'
+            MinDate = 40247.000000000000000000
+            DefaultToday = True
+            DialogTitle = 'Selecione uma Data'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+            ShowNullDate = False
+            StartOfWeek = Sun
+            TabOrder = 0
+          end
+          object Edt_pg_dataf1: TJvDateEdit
+            Left = 245
+            Top = 33
+            Width = 131
+            Height = 26
+            Hint = 'selecione data final do relatorio'
+            MinDate = 40247.000000000000000000
+            DefaultToday = True
+            DialogTitle = 'Selecione uma Data'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+            ShowNullDate = False
+            StartOfWeek = Sun
+            TabOrder = 1
+          end
+          object btnRelPagmnto: TButton
+            Left = 135
+            Top = 88
+            Width = 75
+            Height = 25
+            Caption = 'Gerar'
+            TabOrder = 2
+            OnClick = btnRelatorioPgClick
+          end
         end
-      end
-      object grp2: TGroupBox
-        Left = 417
-        Top = 8
-        Width = 240
-        Height = 118
-        Caption = 'Debitos Cliente'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Arial Black'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 2
-        object btnDebitosClientes: TButton
-          Left = 80
-          Top = 72
-          Width = 75
-          Height = 25
-          Caption = 'Gerar'
-          TabOrder = 0
-        end
-        object rdgCliente: TJvRadioGroup
-          Left = 3
-          Top = 23
-          Width = 235
-          Height = 43
-          Hint = 
-            'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
-            'UTO: Gera relatorio da quantidade de produtos vendidos.'
-          Caption = 'ordenar por:'
-          Columns = 2
-          Ctl3D = False
-          ItemIndex = 0
-          Items.Strings = (
-            'nome '
-            'codigo')
-          ParentCtl3D = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 1
-          CaptionVisible = False
-          EdgeBorders = []
-          EdgeInner = esNone
-          EdgeOuter = esNone
-        end
-      end
-      object grp5: TGroupBox
-        Left = 420
-        Top = 132
-        Width = 174
-        Height = 118
-        Caption = 'Devedores'
-        TabOrder = 3
-        object btnDevedores: TButton
-          Left = 52
-          Top = 54
-          Width = 75
-          Height = 25
-          Caption = 'gerar'
-          TabOrder = 0
-        end
-      end
-      object grp4: TGroupBox
-        Left = 16
-        Top = 192
-        Width = 393
-        Height = 137
-        Caption = 'Pagamentos'
-        TabOrder = 4
-        object lbl1: TLabel
-          Left = 15
-          Top = 36
-          Width = 24
-          Height = 16
-          Caption = 'De :'
-        end
-        object lbl2: TLabel
-          Left = 199
-          Top = 36
-          Width = 28
-          Height = 16
-          Caption = 'Ate :'
-        end
-        object Edt_pg_datai1: TJvDateEdit
-          Left = 53
-          Top = 33
-          Width = 131
-          Height = 26
-          Hint = 'selecione uma data inicial do relatorio'
-          MinDate = 40247.000000000000000000
-          DefaultToday = True
-          DialogTitle = 'Selecione uma Data'
-          Font.Charset = ANSI_CHARSET
+        object pnl5: TPanel
+          Left = 0
+          Top = 0
+          Width = 541
+          Height = 41
+          Align = alTop
+          Caption = 'Relat'#243'rios'
+          Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
           ParentFont = False
-          ShowNullDate = False
-          StartOfWeek = Sun
-          TabOrder = 0
-        end
-        object Edt_pg_dataf1: TJvDateEdit
-          Left = 245
-          Top = 33
-          Width = 131
-          Height = 26
-          Hint = 'selecione data final do relatorio'
-          MinDate = 40247.000000000000000000
-          DefaultToday = True
-          DialogTitle = 'Selecione uma Data'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
-          ShowNullDate = False
-          StartOfWeek = Sun
-          TabOrder = 1
-        end
-        object btnRelPagmnto: TButton
-          Left = 135
-          Top = 88
-          Width = 75
-          Height = 25
-          Caption = 'Gerar'
-          TabOrder = 2
-          OnClick = btnRelatorioPgClick
+          TabOrder = 4
+          ExplicitTop = 8
         end
       end
     end
