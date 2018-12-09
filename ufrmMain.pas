@@ -13,7 +13,8 @@ uses
   JvDatePickerEdit, JvDateTimePicker, UfrmCadTemporada, Data.Bind.EngExt, Vcl.Bind.DBEngExt,
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet, udtmRelatorios,
-  frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup, JvBaseDlg, JvLoginForm;
+  frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup, JvBaseDlg, JvLoginForm,
+  ufrmCadEntradasSaidas;
 
 type
   TfrmMain = class(TForm)
@@ -69,10 +70,10 @@ type
     lpfVisible: TLinkPropertyToField;
     tsEntradasSaidas: TTabSheet;
     pnl1: TPanel;
-    btn3: TButton;
-    btn5: TButton;
-    btn6: TButton;
-    dbg1: TJvDBGrid;
+    btnAddES: TButton;
+    btnEditES: TButton;
+    btnDelES: TButton;
+    dbgEntradasSaidas: TJvDBGrid;
     fdqClientes: TFDQuery;
     dtsClientes: TDataSource;
     fdqClientesID_CLIENTE: TLargeintField;
@@ -127,6 +128,16 @@ type
     btnNovoUsuario: TButton;
     pnl4: TPanel;
     pnl5: TPanel;
+    fdqEntradasSaidas: TFDQuery;
+    dtsEntradasSaidas: TDataSource;
+    fdqEntradasSaidasID: TLargeintField;
+    fdqEntradasSaidasDESCRICAO: TStringField;
+    fdqEntradasSaidasVALOR: TBCDField;
+    fdqEntradasSaidasTIPO: TIntegerField;
+    fdqEntradasSaidasDATA_HORA: TSQLTimeStampField;
+    fdqEntradasSaidasEXCLUIDO: TBooleanField;
+    fdqEntradasSaidasUSER_DEL: TStringField;
+    fdqEntradasSaidasDATA_HORA_EXC: TSQLTimeStampField;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -144,9 +155,9 @@ type
     procedure btnAddProdutoClick(Sender: TObject);
     procedure btnEdtProdutoClick(Sender: TObject);
     procedure btnDelProdutoClick(Sender: TObject);
-    procedure btn3Click(Sender: TObject);
-    procedure btn5Click(Sender: TObject);
-    procedure btn6Click(Sender: TObject);
+    procedure btnAddESClick(Sender: TObject);
+    procedure btnEditESClick(Sender: TObject);
+    procedure btnDelESClick(Sender: TObject);
     procedure dbgrdMesasDblClick(Sender: TObject);
     procedure btnAddClienteClick(Sender: TObject);
     procedure btnAlterClienteClick(Sender: TObject);
@@ -157,6 +168,7 @@ type
     procedure TabSheet4Show(Sender: TObject);
     procedure btn_relVendasClick(Sender: TObject);
     procedure btnNovoUsuarioClick(Sender: TObject);
+    procedure fdqEntradasSaidasTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -173,7 +185,7 @@ var
 implementation
 
 uses
-  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes,uFrmConta,
+  ufrmCadMesas, ufrmTemporada, UGeral, ufrmManutencaoMesa, ufrmCadClientes,uFrmConta,     
   ufrmCadUsuario;
 
 {$R *.dfm}
@@ -183,6 +195,7 @@ begin
   Refresh(fdqMesas,'ID_MESA');
   Refresh(fdqClientes,'ID_CLIENTE');
   Refresh(fdqProdutos,'ID_RODUTOS');
+  Refresh(fdqEntradasSaidas,'ID');
 end;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
@@ -201,9 +214,10 @@ begin
   Refresh(fdqMesas,'ID_MESA');
 end;
 
-procedure TfrmMain.btn3Click(Sender: TObject);
+procedure TfrmMain.btnAddESClick(Sender: TObject);
 begin
-{}
+{}   TfrmEntradasSaidas.inserir(self,fdqConfiguracoesID_TEMPORADAS.AsInteger) ;
+  Refresh(fdqEntradasSaidas,'ID');
 end;
 
 procedure TfrmMain.btn4Click(Sender: TObject);
@@ -230,12 +244,12 @@ begin
 
 end;
 
-procedure TfrmMain.btn5Click(Sender: TObject);
+procedure TfrmMain.btnEditESClick(Sender: TObject);
 begin
 {}
 end;
 
-procedure TfrmMain.btn6Click(Sender: TObject);
+procedure TfrmMain.btnDelESClick(Sender: TObject);
 begin
 {}
 end;
@@ -325,6 +339,7 @@ begin
   dtmRelatorios.fdqRelPagamentos.Close;
   dtmRelatorios.fdqRelPagamentos.ParamByName('DATAINI').Value := Edt_pg_datai1.Date;
   dtmRelatorios.fdqRelPagamentos.ParamByName('DATAFIM').Value := Edt_pg_dataf1.Date;
+  dtmRelatorios.fdqRelPagamentos.open;
   dtmRelatorios.frepPagamentos.ShowReport(true);
 end;
 
@@ -335,6 +350,7 @@ begin
     dtmRelatorios.fdqProdutosVendidos.Close;
     dtmRelatorios.fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;
     dtmRelatorios.fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
+    dtmRelatorios.fdqProdutosVendidos.open;
     dtmRelatorios.frepProdutosVendidos.ShowReport(true);
   end;
 
@@ -365,6 +381,21 @@ end;
 procedure TfrmMain.dbgrdMesasTitleClick(Column: TColumn);
 begin
   sortColumn(fdqMesas,Column);
+end;
+
+procedure TfrmMain.fdqEntradasSaidasTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if NOT sender.IsNull then
+  begin
+    if sender.AsInteger > 0 then
+    begin
+      Text := 'ENTRADA';
+    end
+    else if sender.AsInteger < 0 then
+    begin
+      Text := 'SAÍDA'
+    end;
+  end;
 end;
 
 procedure TfrmMain.fdqMesasBeforeOpen(DataSet: TDataSet);

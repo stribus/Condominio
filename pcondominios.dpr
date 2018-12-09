@@ -24,7 +24,9 @@ uses
   ufrmPesqProduto in 'ufrmPesqProduto.pas' {frmPesqProduto},
   ufrmAnotar in 'ufrmAnotar.pas' {frmAnotar},
   udtmRelatorios in 'udtmRelatorios.pas' {dtmRelatorios: TDataModule},
-  ufrmCadUsuario in 'ufrmCadUsuario.pas' {frmCadUsuario};
+  ufrmCadUsuario in 'ufrmCadUsuario.pas' {frmCadUsuario},
+  ufrmValidaUsuario in 'ufrmValidaUsuario.pas' {frmValidaUsuario},
+  ufrmCadEntradasSaidas in 'ufrmCadEntradasSaidas.pas' {frmEntradasSaidas};
 
 {$R *.res}
 

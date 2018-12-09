@@ -92,7 +92,7 @@ begin
     Exit;
   end;
   md5senha := THashMD5.GetHashString(edtPassword.Text);
-  fdqEdicaoPWD.AsString = md5senha;
+  fdqEdicaoPWD.AsString := md5senha;
   Result := true;
 end;
 

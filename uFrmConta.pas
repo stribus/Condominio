@@ -90,14 +90,41 @@ var
 implementation
 
 uses
-  UGeral;
+  UGeral,ufrmvalidaUsuario,udtmCon;
 
 {$R *.dfm}
 
 { TfrmConta }
 
 procedure TfrmConta.btn_excluirClick(Sender: TObject);
+const
+   Update =
+    '  update' + #13#10 +
+    '    mov_produto mp' + #13#10 +
+    '  set' + #13#10 +
+    '    mp.excluido = true' + #13#10 +
+    '    ,mp.user_del = ''%s'' ' + #13#10 +
+    '    ,mp.data_hora_exc = current_timestamp' + #13#10 +
+    '  where' + #13#10 +
+    '    mp.id_mov_produto = %d ';
+var
+  lSql: TStringBuilder;
+  usuario:string;
 begin
+  if not fdqCaderneta.IsEmpty then
+  begin
+    usuario := TfrmValidaUsuario.confirmaUsuario(self);
+    if (usuario <> '') and (fdqCadernetaID_MOV_PRODUTO.AsInteger > 0) then
+    begin
+      try
+        lSql := TStringBuilder.Create;
+        lSql.AppendFormat(Update, [usuario, fdqCadernetaID_MOV_PRODUTO.AsInteger]);
+        dtmcon.conexao.ExecSQL(lSql.ToString);
+      finally
+        tryFreeAndNil(lSql);
+      end;
+    end;
+  end;
   refreshConta;
 end;
 

@@ -1,15 +1,19 @@
 inherited frmCadUsuario: TfrmCadUsuario
   Caption = 'Cadastrar Usuario'
   ClientHeight = 314
-  ExplicitWidth = 510
   ExplicitHeight = 352
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnl1: TPanel
     Top = 266
+    ExplicitTop = 266
+    inherited btnOk: TButton
+      Default = True
+    end
   end
   inherited pnl2: TPanel
     Height = 266
+    ExplicitHeight = 266
     object lbl1: TLabel [0]
       Left = 32
       Top = 24
@@ -86,6 +90,7 @@ inherited frmCadUsuario: TfrmCadUsuario
     end
   end
   inherited fdqEdicao: TFDQuery
+    CachedUpdates = False
     ConnectionName = 'Condominio'
     FormatOptions.AssignedValues = [fvSE2Null]
     FormatOptions.StrsEmpty2Null = True

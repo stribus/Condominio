@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet4
+    ActivePage = tsEntradasSaidas
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -29,6 +29,7 @@ object frmMain: TfrmMain
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ReduceMemoryUse = True
     object tsMesas: TTabSheet
       Caption = '&Mesas'
       OnShow = tsMesasShow
@@ -68,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 631
+          Left = 623
           Top = 8
           Width = 105
           Height = 41
@@ -87,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 742
+          Left = 734
           Top = 8
           Width = 105
           Height = 41
@@ -97,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 853
+          Left = 845
           Top = 20
           Width = 97
           Height = 17
@@ -392,40 +393,43 @@ object frmMain: TfrmMain
         Align = alTop
         BevelKind = bkSoft
         TabOrder = 0
-        object btn3: TButton
+        object btnAddES: TButton
           Left = 16
           Top = 8
-          Width = 105
+          Width = 101
           Height = 41
           Caption = 'Adicionar(F9)'
           TabOrder = 0
-          OnClick = btn3Click
+          OnClick = btnAddESClick
         end
-        object btn5: TButton
+        object btnEditES: TButton
           Left = 127
           Top = 8
           Width = 105
           Height = 41
           Caption = 'Editar'
           TabOrder = 1
-          OnClick = btn5Click
+          Visible = False
+          OnClick = btnEditESClick
         end
-        object btn6: TButton
+        object btnDelES: TButton
           Left = 238
           Top = 8
           Width = 105
           Height = 41
           Caption = 'Excluir'
           TabOrder = 2
-          OnClick = btn6Click
+          Visible = False
+          OnClick = btnDelESClick
         end
       end
-      object dbg1: TJvDBGrid
+      object dbgEntradasSaidas: TJvDBGrid
         Left = 0
         Top = 65
         Width = 1118
         Height = 646
         Align = alClient
+        DataSource = dtsEntradasSaidas
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -21
@@ -444,6 +448,7 @@ object frmMain: TfrmMain
         SortMarker = smUp
         TitleButtons = True
         SortedField = 'NOME'
+        AutoSizeColumns = True
         SelectColumnsDialogStrings.Caption = 'Select columns'
         SelectColumnsDialogStrings.OK = '&OK'
         SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
@@ -452,6 +457,31 @@ object frmMain: TfrmMain
         RowsHeight = 29
         TitleRowHeight = 17
         BooleanEditor = False
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'DATA_HORA'
+            Width = 187
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TIPO'
+            Width = 119
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO'
+            Width = 584
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALOR'
+            Width = 208
+            Visible = True
+          end>
       end
     end
     object TabSheet4: TTabSheet
@@ -476,8 +506,6 @@ object frmMain: TfrmMain
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 568
-        ExplicitTop = 3
         object grp6: TGroupBox
           Left = 61
           Top = 84
@@ -550,9 +578,6 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 2
-          ExplicitLeft = 272
-          ExplicitTop = 32
-          ExplicitWidth = 185
         end
       end
       object pnl3: TPanel
@@ -563,9 +588,6 @@ object frmMain: TfrmMain
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = -6
-        ExplicitTop = 51
-        ExplicitWidth = 696
         object grp1: TGroupBox
           AlignWithMargins = True
           Left = 24
@@ -648,6 +670,7 @@ object frmMain: TfrmMain
             Height = 25
             Caption = 'Gerar'
             TabOrder = 2
+            OnClick = btn_relVendasClick
           end
           object rgTipoRelVendas: TJvRadioGroup
             Left = 3
@@ -830,7 +853,6 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 4
-          ExplicitTop = 8
         end
       end
     end
@@ -1219,5 +1241,72 @@ object frmMain: TfrmMain
       Caption = 'actAdicionarEntrada'
       ShortCut = 120
     end
+  end
+  object fdqEntradasSaidas: TFDQuery
+    ConnectionName = 'Condominio'
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate, uvUpdateChngFields]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
+    UpdateOptions.UpdateChangedFields = False
+    SQL.Strings = (
+      'select'
+      '*'
+      'from'
+      'ENTRADA_SAIDA'
+      'where'
+      'not excluido')
+    Left = 172
+    Top = 259
+    object fdqEntradasSaidasID: TLargeintField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqEntradasSaidasDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Required = True
+      Size = 150
+    end
+    object fdqEntradasSaidasVALOR: TBCDField
+      FieldName = 'VALOR'
+      Origin = 'VALOR'
+      Required = True
+      DisplayFormat = '0.,00'
+      currency = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqEntradasSaidasTIPO: TIntegerField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+      OnGetText = fdqEntradasSaidasTIPOGetText
+    end
+    object fdqEntradasSaidasDATA_HORA: TSQLTimeStampField
+      FieldName = 'DATA_HORA'
+      Origin = 'DATA_HORA'
+    end
+    object fdqEntradasSaidasEXCLUIDO: TBooleanField
+      FieldName = 'EXCLUIDO'
+      Origin = 'EXCLUIDO'
+      Required = True
+    end
+    object fdqEntradasSaidasUSER_DEL: TStringField
+      FieldName = 'USER_DEL'
+      Origin = 'USER_DEL'
+      Size = 150
+    end
+    object fdqEntradasSaidasDATA_HORA_EXC: TSQLTimeStampField
+      FieldName = 'DATA_HORA_EXC'
+      Origin = 'DATA_HORA_EXC'
+    end
+  end
+  object dtsEntradasSaidas: TDataSource
+    DataSet = fdqEntradasSaidas
+    Left = 196
+    Top = 259
   end
 end

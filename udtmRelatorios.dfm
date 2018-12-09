@@ -16,9 +16,10 @@ object dtmRelatorios: TdtmRelatorios
       #9'MOV_PRODUTO m'
       'WHERE'
       ' '#9'm.PAGAMENTO = TRUE'
+      '        and not m.excluido '
       
-        '        and m.DATA_HORA between cast(:dataini as date) and cast(' +
-        ':datafim as date)'
+        '        and cast(m.DATA_HORA as date) between cast(:dataini as d' +
+        'ate) and cast(:datafim as date)'
       'GROUP BY  dia'
       'ORDER BY dia')
     Left = 23
@@ -28,13 +29,13 @@ object dtmRelatorios: TdtmRelatorios
         Name = 'DATAINI'
         DataType = ftDate
         ParamType = ptInput
-        Value = 43101d
+        Value = 43412d
       end
       item
         Name = 'DATAFIM'
         DataType = ftDate
         ParamType = ptInput
-        Value = 43435d
+        Value = 43412d
       end>
   end
   object fdsRelPagamentos: TfrxDBDataset
@@ -364,8 +365,9 @@ object dtmRelatorios: TdtmRelatorios
       'where'
       '  m.pagamento = false'
       
-        ' and m.DATA_HORA between cast(:dataini as date) and cast(:datafi' +
-        'm as date)'
+        ' and cast(m.DATA_HORA as date) between cast(:dataini as date) an' +
+        'd cast(:datafim as date)'
+      'and not m.excluido '
       'group by dia,id_rodutos,codigo,nome'
       'ORDER BY id_rodutos,dia')
     Left = 159
@@ -602,5 +604,29 @@ object dtmRelatorios: TdtmRelatorios
         Condition = '<frxDBProdutosVendidos."DIA">'
       end
     end
+  end
+  object frxPDFExport1: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Transparency = False
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    Left = 300
+    Top = 11
   end
 end

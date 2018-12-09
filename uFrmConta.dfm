@@ -147,11 +147,6 @@ object frmConta: TfrmConta
         item
           Expanded = False
           FieldName = 'QUANTIDADE'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -19
-          Font.Name = 'Tahoma'
-          Font.Style = []
           Title.Caption = 'Quant'
           Width = 61
           Visible = True
@@ -159,11 +154,6 @@ object frmConta: TfrmConta
         item
           Expanded = False
           FieldName = 'VALOR_TOTAL'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -19
-          Font.Name = 'Tahoma'
-          Font.Style = []
           Title.Caption = 'Valor Total'
           Width = 101
           Visible = True
@@ -503,6 +493,7 @@ object frmConta: TfrmConta
       'WHERE'
       #9'cc.FK_CLIENTE =:id_cliente'
       #9'AND cc.FK_TEMPORADA = :id_temporada'
+      'and not mv.excluido '
       'GROUP BY fk_temporada,FK_CLIENTE')
     Left = 224
     Top = 232
@@ -572,6 +563,7 @@ object frmConta: TfrmConta
       #9'mv.quantidade ,'
       #9'mv.pagamento ,'
       #9'mv.valor_total ,'
+      '        mv.excluido,'
       
         #9'SUM(mv.valor_total) OVER (PARTITION BY cc.fk_temporada,cc.fk_cl' +
         'iente ORDER BY'#9'dthr_lancamento,mv.id_mov_produto) Saldo'
