@@ -114,7 +114,6 @@ type
     rgTipoRelVendas: TJvRadioGroup;
     grp2: TGroupBox;
     btnDebitosClientes: TButton;
-    rdgCliente: TJvRadioGroup;
     grp5: TGroupBox;
     btnDevedores: TButton;
     grp4: TGroupBox;
@@ -138,6 +137,7 @@ type
     fdqEntradasSaidasEXCLUIDO: TBooleanField;
     fdqEntradasSaidasUSER_DEL: TStringField;
     fdqEntradasSaidasDATA_HORA_EXC: TSQLTimeStampField;
+    rdgCliente: TJvRadioGroup;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -169,6 +169,7 @@ type
     procedure btn_relVendasClick(Sender: TObject);
     procedure btnNovoUsuarioClick(Sender: TObject);
     procedure fdqEntradasSaidasTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure btnDebitosClientesClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -247,6 +248,16 @@ end;
 procedure TfrmMain.btnEditESClick(Sender: TObject);
 begin
 {}
+end;
+
+procedure TfrmMain.btnDebitosClientesClick(Sender: TObject);
+begin
+  if (rdgCliente.ItemIndex = 0) then
+  begin
+    dtmRelatorios.fdqExtratoCliente.Close;
+    dtmRelatorios.fdqExtratoCliente.open;
+    dtmRelatorios.frepExtratoDiarioCaderno.ShowReport(True);
+  end;
 end;
 
 procedure TfrmMain.btnDelESClick(Sender: TObject);

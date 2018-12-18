@@ -129,7 +129,7 @@ object frmConta: TfrmConta
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Title.Caption = 'Data/Hora'
-          Width = 128
+          Width = 125
           Visible = True
         end
         item
@@ -141,21 +141,21 @@ object frmConta: TfrmConta
           Font.Name = 'Tahoma'
           Font.Style = []
           Title.Caption = 'Produto'
-          Width = 220
+          Width = 214
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'QUANTIDADE'
           Title.Caption = 'Quant'
-          Width = 61
+          Width = 59
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VALOR_TOTAL'
           Title.Caption = 'Valor Total'
-          Width = 101
+          Width = 98
           Visible = True
         end
         item
@@ -168,7 +168,7 @@ object frmConta: TfrmConta
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Title.Caption = 'Acomulado'
-          Width = 118
+          Width = 115
           Visible = True
         end>
     end
@@ -432,6 +432,7 @@ object frmConta: TfrmConta
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
+      OnClick = btn_relatorioClick
     end
     object btn_pagar: TButton
       Left = 669
@@ -464,8 +465,50 @@ object frmConta: TfrmConta
         Name = 'ID_CLIENTE'
         DataType = ftLargeint
         ParamType = ptInput
-        Value = Null
+        Value = 26
       end>
+    object fdqClienteID_CLIENTE: TLargeintField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqClienteCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqClienteNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqClienteENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      Size = 150
+    end
+    object fdqClienteCONTATO: TStringField
+      FieldName = 'CONTATO'
+      Origin = 'CONTATO'
+      Size = 150
+    end
+    object fdqClienteOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdqClientePERMITIR_SALDO_NEGATIVO: TBooleanField
+      FieldName = 'PERMITIR_SALDO_NEGATIVO'
+      Origin = 'PERMITIR_SALDO_NEGATIVO'
+      Required = True
+    end
+    object fdqClienteATIVO: TBooleanField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
   end
   object dtsCliente: TDataSource
     DataSet = fdqCliente
@@ -593,6 +636,7 @@ object frmConta: TfrmConta
         Name = 'ID_TEMPORADA'
         DataType = ftLargeint
         ParamType = ptInput
+        Value = 10
       end>
     object fdqCadernetaID_CADERNETA: TLargeintField
       FieldName = 'ID_CADERNETA'
@@ -678,6 +722,16 @@ object frmConta: TfrmConta
       LookupKeyFields = 'ID'
       LookupResultField = 'NOME'
       KeyFields = 'FKS'
+      Size = 150
+      Lookup = True
+    end
+    object fdqCadernetaSignatario: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Signatario'
+      LookupDataSet = fdqDependente
+      LookupKeyFields = 'ID_DEPENDENTES'
+      LookupResultField = 'NOME'
+      KeyFields = 'FK_DEPENDENTE'
       Size = 150
       Lookup = True
     end
@@ -786,5 +840,349 @@ object frmConta: TfrmConta
         NumericScale = 4
         ParamType = ptInput
       end>
+  end
+  object frepConta: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43451.876958622700000000
+    ReportOptions.LastChange = 43451.899567546300000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 593
+    Top = 152
+    Datasets = <
+      item
+        DataSet = fdsCaderneta
+        DataSetName = 'fdsCaderneta'
+      end
+      item
+        DataSet = fdsCliente
+        DataSetName = 'fdsCliente'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Height = 52.913420000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Align = baWidth
+          Width = 718.110700000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -27
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Extrato')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 34.015770000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'Cliente:')
+          ParentFont = False
+        end
+        object fdsClienteNOME: TfrxMemoView
+          Left = 68.031540000000000000
+          Top = 34.015770000000000000
+          Width = 260.787570000000000000
+          Height = 18.897650000000000000
+          DataField = 'NOME'
+          DataSet = fdsCliente
+          DataSetName = 'fdsCliente'
+          Memo.UTF8W = (
+            '[fdsCliente."NOME"]')
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 173.858380000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsCaderneta
+        DataSetName = 'fdsCaderneta'
+        RowCount = 0
+        object Memo9: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Visibility = [vsPreview, vsExport]
+          Fill.BackColor = cl3DLight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<Line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
+        object fdsCadernetaDTHR_LANCAMENTO: TfrxMemoView
+          Width = 113.385900000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          DisplayFormat.FormatStr = 'dd/mm/yyyy hh:mm'
+          DisplayFormat.Kind = fkDateTime
+          Memo.UTF8W = (
+            '[fdsCaderneta."DTHR_LANCAMENTO"]')
+        end
+        object fdsCadernetaNomeProduto: TfrxMemoView
+          Left = 260.787570000000000000
+          Width = 230.551330000000000000
+          Height = 18.897650000000000000
+          DataField = 'NomeProduto'
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          Memo.UTF8W = (
+            '[fdsCaderneta."NomeProduto"]')
+        end
+        object fdsCadernetaSignatario: TfrxMemoView
+          Left = 120.944960000000000000
+          Width = 132.283550000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          Memo.UTF8W = (
+            '[IIF(<fdsCaderneta."PAGAMENTO">,'#39#39',<fdsCaderneta."Signatario">)]')
+        end
+        object fdsCadernetaQUANTIDADE: TfrxMemoView
+          Left = 495.118430000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[IIF(<fdsCaderneta."PAGAMENTO">,'#39#39',<fdsCaderneta."QUANTIDADE">)]')
+        end
+        object fdsCadernetaVALOR_TOTAL: TfrxMemoView
+          Left = 566.929500000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataField = 'VALOR_TOTAL'
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          DisplayFormat.FormatStr = '0.00'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[fdsCaderneta."VALOR_TOTAL"]')
+        end
+      end
+      object PageHeader1: TfrxPageHeader
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 94.488249999999990000
+        Width = 718.110700000000000000
+        object Memo3: TfrxMemoView
+          Width = 113.385900000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          DisplayFormat.FormatStr = 'dd/mm/yyyy hh:mm'
+          DisplayFormat.Kind = fkDateTime
+          Memo.UTF8W = (
+            'Data Hora')
+        end
+        object Memo4: TfrxMemoView
+          Left = 260.787570000000000000
+          Width = 230.551330000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          Memo.UTF8W = (
+            'Produto')
+        end
+        object Memo5: TfrxMemoView
+          Left = 120.944960000000000000
+          Width = 132.283550000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          Memo.UTF8W = (
+            'Retirado por')
+        end
+        object Memo6: TfrxMemoView
+          Left = 495.118430000000000000
+          Width = 68.031540000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Qtd')
+        end
+        object Memo7: TfrxMemoView
+          Left = 566.929500000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsCaderneta
+          DataSetName = 'fdsCaderneta'
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor')
+        end
+        object Line1: TfrxLineView
+          Align = baBottom
+          Top = 18.897650000000000000
+          Width = 718.110700000000000000
+          Color = clBlack
+          Frame.Typ = [ftTop]
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 253.228510000000000000
+        Width = 718.110700000000000000
+        object SysMemo1: TfrxSysMemoView
+          Left = 566.929500000000000000
+          Top = 3.779529999999994000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.FormatStr = '0.00'
+          HAlign = haRight
+          Memo.UTF8W = (
+            'R$ [SUM(<fdsCaderneta."VALOR_TOTAL">,MasterData1)]')
+        end
+        object Memo8: TfrxMemoView
+          Left = 464.882190000000000000
+          Top = 3.779530000000051000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Total')
+        end
+        object Line2: TfrxLineView
+          Align = baWidth
+          Top = 3.456710000000015000
+          Width = 718.110700000000000000
+          Color = clBlack
+          Frame.Typ = [ftTop]
+        end
+      end
+    end
+  end
+  object fdsCaderneta: TfrxDBDataset
+    UserName = 'fdsCaderneta'
+    CloseDataSource = False
+    DataSource = dtsCaderneta
+    BCDToCurrency = True
+    Left = 489
+    Top = 152
+  end
+  object fdsCliente: TfrxDBDataset
+    UserName = 'fdsCliente'
+    CloseDataSource = False
+    DataSource = dtsCliente
+    BCDToCurrency = True
+    Left = 489
+    Top = 80
+  end
+  object dtsDependente: TDataSource
+    DataSet = fdqDependente
+    Left = 421
+    Top = 208
+  end
+  object fdqDependente: TFDQuery
+    Active = True
+    CachedUpdates = True
+    MasterSource = dtsCliente
+    MasterFields = 'ID_CLIENTE'
+    ConnectionName = 'Condominio'
+    FetchOptions.AssignedValues = [evCache]
+    FetchOptions.Cache = [fiBlobs, fiMeta]
+    UpdateOptions.KeyFields = 'ID_DEPENDENTES'
+    SQL.Strings = (
+      'SELECT'
+      #9'ID_DEPENDENTES,'
+      #9'CODIGO,'
+      #9'NOME,'
+      #9'FK_CLIENTE,'
+      #9'FONE,'
+      #9'OBS,'
+      #9'PERMITIR_RETIRAR'
+      'FROM'
+      #9'DEPENDENTES'
+      'WHERE'
+      #9'FK_CLIENTE = CAST(:ID_CLIENTE AS BIGINT )')
+    Left = 477
+    Top = 208
+    ParamData = <
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Size = 8
+        Value = 26
+      end>
+    object fdqDependenteID_DEPENDENTES: TLargeintField
+      FieldName = 'ID_DEPENDENTES'
+      Origin = 'ID_DEPENDENTES'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object fdqDependenteCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqDependenteNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqDependenteFK_CLIENTE: TLargeintField
+      FieldName = 'FK_CLIENTE'
+      Origin = 'FK_CLIENTE'
+      Required = True
+    end
+    object fdqDependenteFONE: TStringField
+      FieldName = 'FONE'
+      Origin = 'FONE'
+      Size = 150
+    end
+    object fdqDependentePERMITIR_RETIRAR: TBooleanField
+      FieldName = 'PERMITIR_RETIRAR'
+      Origin = 'PERMITIR_RETIRAR'
+      Required = True
+    end
+    object fdqDependenteOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
   end
 end

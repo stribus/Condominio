@@ -22,15 +22,13 @@ object frmAnotar: TfrmAnotar
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 662
-    ExplicitHeight = 320
     DesignSize = (
       695
       413)
     object lbl8: TLabel
       Left = 238
       Top = 13
-      Width = 108
+      Width = 75
       Height = 13
       Anchors = [akLeft, akTop, akRight]
       Caption = 'Autorizado por:'
@@ -237,8 +235,6 @@ object frmAnotar: TfrmAnotar
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 320
-    ExplicitWidth = 662
     object btnOk: TButton
       Left = 224
       Top = 6
@@ -502,33 +498,34 @@ object frmAnotar: TfrmAnotar
       '  sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0)*-1) valor_pago  ,'
       '  SUM(mv.valor_total) Saldo'
       'FROM'
-      '  caderneta_cliente cc'
-      '  join cliente  c'
-      '    on   c.id_cliente = cc.fk_cliente'
-      '  JOIN mov_produto mv ON'
+      '  cliente  c '
+      '  left join caderneta_cliente cc'
+      
+        '    on   c.id_cliente = cc.fk_cliente  AND cc.FK_TEMPORADA = :id' +
+        '_temporada'
+      '  left JOIN mov_produto mv ON'
       '    cc.id_caderneta = mv.fk_caderneta'
       '  LEFT JOIN produtos pr ON'
       '    pr.id_rodutos = mv.fk_produto'
       '  LEFT JOIN pedido ped ON'
       '    ped.id_pedido = mv.fk_pedido'
       'WHERE'
-      '  cc.FK_CLIENTE =:id_cliente'
-      '  AND cc.FK_TEMPORADA = :id_temporada'
+      '  c.id_cliente=:id_cliente'
       'GROUP BY fk_temporada,FK_CLIENTE,permitir_saldo_negativo')
     Left = 224
     Top = 232
     ParamData = <
       item
-        Name = 'ID_CLIENTE'
-        DataType = ftLargeint
-        ParamType = ptInput
-        Value = 26
-      end
-      item
         Name = 'ID_TEMPORADA'
         DataType = ftLargeint
         ParamType = ptInput
         Value = 10
+      end
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Value = 4
       end>
     object fdqTotaisFK_TEMPORADA: TLargeintField
       FieldName = 'FK_TEMPORADA'

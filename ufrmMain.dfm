@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = tsEntradasSaidas
+    ActivePage = TabSheet4
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -69,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btn2Click
         end
         object btnNovaMesa: TButton
-          Left = 623
+          Left = 619
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 734
+          Left = 730
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 845
+          Left = 841
           Top = 20
           Width = 97
           Height = 17
@@ -716,6 +716,7 @@ object frmMain: TfrmMain
             Height = 25
             Caption = 'Gerar'
             TabOrder = 0
+            OnClick = btnDebitosClientesClick
           end
           object rdgCliente: TJvRadioGroup
             Left = 3
@@ -725,13 +726,13 @@ object frmMain: TfrmMain
             Hint = 
               'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
               'UTO: Gera relatorio da quantidade de produtos vendidos.'
-            Caption = 'ordenar por:'
+            Caption = 'Tipo'
             Columns = 2
             Ctl3D = False
             ItemIndex = 0
             Items.Strings = (
-              'nome '
-              'codigo')
+              'Diario'
+              'Detalhado')
             ParentCtl3D = False
             ParentShowHint = False
             ShowHint = True
@@ -853,6 +854,7 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 4
+          ExplicitWidth = 540
         end
       end
     end

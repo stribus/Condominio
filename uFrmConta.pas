@@ -10,7 +10,7 @@ uses
   Vcl.ExtCtrls, JvExExtCtrls, JvExtComponent, JvPanel, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, ufrmPagamento, ufrmAnotar;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, ufrmPagamento, ufrmAnotar, frxClass, frxDBSet;
 
 type
   TfrmConta = class(TForm)
@@ -69,11 +69,33 @@ type
     fdqTotaisVALOR_PAGO: TBCDField;
     fdqTotaisSALDO: TBCDField;
     fdspPagar: TFDStoredProc;
+    frepConta: TfrxReport;
+    fdsCaderneta: TfrxDBDataset;
+    fdsCliente: TfrxDBDataset;
+    dtsDependente: TDataSource;
+    fdqDependente: TFDQuery;
+    fdqDependenteID_DEPENDENTES: TLargeintField;
+    fdqDependenteCODIGO: TLargeintField;
+    fdqDependenteNOME: TStringField;
+    fdqDependenteFK_CLIENTE: TLargeintField;
+    fdqDependenteFONE: TStringField;
+    fdqDependentePERMITIR_RETIRAR: TBooleanField;
+    fdqDependenteOBS: TMemoField;
+    fdqClienteID_CLIENTE: TLargeintField;
+    fdqClienteCODIGO: TLargeintField;
+    fdqClienteNOME: TStringField;
+    fdqClienteENDERECO: TStringField;
+    fdqClienteCONTATO: TStringField;
+    fdqClienteOBS: TMemoField;
+    fdqClientePERMITIR_SALDO_NEGATIVO: TBooleanField;
+    fdqClienteATIVO: TBooleanField;
+    fdqCadernetaSignatario: TStringField;
     procedure fdqCadernetaBeforeOpen(DataSet: TDataSet);
     procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
     procedure btn_pagarClick(Sender: TObject);
     procedure btn_incluirClick(Sender: TObject);
     procedure btn_excluirClick(Sender: TObject);
+    procedure btn_relatorioClick(Sender: TObject);
   private
     { Private declarations }
     procedure refreshConta();
@@ -158,6 +180,13 @@ begin
     refreshConta;
 end;
 
+procedure TfrmConta.btn_relatorioClick(Sender: TObject);
+begin
+  refreshConta;
+  fdqCaderneta.First;
+  frepConta.ShowReport(true);
+end;
+
 class function TfrmConta.Editar(Aowner: TComponent; AId_Cliente,
   AIdTemporada: Integer): Boolean;
 
@@ -172,6 +201,7 @@ begin
     FIdTemporada := AIdTemporada;
     fdqCliente.ParamByName('ID_CLIENTE').AsLargeInt := FIdCliente;
     fdqCliente.Open();
+    fdqDependente.Open();
     refreshConta;
     if (frm.ShowModal = mrOk) then
     begin
