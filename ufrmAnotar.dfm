@@ -65,8 +65,8 @@ object frmAnotar: TfrmAnotar
       Top = 32
       Width = 128
       Height = 27
-      Date = 43385.503391666670000000
-      Time = 43385.503391666670000000
+      Date = 43385.000000000000000000
+      Time = 43385.000000000000000000
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16

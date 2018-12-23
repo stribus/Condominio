@@ -94,6 +94,8 @@ begin
     begin
       FidTemporada := ATemporada;
       FidCliente := AIdCliente;
+      edtData.DateTime := now;
+      edtHota.DateTime := now;
       fdqPesqProduto.Open();
       fdqDependente.Open();
       fdqTotais.Open();
@@ -138,7 +140,7 @@ begin
       Exit;
     end;
 
-    fdsp_lancamentos.ParamByName('IN_DTHR_LANCAMENTO').Value := edtData.DateTime + edtHota.DateTime;
+    fdsp_lancamentos.ParamByName('IN_DTHR_LANCAMENTO').Value := DateToStr(edtData.date) +' '+ timetostr(edtHota.time);
     fdsp_lancamentos.ParamByName('IN_CLIENTE').Value := FidCliente;
     fdsp_lancamentos.ParamByName('IN_DEPENDENTE').Value := dbcbbAUTORIZADO.KeyValue;
     fdsp_lancamentos.ParamByName('IN_DESC_DEPENDENTE').Value := dbcbbAUTORIZADO.Text;
