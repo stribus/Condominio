@@ -19,9 +19,6 @@ Coordinates=10,254,49,58
 [Panel1]
 Coordinates=297,10,54,58
 
-[btn2]
-Coordinates=475,10,49,58
-
 [fdqMesasCODIGO]
 Coordinates=433,276,122,36
 
@@ -156,4 +153,7 @@ Coordinates=187,254,60,58
 
 [frmManutencaoMesa.fdqPedido]
 Visible=False
+
+[btnFecharmesa]
+Coordinates=475,10,49,58
 

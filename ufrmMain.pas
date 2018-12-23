@@ -29,7 +29,7 @@ type
     dbgrdClientes: TDBGrid;
     Panel3: TPanel;
     btnAbrirMesa: TButton;
-    btn2: TButton;
+    btnFecharmesa: TButton;
     btnNovaMesa: TButton;
     btn4: TButton;
     fdqMesas: TFDQuery;
@@ -114,8 +114,6 @@ type
     rgTipoRelVendas: TJvRadioGroup;
     grp2: TGroupBox;
     btnDebitosClientes: TButton;
-    grp5: TGroupBox;
-    btnDevedores: TButton;
     grp4: TGroupBox;
     lbl1: TLabel;
     lbl2: TLabel;
@@ -138,6 +136,9 @@ type
     fdqEntradasSaidasUSER_DEL: TStringField;
     fdqEntradasSaidasDATA_HORA_EXC: TSQLTimeStampField;
     rdgCliente: TJvRadioGroup;
+    rdgrpRelPagamento: TJvRadioGroup;
+    dts1: TDataSource;
+    dts2: TDataSource;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -150,7 +151,7 @@ type
     procedure btnEditProdutoGrdClick(Sender: TObject);
     procedure dbgProdutosTitleClick(Column: TColumn);
     procedure btnAbrirMesaClick(Sender: TObject);
-    procedure btn2Click(Sender: TObject);
+    procedure btnFecharmesaClick(Sender: TObject);
     procedure btn4Click(Sender: TObject);
     procedure btnAddProdutoClick(Sender: TObject);
     procedure btnEdtProdutoClick(Sender: TObject);
@@ -170,6 +171,8 @@ type
     procedure btnNovoUsuarioClick(Sender: TObject);
     procedure fdqEntradasSaidasTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure btnDebitosClientesClick(Sender: TObject);
+    procedure dbgrdClientesTitleClick(Column: TColumn);
+    procedure dbgrdClientesDblClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -205,7 +208,7 @@ begin
   atualizaDatasets;
 end;
 
-procedure TfrmMain.btn2Click(Sender: TObject);
+procedure TfrmMain.btnFecharmesaClick(Sender: TObject);
 begin
 {} //   TfrmPagamento.Create(self);
   if(not fdqMesasID_PEDIDO.IsNull )then
@@ -258,6 +261,18 @@ begin
     dtmRelatorios.fdqExtratoCliente.open;
     dtmRelatorios.frepExtratoDiarioCaderno.ShowReport(True);
   end;
+  if rdgCliente.ItemIndex = 1 then
+  with dtmRelatorios do
+    begin
+      fdqProdutoslookup.Close;
+      fdqProdutoslookup.open;
+      fdqRelClientes.Close;
+      fdqRelClientes.ParamByName('id_temporada').AsInteger := 10;
+      fdqRelClientes.Open;
+      fdqExtratoCliente.Close;
+      fdqExtratoCliente.open;
+      frepExtratoCaderno.ShowReport(true);
+    end;
 end;
 
 procedure TfrmMain.btnDelESClick(Sender: TObject);
@@ -347,11 +362,25 @@ end;
 
 procedure TfrmMain.btnRelatorioPgClick(Sender: TObject);
 begin
-  dtmRelatorios.fdqRelPagamentos.Close;
-  dtmRelatorios.fdqRelPagamentos.ParamByName('DATAINI').Value := Edt_pg_datai1.Date;
-  dtmRelatorios.fdqRelPagamentos.ParamByName('DATAFIM').Value := Edt_pg_dataf1.Date;
-  dtmRelatorios.fdqRelPagamentos.open;
-  dtmRelatorios.frepPagamentos.ShowReport(true);
+  with dtmRelatorios do
+  begin
+    if rdgrpRelPagamento.ItemIndex = 0 then
+    begin
+      fdqRelPagamentos.Close;
+      fdqRelPagamentos.ParamByName('DATAINI').Value := Edt_pg_datai1.Date;
+      fdqRelPagamentos.ParamByName('DATAFIM').Value := Edt_pg_dataf1.Date;
+      fdqRelPagamentos.open;
+      frepPagamentos.ShowReport(true);
+    end;
+    if rdgrpRelPagamento.ItemIndex = 1 then
+    begin
+      fdqPagamentosTipo.Close;
+      fdqPagamentosTipo.ParamByName('DATA_INI').Value := Edt_pg_datai1.Date;
+      fdqPagamentosTipo.ParamByName('DATA_FIM').Value := Edt_pg_dataf1.Date;
+      fdqPagamentosTipo.open;
+      frepPagtoTipo.ShowReport(true);
+    end;
+  end;
 end;
 
 procedure TfrmMain.btn_relVendasClick(Sender: TObject);
@@ -382,6 +411,16 @@ end;
 procedure TfrmMain.dbgProdutosTitleClick(Column: TColumn);
 begin
   sortColumn(TFDQuery(dbgProdutos.DataSource.DataSet), Column);
+end;
+
+procedure TfrmMain.dbgrdClientesDblClick(Sender: TObject);
+begin
+  btnCadernetaClick(Sender);
+end;
+
+procedure TfrmMain.dbgrdClientesTitleClick(Column: TColumn);
+begin
+  sortColumn(fdqClientes,Column);
 end;
 
 procedure TfrmMain.dbgrdMesasDblClick(Sender: TObject);

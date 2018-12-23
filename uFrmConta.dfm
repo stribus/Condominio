@@ -129,7 +129,7 @@ object frmConta: TfrmConta
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Title.Caption = 'Data/Hora'
-          Width = 125
+          Width = 128
           Visible = True
         end
         item
@@ -141,21 +141,21 @@ object frmConta: TfrmConta
           Font.Name = 'Tahoma'
           Font.Style = []
           Title.Caption = 'Produto'
-          Width = 214
+          Width = 220
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'QUANTIDADE'
           Title.Caption = 'Quant'
-          Width = 59
+          Width = 61
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VALOR_TOTAL'
           Title.Caption = 'Valor Total'
-          Width = 98
+          Width = 101
           Visible = True
         end
         item
@@ -168,7 +168,7 @@ object frmConta: TfrmConta
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Title.Caption = 'Acomulado'
-          Width = 115
+          Width = 118
           Visible = True
         end>
     end
@@ -188,7 +188,7 @@ object frmConta: TfrmConta
         Top = 2
         Width = 20
         Height = 20
-        Hint = 'Incluir'
+        Hint = 'Incluir(F8)'
         TabOrder = 0
         TabStop = False
         Glyph.Data = {
@@ -1004,7 +1004,7 @@ object frmConta: TfrmConta
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 94.488249999999990000
+        Top = 94.488250000000000000
         Width = 718.110700000000000000
         object Memo3: TfrxMemoView
           Width = 113.385900000000000000
@@ -1117,7 +1117,6 @@ object frmConta: TfrmConta
     Top = 208
   end
   object fdqDependente: TFDQuery
-    Active = True
     CachedUpdates = True
     MasterSource = dtsCliente
     MasterFields = 'ID_CLIENTE'
@@ -1183,6 +1182,15 @@ object frmConta: TfrmConta
       FieldName = 'OBS'
       Origin = 'OBS'
       BlobType = ftMemo
+    end
+  end
+  object actlst1: TActionList
+    Left = 732
+    Top = 83
+    object act1: TAction
+      Caption = 'incluir'
+      ShortCut = 119
+      OnExecute = btn_incluirClick
     end
   end
 end

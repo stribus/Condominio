@@ -3,7 +3,7 @@ object frmPagamento: TfrmPagamento
   Top = 0
   Caption = 'Pagamento'
   ClientHeight = 305
-  ClientWidth = 437
+  ClientWidth = 451
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,31 +18,31 @@ object frmPagamento: TfrmPagamento
   object pgc1: TJvPageControl
     Left = 0
     Top = 0
-    Width = 437
+    Width = 451
     Height = 305
-    ActivePage = tsPagamento
+    ActivePage = tsAnotar
     Align = alClient
     OwnerDraw = True
     Style = tsFlatButtons
     TabOrder = 0
     TabStop = False
-    ExplicitHeight = 276
+    ExplicitWidth = 437
     object tsPagamento: TTabSheet
       TabVisible = False
       OnShow = tsPagamentoShow
-      ExplicitHeight = 266
+      ExplicitWidth = 429
       object pnl2: TPanel
         Left = 0
         Top = 0
-        Width = 429
+        Width = 443
         Height = 247
         Align = alClient
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 218
+        ExplicitWidth = 429
         DesignSize = (
-          429
+          443
           247)
         object lbl2: TLabel
           Left = 114
@@ -84,12 +84,13 @@ object frmPagamento: TfrmPagamento
         object pnl3: TPanel
           Left = 0
           Top = 27
-          Width = 437
+          Width = 451
           Height = 49
           Anchors = [akLeft, akTop, akRight]
           BevelOuter = bvNone
           Enabled = False
           TabOrder = 0
+          ExplicitWidth = 437
           object edtTotal: TJvCalcEdit
             Left = 114
             Top = 3
@@ -122,12 +123,12 @@ object frmPagamento: TfrmPagamento
       object pnl1: TPanel
         Left = 0
         Top = 247
-        Width = 429
+        Width = 443
         Height = 48
         Align = alBottom
         ParentBackground = False
         TabOrder = 1
-        ExplicitTop = 218
+        ExplicitWidth = 429
         object btnOk: TButton
           Left = 160
           Top = 9
@@ -153,16 +154,16 @@ object frmPagamento: TfrmPagamento
       ImageIndex = 1
       TabVisible = False
       OnShow = tsAnotarShow
-      ExplicitHeight = 266
+      ExplicitWidth = 429
       object pnl4: TPanel
         Left = 0
         Top = 0
-        Width = 429
+        Width = 443
         Height = 247
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitHeight = 218
+        ExplicitWidth = 429
         object lbl4: TLabel
           Left = 49
           Top = 35
@@ -252,12 +253,12 @@ object frmPagamento: TfrmPagamento
       object pnl5: TPanel
         Left = 0
         Top = 247
-        Width = 429
+        Width = 443
         Height = 48
         Align = alBottom
         ParentBackground = False
         TabOrder = 1
-        ExplicitTop = 218
+        ExplicitWidth = 429
         object btnokAnota: TButton
           Left = 160
           Top = 9
@@ -282,7 +283,7 @@ object frmPagamento: TfrmPagamento
     object tsModoFechamento: TTabSheet
       ImageIndex = 2
       TabVisible = False
-      ExplicitHeight = 266
+      ExplicitWidth = 429
       object btnAnotar: TBitBtn
         Left = 56
         Top = 104
@@ -772,29 +773,31 @@ object frmPagamento: TfrmPagamento
     SQL.Strings = (
       'SELECT'
       '  cc.fk_temporada ,'
-      '  cc.fk_cliente ,  '
+      '  c.id_cliente ,'
       '  c.permitir_saldo_negativo,'
       '  sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0)) valor_gasto,  '
       '  sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0)*-1) valor_pago  ,'
       '  SUM(mv.valor_total) Saldo'
       'FROM'
-      '  caderneta_cliente cc'
-      '  join cliente  c'
-      '    on   c.id_cliente = cc.fk_cliente'
-      '  JOIN mov_produto mv ON'
+      '  cliente  c '
+      '  left join caderneta_cliente cc'
+      
+        '    on   c.id_cliente = cc.fk_cliente  AND cc.FK_TEMPORADA = (se' +
+        'lect'
+      '                          t.id_temporadas'
+      '                        from'
+      '                          temporadas t'
+      '                        where t.ativo)'
+      '  left JOIN mov_produto mv ON'
       '    cc.id_caderneta = mv.fk_caderneta'
       '  LEFT JOIN produtos pr ON'
       '    pr.id_rodutos = mv.fk_produto'
       '  LEFT JOIN pedido ped ON'
       '    ped.id_pedido = mv.fk_pedido'
       'WHERE'
-      '  cc.FK_CLIENTE =:id_cliente'
-      '  AND cc.FK_TEMPORADA = (select'
-      '                          t.id_temporadas'
-      '                        from'
-      '                          temporadas t'
-      '                        where t.ativo) '
-      'GROUP BY fk_temporada,FK_CLIENTE,permitir_saldo_negativo')
+      '  c.id_cliente=:id_cliente'
+      'GROUP BY fk_temporada,c.id_cliente,permitir_saldo_negativo'
+      '')
     Left = 24
     Top = 168
     ParamData = <
@@ -802,42 +805,45 @@ object frmPagamento: TfrmPagamento
         Name = 'ID_CLIENTE'
         DataType = ftLargeint
         ParamType = ptInput
-        Value = 26
+        Value = 46
       end>
     object fdqTotaisFK_TEMPORADA: TLargeintField
       FieldName = 'FK_TEMPORADA'
       Origin = 'FK_TEMPORADA'
     end
-    object fdqTotaisFK_CLIENTE: TLargeintField
-      FieldName = 'FK_CLIENTE'
-      Origin = 'FK_CLIENTE'
+    object fdqTotaisID_CLIENTE: TLargeintField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
-    end
-    object fdqTotaisVALOR_GASTO: TBCDField
-      FieldName = 'VALOR_GASTO'
-      Origin = 'VALOR_GASTO'
-      currency = True
-      Precision = 18
-      Size = 2
-    end
-    object fdqTotaisVALOR_PAGO: TBCDField
-      FieldName = 'VALOR_PAGO'
-      Origin = 'VALOR_PAGO'
-      currency = True
-      Precision = 18
-      Size = 2
-    end
-    object fdqTotaisSALDO: TBCDField
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
-      currency = True
-      Precision = 18
-      Size = 2
     end
     object fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField
       FieldName = 'PERMITIR_SALDO_NEGATIVO'
       Origin = 'PERMITIR_SALDO_NEGATIVO'
       Required = True
     end
+    object fdqTotaisVALOR_GASTO: TBCDField
+      FieldName = 'VALOR_GASTO'
+      Origin = 'VALOR_GASTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisVALOR_PAGO: TBCDField
+      FieldName = 'VALOR_PAGO'
+      Origin = 'VALOR_PAGO'
+      Precision = 18
+      Size = 2
+    end
+    object fdqTotaisSALDO: TBCDField
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      Precision = 18
+      Size = 2
+    end
+  end
+  object dts1: TDataSource
+    DataSet = fdqTotais
+    Left = 60
+    Top = 166
   end
 end

@@ -10,7 +10,8 @@ uses
   Vcl.ExtCtrls, JvExExtCtrls, JvExtComponent, JvPanel, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, ufrmPagamento, ufrmAnotar, frxClass, frxDBSet;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, ufrmPagamento, ufrmAnotar, frxClass, frxDBSet, System.Actions,
+  Vcl.ActnList;
 
 type
   TfrmConta = class(TForm)
@@ -90,6 +91,8 @@ type
     fdqClientePERMITIR_SALDO_NEGATIVO: TBooleanField;
     fdqClienteATIVO: TBooleanField;
     fdqCadernetaSignatario: TStringField;
+    actlst1: TActionList;
+    act1: TAction;
     procedure fdqCadernetaBeforeOpen(DataSet: TDataSet);
     procedure fdqTotaisBeforeOpen(DataSet: TDataSet);
     procedure btn_pagarClick(Sender: TObject);

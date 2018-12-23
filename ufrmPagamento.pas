@@ -101,13 +101,14 @@ type
     fdspPagar: TFDStoredProc;
     fdspAnotar: TFDStoredProc;
     fdqTotais: TFDQuery;
+    dblklstTpPagto: TDBLookupListBox;
+    dts1: TDataSource;
     fdqTotaisFK_TEMPORADA: TLargeintField;
-    fdqTotaisFK_CLIENTE: TLargeintField;
+    fdqTotaisID_CLIENTE: TLargeintField;
+    fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
     fdqTotaisVALOR_GASTO: TBCDField;
     fdqTotaisVALOR_PAGO: TBCDField;
     fdqTotaisSALDO: TBCDField;
-    fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
-    dblklstTpPagto: TDBLookupListBox;
     procedure btnOkClick(Sender: TObject);
     procedure btnokAnotaClick(Sender: TObject);
     procedure btnAnotarClick(Sender: TObject);
@@ -163,12 +164,16 @@ procedure TfrmPagamento.btnokAnotaClick(Sender: TObject);
 var
   Total: Currency;
 begin
+
   if VarIsNull(dbcbbNomeDependente.KeyValue) then
   begin
     ShowMessage('Informe o Dependente.');
     Exit;
   end;
 
+   fdqTotais.Close;
+  fdqTotais.ParamByName('id_cliente').Value := dbcbbCliente.KeyValue;
+  fdqTotais.Open();
   Total := fdqPedidoTOTAL.AsCurrency;
   if (not fdqTotaisPERMITIR_SALDO_NEGATIVO.AsBoolean) and
     ((varToCurrDef(fdqTotaisSALDO.AsVariant, 0) + Total) > 0) then
@@ -360,6 +365,7 @@ procedure TfrmPagamento.tsAnotarShow(Sender: TObject);
 begin
   btnokAnota.Caption := '&OK';
   btnCancelarAnotar.Caption := '&Cancelar';
+
 end;
 
 procedure TfrmPagamento.tsPagamentoShow(Sender: TObject);

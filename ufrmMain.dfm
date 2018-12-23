@@ -59,17 +59,17 @@ object frmMain: TfrmMain
           TabOrder = 0
           OnClick = btnAbrirMesaClick
         end
-        object btn2: TButton
+        object btnFecharmesa: TButton
           Left = 143
           Top = 8
           Width = 114
           Height = 41
           Caption = '&Fechar Mesa(F4)'
           TabOrder = 1
-          OnClick = btn2Click
+          OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 619
+          Left = 607
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 730
+          Left = 718
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 841
+          Left = 829
           Top = 20
           Width = 97
           Height = 17
@@ -230,6 +230,8 @@ object frmMain: TfrmMain
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnDblClick = dbgrdClientesDblClick
+        OnTitleClick = dbgrdClientesTitleClick
         Columns = <
           item
             Expanded = False
@@ -697,7 +699,7 @@ object frmMain: TfrmMain
           end
         end
         object grp2: TGroupBox
-          Left = 194
+          Left = 16
           Top = 379
           Width = 238
           Height = 118
@@ -743,12 +745,12 @@ object frmMain: TfrmMain
             EdgeOuter = esNone
           end
         end
-        object grp5: TGroupBox
-          Left = 16
-          Top = 379
-          Width = 172
-          Height = 118
-          Caption = 'Devedores'
+        object grp4: TGroupBox
+          Left = 24
+          Top = 236
+          Width = 390
+          Height = 149
+          Caption = 'Pagamentos'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -756,40 +758,18 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 2
-          object btnDevedores: TButton
-            Left = 52
-            Top = 54
-            Width = 75
-            Height = 25
-            Caption = 'gerar'
-            TabOrder = 0
-          end
-        end
-        object grp4: TGroupBox
-          Left = 16
-          Top = 236
-          Width = 393
-          Height = 137
-          Caption = 'Pagamentos'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 3
           object lbl1: TLabel
             Left = 15
             Top = 36
-            Width = 26
-            Height = 16
+            Width = 33
+            Height = 19
             Caption = 'De :'
           end
           object lbl2: TLabel
             Left = 199
             Top = 36
-            Width = 33
-            Height = 16
+            Width = 40
+            Height = 19
             Caption = 'Ate :'
           end
           object Edt_pg_datai1: TJvDateEdit
@@ -831,13 +811,33 @@ object frmMain: TfrmMain
             TabOrder = 1
           end
           object btnRelPagmnto: TButton
-            Left = 135
-            Top = 88
+            Left = 144
+            Top = 112
             Width = 75
             Height = 25
             Caption = 'Gerar'
             TabOrder = 2
             OnClick = btnRelatorioPgClick
+          end
+          object rdgrpRelPagamento: TJvRadioGroup
+            Left = 3
+            Top = 65
+            Width = 388
+            Height = 43
+            Columns = 3
+            Ctl3D = False
+            ItemIndex = 0
+            Items.Strings = (
+              'Geral'
+              'Tipo')
+            ParentCtl3D = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 3
+            CaptionVisible = False
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
           end
         end
         object pnl5: TPanel
@@ -853,8 +853,7 @@ object frmMain: TfrmMain
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          TabOrder = 4
-          ExplicitWidth = 540
+          TabOrder = 3
         end
       end
     end
@@ -1138,6 +1137,7 @@ object frmMain: TfrmMain
   object fdqClientes: TFDQuery
     AfterInsert = fdqProdutosAfterInsert
     BeforePost = fdqProdutosBeforePost
+    IndexFieldNames = 'CODIGO'
     ConnectionName = 'Condominio'
     OnError = fdqProdutosError
     SQL.Strings = (
@@ -1231,6 +1231,7 @@ object frmMain: TfrmMain
       Category = 'Mesa'
       Caption = 'actFecharMesa'
       ShortCut = 115
+      OnExecute = btnFecharmesaClick
     end
     object actConta: TAction
       Category = 'Cliente'
@@ -1242,6 +1243,7 @@ object frmMain: TfrmMain
       Category = 'Entradas'
       Caption = 'actAdicionarEntrada'
       ShortCut = 120
+      OnExecute = btnAddESClick
     end
   end
   object fdqEntradasSaidas: TFDQuery
@@ -1310,5 +1312,15 @@ object frmMain: TfrmMain
     DataSet = fdqEntradasSaidas
     Left = 196
     Top = 259
+  end
+  object dts1: TDataSource
+    DataSet = dtmRelatorios.fdqRelClientes
+    Left = 588
+    Top = 443
+  end
+  object dts2: TDataSource
+    DataSet = dtmRelatorios.fdqExtratoCliente
+    Left = 572
+    Top = 555
   end
 end
