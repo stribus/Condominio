@@ -665,8 +665,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           item
             Expanded = False
             FieldName = 'ID_MOV_PRODUTO'
-            Width = 94
-            Visible = True
+            Width = -1
+            Visible = False
           end
           item
             Expanded = False

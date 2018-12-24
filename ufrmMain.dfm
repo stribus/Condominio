@@ -69,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 599
+          Left = 595
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 710
+          Left = 706
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 821
+          Left = 817
           Top = 20
           Width = 124
           Height = 17
@@ -112,8 +112,9 @@ object frmMain: TfrmMain
         object btnrefresh: TBitBtn
           Left = 964
           Top = 8
-          Width = 117
+          Width = 113
           Height = 41
+          Anchors = [akTop, akRight]
           Caption = 'For'#231'ar Atualizar'
           TabOrder = 6
           OnClick = btnrefreshClick
