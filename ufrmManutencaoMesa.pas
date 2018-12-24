@@ -86,7 +86,6 @@ type
     lbl7: TLabel;
     dbedt_total: TDBEdit;
     fduPedidos: TFDUpdateSQL;
-    fduMovProduto: TFDUpdateSQL;
     fdqMovProdutoTIPO_PAGAMENTO: TIntegerField;
     fdqMovProdutoFKS: TStringField;
     fdqProdutoslookupID: TStringField;
@@ -141,6 +140,7 @@ type
     dbedttotalSelecionado: TDBEdit;
     lbltotalSelecionado: TLabel;
     dbgrdMovProduto: TJvDBGrid;
+    fduMovProduto: TFDUpdateSQL;
     procedure FormShow(Sender: TObject);
     procedure edtProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAdicionarClick(Sender: TObject);
@@ -167,6 +167,7 @@ type
     procedure fdqMovProdutoTotalGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
     procedure edtQtdKeyPress(Sender: TObject; var Key: Char);
+    procedure fdqProdutoBeforeInsert(DataSet: TDataSet);
   private
     { Private declarations }
     function getPedidoId: Integer;
@@ -312,6 +313,14 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmManutencaoMesa.fdqProdutoBeforeInsert(DataSet: TDataSet);
+begin
+  if fdqMovProdutoID_MOV_PRODUTO.IsNull then
+  begin
+     fdqMovProdutoID_MOV_PRODUTO.AsInteger:=dtmcon.genNextId('GEN_PRODUTO');
+  end;
 end;
 
 procedure TfrmManutencaoMesa.FormShow(Sender: TObject);
@@ -573,6 +582,7 @@ begin
   with frm do
   try
     FId := AMesa;
+    dtmcon.fdtrans1.StartTransaction;
     fdqPedido.ParamByName('ID_MESA').AsLargeInt := AMesa;
     if AIdPedido > 0 then
       fdqPedido.ParamByName('ID_PEDIDO').AsLargeInt := AIdPedido
@@ -587,12 +597,18 @@ begin
     fdqPedidoVALOR_DESCONTO.AsInteger := 0;
     Caption := 'Mesa: '+fdqPedidoDESCRICAO.AsString;
     if (frm.ShowModal = mrOk) and (not fdqPedidoID_PEDIDO.IsNull) then
-    begin
+    try
       fdqPedido.ApplyUpdates();
       fdqMovProduto.ApplyUpdates();
+      dtmcon.fdtrans1.Commit;
+    except
+
     end;
 
+
   finally
+   if dtmcon.fdtrans1.Active then
+        dtmcon.fdtrans1.Rollback;
     if Assigned(frm) then
       frm.Free;
   end;

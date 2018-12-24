@@ -82,9 +82,6 @@ Coordinates=807,661,121,33
 [fdqPedidoATIVA]
 Coordinates=111,1120,95,33
 
-[fduMovProduto]
-Coordinates=0,1084,90,33
-
 [fdqClientesATIVO]
 Coordinates=807,716,101,33
 
@@ -234,7 +231,7 @@ Coordinates=504,408,41,51
 Coordinates=1066,936,174,33
 
 []
-Coordinates=98,544,49,33
+Coordinates=0,1084,90,33
 Visible=True
 ExplicitSubNodes=LookupDisplay;LookupValue
 

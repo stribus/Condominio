@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet4
+    ActivePage = tsMesas
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -69,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 607
+          Left = 599
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 718
+          Left = 710
           Top = 8
           Width = 105
           Height = 41
@@ -98,9 +98,9 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 829
+          Left = 821
           Top = 20
-          Width = 97
+          Width = 124
           Height = 17
           Anchors = [akTop, akRight]
           Caption = '&S'#243' mesas ativas'
@@ -108,6 +108,15 @@ object frmMain: TfrmMain
           State = cbChecked
           TabOrder = 5
           OnClick = chkMesasAtivasClick
+        end
+        object btnrefresh: TBitBtn
+          Left = 964
+          Top = 8
+          Width = 117
+          Height = 41
+          Caption = 'For'#231'ar Atualizar'
+          TabOrder = 6
+          OnClick = btnrefreshClick
         end
       end
       object dbgrdMesas: TDBGrid

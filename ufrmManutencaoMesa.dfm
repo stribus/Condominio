@@ -665,7 +665,8 @@ object frmManutencaoMesa: TfrmManutencaoMesa
           item
             Expanded = False
             FieldName = 'ID_MOV_PRODUTO'
-            Visible = False
+            Width = 94
+            Visible = True
           end
           item
             Expanded = False
@@ -724,7 +725,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object fdqPedido: TFDQuery
     CachedUpdates = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     UpdateOptions.AssignedValues = [uvEInsert, uvEUpdate, uvUpdateChngFields, uvUpdateNonBaseFields]
     UpdateOptions.EnableInsert = False
     UpdateOptions.UpdateChangedFields = False
@@ -877,10 +878,11 @@ object frmManutencaoMesa: TfrmManutencaoMesa
         Active = True
       end>
     AggregatesActive = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_MOV_PRODUTO'
+    UpdateOptions.UpdateTableName = 'MOV_PRODUTO'
     UpdateOptions.KeyFields = 'ID_MOV_PRODUTO'
     UpdateOptions.AutoIncFields = 'ID_MOV_PRODUTO'
     UpdateObject = fduMovProduto
@@ -1012,7 +1014,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object fdqProdutoslookup: TFDQuery
     CachedUpdates = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'select'
       '  cast(ID_RODUTOS as varchar(20)) ID,'
@@ -1073,7 +1075,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object fdqClientes: TFDQuery
     CachedUpdates = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'select'
       '  *'
@@ -1130,8 +1132,12 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Top = 272
   end
   object fdqProduto: TFDQuery
+    BeforeInsert = fdqProdutoBeforeInsert
     CachedUpdates = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
+    UpdateOptions.AssignedValues = [uvGeneratorName]
+    UpdateOptions.GeneratorName = 'GEN_PRODUTO'
+    UpdateOptions.KeyFields = 'ID_RODUTOS'
     SQL.Strings = (
       'select'
       '  *'
@@ -1186,7 +1192,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Top = 200
   end
   object fduPedidos: TFDUpdateSQL
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     InsertSQL.Strings = (
       ' update or insert into pedido'
       '    ('
@@ -1250,42 +1256,6 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     Left = 272
     Top = 88
   end
-  object fduMovProduto: TFDUpdateSQL
-    Connection = dtmcon.conexao
-    InsertSQL.Strings = (
-      'INSERT INTO MOV_PRODUTO'
-      '(ID_MOV_PRODUTO, FK_PEDIDO, FK_PRODUTO, QUANTIDADE, '
-      '  PAGAMENTO, VALOR_TOTAL, FK_CADERNETA, TIPO_PAGAMENTO)'
-      
-        'VALUES (:NEW_ID_MOV_PRODUTO, :NEW_FK_PEDIDO, :NEW_FK_PRODUTO, :N' +
-        'EW_QUANTIDADE, '
-      
-        '  :NEW_PAGAMENTO, :NEW_VALOR_TOTAL, :NEW_FK_CADERNETA, :NEW_TIPO' +
-        '_PAGAMENTO)')
-    ModifySQL.Strings = (
-      'UPDATE MOV_PRODUTO'
-      
-        'SET ID_MOV_PRODUTO = :NEW_ID_MOV_PRODUTO, FK_PEDIDO = :NEW_FK_PE' +
-        'DIDO, '
-      '  FK_PRODUTO = :NEW_FK_PRODUTO, QUANTIDADE = :NEW_QUANTIDADE, '
-      '  PAGAMENTO = :NEW_PAGAMENTO, VALOR_TOTAL = :NEW_VALOR_TOTAL, '
-      
-        '  FK_CADERNETA = :NEW_FK_CADERNETA, TIPO_PAGAMENTO = :NEW_TIPO_P' +
-        'AGAMENTO'
-      'WHERE ID_MOV_PRODUTO = :OLD_ID_MOV_PRODUTO')
-    DeleteSQL.Strings = (
-      'DELETE FROM MOV_PRODUTO'
-      'WHERE ID_MOV_PRODUTO = :OLD_ID_MOV_PRODUTO')
-    FetchRowSQL.Strings = (
-      
-        'SELECT ID_MOV_PRODUTO, FK_PEDIDO, FK_PRODUTO, QUANTIDADE, PAGAME' +
-        'NTO, '
-      '  VALOR_TOTAL, FK_CADERNETA, DATA_HORA, TIPO_PAGAMENTO'
-      'FROM MOV_PRODUTO'
-      'WHERE ID_MOV_PRODUTO = :ID_MOV_PRODUTO')
-    Left = 112
-    Top = 160
-  end
   object bdsdb1: TBindSourceDB
     DataSet = fdqPedido
     ScopeMappings = <>
@@ -1301,7 +1271,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   object fdqDependente: TFDQuery
     MasterSource = dtsClientes
     MasterFields = 'ID_CLIENTE'
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT * FROM DEPENDENTES'
       'WHERE '
@@ -1369,7 +1339,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
   end
   object fdqPesqProduto: TFDQuery
     CachedUpdates = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'select'
       '  *'
@@ -1647,5 +1617,10 @@ object frmManutencaoMesa: TfrmManutencaoMesa
     DataSet = fdqPesqMesa
     Left = 472
     Top = 56
+  end
+  object fduMovProduto: TFDUpdateSQL
+    ConnectionName = 'Condominio'
+    Left = 120
+    Top = 160
   end
 end

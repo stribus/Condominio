@@ -14,7 +14,7 @@ uses
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet, udtmRelatorios,
   frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup, JvBaseDlg, JvLoginForm,
-  ufrmCadEntradasSaidas;
+  ufrmCadEntradasSaidas, Vcl.Buttons;
 
 type
   TfrmMain = class(TForm)
@@ -139,6 +139,7 @@ type
     rdgrpRelPagamento: TJvRadioGroup;
     dts1: TDataSource;
     dts2: TDataSource;
+    btnrefresh: TBitBtn;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -173,6 +174,7 @@ type
     procedure btnDebitosClientesClick(Sender: TObject);
     procedure dbgrdClientesTitleClick(Column: TColumn);
     procedure dbgrdClientesDblClick(Sender: TObject);
+    procedure btnrefreshClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -257,8 +259,9 @@ procedure TfrmMain.btnDebitosClientesClick(Sender: TObject);
 begin
   if (rdgCliente.ItemIndex = 0) then
   begin
-    dtmRelatorios.fdqExtratoCliente.Close;
-    dtmRelatorios.fdqExtratoCliente.open;
+    dtmRelatorios.fdqExtratoDiario.Close;
+    dtmRelatorios.fdqExtratoDiario.ParamByName('id_temporada').AsInteger := fdqConfiguracoesID_TEMPORADAS.AsInteger;
+    dtmRelatorios.fdqExtratoDiario.open;
     dtmRelatorios.frepExtratoDiarioCaderno.ShowReport(True);
   end;
   if rdgCliente.ItemIndex = 1 then
@@ -267,7 +270,7 @@ begin
       fdqProdutoslookup.Close;
       fdqProdutoslookup.open;
       fdqRelClientes.Close;
-      fdqRelClientes.ParamByName('id_temporada').AsInteger := 10;
+      fdqRelClientes.ParamByName('id_temporada').AsInteger := fdqConfiguracoesID_TEMPORADAS.AsInteger;
       fdqRelClientes.Open;
       fdqExtratoCliente.Close;
       fdqExtratoCliente.open;
@@ -358,6 +361,19 @@ end;
 procedure TfrmMain.btnNovoUsuarioClick(Sender: TObject);
 begin
   TfrmCadUsuario.inserir(Self,0);
+end;
+
+procedure TfrmMain.btnrefreshClick(Sender: TObject);
+begin
+  with dtmcon do
+  begin
+    conexao.Close;
+    fdmConfigIni.Close;
+    fdmConfigIni.Open;
+    conexao.Open();
+    atualizaDatasets;
+    carregaConfiguracoes;
+  end;
 end;
 
 procedure TfrmMain.btnRelatorioPgClick(Sender: TObject);

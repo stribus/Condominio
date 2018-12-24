@@ -1224,9 +1224,8 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqProdutoslookup: TFDQuery
-    Active = True
     CachedUpdates = True
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'select'
       '  cast(ID_RODUTOS as varchar(20)) ID,'

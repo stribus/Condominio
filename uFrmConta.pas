@@ -144,7 +144,14 @@ begin
       try
         lSql := TStringBuilder.Create;
         lSql.AppendFormat(Update, [usuario, fdqCadernetaID_MOV_PRODUTO.AsInteger]);
-        dtmcon.conexao.ExecSQL(lSql.ToString);
+        try
+          dtmcon.fdtrans1.StartTransaction;
+         dtmcon.conexao.ExecSQL(lSql.ToString);
+          dtmcon.fdtrans1.Commit;
+        except
+           if dtmcon.fdtrans1.Active then
+          dtmcon.fdtrans1.Rollback;
+        end;
       finally
         tryFreeAndNil(lSql);
       end;
@@ -155,8 +162,15 @@ end;
 
 procedure TfrmConta.btn_incluirClick(Sender: TObject);
 begin
-  tfrmAnotar.anotar(Self,FIdCliente,FIdTemporada);
-  refreshConta;
+  try
+    dtmcon.fdtrans1.StartTransaction;
+    tfrmAnotar.anotar(Self, FIdCliente, FIdTemporada);
+    refreshConta;
+    dtmcon.fdtrans1.Commit;
+  except
+    if dtmcon.fdtrans1.Active then
+      dtmcon.fdtrans1.Rollback;
+  end;
 end;
 
 procedure TfrmConta.btn_pagarClick(Sender: TObject);
@@ -170,13 +184,20 @@ begin
   begin
     if (valorPago > 0) then
     begin
-      fdspPagar.ParamByName('IN_DTHR_LANCAMENTO').Value := now;
-      fdspPagar.ParamByName('IN_CLIENTE').Value := FIdCliente;
-      fdspPagar.ParamByName('IN_TP_PAGAMENTO').Value := tipoPag;
-      fdspPagar.ParamByName('IN_TEMPORADA').Value := FIdTemporada;
-      fdspPagar.ParamByName('IN_VALOR_TOTAL').Value := valorPago;
-      fdspPagar.Prepare;
-      fdspPagar.ExecProc;
+      try
+        dtmcon.fdtrans1.StartTransaction;
+        fdspPagar.ParamByName('IN_DTHR_LANCAMENTO').Value := Now;
+        fdspPagar.ParamByName('IN_CLIENTE').Value := FIdCliente;
+        fdspPagar.ParamByName('IN_TP_PAGAMENTO').Value := tipoPag;
+        fdspPagar.ParamByName('IN_TEMPORADA').Value := FIdTemporada;
+        fdspPagar.ParamByName('IN_VALOR_TOTAL').Value := valorPago;
+        fdspPagar.Prepare;
+        fdspPagar.ExecProc;
+        dtmcon.fdtrans1.Commit;
+      except
+        if dtmcon.fdtrans1.Active then
+          dtmcon.fdtrans1.Rollback;
+      end;
     end;
 
     end;
@@ -208,7 +229,13 @@ begin
     refreshConta;
     if (frm.ShowModal = mrOk) then
     begin
-
+      try
+        dtmcon.fdtrans1.StartTransaction;
+        dtmcon.fdtrans1.Commit;
+      except
+        if dtmcon.fdtrans1.Active then
+          dtmcon.fdtrans1.Rollback;
+      end;
     end;
 
   finally

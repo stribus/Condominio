@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, FireDAC.Phys.FBDef,
   FireDAC.Comp.Client, Data.DB, UGeral, Data.SqlExpr, FireDAC.Phys.IBBase,
   FireDAC.VCLUI.Wait, FireDAC.Comp.UI, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.DApt, FireDAC.Comp.DataSet;
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Moni.Base, FireDAC.Moni.RemoteClient;
 
 type
   Tdtmcon = class(TDataModule)
@@ -17,6 +17,8 @@ type
     fdmConfigIni: TFDManager;
     conexao: TFDConnection;
     fdpdl1: TFDPhysFBDriverLink;
+    fdtrans1: TFDTransaction;
+    fdmnrmtclntlnk1: TFDMoniRemoteClientLink;
     procedure DataModuleCreate(Sender: TObject);
     procedure con1BeforeConnect(Sender: TObject);
     procedure fdmConfigIniBeforeLoadConnectionDefFile(Sender: TObject);

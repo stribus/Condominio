@@ -35,4 +35,15 @@ object dtmcon: Tdtmcon
     Left = 200
     Top = 176
   end
+  object fdtrans1: TFDTransaction
+    Options.DisconnectAction = xdRollback
+    Connection = conexao
+    Left = 168
+    Top = 88
+  end
+  object fdmnrmtclntlnk1: TFDMoniRemoteClientLink
+    Tracing = True
+    Left = 312
+    Top = 88
+  end
 end
