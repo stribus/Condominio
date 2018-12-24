@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = tsMesas
+    ActivePage = TabSheet4
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -69,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 595
+          Left = 591
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 706
+          Left = 702
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 817
+          Left = 813
           Top = 20
           Width = 124
           Height = 17
@@ -110,7 +110,7 @@ object frmMain: TfrmMain
           OnClick = chkMesasAtivasClick
         end
         object btnrefresh: TBitBtn
-          Left = 964
+          Left = 960
           Top = 8
           Width = 113
           Height = 41
@@ -697,7 +697,8 @@ object frmMain: TfrmMain
             ItemIndex = 0
             Items.Strings = (
               'Pedido'
-              'Produto')
+              'Produto'
+              'Acomulado')
             ParentCtl3D = False
             ParentShowHint = False
             ShowHint = True
@@ -864,6 +865,7 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
+          ExplicitWidth = 540
         end
       end
     end

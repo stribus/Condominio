@@ -38,16 +38,6 @@ type
     frepExtratoDiarioCaderno: TfrxReport;
     fdsExtratoDiario: TfrxDBDataset;
     fdqExtratoDiario: TFDQuery;
-    fdqExtratoDiarioNOME: TStringField;
-    fdqExtratoDiarioENDERECO: TStringField;
-    fdqExtratoDiarioCONTATO: TStringField;
-    fdqExtratoDiarioDATA_LANCAMENTO: TDateField;
-    fdqExtratoDiarioFK_TEMPORADA: TLargeintField;
-    fdqExtratoDiarioID_CLIENTE: TLargeintField;
-    fdqExtratoDiarioPERMITIR_SALDO_NEGATIVO: TBooleanField;
-    fdqExtratoDiarioVALOR_GASTO: TBCDField;
-    fdqExtratoDiarioVALOR_PAGO: TBCDField;
-    fdqExtratoDiarioSALDO: TBCDField;
     frepPagtoTipo: TfrxReport;
     fdqPagamentosTipo: TFDQuery;
     fdsPagamentosTipo: TfrxDBDataset;
@@ -83,6 +73,26 @@ type
     fdqRelClientesVALOR_PAGO: TBCDField;
     fdqRelClientesSALDO: TBCDField;
     fdqExtratoClienteProduto: TStringField;
+    fdqDebitosAcom: TFDQuery;
+    fdsDebitosAcom: TfrxDBDataset;
+    frepDebitosAcom: TfrxReport;
+    fdqDebitosAcomDIA_MOV: TDateField;
+    fdqDebitosAcomANTERIOR: TBCDField;
+    fdqDebitosAcomVENDAS: TBCDField;
+    fdqDebitosAcomPAGAMENTOS: TBCDField;
+    fdqDebitosAcomARECEBER: TBCDField;
+    fdqDebitosAcomVENDAS_ACOM: TBCDField;
+    fdqExtratoDiarioID_CLIENTE: TLargeintField;
+    fdqExtratoDiarioNOME: TStringField;
+    fdqExtratoDiarioENDERECO: TStringField;
+    fdqExtratoDiarioCONTATO: TStringField;
+    fdqExtratoDiarioDATA_LANCAMENTO: TDateField;
+    fdqExtratoDiarioANTERIOR: TBCDField;
+    fdqExtratoDiarioVENDAS: TBCDField;
+    fdqExtratoDiarioPAGAMENTOS: TBCDField;
+    fdqExtratoDiarioARECEBER: TBCDField;
+    fdqExtratoDiarioVENDAS_ACOM: TBCDField;
+    fdqExtratoDiarioCODIGO: TLargeintField;
   private
     { Private declarations }
   public

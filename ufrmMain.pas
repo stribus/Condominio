@@ -401,15 +401,23 @@ end;
 
 procedure TfrmMain.btn_relVendasClick(Sender: TObject);
 begin
-  if(rgTipoRelVendas.ItemIndex = 1)then
+  with dtmRelatorios do
   begin
-    dtmRelatorios.fdqProdutosVendidos.Close;
-    dtmRelatorios.fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;
-    dtmRelatorios.fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
-    dtmRelatorios.fdqProdutosVendidos.open;
-    dtmRelatorios.frepProdutosVendidos.ShowReport(true);
+    if(rgTipoRelVendas.ItemIndex = 1)then
+    begin
+      fdqProdutosVendidos.Close;
+      fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;
+      fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
+      fdqProdutosVendidos.open;
+      frepProdutosVendidos.ShowReport(true);
+    end;
+    if(rgTipoRelVendas.ItemIndex = 2)then
+    begin
+      fdqDebitosAcom.Close;
+      fdqDebitosAcom.Open();
+      frepDebitosAcom.ShowReport(true);
+    end;
   end;
-
 end;
 
 procedure TfrmMain.carregaConfiguracoes;

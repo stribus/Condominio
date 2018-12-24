@@ -1292,7 +1292,7 @@ object dtmRelatorios: TdtmRelatorios
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43451.817160659710000000
+    ReportOptions.CreateDate = 43451.817160659700000000
     ReportOptions.LastChange = 43451.853239583300000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
@@ -1322,7 +1322,7 @@ object dtmRelatorios: TdtmRelatorios
       BottomMargin = 10.000000000000000000
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
-        Height = 56.692950000000000000
+        Height = 34.015770000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
@@ -1338,79 +1338,28 @@ object dtmRelatorios: TdtmRelatorios
             'Extrato Clientes')
           ParentFont = False
         end
-        object Memo2: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 37.795300000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'DATA')
-        end
-        object Memo3: TfrxMemoView
-          Left = 200.315090000000000000
-          Top = 37.795300000000000000
-          Width = 151.181200000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsExtratoDiario
-          DataSetName = 'fdsExtratoDiario'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
-          DisplayFormat.Kind = fkNumeric
-          Memo.UTF8W = (
-            'VALOR GASTO')
-        end
-        object Memo4: TfrxMemoView
-          Left = 400.630180000000000000
-          Top = 37.795300000000000000
-          Width = 151.181200000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsExtratoDiario
-          DataSetName = 'fdsExtratoDiario'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
-          DisplayFormat.Kind = fkNumeric
-          Memo.UTF8W = (
-            'VALOR PAGO')
-        end
-        object Memo5: TfrxMemoView
-          Left = 566.929500000000000000
-          Top = 37.795300000000000000
-          Width = 151.181200000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsExtratoDiario
-          DataSetName = 'fdsExtratoDiario'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
-          DisplayFormat.Kind = fkNumeric
-          Memo.UTF8W = (
-            'SALDO DO DIA')
-        end
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
-        Height = 26.456710000000000000
-        Top = 136.063080000000000000
+        Height = 30.236240000000000000
+        Top = 158.740260000000000000
         Width = 718.110700000000000000
         Condition = 'fdsExtratoDiario."ID_CLIENTE"'
         KeepTogether = True
         object fdsExtratoDiarioNOME: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 7.559060000000000000
+          Left = 3.559060000000000000
+          Top = 10.559060000000000000
           Width = 396.850650000000000000
           Height = 18.897650000000000000
-          DataField = 'NOME'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
           Memo.UTF8W = (
-            '[fdsExtratoDiario."NOME"]')
+            '[fdsExtratoDiario."CODIGO"] - [fdsExtratoDiario."NOME"]')
         end
         object fdsExtratoDiarioENDERECO: TfrxMemoView
-          Left = 438.425480000000000000
-          Top = 7.559060000000000000
-          Width = 400.630180000000000000
+          Left = 402.748300000000000000
+          Top = 10.559060000000000000
+          Width = 120.944960000000000000
           Height = 18.897650000000000000
           DataField = 'ENDERECO'
           DataSet = fdsExtratoDiario
@@ -1418,49 +1367,33 @@ object dtmRelatorios: TdtmRelatorios
           Memo.UTF8W = (
             '[fdsExtratoDiario."ENDERECO"]')
         end
-        object Line1: TfrxLineView
-          Align = baBottom
-          Top = 26.456710000000000000
-          Width = 718.110700000000000000
-          StretchMode = smMaxHeight
-          Color = clBlack
-          Frame.Typ = [ftTop]
+        object fdsExtratoDiarioCONTATO: TfrxMemoView
+          Left = 530.472790000000000000
+          Top = 11.559060000000000000
+          Width = 177.637910000000000000
+          Height = 18.897650000000000000
+          DataField = 'CONTATO'
+          DataSet = fdsExtratoDiario
+          DataSetName = 'fdsExtratoDiario'
+          Memo.UTF8W = (
+            '[fdsExtratoDiario."CONTATO"]')
         end
       end
       object GroupFooter1: TfrxGroupFooter
         FillType = ftBrush
-        Height = 18.897650000000000000
-        Top = 226.771800000000000000
+        Height = 7.559060000000000000
+        Top = 253.228510000000000000
         Width = 718.110700000000000000
-        object SysMemo1: TfrxSysMemoView
-          Left = 574.488560000000000000
-          Width = 143.622140000000000000
-          Height = 18.897650000000000000
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[SUM(<fdsExtratoDiario."SALDO">,MasterData1)]')
-        end
         object Line2: TfrxLineView
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo7: TfrxMemoView
-          Left = 525.354670000000000000
-          Width = 41.574830000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8W = (
-            'Total:')
-        end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 185.196970000000000000
+        Top = 211.653680000000000000
         Width = 718.110700000000000000
         DataSet = fdsExtratoDiario
         DataSetName = 'fdsExtratoDiario'
@@ -1480,62 +1413,201 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
         end
-        object fdsExtratoDiarioDATA_LANCAMENTO: TfrxMemoView
-          Left = 3.779530000000000000
-          Width = 124.724490000000000000
+        object DebitosAcomDIA_MOV: TfrxMemoView
+          Left = 7.559060000000000000
+          Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'DATA_LANCAMENTO'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
-          DisplayFormat.Kind = fkDateTime
           Memo.UTF8W = (
             '[fdsExtratoDiario."DATA_LANCAMENTO"]')
         end
-        object fdsExtratoDiarioVALOR_GASTO: TfrxMemoView
-          Left = 200.315090000000000000
-          Width = 151.181200000000000000
+        object DebitosAcomANTERIOR: TfrxMemoView
+          Left = 95.267780000000000000
+          Width = 120.944960000000000000
           Height = 18.897650000000000000
-          DataField = 'VALOR_GASTO'
+          DataField = 'ANTERIOR'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
+          DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            '[fdsExtratoDiario."VALOR_GASTO"]')
+            '[fdsExtratoDiario."ANTERIOR"]')
         end
-        object fdsExtratoDiarioVALOR_PAGO: TfrxMemoView
-          Left = 400.630180000000000000
-          Width = 151.181200000000000000
+        object Memo5: TfrxMemoView
+          Left = 219.992270000000000000
+          Width = 120.944960000000000000
           Height = 18.897650000000000000
-          DataField = 'VALOR_PAGO'
+          DataField = 'VENDAS'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
+          DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            '[fdsExtratoDiario."VALOR_PAGO"]')
+            '[fdsExtratoDiario."VENDAS"]')
         end
-        object fdsExtratoDiarioSALDO: TfrxMemoView
-          Left = 566.929500000000000000
-          Width = 151.181200000000000000
+        object Memo7: TfrxMemoView
+          Left = 345.055350000000000000
+          Width = 120.944960000000000000
           Height = 18.897650000000000000
-          DataField = 'SALDO'
+          DataField = 'PAGAMENTOS'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '0.00'
+          DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            '[fdsExtratoDiario."SALDO"]')
+            '[fdsExtratoDiario."PAGAMENTOS"]')
         end
+        object Memo8: TfrxMemoView
+          Left = 471.590910000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'ARECEBER'
+          DataSet = fdsExtratoDiario
+          DataSetName = 'fdsExtratoDiario'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[fdsExtratoDiario."ARECEBER"]')
+        end
+        object Memo13: TfrxMemoView
+          Left = 598.724800000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'VENDAS_ACOM'
+          DataSet = fdsExtratoDiario
+          DataSetName = 'fdsExtratoDiario'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[fdsExtratoDiario."VENDAS_ACOM"]')
+        end
+      end
+      object ColumnHeader1: TfrxColumnHeader
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 22.677180000000000000
+        ParentFont = False
+        Top = 75.590600000000000000
+        Width = 718.110700000000000000
+        Stretched = True
+        object Memo2: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 22.677180000000000000
+          Frame.Typ = [ftBottom]
+        end
+        object Memo3: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 1.645640000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Data')
+        end
+        object Memo4: TfrxMemoView
+          Left = 90.708720000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo Anterior')
+        end
+        object Memo9: TfrxMemoView
+          Left = 215.433210000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vendas do Dia')
+        end
+        object Memo10: TfrxMemoView
+          Left = 340.496290000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Pagtos do dia')
+        end
+        object Memo11: TfrxMemoView
+          Left = 467.031850000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo A Receber')
+        end
+        object Memo12: TfrxMemoView
+          Left = 586.606680000000000000
+          Top = 1.000000000000000000
+          Width = 128.504020000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vendas Acomulado')
+        end
+      end
+      object Line1: TfrxLineView
+        Align = baBottom
+        Top = 1046.929810000000000000
+        Width = 718.110700000000000000
+        StretchMode = smMaxHeight
+        Color = clBlack
+        Frame.Typ = [ftTop]
       end
     end
   end
@@ -1551,42 +1623,57 @@ object dtmRelatorios: TdtmRelatorios
     ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT'
-      '  c.nome,'
-      '  c.endereco,'
-      '  c.contato,'
-      '  cast(cc.dthr_lancamento as Date) Data_lancamento,'
-      '  cc.fk_temporada ,'
-      '  c.id_cliente ,'
-      '  c.permitir_saldo_negativo,'
-      '  sum(iif(NOT mv.PAGAMENTO,mv.VALOR_TOTAL,0.00)) valor_gasto,'
-      '  sum(iif(mv.PAGAMENTO,mv.VALOR_TOTAL,0.00)*-1) valor_pago  ,'
-      '  coalesce(sum(mv.valor_total),0.00) Saldo'
+      '  distinct'
+      '  c.id_cliente'
+      '  ,c.codigo'
+      '  ,c.nome'
+      '  ,c.endereco'
+      '  ,c.contato'
+      '  ,mv.dia_mov Data_lancamento'
+      ''
+      
+        ' ,sum(mv.valor_total) over (partition by c.id_cliente order by m' +
+        'v.dia_mov)'
+      
+        '   -sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
+        'c.id_cliente,mv.dia_mov order by mv.dia_mov )'
+      
+        '   -sum(iif(mv.pagamento,mv.valor_total,0))  over (partition by ' +
+        'c.id_cliente,mv.dia_mov order by mv.dia_mov ) anterior'
+      
+        '   ,sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
+        'c.id_cliente,mv.dia_mov order by mv.dia_mov ) vendas'
+      
+        '   ,sum(iif(mv.pagamento,mv.valor_total*-1,0))  over (partition ' +
+        'by c.id_cliente,mv.dia_mov order by mv.dia_mov ) pagamentos'
+      
+        '   ,sum(mv.valor_total) over (partition by c.id_cliente order by' +
+        ' mv.dia_mov) areceber'
+      
+        '   ,sum(iif(mv.pagamento,0,mv.valor_total)) over (partition by c' +
+        '.id_cliente  order by c.id_cliente,mv.dia_mov) Vendas_acom'
+      ''
       'FROM'
       '  cliente  c '
       '  left join caderneta_cliente cc'
-      
-        '    on   c.id_cliente = cc.fk_cliente  AND cc.FK_TEMPORADA = :id' +
-        '_temporada'
+      '    on   c.id_cliente = cc.fk_cliente'
       '  left JOIN mov_produto mv ON'
       '    cc.id_caderneta = mv.fk_caderneta'
-      '  LEFT JOIN produtos pr ON'
-      '    pr.id_rodutos = mv.fk_produto'
-      '  LEFT JOIN pedido ped ON'
-      '    ped.id_pedido = mv.fk_pedido'
       'WHERE'
       '  not mv.excluido '
-      'GROUP BY fk_temporada,c.id_cliente,permitir_saldo_negativo,'
-      'nome,endereco,contato,c.codigo,Data_lancamento'
-      'order by c.codigo,Data_lancamento')
+      
+        '   and mv.dia_mov >= (select t.periodo_inicial from temporadas t' +
+        ' where t.ativo)'
+      'order by'
+      '  c.codigo')
     Left = 152
     Top = 176
-    ParamData = <
-      item
-        Name = 'ID_TEMPORADA'
-        DataType = ftLargeint
-        ParamType = ptInput
-        Value = 10
-      end>
+    object fdqExtratoDiarioID_CLIENTE: TLargeintField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
     object fdqExtratoDiarioNOME: TStringField
       FieldName = 'NOME'
       Origin = 'NOME'
@@ -1606,54 +1693,59 @@ object dtmRelatorios: TdtmRelatorios
     object fdqExtratoDiarioDATA_LANCAMENTO: TDateField
       AutoGenerateValue = arDefault
       FieldName = 'DATA_LANCAMENTO'
-      Origin = 'DATA_LANCAMENTO'
+      Origin = 'DIA_MOV'
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqExtratoDiarioFK_TEMPORADA: TLargeintField
+    object fdqExtratoDiarioANTERIOR: TBCDField
       AutoGenerateValue = arDefault
-      FieldName = 'FK_TEMPORADA'
-      Origin = 'FK_TEMPORADA'
+      FieldName = 'ANTERIOR'
+      Origin = 'ANTERIOR'
       ProviderFlags = []
       ReadOnly = True
+      Precision = 18
+      Size = 2
     end
-    object fdqExtratoDiarioID_CLIENTE: TLargeintField
-      FieldName = 'ID_CLIENTE'
-      Origin = 'ID_CLIENTE'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    object fdqExtratoDiarioVENDAS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDAS'
+      Origin = 'VENDAS'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqExtratoDiarioPAGAMENTOS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGAMENTOS'
+      Origin = 'PAGAMENTOS'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqExtratoDiarioARECEBER: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ARECEBER'
+      Origin = 'ARECEBER'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqExtratoDiarioVENDAS_ACOM: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDAS_ACOM'
+      Origin = 'VENDAS_ACOM'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqExtratoDiarioCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
       Required = True
-    end
-    object fdqExtratoDiarioPERMITIR_SALDO_NEGATIVO: TBooleanField
-      FieldName = 'PERMITIR_SALDO_NEGATIVO'
-      Origin = 'PERMITIR_SALDO_NEGATIVO'
-      Required = True
-    end
-    object fdqExtratoDiarioVALOR_GASTO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_GASTO'
-      Origin = 'VALOR_GASTO'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 18
-      Size = 2
-    end
-    object fdqExtratoDiarioVALOR_PAGO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_PAGO'
-      Origin = 'VALOR_PAGO'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 18
-      Size = 2
-    end
-    object fdqExtratoDiarioSALDO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'SALDO'
-      Origin = 'SALDO'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 18
-      Size = 2
     end
   end
   object frepPagtoTipo: TfrxReport
@@ -2243,5 +2335,374 @@ object dtmRelatorios: TdtmRelatorios
     BCDToCurrency = False
     Left = 344
     Top = 120
+  end
+  object fdqDebitosAcom: TFDQuery
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'select'
+      'distinct'
+      '   mv.dia_mov'
+      
+        '   ,sum(mv.valor_total) over (partition by mv.excluido order by ' +
+        'mv.dia_mov)'
+      
+        '   -sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
+        'mv.dia_mov )'
+      
+        '   -sum(iif(mv.pagamento,mv.valor_total,0))  over (partition by ' +
+        'mv.dia_mov ) anterior'
+      
+        '   ,sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
+        'mv.dia_mov ) vendas'
+      
+        '   ,sum(iif(mv.pagamento,mv.valor_total*-1,0))  over (partition ' +
+        'by mv.dia_mov ) pagamentos'
+      
+        '   ,sum(mv.valor_total) over (partition by mv.excluido order by ' +
+        'mv.dia_mov) areceber'
+      
+        '   ,sum(iif(mv.pagamento,0,mv.valor_total)) over (partition by m' +
+        'v.excluido order by mv.dia_mov) Vendas_acom'
+      'from'
+      '  mov_produto mv'
+      'where'
+      '  not mv.excluido'
+      
+        '  and mv.dia_mov >= (select t.periodo_inicial from temporadas t ' +
+        'where t.ativo)'
+      'order by   mv.dia_mov')
+    Left = 384
+    Top = 16
+    object fdqDebitosAcomDIA_MOV: TDateField
+      FieldName = 'DIA_MOV'
+      Origin = 'DIA_MOV'
+    end
+    object fdqDebitosAcomANTERIOR: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ANTERIOR'
+      Origin = 'ANTERIOR'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqDebitosAcomVENDAS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDAS'
+      Origin = 'VENDAS'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqDebitosAcomPAGAMENTOS: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGAMENTOS'
+      Origin = 'PAGAMENTOS'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqDebitosAcomARECEBER: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ARECEBER'
+      Origin = 'ARECEBER'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqDebitosAcomVENDAS_ACOM: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDAS_ACOM'
+      Origin = 'VENDAS_ACOM'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object fdsDebitosAcom: TfrxDBDataset
+    UserName = 'DebitosAcom'
+    CloseDataSource = False
+    DataSet = fdqDebitosAcom
+    BCDToCurrency = False
+    Left = 432
+    Top = 16
+  end
+  object frepDebitosAcom: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43458.728088240700000000
+    ReportOptions.LastChange = 43458.728088240700000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 408
+    Top = 72
+    Datasets = <
+      item
+        DataSet = fdsDebitosAcom
+        DataSetName = 'DebitosAcom'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 30.236240000000000000
+        ParentFont = False
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Left = 253.228510000000000000
+          Top = 3.779530000000000000
+          Width = 139.842610000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Vendas')
+          ParentFont = False
+        end
+      end
+      object ColumnHeader1: TfrxColumnHeader
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 22.677180000000000000
+        ParentFont = False
+        Top = 71.811070000000000000
+        Width = 718.110700000000000000
+        Stretched = True
+        object Memo7: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 22.677180000000000000
+          Frame.Typ = [ftBottom]
+        end
+        object Memo2: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 1.645640000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Data')
+        end
+        object Memo6: TfrxMemoView
+          Left = 90.708720000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo Anterior')
+        end
+        object Memo9: TfrxMemoView
+          Left = 215.433210000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vendas do Dia')
+        end
+        object Memo10: TfrxMemoView
+          Left = 340.496290000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Pagtos do dia')
+        end
+        object Memo11: TfrxMemoView
+          Left = 467.031850000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo A Receber')
+        end
+        object Memo12: TfrxMemoView
+          Left = 586.606680000000000000
+          Top = 1.000000000000000000
+          Width = 128.504020000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vendas Acomulado')
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 154.960730000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsDebitosAcom
+        DataSetName = 'DebitosAcom'
+        RowCount = 0
+        object Memo13: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Visibility = [vsPreview, vsExport]
+          StretchMode = smMaxHeight
+          Fill.BackColor = 16119285
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<Line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
+        object DebitosAcomDIA_MOV: TfrxMemoView
+          Left = 3.779530000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataField = 'DIA_MOV'
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          Memo.UTF8W = (
+            '[DebitosAcom."DIA_MOV"]')
+        end
+        object DebitosAcomANTERIOR: TfrxMemoView
+          Left = 91.488250000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[DebitosAcom."ANTERIOR"]')
+        end
+        object Memo4: TfrxMemoView
+          Left = 216.212740000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'VENDAS'
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[DebitosAcom."VENDAS"]')
+        end
+        object Memo5: TfrxMemoView
+          Left = 341.275820000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'PAGAMENTOS'
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[DebitosAcom."PAGAMENTOS"]')
+        end
+        object Memo3: TfrxMemoView
+          Left = 467.811380000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'ARECEBER'
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[DebitosAcom."ARECEBER"]')
+        end
+        object Memo8: TfrxMemoView
+          Left = 594.945270000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'VENDAS_ACOM'
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[DebitosAcom."VENDAS_ACOM"]')
+        end
+      end
+    end
   end
 end
