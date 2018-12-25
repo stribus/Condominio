@@ -2898,25 +2898,9 @@ object dtmRelatorios: TdtmRelatorios
           Memo.UTF8W = (
             'Data')
         end
-        object Memo6: TfrxMemoView
-          Align = baBottom
-          Left = 90.708720000000000000
-          Top = 3.779530000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DataSet = fdsDebitosAcom
-          DataSetName = 'DebitosAcom'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            'Saldo Anterior')
-        end
         object Memo9: TfrxMemoView
           Align = baBottom
-          Left = 215.433210000000000000
+          Left = 211.346630000000000000
           Top = 3.779530000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -2928,7 +2912,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            'Saidas')
+            'Sa'#237'das')
         end
         object Memo10: TfrxMemoView
           Align = baBottom
@@ -2978,6 +2962,22 @@ object dtmRelatorios: TdtmRelatorios
           Memo.UTF8W = (
             'Difer Dia')
         end
+        object Memo6: TfrxMemoView
+          Align = baBottom
+          Left = 90.708720000000000000
+          Top = 3.779530000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Entradas')
+        end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
@@ -3014,23 +3014,8 @@ object dtmRelatorios: TdtmRelatorios
           Memo.UTF8W = (
             '[IOS."DATA"]')
         end
-        object DebitosAcomANTERIOR: TfrxMemoView
-          Left = 87.708720000000000000
-          Width = 120.944960000000000000
-          Height = 18.897650000000000000
-          DataField = 'ENTRADA'
-          DataSet = fdsIOS
-          DataSetName = 'IOS'
-          DisplayFormat.DecimalSeparator = ','
-          DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
-          DisplayFormat.Kind = fkNumeric
-          HAlign = haRight
-          Memo.UTF8W = (
-            '[IOS."ENTRADA"]')
-        end
         object Memo4: TfrxMemoView
-          Left = 216.212740000000000000
+          Left = 212.126160000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
           DataField = 'SAIDA'
@@ -3088,6 +3073,21 @@ object dtmRelatorios: TdtmRelatorios
           HAlign = haRight
           Memo.UTF8W = (
             '[IOS."SALDO_CAIXA"]')
+        end
+        object Memo14: TfrxMemoView
+          Left = 91.488250000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'ENTRADA'
+          DataSet = fdsIOS
+          DataSetName = 'IOS'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[IOS."ENTRADA"]')
         end
       end
     end
