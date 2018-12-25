@@ -93,6 +93,22 @@ type
     fdqExtratoDiarioARECEBER: TBCDField;
     fdqExtratoDiarioVENDAS_ACOM: TBCDField;
     fdqExtratoDiarioCODIGO: TLargeintField;
+    fdqIOS: TFDQuery;
+    fdsIOS: TfrxDBDataset;
+    frepIOS: TfrxReport;
+    fdqIOSDATA: TDateField;
+    fdqIOSENTRADA: TBCDField;
+    fdqIOSSAIDA: TBCDField;
+    fdqIOSPAGAMENTOS: TBCDField;
+    fdqIOSSALDO_CAIXA: TBCDField;
+    fdqIOSACOM: TBCDField;
+    fdqVendaTipos: TFDQuery;
+    fdsVendaTipos: TfrxDBDataset;
+    frepVendaTipos: TfrxReport;
+    fdqVendaTiposDIA_MOV: TDateField;
+    fdqVendaTiposVENDAS: TBCDField;
+    fdqVendaTiposBALCAO: TBCDField;
+    fdqVendaTiposCONTA: TBCDField;
   private
     { Private declarations }
   public

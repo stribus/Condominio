@@ -69,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 591
+          Left = 583
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 702
+          Left = 694
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 813
+          Left = 805
           Top = 20
           Width = 124
           Height = 17
@@ -110,7 +110,7 @@ object frmMain: TfrmMain
           OnClick = chkMesasAtivasClick
         end
         object btnrefresh: TBitBtn
-          Left = 960
+          Left = 952
           Top = 8
           Width = 113
           Height = 41
@@ -501,7 +501,7 @@ object frmMain: TfrmMain
       ImageIndex = 3
       OnShow = TabSheet4Show
       object spl1: TSplitter
-        Left = 541
+        Left = 917
         Top = 0
         Height = 711
         Align = alRight
@@ -511,15 +511,15 @@ object frmMain: TfrmMain
         ExplicitHeight = 100
       end
       object pnl2: TPanel
-        Left = 544
+        Left = 920
         Top = 0
-        Width = 574
+        Width = 198
         Height = 711
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 0
         object grp6: TGroupBox
-          Left = 61
+          Left = 6
           Top = 84
           Width = 156
           Height = 105
@@ -548,8 +548,8 @@ object frmMain: TfrmMain
           end
         end
         object grp3: TGroupBox
-          Left = 301
-          Top = 84
+          Left = 3
+          Top = 195
           Width = 156
           Height = 89
           Caption = 'Usu'#225'rios'
@@ -579,7 +579,7 @@ object frmMain: TfrmMain
         object pnl4: TPanel
           Left = 0
           Top = 0
-          Width = 574
+          Width = 198
           Height = 41
           Align = alTop
           Caption = 'Configura'#231#245'es'
@@ -590,16 +590,18 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 2
+          ExplicitWidth = 574
         end
       end
       object pnl3: TPanel
         Left = 0
         Top = 0
-        Width = 541
+        Width = 917
         Height = 711
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitWidth = 541
         object grp1: TGroupBox
           AlignWithMargins = True
           Left = 24
@@ -636,6 +638,31 @@ object frmMain: TfrmMain
             Width = 40
             Height = 23
             Caption = 'Ate :'
+          end
+          object rgTipoRelVendas: TJvRadioGroup
+            Left = 3
+            Top = 51
+            Width = 388
+            Height = 74
+            Hint = 
+              'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
+              'UTO: Gera relatorio da quantidade de produtos vendidos.'
+            Columns = 3
+            Ctl3D = False
+            ItemIndex = 0
+            Items.Strings = (
+              'Pedido'
+              'Produto'
+              'Acomulado'
+              'Pg/Anot')
+            ParentCtl3D = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 3
+            CaptionVisible = False
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
           end
           object Edt_movimento_datai1: TJvDateEdit
             Left = 53
@@ -677,41 +704,17 @@ object frmMain: TfrmMain
           end
           object btn_relVendas: TButton
             Left = 136
-            Top = 128
+            Top = 131
             Width = 75
             Height = 25
             Caption = 'Gerar'
             TabOrder = 2
             OnClick = btn_relVendasClick
           end
-          object rgTipoRelVendas: TJvRadioGroup
-            Left = 3
-            Top = 59
-            Width = 388
-            Height = 43
-            Hint = 
-              'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
-              'UTO: Gera relatorio da quantidade de produtos vendidos.'
-            Columns = 3
-            Ctl3D = False
-            ItemIndex = 0
-            Items.Strings = (
-              'Pedido'
-              'Produto'
-              'Acomulado')
-            ParentCtl3D = False
-            ParentShowHint = False
-            ShowHint = True
-            TabOrder = 3
-            CaptionVisible = False
-            EdgeBorders = []
-            EdgeInner = esNone
-            EdgeOuter = esNone
-          end
         end
         object grp2: TGroupBox
-          Left = 16
-          Top = 379
+          Left = 421
+          Top = 71
           Width = 238
           Height = 118
           Caption = 'Debitos Cliente'
@@ -854,7 +857,7 @@ object frmMain: TfrmMain
         object pnl5: TPanel
           Left = 0
           Top = 0
-          Width = 541
+          Width = 917
           Height = 41
           Align = alTop
           Caption = 'Relat'#243'rios'
@@ -865,7 +868,55 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
-          ExplicitWidth = 540
+          ExplicitWidth = 541
+        end
+        object grp5: TGroupBox
+          Left = 420
+          Top = 195
+          Width = 238
+          Height = 118
+          Caption = 'Entradas e Saidas'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial Black'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          object btnRelIOS: TButton
+            Left = 80
+            Top = 72
+            Width = 75
+            Height = 25
+            Caption = 'Gerar'
+            TabOrder = 0
+            OnClick = btnRelIOSClick
+          end
+          object rdgrp1: TJvRadioGroup
+            Left = 3
+            Top = 23
+            Width = 235
+            Height = 43
+            Hint = 
+              'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
+              'UTO: Gera relatorio da quantidade de produtos vendidos.'
+            Caption = 'Tipo'
+            Columns = 2
+            Ctl3D = False
+            ItemIndex = 0
+            Items.Strings = (
+              'Diario'
+              'Detalhado')
+            ParentCtl3D = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 1
+            Visible = False
+            CaptionVisible = False
+            EdgeBorders = []
+            EdgeInner = esNone
+            EdgeOuter = esNone
+          end
         end
       end
     end
@@ -1081,8 +1132,8 @@ object frmMain: TfrmMain
       'from'
       '  temporadas t'
       'where t.ativo   ')
-    Left = 492
-    Top = 184
+    Left = 452
+    Top = 360
     object fdqConfiguracoesID_TEMPORADAS: TLargeintField
       FieldName = 'ID_TEMPORADAS'
       Origin = 'ID_TEMPORADAS'
@@ -1123,8 +1174,8 @@ object frmMain: TfrmMain
   end
   object dtsConfiguracoes: TDataSource
     DataSet = fdqConfiguracoes
-    Left = 516
-    Top = 184
+    Left = 492
+    Top = 392
   end
   object bdsdb1: TBindSourceDB
     DataSet = fdqConfiguracoes
@@ -1227,8 +1278,8 @@ object frmMain: TfrmMain
     CenterWindow = False
     PrintScaling = False
     PdfA = False
-    Left = 508
-    Top = 291
+    Left = 492
+    Top = 419
   end
   object actlst1: TActionList
     Left = 324

@@ -140,6 +140,9 @@ type
     dts1: TDataSource;
     dts2: TDataSource;
     btnrefresh: TBitBtn;
+    grp5: TGroupBox;
+    btnRelIOS: TButton;
+    rdgrp1: TJvRadioGroup;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -175,6 +178,7 @@ type
     procedure dbgrdClientesTitleClick(Column: TColumn);
     procedure dbgrdClientesDblClick(Sender: TObject);
     procedure btnrefreshClick(Sender: TObject);
+    procedure btnRelIOSClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -260,7 +264,7 @@ begin
   if (rdgCliente.ItemIndex = 0) then
   begin
     dtmRelatorios.fdqExtratoDiario.Close;
-    dtmRelatorios.fdqExtratoDiario.ParamByName('id_temporada').AsInteger := fdqConfiguracoesID_TEMPORADAS.AsInteger;
+    //dtmRelatorios.fdqExtratoDiario.ParamByName('id_temporada').AsInteger := fdqConfiguracoesID_TEMPORADAS.AsInteger;
     dtmRelatorios.fdqExtratoDiario.open;
     dtmRelatorios.frepExtratoDiarioCaderno.ShowReport(True);
   end;
@@ -399,6 +403,16 @@ begin
   end;
 end;
 
+procedure TfrmMain.btnRelIOSClick(Sender: TObject);
+begin
+    with dtmRelatorios do
+  begin
+    fdqIOS.Close;
+    fdqIOS.Open();
+    frepIOS.ShowReport(true);
+  end;
+end;
+
 procedure TfrmMain.btn_relVendasClick(Sender: TObject);
 begin
   with dtmRelatorios do
@@ -410,12 +424,18 @@ begin
       fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
       fdqProdutosVendidos.open;
       frepProdutosVendidos.ShowReport(true);
-    end;
-    if(rgTipoRelVendas.ItemIndex = 2)then
+    end
+    else if(rgTipoRelVendas.ItemIndex = 2)then
     begin
       fdqDebitosAcom.Close;
       fdqDebitosAcom.Open();
       frepDebitosAcom.ShowReport(true);
+    end
+    else if(rgTipoRelVendas.ItemIndex = 3)then
+    begin
+      fdqVendaTipos.Close;
+      fdqVendaTipos.Open();
+      frepVendaTipos.ShowReport(true);
     end;
   end;
 end;
