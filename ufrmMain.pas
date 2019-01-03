@@ -219,7 +219,8 @@ begin
 {} //   TfrmPagamento.Create(self);
   if(not fdqMesasID_PEDIDO.IsNull )then
   begin
-     tfrmPagamento.FecharConta(Self,fdqMesasID_PEDIDO.AsInteger);
+     if tfrmPagamento.FecharConta(Self,fdqMesasID_PEDIDO.AsInteger) then
+       btnrefreshClick(Sender);
   end;
   Refresh(fdqMesas,'ID_MESA');
 end;

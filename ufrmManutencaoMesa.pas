@@ -368,22 +368,31 @@ procedure TfrmManutencaoMesa.btnFecharClick(Sender: TObject);
 var
   pedidoId: Largeint;
 begin
-  pedidoId := getPedidoId;
-  fdqPedido.ApplyUpdates();
-  fdqMovProduto.ApplyUpdates();
-  if ((not fdqMovProdutoTotal.IsNull) and (tfrmPagamento.FecharConta(Self,
-    pedidoId))) then
-  begin
-    ModalResult := mrClose;
-  end
-  else
-  begin
-    fdqPedido.Close();
-    fdqMovProduto.Close();
-    fdqPedido.ParamByName('ID_PEDIDO').AsLargeInt := pedidoId;
-    fdqPedido.Open();
-    fdqPedido.Edit;
-    fdqMovProduto.Open();
+  try
+    if not dtmcon.fdtrans1.Active then
+      dtmcon.fdtrans1.StartTransaction;
+    pedidoId := getPedidoId;
+    fdqPedido.ApplyUpdates();
+    fdqMovProduto.ApplyUpdates();
+    dtmcon.fdtrans1.Commit;
+    if ((not fdqMovProdutoTotal.IsNull) and (TfrmPagamento.FecharConta(Self, pedidoId))) then
+    begin
+      ModalResult := mrClose;
+    end
+    else
+    begin
+      fdqPedido.Close();
+      fdqMovProduto.Close();
+      fdqPedido.ParamByName('ID_PEDIDO').AsLargeInt := pedidoId;
+      fdqPedido.Open();
+      fdqPedido.Edit;
+      fdqMovProduto.Open();
+      if dtmcon.fdtrans1.Active then
+        dtmcon.fdtrans1.Commit;
+    end;
+  finally
+    if dtmcon.fdtrans1.Active then
+      dtmcon.fdtrans1.Rollback;
   end;
 end;
 
@@ -582,7 +591,7 @@ begin
   with frm do
   try
     FId := AMesa;
-    dtmcon.fdtrans1.StartTransaction;
+
     fdqPedido.ParamByName('ID_MESA').AsLargeInt := AMesa;
     if AIdPedido > 0 then
       fdqPedido.ParamByName('ID_PEDIDO').AsLargeInt := AIdPedido
@@ -598,6 +607,7 @@ begin
     Caption := 'Mesa: '+fdqPedidoDESCRICAO.AsString;
     if (frm.ShowModal = mrOk) and (not fdqPedidoID_PEDIDO.IsNull) then
     try
+      dtmcon.fdtrans1.StartTransaction;
       fdqPedido.ApplyUpdates();
       fdqMovProduto.ApplyUpdates();
       dtmcon.fdtrans1.Commit;
