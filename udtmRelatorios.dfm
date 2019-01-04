@@ -3382,4 +3382,700 @@ object dtmRelatorios: TdtmRelatorios
       end
     end
   end
+  object fdqRelPedidos: TFDQuery
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'select '
+      '  m.id_mesa'
+      '  ,m.codigo'
+      '  ,m.descricao'
+      '  ,m.ativa'
+      '  ,p.id_pedido'
+      '  ,p.fk_temporada'
+      '  ,p.dthr_abertura'
+      '  ,p.dthr_fexamento'
+      '  ,p.fk_dependente'
+      '  ,p.pago'
+      '  ,p.nome_dependente'
+      '  ,p.anotar'
+      '  ,c.nome'
+      '  ,c.codigo Cod_cliente'
+      '  ,c.id_cliente'
+      '  ,p.tp_pagamento'
+      'from '
+      '  mesa m'
+      '  join pedido p on p.fk_mesa = m.id_mesa'
+      '  join temporadas t on t.id_temporadas = p.fk_temporada'
+      '  left join cliente c on c.id_cliente = p.fk_cliente'
+      'where'
+      '  t.ativo = true'
+      
+        '  and cast(p.dthr_fexamento as date) between cast(:datai as date' +
+        ') and cast(:dataf as date)')
+    Left = 336
+    Top = 224
+    ParamData = <
+      item
+        Name = 'DATAI'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = 43101d
+      end
+      item
+        Name = 'DATAF'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = 43831d
+      end>
+    object fdqRelPedidosID_MESA: TLargeintField
+      FieldName = 'ID_MESA'
+      Origin = 'ID_MESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqRelPedidosCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqRelPedidosDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Required = True
+      Size = 150
+    end
+    object fdqRelPedidosATIVA: TBooleanField
+      FieldName = 'ATIVA'
+      Origin = 'ATIVA'
+      Required = True
+    end
+    object fdqRelPedidosID_PEDIDO: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID_PEDIDO'
+      Origin = 'ID_PEDIDO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosFK_TEMPORADA: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosDTHR_ABERTURA: TSQLTimeStampField
+      AutoGenerateValue = arDefault
+      FieldName = 'DTHR_ABERTURA'
+      Origin = 'DTHR_ABERTURA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosDTHR_FEXAMENTO: TSQLTimeStampField
+      AutoGenerateValue = arDefault
+      FieldName = 'DTHR_FEXAMENTO'
+      Origin = 'DTHR_FEXAMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosFK_DEPENDENTE: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'FK_DEPENDENTE'
+      Origin = 'FK_DEPENDENTE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosPAGO: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGO'
+      Origin = 'PAGO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosNOME_DEPENDENTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_DEPENDENTE'
+      Origin = 'NOME_DEPENDENTE'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
+    end
+    object fdqRelPedidosANOTAR: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'ANOTAR'
+      Origin = 'ANOTAR'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosNOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
+    end
+    object fdqRelPedidosCOD_CLIENTE: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'COD_CLIENTE'
+      Origin = 'CODIGO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosID_CLIENTE: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPedidosTP_PAGAMENTO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'TP_PAGAMENTO'
+      Origin = 'TP_PAGAMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object fdqrelPedidoProdutos: TFDQuery
+    MasterSource = dtsRelPedidos
+    MasterFields = 'ID_PEDIDO'
+    DetailFields = 'ID_PEDIDO'
+    ConnectionName = 'Condominio'
+    FetchOptions.AssignedValues = [evCache]
+    FetchOptions.Cache = [fiBlobs, fiMeta]
+    SQL.Strings = (
+      'SELECT'
+      '  mv.fk_pedido as id_pedido,'
+      '  pr.codigo  ,'
+      '  pr.nome,'
+      '  mv.quantidade ,'
+      '  mv.pagamento ,'
+      '  mv.valor_total'
+      'FROM'
+      '   mov_produto mv'
+      '  LEFT JOIN produtos pr ON'
+      '    pr.id_rodutos = mv.fk_produto  '
+      'WHERE'
+      '  mv.fk_pedido = :id_pedido'
+      '  and not mv.excluido'
+      '  and not mv.pagamento'
+      'ORDER BY  '
+      '     mv.data_hora,mv.id_mov_produto')
+    Left = 304
+    Top = 272
+    ParamData = <
+      item
+        Name = 'ID_PEDIDO'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Size = 8
+        Value = 211
+      end>
+    object fdqrelPedidoProdutosID_PEDIDO: TLargeintField
+      FieldName = 'ID_PEDIDO'
+      Origin = 'FK_PEDIDO'
+    end
+    object fdqrelPedidoProdutosCODIGO: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqrelPedidoProdutosNOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
+    end
+    object fdqrelPedidoProdutosQUANTIDADE: TBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Required = True
+      Precision = 18
+    end
+    object fdqrelPedidoProdutosPAGAMENTO: TBooleanField
+      FieldName = 'PAGAMENTO'
+      Origin = 'PAGAMENTO'
+      Required = True
+    end
+    object fdqrelPedidoProdutosVALOR_TOTAL: TBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      Required = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object dtsRelPedidos: TDataSource
+    DataSet = fdqRelPedidos
+    Left = 368
+    Top = 224
+  end
+  object fdqRelPedidosPagto: TFDQuery
+    MasterSource = dtsRelPedidos
+    MasterFields = 'ID_PEDIDO'
+    DetailFields = 'ID_PEDIDO'
+    ConnectionName = 'Condominio'
+    FetchOptions.AssignedValues = [evCache]
+    FetchOptions.Cache = [fiBlobs, fiMeta]
+    SQL.Strings = (
+      'SELECT'
+      '   mv.data_hora,'
+      '  mv.fk_pedido as id_pedido,'
+      '  tp.descricao,'
+      '  mv.pagamento ,'
+      '  (mv.valor_total *-1) valor_total'
+      'FROM'
+      '   mov_produto mv'
+      '  LEFT JOIN tipo_pagamento tp ON'
+      '    tp.id = mv.tipo_pagamento'
+      'WHERE'
+      '  mv.fk_pedido = :id_pedido'
+      '  and not mv.excluido'
+      '  and mv.pagamento'
+      '  and mv.valor_total <0'
+      ''
+      'union all'
+      ''
+      'select'
+      '  p.dthr_fexamento data_hora,'
+      '  p.id_pedido,'
+      '  '#39'ANOTADO'#39','
+      '  true as pagamento ,'
+      '  sum(mv.valor_total) valor_total'
+      'FROM'
+      '   pedido p'
+      '  join mov_produto mv on  p.id_pedido = mv.fk_pedido'
+      'WHERE'
+      '  p.id_pedido = :id_pedido'
+      '  and not mv.excluido'
+      '  and p.anotar'
+      '  group by 1,2,3,4')
+    Left = 368
+    Top = 272
+    ParamData = <
+      item
+        Name = 'ID_PEDIDO'
+        DataType = ftLargeint
+        ParamType = ptInput
+        Size = 8
+        Value = 211
+      end>
+    object fdqRelPedidosPagtoDATA_HORA: TSQLTimeStampField
+      FieldName = 'DATA_HORA'
+      Origin = 'DATA_HORA'
+    end
+    object fdqRelPedidosPagtoID_PEDIDO: TLargeintField
+      FieldName = 'ID_PEDIDO'
+      Origin = 'FK_PEDIDO'
+    end
+    object fdqRelPedidosPagtoDESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
+    end
+    object fdqRelPedidosPagtoPAGAMENTO: TBooleanField
+      FieldName = 'PAGAMENTO'
+      Origin = 'PAGAMENTO'
+      Required = True
+    end
+    object fdqRelPedidosPagtoVALOR_TOTAL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object dtsPedidoProdutos: TDataSource
+    DataSet = fdqrelPedidoProdutos
+    Left = 328
+    Top = 272
+  end
+  object dtsPedidoPagto: TDataSource
+    DataSet = fdqRelPedidosPagto
+    Left = 392
+    Top = 272
+  end
+  object fdsRelPedidos: TfrxDBDataset
+    UserName = 'frxRelPedidos'
+    CloseDataSource = True
+    DataSource = dtsRelPedidos
+    BCDToCurrency = True
+    Left = 392
+    Top = 224
+  end
+  object fdsPedidoPagto: TfrxDBDataset
+    UserName = 'frxPedidoPagto'
+    CloseDataSource = False
+    DataSource = dtsPedidoPagto
+    BCDToCurrency = True
+    Left = 416
+    Top = 272
+  end
+  object fdsPedidoProdutos: TfrxDBDataset
+    UserName = 'frxPedidoProdutos'
+    CloseDataSource = False
+    DataSource = dtsPedidoProdutos
+    BCDToCurrency = True
+    Left = 352
+    Top = 280
+  end
+  object frepRelPedidos: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43458.728088240700000000
+    ReportOptions.LastChange = 43459.529065763900000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 440
+    Top = 232
+    Datasets = <
+      item
+        DataSet = fdsPedidoPagto
+        DataSetName = 'frxPedidoPagto'
+      end
+      item
+        DataSet = fdsPedidoProdutos
+        DataSetName = 'frxPedidoProdutos'
+      end
+      item
+        DataSet = fdsRelPedidos
+        DataSetName = 'frxRelPedidos'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 30.236240000000000000
+        ParentFont = False
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 30.236240000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Pedidos')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 45.354360000000000000
+        Top = 109.606370000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsRelPedidos
+        DataSetName = 'frxRelPedidos'
+        RowCount = 0
+        object Memo6: TfrxMemoView
+          Left = 79.370130000000000000
+          Top = 23.677180000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haBlock
+          Memo.UTF8W = (
+            'Produto')
+          ParentFont = False
+        end
+        object Memo9: TfrxMemoView
+          Left = 464.882190000000000000
+          Top = 23.677180000000000000
+          Width = 86.929190000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Qtd')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          Left = 586.165740000000000000
+          Top = 23.677180000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor')
+          ParentFont = False
+        end
+        object frxRelPedidosDESCRICAO: TfrxMemoView
+          Left = 56.692950000000000000
+          Top = 3.779530000000000000
+          Width = 207.874150000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelPedidos
+          DataSetName = 'frxRelPedidos'
+          Memo.UTF8W = (
+            '[frxRelPedidos."DESCRICAO"]')
+        end
+        object Memo3: TfrxMemoView
+          Left = 11.338590000000000000
+          Top = 3.779530000000000000
+          Width = 45.354360000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Memo.UTF8W = (
+            'MESA:')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 272.126160000000000000
+          Top = 3.779530000000000000
+          Width = 86.929190000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Data Hora:')
+          ParentFont = False
+        end
+        object frxRelPedidosDTHR_ABERTURA: TfrxMemoView
+          Left = 362.834880000000000000
+          Top = 3.779530000000000000
+          Width = 272.126160000000000000
+          Height = 18.897650000000000000
+          DataField = 'DTHR_ABERTURA'
+          DataSet = fdsRelPedidos
+          DataSetName = 'frxRelPedidos'
+          Memo.UTF8W = (
+            '[frxRelPedidos."DTHR_ABERTURA"]')
+        end
+      end
+      object DetailData1: TfrxDetailData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 177.637910000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsPedidoProdutos
+        DataSetName = 'frxPedidoProdutos'
+        RowCount = 0
+        object Memo4: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Visibility = [vsPreview, vsExport]
+          Fill.BackColor = clMenu
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<Line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
+        object frxPedidoProdutosNOME: TfrxMemoView
+          Left = 79.370130000000000000
+          Width = 374.173470000000000000
+          Height = 18.897650000000000000
+          DataField = 'NOME'
+          DataSet = fdsPedidoProdutos
+          DataSetName = 'frxPedidoProdutos'
+          Memo.UTF8W = (
+            '[frxPedidoProdutos."NOME"]')
+        end
+        object frxPedidoProdutosVALOR_TOTAL: TfrxMemoView
+          Left = 559.370440000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsPedidoProdutos
+          DataSetName = 'frxPedidoProdutos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxPedidoProdutos."VALOR_TOTAL"]')
+        end
+        object frxPedidoProdutosQUANTIDADE: TfrxMemoView
+          Left = 464.882190000000000000
+          Width = 86.929190000000000000
+          Height = 18.897650000000000000
+          DataField = 'QUANTIDADE'
+          DataSet = fdsPedidoProdutos
+          DataSetName = 'frxPedidoProdutos'
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxPedidoProdutos."QUANTIDADE"]')
+        end
+      end
+      object DetailData2: TfrxDetailData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 249.448980000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsPedidoPagto
+        DataSetName = 'frxPedidoPagto'
+        RowCount = 0
+        object Memo7: TfrxMemoView
+          Left = 249.448980000000000000
+          Width = 468.661720000000000000
+          Height = 18.897650000000000000
+          Fill.BackColor = 16121825
+        end
+        object frxPedidoPagtoDESCRICAO: TfrxMemoView
+          Left = 362.834880000000000000
+          Width = 170.078850000000000000
+          Height = 18.897650000000000000
+          DataField = 'DESCRICAO'
+          DataSet = fdsPedidoPagto
+          DataSetName = 'frxPedidoPagto'
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxPedidoPagto."DESCRICAO"]')
+        end
+        object frxPedidoPagtoVALOR_TOTAL: TfrxMemoView
+          Left = 559.370440000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsPedidoPagto
+          DataSetName = 'frxPedidoPagto'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxPedidoPagto."VALOR_TOTAL"]')
+        end
+        object Memo5: TfrxMemoView
+          Left = 249.448980000000000000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clNone
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<Line> <> 1'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clWhite
+          Highlight.Fill.ForeColor = clWhite
+          Highlight.Fill.Style = bsClear
+          Memo.UTF8W = (
+            '[IIF(<line> = 1,'#39'Forma Pagto'#39','#39#39')]')
+          ParentFont = False
+        end
+      end
+      object Header1: TfrxHeader
+        FillType = ftBrush
+        Height = 7.559060000000000000
+        Top = 219.212740000000000000
+        Width = 718.110700000000000000
+        object Line1: TfrxLineView
+          Left = 362.834880000000000000
+          Top = 3.779530000000000000
+          Width = 355.275820000000000000
+          Color = clBlack
+          Diagonal = True
+        end
+      end
+      object Footer1: TfrxFooter
+        FillType = ftBrush
+        Height = 11.338590000000000000
+        Top = 291.023810000000000000
+        Width = 718.110700000000000000
+        object Line2: TfrxLineView
+          Align = baWidth
+          Top = 3.779530000000000000
+          Width = 718.110700000000000000
+          Color = clBlack
+          Diagonal = True
+        end
+      end
+    end
+  end
 end

@@ -418,7 +418,19 @@ procedure TfrmMain.btn_relVendasClick(Sender: TObject);
 begin
   with dtmRelatorios do
   begin
-    if(rgTipoRelVendas.ItemIndex = 1)then
+    if(rgTipoRelVendas.ItemIndex = 0)then
+    begin
+      fdqRelPedidos.Close;
+      fdqrelPedidoProdutos.Close;
+      fdqRelPedidosPagto.Close;
+      fdqRelPedidos.ParamByName('DATAI').Value := Edt_movimento_datai1.Date;
+      fdqRelPedidos.ParamByName('DATAF').Value := Edt_movimento_dataf1.Date;
+      fdqRelPedidos.open;
+      fdqrelPedidoProdutos.open;
+      fdqRelPedidosPagto.open;
+      frepRelPedidos.ShowReport(true);
+    end
+    else if(rgTipoRelVendas.ItemIndex = 1)then
     begin
       fdqProdutosVendidos.Close;
       fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;

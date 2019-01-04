@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = tsMesas
+    ActivePage = TabSheet4
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -33,10 +33,6 @@ object frmMain: TfrmMain
     object tsMesas: TTabSheet
       Caption = '&Mesas'
       OnShow = tsMesasShow
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -73,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 575
+          Left = 567
           Top = 8
           Width = 105
           Height = 41
@@ -81,7 +77,6 @@ object frmMain: TfrmMain
           Caption = 'Cadastrar Mesas'
           TabOrder = 2
           OnClick = btnNovaMesaClick
-          ExplicitLeft = 579
         end
         object btn4: TButton
           Left = 263
@@ -93,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 686
+          Left = 678
           Top = 8
           Width = 105
           Height = 41
@@ -101,10 +96,9 @@ object frmMain: TfrmMain
           Caption = 'Editar Mesas'
           TabOrder = 4
           OnClick = btn1Click
-          ExplicitLeft = 690
         end
         object chkMesasAtivas: TCheckBox
-          Left = 797
+          Left = 789
           Top = 20
           Width = 124
           Height = 17
@@ -114,10 +108,9 @@ object frmMain: TfrmMain
           State = cbChecked
           TabOrder = 5
           OnClick = chkMesasAtivasClick
-          ExplicitLeft = 801
         end
         object btnrefresh: TBitBtn
-          Left = 944
+          Left = 936
           Top = 8
           Width = 113
           Height = 41
@@ -125,7 +118,6 @@ object frmMain: TfrmMain
           Caption = 'For'#231'ar Atualizar'
           TabOrder = 6
           OnClick = btnrefreshClick
-          ExplicitLeft = 948
         end
       end
       object dbgrdMesas: TDBGrid
@@ -192,10 +184,6 @@ object frmMain: TfrmMain
     object tsClientes: TTabSheet
       Caption = '&Clientes'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -299,10 +287,6 @@ object frmMain: TfrmMain
     object tsProdutos: TTabSheet
       Caption = '&Produtos'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -516,10 +500,6 @@ object frmMain: TfrmMain
       Caption = 'Config/&Relat'#243'rios'
       ImageIndex = 3
       OnShow = TabSheet4Show
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object spl1: TSplitter
         Left = 917
         Top = 0
@@ -886,6 +866,7 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
+          ExplicitWidth = 916
         end
         object grp5: TGroupBox
           Left = 420

@@ -109,6 +109,43 @@ type
     fdqVendaTiposVENDAS: TBCDField;
     fdqVendaTiposBALCAO: TBCDField;
     fdqVendaTiposCONTA: TBCDField;
+    fdqRelPedidos: TFDQuery;
+    fdqrelPedidoProdutos: TFDQuery;
+    dtsRelPedidos: TDataSource;
+    fdqrelPedidoProdutosID_PEDIDO: TLargeintField;
+    fdqrelPedidoProdutosCODIGO: TLargeintField;
+    fdqrelPedidoProdutosNOME: TStringField;
+    fdqrelPedidoProdutosQUANTIDADE: TBCDField;
+    fdqrelPedidoProdutosPAGAMENTO: TBooleanField;
+    fdqrelPedidoProdutosVALOR_TOTAL: TBCDField;
+    fdqRelPedidosID_MESA: TLargeintField;
+    fdqRelPedidosCODIGO: TLargeintField;
+    fdqRelPedidosDESCRICAO: TStringField;
+    fdqRelPedidosATIVA: TBooleanField;
+    fdqRelPedidosID_PEDIDO: TLargeintField;
+    fdqRelPedidosFK_TEMPORADA: TLargeintField;
+    fdqRelPedidosDTHR_ABERTURA: TSQLTimeStampField;
+    fdqRelPedidosDTHR_FEXAMENTO: TSQLTimeStampField;
+    fdqRelPedidosFK_DEPENDENTE: TLargeintField;
+    fdqRelPedidosPAGO: TBooleanField;
+    fdqRelPedidosNOME_DEPENDENTE: TStringField;
+    fdqRelPedidosANOTAR: TBooleanField;
+    fdqRelPedidosNOME: TStringField;
+    fdqRelPedidosCOD_CLIENTE: TLargeintField;
+    fdqRelPedidosID_CLIENTE: TLargeintField;
+    fdqRelPedidosTP_PAGAMENTO: TIntegerField;
+    fdqRelPedidosPagto: TFDQuery;
+    fdqRelPedidosPagtoDATA_HORA: TSQLTimeStampField;
+    fdqRelPedidosPagtoID_PEDIDO: TLargeintField;
+    fdqRelPedidosPagtoDESCRICAO: TStringField;
+    fdqRelPedidosPagtoPAGAMENTO: TBooleanField;
+    fdqRelPedidosPagtoVALOR_TOTAL: TBCDField;
+    dtsPedidoProdutos: TDataSource;
+    dtsPedidoPagto: TDataSource;
+    fdsRelPedidos: TfrxDBDataset;
+    fdsPedidoPagto: TfrxDBDataset;
+    fdsPedidoProdutos: TfrxDBDataset;
+    frepRelPedidos: TfrxReport;
   private
     { Private declarations }
   public
