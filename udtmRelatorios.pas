@@ -76,12 +76,6 @@ type
     fdqDebitosAcom: TFDQuery;
     fdsDebitosAcom: TfrxDBDataset;
     frepDebitosAcom: TfrxReport;
-    fdqDebitosAcomDIA_MOV: TDateField;
-    fdqDebitosAcomANTERIOR: TBCDField;
-    fdqDebitosAcomVENDAS: TBCDField;
-    fdqDebitosAcomPAGAMENTOS: TBCDField;
-    fdqDebitosAcomARECEBER: TBCDField;
-    fdqDebitosAcomVENDAS_ACOM: TBCDField;
     fdqExtratoDiarioID_CLIENTE: TLargeintField;
     fdqExtratoDiarioNOME: TStringField;
     fdqExtratoDiarioENDERECO: TStringField;
@@ -146,6 +140,19 @@ type
     fdsPedidoPagto: TfrxDBDataset;
     fdsPedidoProdutos: TfrxDBDataset;
     frepRelPedidos: TfrxReport;
+    fdqRelPedidosPagtoATIVO: TBooleanField;
+    fdqDebitosAcomDIA_MOV: TDateField;
+    fdqDebitosAcomANTERIOR: TBCDField;
+    fdqDebitosAcomVENDAS: TBCDField;
+    fdqDebitosAcomPAGAMENTOS: TBCDField;
+    fdqDebitosAcomARECEBER: TBCDField;
+    fdqDebitosAcomVENDAS_ACOM: TBCDField;
+    fdqRelPagamentosDIA: TDateField;
+    fdqRelPagamentosCHEQUE: TBCDField;
+    fdqRelPagamentosDINHEIRO: TBCDField;
+    fdqRelPagamentosCARTAO_C: TBCDField;
+    fdqRelPagamentosCARTAO_D: TBCDField;
+    fdqRelPagamentosDESCONTO: TBCDField;
   private
     { Private declarations }
   public

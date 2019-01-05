@@ -7,11 +7,13 @@ object dtmRelatorios: TdtmRelatorios
     SQL.Strings = (
       'SELECT'
       #9'cast(m.DATA_HORA AS DATE) dia,'
-      #9'sum(iif(m.TIPO_PAGAMENTO = 1,-1,0 )*VALOR_TOTAL) Anotar,'
       #9'sum(iif(m.TIPO_PAGAMENTO = 3,-1,0 )*VALOR_TOTAL) Cheque,'#9
       #9'sum(iif(m.TIPO_PAGAMENTO = 4,-1,0 )*VALOR_TOTAL) Dinheiro,'
       #9'sum(iif(m.TIPO_PAGAMENTO = 6,-1,0 )*VALOR_TOTAL) Cartao_C,'
-      #9'sum(iif(m.TIPO_PAGAMENTO = 7,-1,0 )*VALOR_TOTAL) Cartao_D'
+      #9'sum(iif(m.TIPO_PAGAMENTO = 7,-1,0 )*VALOR_TOTAL) Cartao_D,'
+      
+        '        sum(iif(m.TIPO_PAGAMENTO = 5,-1,0 )*VALOR_TOTAL) Descont' +
+        'o'
       'FROM'
       #9'MOV_PRODUTO m'
       'WHERE'
@@ -37,6 +39,58 @@ object dtmRelatorios: TdtmRelatorios
         ParamType = ptInput
         Value = 43777d
       end>
+    object fdqRelPagamentosDIA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DIA'
+      Origin = 'DIA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdqRelPagamentosCHEQUE: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'CHEQUE'
+      Origin = 'CHEQUE'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqRelPagamentosDINHEIRO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DINHEIRO'
+      Origin = 'DINHEIRO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqRelPagamentosCARTAO_C: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'CARTAO_C'
+      Origin = 'CARTAO_C'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqRelPagamentosCARTAO_D: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'CARTAO_D'
+      Origin = 'CARTAO_D'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqRelPagamentosDESCONTO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
   end
   object fdsRelPagamentos: TfrxDBDataset
     UserName = 'frxDBPagamnetos'
@@ -110,50 +164,63 @@ object dtmRelatorios: TdtmRelatorios
         object Memo2: TfrxMemoView
           Left = 7.559060000000000000
           Top = 52.913420000000000000
-          Width = 94.488250000000000000
+          Width = 79.370130000000000000
           Height = 18.897650000000000000
           Memo.UTF8W = (
             'Data')
         end
         object Memo3: TfrxMemoView
-          Left = 132.283550000000000000
+          Left = 98.267780000000000000
           Top = 52.913420000000000000
-          Width = 94.488250000000000000
+          Width = 86.929190000000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
             'Dinheiro')
         end
         object Memo4: TfrxMemoView
-          Left = 260.464750000000000000
+          Left = 196.212740000000000000
           Top = 52.913420000000000000
-          Width = 94.488250000000000000
+          Width = 86.929133860000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
             'Cheque')
         end
         object Memo5: TfrxMemoView
-          Left = 360.409710000000000000
+          Left = 284.819110000000000000
           Top = 52.913420000000000000
-          Width = 102.047310000000000000
+          Width = 109.606313860000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
             'Cart'#227'o Credito')
         end
         object Memo6: TfrxMemoView
           Left = 631.181510000000000000
           Top = 52.913420000000000000
-          Width = 83.149660000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           Memo.UTF8W = (
             'Total')
         end
         object Memo15: TfrxMemoView
-          Left = 483.779840000000000000
+          Left = 400.630180000000000000
           Top = 52.913420000000000000
-          Width = 102.047310000000000000
+          Width = 102.047253860000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
-            'Cart'#227'o Credito')
+            'Cart'#227'o Debito')
+        end
+        object Memo20: TfrxMemoView
+          Left = 510.236550000000000000
+          Top = 52.913420000000000000
+          Width = 102.047253860000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Desconto')
         end
       end
       object MasterData1: TfrxMasterData
@@ -189,8 +256,8 @@ object dtmRelatorios: TdtmRelatorios
             '[frxDBPagamnetos."DIA"]')
         end
         object frxDBPagamnetosDINHEIRO: TfrxMemoView
-          Left = 105.826840000000000000
-          Width = 120.944960000000000000
+          Left = 90.708720000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'DINHEIRO'
           DataSet = fdsRelPagamentos
@@ -204,8 +271,8 @@ object dtmRelatorios: TdtmRelatorios
             '[frxDBPagamnetos."DINHEIRO"]')
         end
         object Memo7: TfrxMemoView
-          Left = 234.008040000000000000
-          Width = 102.047310000000000000
+          Left = 188.653680000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'CHEQUE'
           DataSet = fdsRelPagamentos
@@ -219,8 +286,8 @@ object dtmRelatorios: TdtmRelatorios
             '[frxDBPagamnetos."CHEQUE"]')
         end
         object Memo8: TfrxMemoView
-          Left = 341.512060000000000000
-          Width = 120.944960000000000000
+          Left = 296.157700000000000000
+          Width = 98.267718980000000000
           Height = 18.897650000000000000
           DataField = 'CARTAO_C'
           DataSet = fdsRelPagamentos
@@ -234,8 +301,8 @@ object dtmRelatorios: TdtmRelatorios
             '[frxDBPagamnetos."CARTAO_C"]')
         end
         object Memo9: TfrxMemoView
-          Left = 593.386210000000000000
-          Width = 120.944960000000000000
+          Left = 623.622450000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataSet = fdsRelPagamentos
           DataSetName = 'frxDBPagamnetos'
@@ -250,8 +317,8 @@ object dtmRelatorios: TdtmRelatorios
               'Pagamnetos."CARTAO_C">+<frxDBPagamnetos."CARTAO_D">)]')
         end
         object Memo16: TfrxMemoView
-          Left = 464.882190000000000000
-          Width = 120.944960000000000000
+          Left = 408.189240000000000000
+          Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'CARTAO_D'
           DataSet = fdsRelPagamentos
@@ -263,6 +330,19 @@ object dtmRelatorios: TdtmRelatorios
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBPagamnetos."CARTAO_D"]')
+        end
+        object Memo21: TfrxMemoView
+          Left = 510.236550000000000000
+          Width = 102.047253860000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelPagamentos
+          DataSetName = 'frxDBPagamnetos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBPagamnetos."DESCONTO"]')
         end
       end
       object Footer1: TfrxFooter
@@ -286,15 +366,15 @@ object dtmRelatorios: TdtmRelatorios
         object Memo10: TfrxMemoView
           Left = 3.779530000000000000
           Top = 15.118120000000000000
-          Width = 94.488250000000000000
+          Width = 83.149660000000000000
           Height = 18.897650000000000000
           Memo.UTF8W = (
             'Total')
         end
         object Memo11: TfrxMemoView
-          Left = 105.826840000000000000
+          Left = 98.267780000000000000
           Top = 15.118120000000000000
-          Width = 120.944960000000000000
+          Width = 86.929190000000000000
           Height = 18.897650000000000000
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -305,9 +385,9 @@ object dtmRelatorios: TdtmRelatorios
             '[SUM(<frxDBPagamnetos."DINHEIRO">,MasterData1)]')
         end
         object Memo12: TfrxMemoView
-          Left = 234.008040000000000000
+          Left = 196.212740000000000000
           Top = 15.118120000000000000
-          Width = 102.047310000000000000
+          Width = 86.929133860000000000
           Height = 18.897650000000000000
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -318,9 +398,9 @@ object dtmRelatorios: TdtmRelatorios
             '[SUM(<frxDBPagamnetos."CHEQUE">,MasterData1,2)]')
         end
         object Memo13: TfrxMemoView
-          Left = 341.512060000000000000
+          Left = 307.496290000000000000
           Top = 15.118120000000000000
-          Width = 120.944960000000000000
+          Width = 86.929133860000000000
           Height = 18.897650000000000000
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -331,9 +411,9 @@ object dtmRelatorios: TdtmRelatorios
             '[SUM(<frxDBPagamnetos."CARTAO_C">,MasterData1)]')
         end
         object Memo14: TfrxMemoView
-          Left = 593.386210000000000000
+          Left = 631.181510000000000000
           Top = 15.118120000000000000
-          Width = 120.944960000000000000
+          Width = 86.929133860000000000
           Height = 18.897650000000000000
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -347,9 +427,9 @@ object dtmRelatorios: TdtmRelatorios
               'a1)]')
         end
         object Memo17: TfrxMemoView
-          Left = 464.882190000000000000
+          Left = 415.748300000000000000
           Top = 15.118120000000000000
-          Width = 120.944960000000000000
+          Width = 86.929133860000000000
           Height = 18.897650000000000000
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -358,6 +438,19 @@ object dtmRelatorios: TdtmRelatorios
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBPagamnetos."CARTAO_D">,MasterData1)]')
+        end
+        object Memo22: TfrxMemoView
+          Left = 510.236550000000000000
+          Top = 15.118120000000000000
+          Width = 102.047253860000000000
+          Height = 18.897650000000000000
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBPagamnetos."DESCONTO">,MasterData1)]')
         end
       end
     end
@@ -2336,38 +2429,10 @@ object dtmRelatorios: TdtmRelatorios
   object fdqDebitosAcom: TFDQuery
     ConnectionName = 'Condominio'
     SQL.Strings = (
-      'select'
-      'distinct'
-      '   mv.dia_mov'
       
-        '   ,sum(mv.valor_total) over (partition by mv.excluido order by ' +
-        'mv.dia_mov)'
-      
-        '   -sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
-        'mv.dia_mov )'
-      
-        '   -sum(iif(mv.pagamento,mv.valor_total,0))  over (partition by ' +
-        'mv.dia_mov ) anterior'
-      
-        '   ,sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
-        'mv.dia_mov ) vendas'
-      
-        '   ,sum(iif(mv.pagamento,mv.valor_total*-1,0))  over (partition ' +
-        'by mv.dia_mov ) pagamentos'
-      
-        '   ,sum(mv.valor_total) over (partition by mv.excluido order by ' +
-        'mv.dia_mov) areceber'
-      
-        '   ,sum(iif(mv.pagamento,0,mv.valor_total)) over (partition by m' +
-        'v.excluido order by mv.dia_mov) Vendas_acom'
-      'from'
-      '  mov_produto mv'
-      'where'
-      '  not mv.excluido'
-      
-        '  and mv.dia_mov >= (select t.periodo_inicial from temporadas t ' +
-        'where t.ativo)'
-      'order by   mv.dia_mov')
+        'SELECT DIA_MOV, ANTERIOR, VENDAS, PAGAMENTOS, ARECEBER, VENDAS_A' +
+        'COM'
+      'FROM VENDAS_ACOMULADO;')
     Left = 384
     Top = 16
     object fdqDebitosAcomDIA_MOV: TDateField
@@ -2375,47 +2440,32 @@ object dtmRelatorios: TdtmRelatorios
       Origin = 'DIA_MOV'
     end
     object fdqDebitosAcomANTERIOR: TBCDField
-      AutoGenerateValue = arDefault
       FieldName = 'ANTERIOR'
       Origin = 'ANTERIOR'
-      ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 2
     end
     object fdqDebitosAcomVENDAS: TBCDField
-      AutoGenerateValue = arDefault
       FieldName = 'VENDAS'
       Origin = 'VENDAS'
-      ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 2
     end
     object fdqDebitosAcomPAGAMENTOS: TBCDField
-      AutoGenerateValue = arDefault
       FieldName = 'PAGAMENTOS'
       Origin = 'PAGAMENTOS'
-      ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 2
     end
     object fdqDebitosAcomARECEBER: TBCDField
-      AutoGenerateValue = arDefault
       FieldName = 'ARECEBER'
       Origin = 'ARECEBER'
-      ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 2
     end
     object fdqDebitosAcomVENDAS_ACOM: TBCDField
-      AutoGenerateValue = arDefault
       FieldName = 'VENDAS_ACOM'
       Origin = 'VENDAS_ACOM'
-      ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 2
     end
@@ -3097,9 +3147,7 @@ object dtmRelatorios: TdtmRelatorios
     SQL.Strings = (
       'select distinct'
       '  mv.dia_mov,'
-      
-        '  sum(iif(mv.pagamento, 0, mv.valor_total)) over(partition by mv' +
-        '.dia_mov) vendas,'
+      '  sum( mv.valor_total) over(partition by mv.dia_mov) vendas,'
       
         '  sum(iif(mv.fk_caderneta is null, mv.valor_total, 0)) over(part' +
         'ition by mv.dia_mov) Balcao,'
@@ -3109,14 +3157,21 @@ object dtmRelatorios: TdtmRelatorios
       'from'
       '  mov_produto mv'
       'where'
-      '    not mv.excluido and'
-      '    mv.dia_mov >= (select'
-      '                     t.periodo_inicial'
-      '                   from'
-      '                     temporadas t'
-      '                   where'
-      '                       t.ativo) and'
-      '    not mv.pagamento'
+      '    not mv.excluido '
+      '    AND mv.dia_mov between'
+      '              (select'
+      '                 t.periodo_inicial'
+      '               from'
+      '                 temporadas t'
+      '               where'
+      '                   t.ativo)'
+      '               and (select'
+      '                       coalesce(t.periodo_final, current_date)'
+      '                     from'
+      '                       temporadas t'
+      '                     where'
+      '                         t.ativo)'
+      '    AND (not mv.pagamento OR mv.TIPO_PAGAMENTO = 5)'
       'order by'
       '    mv.dia_mov')
     Left = 144
@@ -3615,6 +3670,14 @@ object dtmRelatorios: TdtmRelatorios
     Top = 224
   end
   object fdqRelPedidosPagto: TFDQuery
+    Indexes = <
+      item
+        Active = True
+        Selected = True
+        Name = 'ixdpgto'
+        Fields = 'ATIVO;DATA_HORA'
+      end>
+    IndexName = 'ixdpgto'
     MasterSource = dtsRelPedidos
     MasterFields = 'ID_PEDIDO'
     DetailFields = 'ID_PEDIDO'
@@ -3622,21 +3685,22 @@ object dtmRelatorios: TdtmRelatorios
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
     SQL.Strings = (
-      'SELECT'
-      '   mv.data_hora,'
+      'select'
+      '  mv.data_hora,'
       '  mv.fk_pedido as id_pedido,'
       '  tp.descricao,'
-      '  mv.pagamento ,'
-      '  (mv.valor_total *-1) valor_total'
-      'FROM'
-      '   mov_produto mv'
-      '  LEFT JOIN tipo_pagamento tp ON'
-      '    tp.id = mv.tipo_pagamento'
-      'WHERE'
-      '  mv.fk_pedido = :id_pedido'
-      '  and not mv.excluido'
-      '  and mv.pagamento'
-      '  and mv.valor_total <0'
+      '  tp.ativo,'
+      '  mv.pagamento,'
+      '  (mv.valor_total * -1) valor_total'
+      'from'
+      '  mov_produto mv'
+      'left join'
+      '    tipo_pagamento tp on tp.id = mv.tipo_pagamento'
+      'where'
+      '    mv.fk_pedido = :id_pedido and'
+      '    not mv.excluido and'
+      '    mv.pagamento and'
+      '    mv.valor_total < 0'
       ''
       'union all'
       ''
@@ -3644,16 +3708,21 @@ object dtmRelatorios: TdtmRelatorios
       '  p.dthr_fexamento data_hora,'
       '  p.id_pedido,'
       '  '#39'ANOTADO'#39','
-      '  true as pagamento ,'
+      '  null,'
+      '  true as pagamento,'
       '  sum(mv.valor_total) valor_total'
-      'FROM'
-      '   pedido p'
-      '  join mov_produto mv on  p.id_pedido = mv.fk_pedido'
-      'WHERE'
-      '  p.id_pedido = :id_pedido'
-      '  and not mv.excluido'
-      '  and p.anotar'
-      '  group by 1,2,3,4')
+      'from'
+      '  pedido p'
+      'join'
+      '    mov_produto mv on p.id_pedido = mv.fk_pedido'
+      'where'
+      '    p.id_pedido = :id_pedido and'
+      '    not mv.excluido and'
+      '    p.anotar'
+      'group by'
+      '    1, 2, 3, 4,5'
+      'order by'
+      '    4 asc nulls last')
     Left = 368
     Top = 272
     ParamData = <
@@ -3693,6 +3762,13 @@ object dtmRelatorios: TdtmRelatorios
       ReadOnly = True
       Precision = 18
       Size = 2
+    end
+    object fdqRelPedidosPagtoATIVO: TBooleanField
+      AutoGenerateValue = arDefault
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      ProviderFlags = []
+      ReadOnly = True
     end
   end
   object dtsPedidoProdutos: TDataSource

@@ -20,17 +20,15 @@ object frmPagamento: TfrmPagamento
     Top = 0
     Width = 451
     Height = 305
-    ActivePage = tsAnotar
+    ActivePage = tsPagamento
     Align = alClient
     OwnerDraw = True
     Style = tsFlatButtons
     TabOrder = 0
     TabStop = False
-    ExplicitWidth = 437
     object tsPagamento: TTabSheet
       TabVisible = False
       OnShow = tsPagamentoShow
-      ExplicitWidth = 429
       object pnl2: TPanel
         Left = 0
         Top = 0
@@ -40,7 +38,6 @@ object frmPagamento: TfrmPagamento
         BevelOuter = bvNone
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 429
         DesignSize = (
           443
           247)
@@ -53,7 +50,7 @@ object frmPagamento: TfrmPagamento
         end
         object lbl1: TLabel
           Left = 114
-          Top = 78
+          Top = 69
           Width = 93
           Height = 16
           Caption = 'Tipo Pagamento'
@@ -90,7 +87,6 @@ object frmPagamento: TfrmPagamento
           BevelOuter = bvNone
           Enabled = False
           TabOrder = 0
-          ExplicitWidth = 437
           object edtTotal: TJvCalcEdit
             Left = 114
             Top = 3
@@ -111,9 +107,9 @@ object frmPagamento: TfrmPagamento
         end
         object dblklstTpPagto: TDBLookupListBox
           Left = 114
-          Top = 100
+          Top = 91
           Width = 223
-          Height = 68
+          Height = 84
           KeyField = 'ID'
           ListField = 'DESCRICAO'
           ListSource = dtspag
@@ -128,7 +124,6 @@ object frmPagamento: TfrmPagamento
         Align = alBottom
         ParentBackground = False
         TabOrder = 1
-        ExplicitWidth = 429
         object btnOk: TButton
           Left = 160
           Top = 9
@@ -154,7 +149,6 @@ object frmPagamento: TfrmPagamento
       ImageIndex = 1
       TabVisible = False
       OnShow = tsAnotarShow
-      ExplicitWidth = 429
       object pnl4: TPanel
         Left = 0
         Top = 0
@@ -163,7 +157,6 @@ object frmPagamento: TfrmPagamento
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 429
         object lbl4: TLabel
           Left = 49
           Top = 35
@@ -258,7 +251,6 @@ object frmPagamento: TfrmPagamento
         Align = alBottom
         ParentBackground = False
         TabOrder = 1
-        ExplicitWidth = 429
         object btnokAnota: TButton
           Left = 160
           Top = 9
@@ -283,7 +275,6 @@ object frmPagamento: TfrmPagamento
     object tsModoFechamento: TTabSheet
       ImageIndex = 2
       TabVisible = False
-      ExplicitWidth = 429
       object btnAnotar: TBitBtn
         Left = 56
         Top = 104

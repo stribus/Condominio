@@ -304,6 +304,12 @@ begin
 end;
 
 class function TfrmPagamento.FecharConta(Aowner: TComponent; AIdPedido: integer): Boolean;
+const
+  SQL =
+    '  SELECT * FROM TIPO_PAGAMENTO' + #13#10 +
+    'WHERE ATIVO' + #13#10 +
+    'order by DESCRICAO'
+    ;
 var
   frm: TfrmPagamento;
 begin
@@ -313,8 +319,10 @@ begin
     frm.fdqPedido.ParamByName('ID_PEDIDO').AsInteger := AIdPedido;
     frm.fdqPedido.Open();
     frm.fdqPedido.Edit;
+    frm.fdqTipoPag.close;
     frm.fdqTipoPag.Filter := 'DESCRICAO <> ''ANOTAR''';
     frm.fdqTipoPag.Filtered := True;
+    frm.fdqTipoPag.SQL.Text := SQL;
     frm.fdqTipoPag.Open();
     frm.FParcial := False;
     frm.pgc1.ActivePage := frm.tsModoFechamento;
@@ -334,6 +342,12 @@ end;
 
 class function TfrmPagamento.pagar(Aowner: TComponent; AValorTotal: Currency; out OValorPago: Currency;
   out OTipoPag: integer): Boolean;
+  const
+    SQL =
+    '    SELECT * FROM TIPO_PAGAMENTO' + #13#10 +
+    'WHERE ATIVO OR DESCRICAO = ''DESCONTO''' + #13#10 +
+    'order by ATIVO desc, DESCRICAO' ;
+
 var
   frm: TfrmPagamento;
 begin
@@ -342,6 +356,7 @@ begin
   try
     frm.edtTotal.Value := AValorTotal;
     frm.fdqTipoPag.Filter := 'DESCRICAO <> ''ANOTAR''';
+    frm.fdqTipoPag.SQL.Text := SQL;
     frm.fdqTipoPag.Filtered := True;
     frm.fdqTipoPag.Open();
     frm.FParcial := True;
