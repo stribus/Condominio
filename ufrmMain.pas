@@ -143,6 +143,8 @@ type
     grp5: TGroupBox;
     btnRelIOS: TButton;
     rdgrp1: TJvRadioGroup;
+    grp7: TGroupBox;
+    btnRelExclusoes: TButton;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -179,6 +181,7 @@ type
     procedure dbgrdClientesDblClick(Sender: TObject);
     procedure btnrefreshClick(Sender: TObject);
     procedure btnRelIOSClick(Sender: TObject);
+    procedure btnRelExclusoesClick(Sender: TObject);
   private
     { Private declarations }
     procedure atualizaDatasets;
@@ -206,6 +209,7 @@ begin
   Refresh(fdqClientes,'ID_CLIENTE');
   Refresh(fdqProdutos,'ID_RODUTOS');
   Refresh(fdqEntradasSaidas,'ID');
+  dtmRelatorios.fechaTodosDataSets;
 end;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
@@ -268,8 +272,8 @@ begin
     //dtmRelatorios.fdqExtratoDiario.ParamByName('id_temporada').AsInteger := fdqConfiguracoesID_TEMPORADAS.AsInteger;
     dtmRelatorios.fdqExtratoDiario.open;
     dtmRelatorios.frepExtratoDiarioCaderno.ShowReport(True);
-  end;
-  if rdgCliente.ItemIndex = 1 then
+  end
+  else if rdgCliente.ItemIndex = 1 then
   with dtmRelatorios do
     begin
       fdqProdutoslookup.Close;
@@ -280,7 +284,15 @@ begin
       fdqExtratoCliente.Close;
       fdqExtratoCliente.open;
       frepExtratoCaderno.ShowReport(true);
+    end
+  else  if rdgCliente.ItemIndex = 2 then
+  with dtmRelatorios do
+    begin
+      fdqSaldo.Close;
+      fdqsaldo.Open();
+      frepSaldo.ShowReport(true);
     end;
+
 end;
 
 procedure TfrmMain.btnDelESClick(Sender: TObject);
@@ -401,6 +413,17 @@ begin
       fdqPagamentosTipo.open;
       frepPagtoTipo.ShowReport(true);
     end;
+  end;
+end;
+
+procedure TfrmMain.btnRelExclusoesClick(Sender: TObject);
+begin
+  with dtmRelatorios do
+  begin
+    fdqRelExluido.Close;
+    fdqRelExluido.Open();
+    frepRelExcluido.ShowReport(true);
+    fdqRelExluido.Close;
   end;
 end;
 

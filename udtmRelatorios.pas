@@ -153,10 +153,34 @@ type
     fdqRelPagamentosCARTAO_C: TBCDField;
     fdqRelPagamentosCARTAO_D: TBCDField;
     fdqRelPagamentosDESCONTO: TBCDField;
+    fdqSaldo: TFDQuery;
+    fdsSaldo: TfrxDBDataset;
+    frepSaldo: TfrxReport;
+    fdqSaldoID_CLIENTE: TLargeintField;
+    fdqSaldoCODIGO: TLargeintField;
+    fdqSaldoNOME: TStringField;
+    fdqSaldoENDERECO: TStringField;
+    fdqSaldoCONTATO: TStringField;
+    fdqSaldoGASTO: TBCDField;
+    fdqSaldoPAGO: TBCDField;
+    fdqSaldoSALDO: TBCDField;
+    fdqRelExluido: TFDQuery;
+    fdsRelExcluidos: TfrxDBDataset;
+    frepRelExcluido: TfrxReport;
+    fdqRelExluidoCODIGO: TLargeintField;
+    fdqRelExluidoNOME: TStringField;
+    fdqRelExluidoDESCRICAO: TStringField;
+    fdqRelExluidoTIPO: TStringField;
+    fdqRelExluidoDATA_HORA: TSQLTimeStampField;
+    fdqRelExluidoDATA_HORA_EXC: TSQLTimeStampField;
+    fdqRelExluidoQUANTIDADE: TBCDField;
+    fdqRelExluidoVALOR_TOTAL: TBCDField;
+    fdqRelExluidoUSER_DEL: TStringField;
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure fechaTodosDataSets();
   end;
 
 var
@@ -167,5 +191,23 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+{ TdtmRelatorios }
+
+procedure TdtmRelatorios.fechaTodosDataSets;
+var
+  I: Integer;
+begin
+  for I := 0 to self.ComponentCount-1 do
+  begin
+    if self.Components[i] is TFDQuery then
+    begin
+      TFDQuery(self.Components[I]).Close;
+    end;
+  end;
+
+
+
+end;
 
 end.

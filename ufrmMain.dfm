@@ -20,7 +20,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet4
+    ActivePage = tsMesas
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -69,7 +69,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 567
+          Left = 563
           Top = 8
           Width = 105
           Height = 41
@@ -88,7 +88,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 678
+          Left = 674
           Top = 8
           Width = 105
           Height = 41
@@ -98,7 +98,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 789
+          Left = 785
           Top = 20
           Width = 124
           Height = 17
@@ -110,7 +110,7 @@ object frmMain: TfrmMain
           OnClick = chkMesasAtivasClick
         end
         object btnrefresh: TBitBtn
-          Left = 936
+          Left = 932
           Top = 8
           Width = 113
           Height = 41
@@ -714,7 +714,7 @@ object frmMain: TfrmMain
           Left = 421
           Top = 71
           Width = 238
-          Height = 118
+          Height = 138
           Caption = 'Debitos Cliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -725,7 +725,7 @@ object frmMain: TfrmMain
           TabOrder = 1
           object btnDebitosClientes: TButton
             Left = 80
-            Top = 72
+            Top = 96
             Width = 75
             Height = 25
             Caption = 'Gerar'
@@ -734,9 +734,9 @@ object frmMain: TfrmMain
           end
           object rdgCliente: TJvRadioGroup
             Left = 3
-            Top = 23
+            Top = 3
             Width = 235
-            Height = 43
+            Height = 87
             Hint = 
               'PEDIDOS: Gera relatorio das vendas conforme a mesa/pedido.'#13#10'PROD' +
               'UTO: Gera relatorio da quantidade de produtos vendidos.'
@@ -746,7 +746,8 @@ object frmMain: TfrmMain
             ItemIndex = 0
             Items.Strings = (
               'Diario'
-              'Detalhado')
+              'Detalhado'
+              'Saldo')
             ParentCtl3D = False
             ParentShowHint = False
             ShowHint = True
@@ -866,13 +867,12 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
-          ExplicitWidth = 916
         end
         object grp5: TGroupBox
           Left = 420
-          Top = 195
+          Top = 215
           Width = 238
-          Height = 118
+          Height = 90
           Caption = 'Entradas e Saidas'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -883,7 +883,7 @@ object frmMain: TfrmMain
           TabOrder = 4
           object btnRelIOS: TButton
             Left = 80
-            Top = 72
+            Top = 52
             Width = 75
             Height = 25
             Caption = 'Gerar'
@@ -892,7 +892,7 @@ object frmMain: TfrmMain
           end
           object rdgrp1: TJvRadioGroup
             Left = 3
-            Top = 23
+            Top = 3
             Width = 235
             Height = 43
             Hint = 
@@ -914,6 +914,29 @@ object frmMain: TfrmMain
             EdgeBorders = []
             EdgeInner = esNone
             EdgeOuter = esNone
+          end
+        end
+        object grp7: TGroupBox
+          Left = 421
+          Top = 311
+          Width = 238
+          Height = 74
+          Caption = 'Exclus'#245'es'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial Black'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 5
+          object btnRelExclusoes: TButton
+            Left = 80
+            Top = 32
+            Width = 75
+            Height = 25
+            Caption = 'Gerar'
+            TabOrder = 0
+            OnClick = btnRelExclusoesClick
           end
         end
       end

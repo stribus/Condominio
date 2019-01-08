@@ -197,12 +197,13 @@ object dtmRelatorios: TdtmRelatorios
             'Cart'#227'o Credito')
         end
         object Memo6: TfrxMemoView
-          Left = 631.181510000000000000
+          Left = 623.622450000000000000
           Top = 52.913420000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
-            'Total')
+            'Desconto')
         end
         object Memo15: TfrxMemoView
           Left = 400.630180000000000000
@@ -220,7 +221,7 @@ object dtmRelatorios: TdtmRelatorios
           Height = 18.897650000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            'Desconto')
+            'Total')
         end
       end
       object MasterData1: TfrxMasterData
@@ -304,6 +305,7 @@ object dtmRelatorios: TdtmRelatorios
           Left = 623.622450000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
+          DataField = 'DESCONTO'
           DataSet = fdsRelPagamentos
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
@@ -312,9 +314,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[(<frxDBPagamnetos."CHEQUE">+<frxDBPagamnetos."DINHEIRO">+<frxDB' +
-              'Pagamnetos."CARTAO_C">+<frxDBPagamnetos."CARTAO_D">)]')
+            '[frxDBPagamnetos."DESCONTO"]')
         end
         object Memo16: TfrxMemoView
           Left = 408.189240000000000000
@@ -342,7 +342,9 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            '[frxDBPagamnetos."DESCONTO"]')
+            
+              '[(<frxDBPagamnetos."CHEQUE">+<frxDBPagamnetos."DINHEIRO">+<frxDB' +
+              'Pagamnetos."CARTAO_C">+<frxDBPagamnetos."CARTAO_D">)]')
         end
       end
       object Footer1: TfrxFooter
@@ -421,10 +423,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            
-              '[SUM(<frxDBPagamnetos."CHEQUE">+<frxDBPagamnetos."DINHEIRO">+<fr' +
-              'xDBPagamnetos."CARTAO_C">+<frxDBPagamnetos."CARTAO_D">,MasterDat' +
-              'a1)]')
+            '[SUM(<frxDBPagamnetos."DESCONTO">,MasterData1)]')
         end
         object Memo17: TfrxMemoView
           Left = 415.748300000000000000
@@ -450,7 +449,10 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
-            '[SUM(<frxDBPagamnetos."DESCONTO">,MasterData1)]')
+            
+              '[SUM(<frxDBPagamnetos."CHEQUE">+<frxDBPagamnetos."DINHEIRO">+<fr' +
+              'xDBPagamnetos."CARTAO_C">+<frxDBPagamnetos."CARTAO_D">,MasterDat' +
+              'a1)]')
         end
       end
     end
@@ -816,6 +818,10 @@ object dtmRelatorios: TdtmRelatorios
         AllowSplit = True
         DataSet = fdsRelClientes
         DataSetName = 'fdsRelClientes'
+        KeepChild = True
+        KeepFooter = True
+        KeepHeader = True
+        KeepTogether = True
         PrintChildIfInvisible = True
         PrintIfDetailEmpty = True
         RowCount = 0
@@ -882,6 +888,10 @@ object dtmRelatorios: TdtmRelatorios
         Width = 718.110700000000000000
         DataSet = fdsExtratoCliente
         DataSetName = 'fdsExtratoCliente'
+        KeepChild = True
+        KeepFooter = True
+        KeepHeader = True
+        KeepTogether = True
         RowCount = 0
         object fdsExtratoClienteDTHR_LANCAMENTO: TfrxMemoView
           Width = 113.385900000000000000
@@ -1071,7 +1081,7 @@ object dtmRelatorios: TdtmRelatorios
         DataType = ftLargeint
         ParamType = ptInput
         Size = 10
-        Value = 10
+        Value = 11
       end>
     object fdqRelClientesNOME: TStringField
       FieldName = 'NOME'
@@ -1199,14 +1209,14 @@ object dtmRelatorios: TdtmRelatorios
         DataType = ftLargeint
         ParamType = ptInput
         Size = 8
-        Value = 46
+        Value = 273
       end
       item
         Name = 'FK_TEMPORADA'
         DataType = ftLargeint
         ParamType = ptInput
         Size = 8
-        Value = 10
+        Value = 11
       end>
     object fdqExtratoClienteID_CADERNETA: TLargeintField
       FieldName = 'ID_CADERNETA'
@@ -1720,29 +1730,32 @@ object dtmRelatorios: TdtmRelatorios
       '  ,c.endereco'
       '  ,c.contato'
       '  ,mv.dia_mov Data_lancamento'
-      ''
       
         ' ,sum(mv.valor_total) over (partition by c.id_cliente order by m' +
         'v.dia_mov)'
       
-        '   -sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
-        'c.id_cliente,mv.dia_mov order by mv.dia_mov )'
+        '   -sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,0,mv.valor_t' +
+        'otal))  over (partition by c.id_cliente,mv.dia_mov order by mv.d' +
+        'ia_mov )'
       
-        '   -sum(iif(mv.pagamento,mv.valor_total,0))  over (partition by ' +
-        'c.id_cliente,mv.dia_mov order by mv.dia_mov ) anterior'
+        '   -sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,mv.valor_tot' +
+        'al,0))  over (partition by c.id_cliente,mv.dia_mov order by mv.d' +
+        'ia_mov ) anterior'
       
-        '   ,sum(iif(mv.pagamento,0,mv.valor_total))  over (partition by ' +
-        'c.id_cliente,mv.dia_mov order by mv.dia_mov ) vendas'
+        '   ,sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,0,mv.valor_t' +
+        'otal))  over (partition by c.id_cliente,mv.dia_mov order by mv.d' +
+        'ia_mov ) vendas'
       
-        '   ,sum(iif(mv.pagamento,mv.valor_total*-1,0))  over (partition ' +
-        'by c.id_cliente,mv.dia_mov order by mv.dia_mov ) pagamentos'
+        '   ,sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,mv.valor_tot' +
+        'al*-1,0))  over (partition by c.id_cliente,mv.dia_mov order by m' +
+        'v.dia_mov ) pagamentos'
       
         '   ,sum(mv.valor_total) over (partition by c.id_cliente order by' +
         ' mv.dia_mov) areceber'
       
-        '   ,sum(iif(mv.pagamento,0,mv.valor_total)) over (partition by c' +
-        '.id_cliente  order by c.id_cliente,mv.dia_mov) Vendas_acom'
-      ''
+        '   ,sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,0,mv.valor_t' +
+        'otal)) over (partition by c.id_cliente  order by c.id_cliente,mv' +
+        '.dia_mov)  Vendas_acom'
       'FROM'
       '  cliente  c '
       '  left join caderneta_cliente cc'
@@ -1751,9 +1764,19 @@ object dtmRelatorios: TdtmRelatorios
       '    cc.id_caderneta = mv.fk_caderneta'
       'WHERE'
       '  not mv.excluido '
-      
-        '   and mv.dia_mov >= (select t.periodo_inicial from temporadas t' +
-        ' where t.ativo)'
+      '  AND mv.dia_mov between'
+      '              (select'
+      '                 t.periodo_inicial'
+      '               from'
+      '                 temporadas t'
+      '               where'
+      '                   t.ativo)'
+      '               and (select'
+      '                       coalesce(t.periodo_final, current_date)'
+      '                     from'
+      '                       temporadas t'
+      '                     where'
+      '                         t.ativo)'
       'order by'
       '  c.codigo')
     Left = 152
@@ -2323,8 +2346,8 @@ object dtmRelatorios: TdtmRelatorios
       '    data'
       'order by'
       '     data')
-    Left = 280
-    Top = 120
+    Left = 392
+    Top = 128
     ParamData = <
       item
         Name = 'DATA_INI'
@@ -2423,8 +2446,8 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSet = fdqPagamentosTipo
     BCDToCurrency = False
-    Left = 344
-    Top = 120
+    Left = 456
+    Top = 128
   end
   object fdqDebitosAcom: TFDQuery
     ConnectionName = 'Condominio'
@@ -2796,8 +2819,8 @@ object dtmRelatorios: TdtmRelatorios
       '  pags'
       '  full outer join ios on ios.data = pags.dia_mov'
       '')
-    Left = 272
-    Top = 168
+    Left = 384
+    Top = 176
     object fdqIOSDATA: TDateField
       AutoGenerateValue = arDefault
       FieldName = 'DATA'
@@ -2856,8 +2879,8 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSet = fdqIOS
     BCDToCurrency = False
-    Left = 320
-    Top = 168
+    Left = 432
+    Top = 176
   end
   object frepIOS: TfrxReport
     Version = '5.1.5'
@@ -2874,8 +2897,8 @@ object dtmRelatorios: TdtmRelatorios
       'begin'
       ''
       'end.')
-    Left = 272
-    Top = 224
+    Left = 384
+    Top = 232
     Datasets = <
       item
         DataSet = fdsIOS
@@ -3467,8 +3490,8 @@ object dtmRelatorios: TdtmRelatorios
       
         '  and cast(p.dthr_fexamento as date) between cast(:datai as date' +
         ') and cast(:dataf as date)')
-    Left = 336
-    Top = 224
+    Left = 448
+    Top = 232
     ParamData = <
       item
         Name = 'DATAI'
@@ -3616,8 +3639,8 @@ object dtmRelatorios: TdtmRelatorios
       '  and not mv.pagamento'
       'ORDER BY  '
       '     mv.data_hora,mv.id_mov_produto')
-    Left = 304
-    Top = 272
+    Left = 416
+    Top = 280
     ParamData = <
       item
         Name = 'ID_PEDIDO'
@@ -3666,8 +3689,8 @@ object dtmRelatorios: TdtmRelatorios
   end
   object dtsRelPedidos: TDataSource
     DataSet = fdqRelPedidos
-    Left = 368
-    Top = 224
+    Left = 480
+    Top = 232
   end
   object fdqRelPedidosPagto: TFDQuery
     Indexes = <
@@ -3723,8 +3746,8 @@ object dtmRelatorios: TdtmRelatorios
       '    1, 2, 3, 4,5'
       'order by'
       '    4 asc nulls last')
-    Left = 368
-    Top = 272
+    Left = 480
+    Top = 280
     ParamData = <
       item
         Name = 'ID_PEDIDO'
@@ -3773,37 +3796,37 @@ object dtmRelatorios: TdtmRelatorios
   end
   object dtsPedidoProdutos: TDataSource
     DataSet = fdqrelPedidoProdutos
-    Left = 328
-    Top = 272
+    Left = 440
+    Top = 280
   end
   object dtsPedidoPagto: TDataSource
     DataSet = fdqRelPedidosPagto
-    Left = 392
-    Top = 272
+    Left = 504
+    Top = 280
   end
   object fdsRelPedidos: TfrxDBDataset
     UserName = 'frxRelPedidos'
     CloseDataSource = True
     DataSource = dtsRelPedidos
     BCDToCurrency = True
-    Left = 392
-    Top = 224
+    Left = 504
+    Top = 232
   end
   object fdsPedidoPagto: TfrxDBDataset
     UserName = 'frxPedidoPagto'
     CloseDataSource = False
     DataSource = dtsPedidoPagto
     BCDToCurrency = True
-    Left = 416
-    Top = 272
+    Left = 528
+    Top = 280
   end
   object fdsPedidoProdutos: TfrxDBDataset
     UserName = 'frxPedidoProdutos'
     CloseDataSource = False
     DataSource = dtsPedidoProdutos
     BCDToCurrency = True
-    Left = 352
-    Top = 280
+    Left = 464
+    Top = 288
   end
   object frepRelPedidos: TfrxReport
     Version = '5.1.5'
@@ -3820,8 +3843,8 @@ object dtmRelatorios: TdtmRelatorios
       'begin'
       ''
       'end.')
-    Left = 440
-    Top = 232
+    Left = 552
+    Top = 240
     Datasets = <
       item
         DataSet = fdsPedidoPagto
@@ -4150,6 +4173,699 @@ object dtmRelatorios: TdtmRelatorios
           Width = 718.110700000000000000
           Color = clBlack
           Diagonal = True
+        end
+      end
+    end
+  end
+  object fdqSaldo: TFDQuery
+    ConnectionName = 'Condominio'
+    SQL.Strings = (
+      'SELECT'
+      '   '#9'c.id_cliente'
+      '  '#9',c.codigo'
+      '  '#9',c.nome'
+      '  '#9',c.endereco'
+      #9',c.contato  '
+      
+        #9',sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,0,mv.valor_tot' +
+        'al)) gasto'
+      
+        '   '#9',sum(iif(mv.pagamento AND mv.TIPO_PAGAMENTO <> 5,mv.valor_to' +
+        'tal*-1,0))  Pago'
+      '   '#9',sum(mv.valor_total) Saldo'
+      'FROM'
+      '  '#9'cliente  c '
+      '  '#9'left join caderneta_cliente cc'
+      '    '#9'on   c.id_cliente = cc.fk_cliente'
+      '  '#9'left JOIN mov_produto mv ON'
+      '    '#9'cc.id_caderneta = mv.fk_caderneta'
+      'WHERE'
+      '  '#9'not mv.excluido '
+      '  '#9'AND mv.dia_mov between'
+      '              (select'
+      '                 t.periodo_inicial'
+      '               from'
+      '                 temporadas t'
+      '               where'
+      '                   t.ativo)'
+      '               and (select'
+      '                       coalesce(t.periodo_final, current_date)'
+      '                     from'
+      '                       temporadas t'
+      '                     where'
+      '                         t.ativo)'
+      'GROUP BY '
+      #9'c.id_cliente'
+      '  '#9',c.codigo'
+      '  '#9',c.nome'
+      '  '#9',c.endereco'
+      #9',c.contato'
+      'order by'
+      '  '#9'c.codigo'#9)
+    Left = 256
+    Top = 184
+    object fdqSaldoID_CLIENTE: TLargeintField
+      FieldName = 'ID_CLIENTE'
+      Origin = 'ID_CLIENTE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqSaldoCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      Required = True
+    end
+    object fdqSaldoNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object fdqSaldoENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      Size = 150
+    end
+    object fdqSaldoCONTATO: TStringField
+      FieldName = 'CONTATO'
+      Origin = 'CONTATO'
+      Size = 150
+    end
+    object fdqSaldoGASTO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'GASTO'
+      Origin = 'GASTO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqSaldoPAGO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAGO'
+      Origin = 'PAGO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqSaldoSALDO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'SALDO'
+      Origin = 'SALDO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+  end
+  object fdsSaldo: TfrxDBDataset
+    UserName = 'fdsSaldo'
+    CloseDataSource = True
+    DataSet = fdqSaldo
+    BCDToCurrency = True
+    Left = 288
+    Top = 184
+  end
+  object frepSaldo: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43451.817160659700000000
+    ReportOptions.LastChange = 43473.704227106480000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 256
+    Top = 120
+    Datasets = <
+      item
+        DataSet = fdsSaldo
+        DataSetName = 'fdsSaldo'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Height = 34.015770000000000000
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Width = 718.110700000000000000
+          Height = 34.015770000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -27
+          Font.Name = 'Arial'
+          Font.Style = []
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Saldo Clientes')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 158.740260000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsSaldo
+        DataSetName = 'fdsSaldo'
+        RowCount = 0
+        Stretched = True
+        object Memo6: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Visibility = [vsPreview, vsExport]
+          StretchMode = smMaxHeight
+          Fill.BackColor = 16119285
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<Line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
+        object Memo7: TfrxMemoView
+          Left = 371.512060000000000000
+          Width = 98.267780000000000000
+          Height = 18.897650000000000000
+          DataField = 'GASTO'
+          DataSet = fdsSaldo
+          DataSetName = 'fdsSaldo'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[fdsSaldo."GASTO"]')
+        end
+        object Memo8: TfrxMemoView
+          Left = 471.590910000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'PAGO'
+          DataSet = fdsSaldo
+          DataSetName = 'fdsSaldo'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[fdsSaldo."PAGO"]')
+        end
+        object Memo13: TfrxMemoView
+          Left = 598.724800000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsSaldo
+          DataSetName = 'fdsSaldo'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[fdsSaldo."SALDO"]')
+        end
+        object fdsExtratoDiarioNOME: TfrxMemoView
+          Width = 192.756030000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = fdsSaldo
+          DataSetName = 'fdsSaldo'
+          HAlign = haBlock
+          Memo.UTF8W = (
+            '[fdsSaldo."CODIGO"] - [fdsSaldo."NOME"]')
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+        object Memo4: TfrxMemoView
+          Left = 219.212740000000000000
+          Width = 147.401670000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          Memo.UTF8W = (
+            
+              '[fdsSaldo."ENDERECO"] [IIF((<fdsSaldo."CONTATO">)='#39#39','#39#39','#39' ('#39'+Var' +
+              'ToStr(<fdsSaldo."CONTATO">)+'#39') '#39')]')
+        end
+      end
+      object ColumnHeader1: TfrxColumnHeader
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 22.677180000000000000
+        ParentFont = False
+        Top = 75.590600000000000000
+        Width = 718.110700000000000000
+        Stretched = True
+        object Memo2: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 22.677180000000000000
+          Frame.Typ = [ftBottom]
+        end
+        object Memo3: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 1.645640000000000000
+          Width = 139.842610000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Cliente')
+        end
+        object Memo9: TfrxMemoView
+          Left = 226.771800000000000000
+          Top = 1.000000000000000000
+          Width = 139.842610000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haBlock
+          Memo.UTF8W = (
+            'Endere'#231'o ( Fone )')
+        end
+        object Memo10: TfrxMemoView
+          Left = 370.732530000000000000
+          Top = 1.000000000000000000
+          Width = 98.267780000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Gasto')
+        end
+        object Memo11: TfrxMemoView
+          Left = 467.031850000000000000
+          Top = 1.000000000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Pago')
+        end
+        object Memo12: TfrxMemoView
+          Left = 590.386210000000000000
+          Top = 1.000000000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsDebitosAcom
+          DataSetName = 'DebitosAcom'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Saldo')
+        end
+      end
+      object Line1: TfrxLineView
+        Align = baBottom
+        Top = 1046.929810000000000000
+        Width = 718.110700000000000000
+        StretchMode = smMaxHeight
+        Color = clBlack
+        Frame.Typ = [ftTop]
+      end
+    end
+  end
+  object fdqRelExluido: TFDQuery
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'SELECT'
+      #9'c.CODIGO,'
+      #9'c.NOME,'
+      #9'COALESCE(p.NOME,'
+      #9'tp.DESCRICAO) DESCRICAO,'
+      #9'CASE'
+      #9#9'mv.PAGAMENTO'
+      #9#9'WHEN TRUE THEN '#39'PAGAMENTO'#39
+      #9#9'ELSE '#39'PRODUTO'#39
+      #9'END TIPO,'
+      #9'MV.DATA_HORA,'
+      #9'MV.DATA_HORA_EXC,'
+      #9'CASE'
+      #9#9'mv.PAGAMENTO'
+      #9#9'WHEN TRUE THEN null'
+      #9#9'ELSE MV.QUANTIDADE'
+      #9'END QUANTIDADE,'
+      #9'MV.VALOR_TOTAL,'
+      #9'mv.USER_DEL'
+      'FROM'
+      #9'MOV_PRODUTO mv'
+      'LEFT JOIN PRODUTOS p ON'
+      #9'mv.FK_PRODUTO = p.ID_RODUTOS'
+      'LEFT JOIN TIPO_PAGAMENTO tp ON'
+      #9'mv.TIPO_PAGAMENTO = tp.ID'
+      'LEFT JOIN CADERNETA_CLIENTE cc ON'
+      #9'mv.FK_CADERNETA = cc.ID_CADERNETA'
+      'LEFT JOIN CLIENTE c ON'
+      #9'cc.FK_CLIENTE = c.ID_CLIENTE'
+      'WHERE'
+      #9'EXCLUIDO and'
+      '        mv.dia_mov between'
+      '              (select'
+      '                 t.periodo_inicial'
+      '               from'
+      '                 temporadas t'
+      '               where'
+      '                   t.ativo)'
+      '               and (select'
+      '                       coalesce(t.periodo_final, current_date)'
+      '                     from'
+      '                       temporadas t'
+      '                     where'
+      '                         t.ativo)')
+    Left = 255
+    Top = 299
+    object fdqRelExluidoCODIGO: TLargeintField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+    end
+    object fdqRelExluidoNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Size = 150
+    end
+    object fdqRelExluidoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      Size = 150
+    end
+    object fdqRelExluidoTIPO: TStringField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      FixedChar = True
+      Size = 9
+    end
+    object fdqRelExluidoDATA_HORA: TSQLTimeStampField
+      FieldName = 'DATA_HORA'
+      Origin = 'DATA_HORA'
+      Required = True
+    end
+    object fdqRelExluidoDATA_HORA_EXC: TSQLTimeStampField
+      FieldName = 'DATA_HORA_EXC'
+      Origin = 'DATA_HORA_EXC'
+    end
+    object fdqRelExluidoQUANTIDADE: TBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Required = True
+      Precision = 18
+    end
+    object fdqRelExluidoVALOR_TOTAL: TBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      Required = True
+      Precision = 18
+      Size = 2
+    end
+    object fdqRelExluidoUSER_DEL: TStringField
+      FieldName = 'USER_DEL'
+      Origin = 'USER_DEL'
+      Size = 150
+    end
+  end
+  object fdsRelExcluidos: TfrxDBDataset
+    UserName = 'frxDBrelExcluido'
+    CloseDataSource = True
+    FieldAliases.Strings = (
+      'CODIGO=CODIGO'
+      'NOME=NOME'
+      'DESCRICAO=DESCRICAO'
+      'TIPO=TIPO'
+      'DATA_HORA=DATA_HORA'
+      'DATA_HORA_EXC=DATA_HORA_EXC'
+      'QUANTIDADE=QUANTIDADE'
+      'VALOR_TOTAL=VALOR_TOTAL'
+      'USER_DEL=USER_DEL')
+    DataSet = fdqRelExluido
+    BCDToCurrency = True
+    Left = 255
+    Top = 251
+  end
+  object frepRelExcluido: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43364.710290277800000000
+    ReportOptions.LastChange = 43387.580923576400000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 303
+    Top = 251
+    Datasets = <
+      item
+        DataSet = fdsRelExcluidos
+        DataSetName = 'frxDBrelExcluido'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      Orientation = poLandscape
+      PaperWidth = 297.000000000000000000
+      PaperHeight = 210.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 71.811070000000000000
+        ParentFont = False
+        Top = 18.897650000000000000
+        Width = 1046.929810000000000000
+        object Memo1: TfrxMemoView
+          Left = 253.228510000000000000
+          Top = 3.779530000000000000
+          Width = 139.842610000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Exclus'#245'es')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 52.913420000000000000
+          Width = 117.165430000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Data Lancamento')
+        end
+        object Memo6: TfrxMemoView
+          Left = 854.173780000000000000
+          Top = 52.913420000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Total')
+        end
+        object Memo4: TfrxMemoView
+          Left = 128.504020000000000000
+          Top = 52.913420000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Data Exlus'#227'o')
+        end
+        object Memo5: TfrxMemoView
+          Left = 737.008350000000000000
+          Top = 52.913420000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Quantide')
+        end
+        object Memo3: TfrxMemoView
+          Left = 257.008040000000000000
+          Top = 52.913420000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Conta')
+        end
+        object Memo12: TfrxMemoView
+          Left = 952.441560000000000000
+          Top = 52.913420000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Usu'#225'rio')
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 151.181200000000000000
+        Width = 1046.929810000000000000
+        DataSet = fdsRelExcluidos
+        DataSetName = 'frxDBrelExcluido'
+        RowCount = 0
+        object Memo13: TfrxMemoView
+          Align = baClient
+          Width = 1046.929810000000000000
+          Height = 18.897650000000000000
+          Fill.BackColor = clBtnFace
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
+        object Memo7: TfrxMemoView
+          Left = 128.181200000000000000
+          Width = 128.504020000000000000
+          Height = 18.897650000000000000
+          DataField = 'DATA_HORA_EXC'
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."DATA_HORA_EXC"]')
+        end
+        object Memo9: TfrxMemoView
+          Left = 820.158010000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."VALOR_TOTAL"]')
+        end
+        object Memo16: TfrxMemoView
+          Left = 438.425480000000000000
+          Width = 132.283550000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."TIPO"]')
+        end
+        object frxDBProdutosVendidosDIA: TfrxMemoView
+          Left = 3.779530000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'DATA_HORA'
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."DATA_HORA"]')
+        end
+        object Memo8: TfrxMemoView
+          Left = 260.787570000000000000
+          Width = 170.078850000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."CODIGO"] - [frxDBrelExcluido."NOME"]')
+        end
+        object Memo10: TfrxMemoView
+          Left = 578.268090000000000000
+          Width = 143.622140000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."DESCRICAO"]')
+        end
+        object Memo11: TfrxMemoView
+          Left = 737.008350000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2f'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          HideZeros = True
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."QUANTIDADE"]')
+        end
+        object frxDBrelExcluidoUSER_DEL: TfrxMemoView
+          Left = 952.441560000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsRelExcluidos
+          DataSetName = 'frxDBrelExcluido'
+          Memo.UTF8W = (
+            '[frxDBrelExcluido."USER_DEL"]')
         end
       end
     end

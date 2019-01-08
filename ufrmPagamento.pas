@@ -379,6 +379,7 @@ end;
 procedure TfrmPagamento.tsAnotarShow(Sender: TObject);
 begin
   btnokAnota.Caption := '&OK';
+  btnokAnota.Default := true;
   btnCancelarAnotar.Caption := '&Cancelar';
 
 end;
@@ -386,6 +387,7 @@ end;
 procedure TfrmPagamento.tsPagamentoShow(Sender: TObject);
 begin
   btnOk.Caption := '&OK';
+  btnOk.Default := true;
   btnCancelar.Caption := '&Cancelar';
 end;
 
