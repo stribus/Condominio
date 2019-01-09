@@ -204,6 +204,7 @@ begin
     if self.Components[i] is TFDQuery then
     begin
       TFDQuery(self.Components[I]).Close;
+      TFDQuery(self.Components[I]).ConnectionName:='Condominio';
     end;
   end;
 

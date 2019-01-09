@@ -4657,7 +4657,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqRelExluido: TFDQuery
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT'
       #9'c.CODIGO,'
