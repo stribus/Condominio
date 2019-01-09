@@ -456,10 +456,11 @@ begin
     else if(rgTipoRelVendas.ItemIndex = 1)then
     begin
       fdqProdutosVendidos.Close;
+      fdqProdutosVendidos.IndexFieldNames := fdqProdutosVendidosDIA.FieldName;
       fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;
       fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
       fdqProdutosVendidos.open;
-      frepProdutosVendidos.ShowReport(true);
+      frepProdutosGrpDia.ShowReport(true);
     end
     else if(rgTipoRelVendas.ItemIndex = 2)then
     begin
@@ -467,12 +468,21 @@ begin
       fdqDebitosAcom.Open();
       frepDebitosAcom.ShowReport(true);
     end
-    else if(rgTipoRelVendas.ItemIndex = 3)then
+    else if(rgTipoRelVendas.ItemIndex = 4)then
     begin
       fdqVendaTipos.Close;
       fdqVendaTipos.Open();
       frepVendaTipos.ShowReport(true);
-    end;
+    end
+    else if(rgTipoRelVendas.ItemIndex = 3)then
+    begin
+      fdqProdutosVendidos.Close;
+      fdqProdutosVendidos.IndexFieldNames := fdqProdutosVendidosCODIGO.FieldName;
+      fdqProdutosVendidos.ParamByName('DATAINI').Value := Edt_movimento_datai1.Date;
+      fdqProdutosVendidos.ParamByName('DATAFIM').Value := Edt_movimento_dataf1.Date;
+      fdqProdutosVendidos.open;
+      frepProdutosGrpProd.ShowReport(true);
+    end
   end;
 end;
 

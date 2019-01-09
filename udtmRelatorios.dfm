@@ -458,6 +458,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqProdutosVendidos: TFDQuery
+    IndexFieldNames = 'CODIGO'
     Connection = dtmcon.conexao
     SQL.Strings = (
       'select'
@@ -477,7 +478,7 @@ object dtmRelatorios: TdtmRelatorios
         'd cast(:datafim as date)'
       'and not m.excluido '
       'group by dia,id_rodutos,codigo,nome'
-      'ORDER BY id_rodutos,dia')
+      'ORDER BY p.codigo,dia')
     Left = 159
     Top = 59
     ParamData = <
@@ -491,7 +492,7 @@ object dtmRelatorios: TdtmRelatorios
         Name = 'DATAFIM'
         DataType = ftDate
         ParamType = ptInput
-        Value = 43435d
+        Value = 43800d
       end>
     object fdqProdutosVendidosDIA: TDateField
       FieldName = 'DIA'
@@ -541,7 +542,7 @@ object dtmRelatorios: TdtmRelatorios
     Left = 159
     Top = 11
   end
-  object frepProdutosVendidos: TfrxReport
+  object frepProdutosGrpProd: TfrxReport
     Version = '5.1.5'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -615,6 +616,7 @@ object dtmRelatorios: TdtmRelatorios
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
             'Total')
         end
@@ -635,10 +637,11 @@ object dtmRelatorios: TdtmRelatorios
             'Produto')
         end
         object Memo5: TfrxMemoView
-          Left = 434.645950000000000000
+          Left = 472.441250000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          HAlign = haRight
           Memo.UTF8W = (
             'Quantide')
         end
@@ -646,11 +649,24 @@ object dtmRelatorios: TdtmRelatorios
       object MasterData1: TfrxMasterData
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 173.858380000000000000
+        Top = 196.535560000000000000
         Width = 718.110700000000000000
         DataSet = fdsProdutosVendidos
         DataSetName = 'frxDBProdutosVendidos'
         RowCount = 0
+        object Memo12: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Fill.BackColor = clGradientInactiveCaption
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
         object frxDBPagamnetosDINHEIRO: TfrxMemoView
           Left = 94.488250000000000000
           Width = 52.913420000000000000
@@ -690,12 +706,11 @@ object dtmRelatorios: TdtmRelatorios
           Left = 434.645950000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
-          DataField = 'QUANT_TOTAL'
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
-          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.FormatStr = '%g'
           DisplayFormat.Kind = fkNumeric
           HAlign = haRight
           Memo.UTF8W = (
@@ -713,9 +728,117 @@ object dtmRelatorios: TdtmRelatorios
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
+        Height = 22.677180000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
-        Condition = '<frxDBProdutosVendidos."DIA">'
+        Condition = 'frxDBProdutosVendidos."ID_RODUTOS"'
+        KeepTogether = True
+        object Memo15: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 22.677180000000000000
+          Frame.Typ = [ftBottom]
+          Fill.BackColor = 14214856
+        end
+        object Memo14: TfrxMemoView
+          Align = baCenter
+          Left = 268.346630000000000000
+          Width = 181.417440000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            '[frxDBProdutosVendidos."NOME"]')
+          ParentFont = False
+        end
+      end
+      object GroupFooter1: TfrxGroupFooter
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 238.110390000000000000
+        Width = 718.110700000000000000
+        object Memo8: TfrxMemoView
+          Left = 309.921460000000000000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Total Produto :')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          Left = 559.370440000000000000
+          Width = 154.960730000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1)]')
+        end
+        object Memo17: TfrxMemoView
+          Left = 434.645950000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBProdutosVendidos."QUANT_TOTAL">,MasterData1)]')
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 321.260050000000000000
+        Width = 718.110700000000000000
+        object Memo11: TfrxMemoView
+          Left = 563.149970000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1,2)]')
+        end
+        object Memo13: TfrxMemoView
+          Left = 434.645950000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Total Acomulado :')
+          ParentFont = False
+        end
       end
     end
   end
@@ -4866,6 +4989,291 @@ object dtmRelatorios: TdtmRelatorios
           DataSetName = 'frxDBrelExcluido'
           Memo.UTF8W = (
             '[frxDBrelExcluido."USER_DEL"]')
+        end
+      end
+    end
+  end
+  object frepProdutosGrpDia: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43364.710290277800000000
+    ReportOptions.LastChange = 43387.580923576400000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 215
+    Top = 59
+    Datasets = <
+      item
+        DataSet = fdsProdutosVendidos
+        DataSetName = 'frxDBProdutosVendidos'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      object ReportTitle1: TfrxReportTitle
+        FillType = ftBrush
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Height = 71.811070000000000000
+        ParentFont = False
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          Left = 253.228510000000000000
+          Top = 3.779530000000000000
+          Width = 139.842610000000000000
+          Height = 26.456710000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -21
+          Font.Name = 'Arial'
+          Font.Style = []
+          Memo.UTF8W = (
+            'Vendas')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          Left = 7.559060000000000000
+          Top = 52.913420000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Data')
+        end
+        object Memo6: TfrxMemoView
+          Left = 631.181510000000000000
+          Top = 52.913420000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Total')
+        end
+        object Memo3: TfrxMemoView
+          Left = 94.488250000000000000
+          Top = 52.913420000000000000
+          Width = 52.913420000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'C'#243'digo')
+        end
+        object Memo4: TfrxMemoView
+          Left = 151.181200000000000000
+          Top = 52.913420000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          Memo.UTF8W = (
+            'Produto')
+        end
+        object Memo5: TfrxMemoView
+          Left = 472.441250000000000000
+          Top = 52.913420000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Quantide')
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        Height = 18.897650000000000000
+        Top = 196.535560000000000000
+        Width = 718.110700000000000000
+        DataSet = fdsProdutosVendidos
+        DataSetName = 'frxDBProdutosVendidos'
+        RowCount = 0
+        object Memo12: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 18.897650000000000000
+          Fill.BackColor = clGradientInactiveCaption
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<line> mod 2 = 1'
+          Highlight.FillType = ftBrush
+        end
+        object frxDBPagamnetosDINHEIRO: TfrxMemoView
+          Left = 94.488250000000000000
+          Width = 52.913420000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBProdutosVendidos."CODIGO"]')
+        end
+        object Memo7: TfrxMemoView
+          Left = 150.858380000000000000
+          Width = 275.905690000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          HAlign = haBlock
+          Memo.UTF8W = (
+            '[frxDBProdutosVendidos."NOME"]')
+        end
+        object Memo9: TfrxMemoView
+          Left = 593.386210000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataField = 'VALOR_TOT'
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBProdutosVendidos."VALOR_TOT"]')
+        end
+        object Memo16: TfrxMemoView
+          Left = 434.645950000000000000
+          Width = 120.944960000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBProdutosVendidos."QUANT_TOTAL"]')
+        end
+        object frxDBProdutosVendidosDIA: TfrxMemoView
+          Left = 3.779530000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          Memo.UTF8W = (
+            '[frxDBProdutosVendidos."DIA"]')
+        end
+      end
+      object GroupHeader1: TfrxGroupHeader
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 151.181200000000000000
+        Width = 718.110700000000000000
+        Condition = 'frxDBProdutosVendidos."DIA"'
+        object Memo15: TfrxMemoView
+          Align = baClient
+          Width = 718.110700000000000000
+          Height = 22.677180000000000000
+          Frame.Typ = [ftBottom]
+          Fill.BackColor = 14214856
+        end
+        object Memo14: TfrxMemoView
+          Align = baCenter
+          Left = 238.110390000000000000
+          Width = 241.889920000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'Data : [frxDBProdutosVendidos."DIA"]')
+          ParentFont = False
+        end
+      end
+      object GroupFooter1: TfrxGroupFooter
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 238.110390000000000000
+        Width = 718.110700000000000000
+        object Memo8: TfrxMemoView
+          Left = 445.984540000000000000
+          Width = 109.606370000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Total Dia:')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          Left = 559.370440000000000000
+          Width = 154.960730000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1)]')
+        end
+      end
+      object ReportSummary1: TfrxReportSummary
+        FillType = ftBrush
+        Height = 22.677180000000000000
+        Top = 321.260050000000000000
+        Width = 718.110700000000000000
+        object Memo11: TfrxMemoView
+          Left = 563.149970000000000000
+          Width = 151.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = fdsProdutosVendidos
+          DataSetName = 'frxDBProdutosVendidos'
+          DisplayFormat.DecimalSeparator = ','
+          DisplayFormat.ThousandSeparator = '.'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1,2)]')
+        end
+        object Memo13: TfrxMemoView
+          Left = 434.645950000000000000
+          Width = 124.724490000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Total Acomulado :')
+          ParentFont = False
         end
       end
     end

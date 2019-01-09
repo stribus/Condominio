@@ -21,7 +21,6 @@ uses
   ufrmCadClientes in 'ufrmCadClientes.pas' {frmCadClientes},
   ufrmCadDependentes in 'ufrmCadDependentes.pas' {frmCadDependente},
   uFrmConta in 'uFrmConta.pas' {frmConta},
-  ufrmPesqProduto in 'ufrmPesqProduto.pas' {frmPesqProduto},
   ufrmAnotar in 'ufrmAnotar.pas' {frmAnotar},
   udtmRelatorios in 'udtmRelatorios.pas' {dtmRelatorios: TDataModule},
   ufrmCadUsuario in 'ufrmCadUsuario.pas' {frmCadUsuario},

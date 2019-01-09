@@ -15,7 +15,7 @@ type
     frepPagamentos: TfrxReport;
     fdqProdutosVendidos: TFDQuery;
     fdsProdutosVendidos: TfrxDBDataset;
-    frepProdutosVendidos: TfrxReport;
+    frepProdutosGrpProd: TfrxReport;
     fdqProdutosVendidosDIA: TDateField;
     fdqProdutosVendidosID_RODUTOS: TLargeintField;
     fdqProdutosVendidosCODIGO: TLargeintField;
@@ -176,6 +176,7 @@ type
     fdqRelExluidoQUANTIDADE: TBCDField;
     fdqRelExluidoVALOR_TOTAL: TBCDField;
     fdqRelExluidoUSER_DEL: TStringField;
+    frepProdutosGrpDia: TfrxReport;
   private
     { Private declarations }
   public
