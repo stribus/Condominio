@@ -372,6 +372,7 @@ end;
 procedure TfrmMain.btnNovaTemporadaClick(Sender: TObject);
 begin
   TfrmCadTemporada.inserir(Self, fdqConfiguracoesID_TEMPORADAS.AsInteger);
+  carregaConfiguracoes;
   atualizaDatasets;
 end;
 
