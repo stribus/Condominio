@@ -135,7 +135,7 @@ inherited frmEntradasSaidas: TfrmEntradasSaidas
       Required = True
       Size = 150
     end
-    object fdqEdicaoVALOR: TBCDField
+    object fdqEdicaoVALOR: TFMTBCDField
       FieldName = 'VALOR'
       Origin = 'VALOR'
       Required = True

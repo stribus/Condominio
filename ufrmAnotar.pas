@@ -57,9 +57,9 @@ type
     fdqTotais: TFDQuery;
     fdqTotaisFK_TEMPORADA: TLargeintField;
     fdqTotaisFK_CLIENTE: TLargeintField;
-    fdqTotaisVALOR_GASTO: TBCDField;
-    fdqTotaisVALOR_PAGO: TBCDField;
-    fdqTotaisSALDO: TBCDField;
+    fdqTotaisVALOR_GASTO: TFMTBCDField;
+    fdqTotaisVALOR_PAGO: TFMTBCDField;
+    fdqTotaisSALDO: TFMTBCDField;
     fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
     procedure btnOkClick(Sender: TObject);
     procedure fdqDependenteBeforeOpen(DataSet: TDataSet);

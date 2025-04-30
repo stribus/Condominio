@@ -1,5 +1,4 @@
 object dtmcon: Tdtmcon
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 310
   Width = 639
@@ -14,7 +13,7 @@ object dtmcon: Tdtmcon
     Top = 96
   end
   object fdmConfigIni: TFDManager
-    ConnectionDefFileName = '.\config.ini'
+    ConnectionDefFileName = 'F:\projetos\Condominio\config.ini'
     FormatOptions.AssignedValues = [fvMapRules]
     FormatOptions.OwnMapRules = True
     FormatOptions.MapRules = <>

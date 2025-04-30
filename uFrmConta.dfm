@@ -562,21 +562,21 @@ object frmConta: TfrmConta
       Origin = 'FK_CLIENTE'
       Required = True
     end
-    object fdqTotaisVALOR_GASTO: TBCDField
+    object fdqTotaisVALOR_GASTO: TFMTBCDField
       FieldName = 'VALOR_GASTO'
       Origin = 'VALOR_GASTO'
       currency = True
       Precision = 18
       Size = 2
     end
-    object fdqTotaisVALOR_PAGO: TBCDField
+    object fdqTotaisVALOR_PAGO: TFMTBCDField
       FieldName = 'VALOR_PAGO'
       Origin = 'VALOR_PAGO'
       currency = True
       Precision = 18
       Size = 2
     end
-    object fdqTotaisSALDO: TBCDField
+    object fdqTotaisSALDO: TFMTBCDField
       FieldName = 'SALDO'
       Origin = 'SALDO'
       currency = True
@@ -695,7 +695,7 @@ object frmConta: TfrmConta
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqCadernetaVALOR_TOTAL: TBCDField
+    object fdqCadernetaVALOR_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
@@ -705,7 +705,7 @@ object frmConta: TfrmConta
       Precision = 18
       Size = 2
     end
-    object fdqCadernetaSALDO: TBCDField
+    object fdqCadernetaSALDO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SALDO'
       Origin = 'SALDO'
