@@ -10,17 +10,15 @@ object frmMain: TfrmMain
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   WindowState = wsMaximized
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 16
   object pgcMain: TJvPageControl
     Left = 0
     Top = 0
     Width = 1126
     Height = 742
-    ActivePage = TabSheet4
+    ActivePage = tsMesas
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -868,7 +866,6 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
-          ExplicitWidth = 916
         end
         object grp5: TGroupBox
           Left = 420
@@ -971,7 +968,6 @@ object frmMain: TfrmMain
     object fdqMesasID_MESA: TLargeintField
       FieldName = 'ID_MESA'
       Origin = 'ID_MESA'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object fdqMesasCODIGO: TLargeintField
@@ -986,43 +982,35 @@ object frmMain: TfrmMain
       Size = 150
     end
     object fdqMesasID_PEDIDO: TLargeintField
-      AutoGenerateValue = arDefault
       FieldName = 'ID_PEDIDO'
       Origin = 'ID_PEDIDO'
-      ProviderFlags = []
       ReadOnly = True
     end
     object fdqMesasDTHR_ABERTURA: TSQLTimeStampField
-      AutoGenerateValue = arDefault
       FieldName = 'DTHR_ABERTURA'
       Origin = 'DTHR_ABERTURA'
-      ProviderFlags = []
       ReadOnly = True
     end
     object fdqMesasNOME: TStringField
-      AutoGenerateValue = arDefault
       FieldName = 'NOME'
       Origin = 'NOME'
-      ProviderFlags = []
       ReadOnly = True
       Size = 150
     end
     object fdqMesasCOD_CLIENTE: TLargeintField
-      AutoGenerateValue = arDefault
       FieldName = 'COD_CLIENTE'
       Origin = 'CODIGO'
-      ProviderFlags = []
       ReadOnly = True
     end
-    object fdqMesasTOTAL: TBCDField
-      AutoGenerateValue = arDefault
+    object fdqMesasTOTAL: TFMTBCDField
       FieldName = 'TOTAL'
       Origin = 'TOTAL'
-      ProviderFlags = []
-      ReadOnly = True
-      currency = True
       Precision = 18
       Size = 2
+    end
+    object fdqMesasTP_PAGAMENTO: TIntegerField
+      FieldName = 'TP_PAGAMENTO'
+      Origin = 'TP_PAGAMENTO'
     end
     object fdqMesasATIVA: TBooleanField
       FieldName = 'ATIVA'
@@ -1044,7 +1032,7 @@ object frmMain: TfrmMain
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
     end
-    object fdqMesasVALOR_DESCONTO: TBCDField
+    object fdqMesasVALOR_DESCONTO: TFMTBCDField
       FieldName = 'VALOR_DESCONTO'
       Origin = 'VALOR_DESCONTO'
       Precision = 18
@@ -1285,6 +1273,9 @@ object frmMain: TfrmMain
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    EmbedFontsIfProtected = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
+    OpenAfterExport = False
     PrintOptimized = False
     Outline = False
     Background = False
@@ -1293,6 +1284,7 @@ object frmMain: TfrmMain
     Transparency = False
     Author = 'FastReport'
     Subject = 'FastReport PDF export'
+    Creator = 'FastReport'
     ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
     HideToolbar = False
     HideMenubar = False
@@ -1301,6 +1293,8 @@ object frmMain: TfrmMain
     CenterWindow = False
     PrintScaling = False
     PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
     Left = 492
     Top = 419
   end
@@ -1360,7 +1354,7 @@ object frmMain: TfrmMain
       Required = True
       Size = 150
     end
-    object fdqEntradasSaidasVALOR: TBCDField
+    object fdqEntradasSaidasVALOR: TFMTBCDField
       FieldName = 'VALOR'
       Origin = 'VALOR'
       Required = True
@@ -1393,6 +1387,11 @@ object frmMain: TfrmMain
       FieldName = 'DATA_HORA_EXC'
       Origin = 'DATA_HORA_EXC'
     end
+    object fdqEntradasSaidasFK_TEMPORADA: TLargeintField
+      FieldName = 'FK_TEMPORADA'
+      Origin = 'FK_TEMPORADA'
+      Required = True
+    end
   end
   object dtsEntradasSaidas: TDataSource
     DataSet = fdqEntradasSaidas
@@ -1408,5 +1407,9 @@ object frmMain: TfrmMain
     DataSet = dtmRelatorios.fdqExtratoCliente
     Left = 572
     Top = 555
+  end
+  object MadExceptionHandler1: TMadExceptionHandler
+    Left = 420
+    Top = 59
   end
 end

@@ -809,7 +809,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
     end
-    object fdqPedidoVALOR_DESCONTO: TBCDField
+    object fdqPedidoVALOR_DESCONTO: TFMTBCDField
       FieldName = 'VALOR_DESCONTO'
       Origin = 'VALOR_DESCONTO'
       Precision = 18
@@ -833,7 +833,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       FieldName = 'ID_CLIENTE'
       Origin = 'ID_CLIENTE'
     end
-    object fdqPedidoTOTAL: TBCDField
+    object fdqPedidoTOTAL: TFMTBCDField
       FieldName = 'TOTAL'
       Origin = 'TOTAL'
       Precision = 18
@@ -952,7 +952,7 @@ object frmManutencaoMesa: TfrmManutencaoMesa
       Size = 100
       Lookup = True
     end
-    object fdqMovProdutoVALOR_TOTAL: TBCDField
+    object fdqMovProdutoVALOR_TOTAL: TFMTBCDField
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
       Required = True

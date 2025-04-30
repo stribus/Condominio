@@ -33,7 +33,7 @@ type
     pnl3: TPanel;
     pnl4: TPanel;
     fdqMovProdutonomeProduto: TStringField;
-    fdqMovProdutoVALOR_TOTAL: TBCDField;
+    fdqMovProdutoVALOR_TOTAL: TFMTBCDField;
     fdqMovProdutoVlr_uni: TCurrencyField;
     dbcbbCliente: TDBLookupComboBox;
     lbl1: TLabel;
@@ -68,12 +68,12 @@ type
     fdqPedidoDTHR_FEXAMENTO: TSQLTimeStampField;
     fdqPedidoFK_DEPENDENTE: TLargeintField;
     fdqPedidoDESCONTO: TBooleanField;
-    fdqPedidoVALOR_DESCONTO: TBCDField;
+    fdqPedidoVALOR_DESCONTO: TFMTBCDField;
     fdqPedidoPAGO: TBooleanField;
     fdqPedidoNOME_DEPENDENTE: TStringField;
     fdqPedidoANOTAR: TBooleanField;
     fdqPedidoID_CLIENTE: TLargeintField;
-    fdqPedidoTOTAL: TBCDField;
+    fdqPedidoTOTAL: TFMTBCDField;
     fdqPedidoDESCRICAO: TStringField;
     fdqProduto: TFDQuery;
     dtsProduto: TDataSource;

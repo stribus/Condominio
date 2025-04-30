@@ -1,5 +1,4 @@
 object dtmRelatorios: TdtmRelatorios
-  OldCreateOrder = False
   Height = 368
   Width = 647
   object fdqRelPagamentos: TFDQuery
@@ -97,11 +96,12 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = True
     DataSet = fdqRelPagamentos
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 23
     Top = 11
   end
   object frepPagamentos: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -136,8 +136,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -148,6 +155,7 @@ object dtmRelatorios: TdtmRelatorios
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 3.779530000000000000
           Width = 139.842610000000000000
@@ -157,68 +165,83 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Pagamentos')
           ParentFont = False
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 52.913420000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Top = 52.913420000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Dinheiro')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 196.212740000000000000
           Top = 52.913420000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Cheque')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 284.819110000000000000
           Top = 52.913420000000000000
           Width = 109.606313860000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Cart'#227'o Credito')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 52.913420000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Desconto')
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 400.630180000000000000
           Top = 52.913420000000000000
           Width = 102.047253860000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Cart'#227'o Debito')
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 510.236550000000000000
           Top = 52.913420000000000000
           Width = 102.047253860000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total')
@@ -226,6 +249,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
@@ -234,8 +262,10 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo18: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           Fill.BackColor = cl3DLight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -244,8 +274,10 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object frxDBPagamnetosDIA: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
@@ -253,10 +285,12 @@ object dtmRelatorios: TdtmRelatorios
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.FormatStr = 'dd/mm/yyyy'
           DisplayFormat.Kind = fkDateTime
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBPagamnetos."DIA"]')
         end
         object frxDBPagamnetosDINHEIRO: TfrxMemoView
+          AllowVectorExport = True
           Left = 90.708720000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
@@ -267,11 +301,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBPagamnetos."DINHEIRO"]')
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 188.653680000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
@@ -282,11 +318,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBPagamnetos."CHEQUE"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 296.157700000000000000
           Width = 98.267718980000000000
           Height = 18.897650000000000000
@@ -297,11 +335,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBPagamnetos."CARTAO_C"]')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
@@ -312,11 +352,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBPagamnetos."DESCONTO"]')
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 408.189240000000000000
           Width = 94.488188980000000000
           Height = 18.897650000000000000
@@ -327,11 +369,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBPagamnetos."CARTAO_D"]')
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 510.236550000000000000
           Width = 102.047253860000000000
           Height = 18.897650000000000000
@@ -340,6 +384,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -349,6 +394,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -359,21 +409,26 @@ object dtmRelatorios: TdtmRelatorios
         Top = 196.535560000000000000
         Width = 718.110700000000000000
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 7.559060000000000000
           Width = 699.213050000000000000
           Color = clBlack
+          Frame.Typ = []
           Diagonal = True
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 15.118120000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Total')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Top = 15.118120000000000000
           Width = 86.929190000000000000
@@ -382,11 +437,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBPagamnetos."DINHEIRO">,MasterData1)]')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 196.212740000000000000
           Top = 15.118120000000000000
           Width = 86.929133860000000000
@@ -395,11 +452,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBPagamnetos."CHEQUE">,MasterData1,2)]')
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 307.496290000000000000
           Top = 15.118120000000000000
           Width = 86.929133860000000000
@@ -408,11 +467,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBPagamnetos."CARTAO_C">,MasterData1)]')
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 631.181510000000000000
           Top = 15.118120000000000000
           Width = 86.929133860000000000
@@ -421,11 +482,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBPagamnetos."DESCONTO">,MasterData1)]')
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 415.748300000000000000
           Top = 15.118120000000000000
           Width = 86.929133860000000000
@@ -434,11 +497,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBPagamnetos."CARTAO_D">,MasterData1)]')
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 510.236550000000000000
           Top = 15.118120000000000000
           Width = 102.047253860000000000
@@ -447,6 +512,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -539,11 +605,12 @@ object dtmRelatorios: TdtmRelatorios
       'VALOR_TOT=VALOR_TOT')
     DataSet = fdqProdutosVendidos
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 159
     Top = 11
   end
   object frepProdutosGrpProd: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -578,8 +645,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -590,6 +664,7 @@ object dtmRelatorios: TdtmRelatorios
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 3.779530000000000000
           Width = 139.842610000000000000
@@ -599,48 +674,59 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Vendas')
           ParentFont = False
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 52.913420000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 631.181510000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total')
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Top = 52.913420000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'C'#243'digo')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Top = 52.913420000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Produto')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 472.441250000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Quantide')
@@ -648,6 +734,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 196.535560000000000000
         Width = 718.110700000000000000
@@ -656,8 +747,10 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo12: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Fill.BackColor = clGradientInactiveCaption
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -666,28 +759,34 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object frxDBPagamnetosDINHEIRO: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."CODIGO"]')
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 150.858380000000000000
           Width = 181.417440000000000000
           Height = 18.897650000000000000
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."NOME"]')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 593.386210000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -698,11 +797,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."VALOR_TOT"]')
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -712,22 +813,30 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%g'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."QUANT_TOTAL"]')
         end
         object frxDBProdutosVendidosDIA: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."DIA"]')
         end
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
@@ -735,6 +844,7 @@ object dtmRelatorios: TdtmRelatorios
         KeepTogether = True
         object Memo15: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
@@ -742,6 +852,7 @@ object dtmRelatorios: TdtmRelatorios
         end
         object Memo14: TfrxMemoView
           Align = baCenter
+          AllowVectorExport = True
           Left = 268.346630000000000000
           Width = 181.417440000000000000
           Height = 18.897650000000000000
@@ -752,6 +863,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."NOME"]')
@@ -760,10 +872,16 @@ object dtmRelatorios: TdtmRelatorios
       end
       object GroupFooter1: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 238.110390000000000000
         Width = 718.110700000000000000
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 109.606370000000000000
           Height = 18.897650000000000000
@@ -772,12 +890,14 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total Produto :')
           ParentFont = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Width = 154.960730000000000000
           Height = 18.897650000000000000
@@ -787,11 +907,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1)]')
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -801,6 +923,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%g'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBProdutosVendidos."QUANT_TOTAL">,MasterData1)]')
@@ -808,10 +931,16 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ReportSummary1: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 321.260050000000000000
         Width = 718.110700000000000000
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 563.149970000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -821,11 +950,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1,2)]')
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 124.724490000000000000
           Height = 18.897650000000000000
@@ -834,6 +965,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total Acomulado :')
@@ -847,6 +979,9 @@ object dtmRelatorios: TdtmRelatorios
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    EmbedFontsIfProtected = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
+    OpenAfterExport = False
     PrintOptimized = False
     Outline = False
     Background = False
@@ -855,6 +990,7 @@ object dtmRelatorios: TdtmRelatorios
     Transparency = False
     Author = 'FastReport'
     Subject = 'FastReport PDF export'
+    Creator = 'FastReport'
     ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
     HideToolbar = False
     HideMenubar = False
@@ -863,11 +999,13 @@ object dtmRelatorios: TdtmRelatorios
     CenterWindow = False
     PrintScaling = False
     PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
     Left = 300
     Top = 11
   end
   object frepExtratoCaderno: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -898,10 +1036,12 @@ object dtmRelatorios: TdtmRelatorios
       Height = 1000.000000000000000000
       Width = 1000.000000000000000000
       object Memo2: TfrxMemoView
+        AllowVectorExport = True
         Left = 80.000000000000000000
         Top = 56.000000000000000000
         Width = 80.000000000000000000
         Height = 16.000000000000000000
+        Frame.Typ = []
         Wysiwyg = False
       end
     end
@@ -913,13 +1053,21 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -927,6 +1075,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Extrato Clientes')
@@ -935,6 +1084,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 41.574830000000000000
         Top = 109.606370000000000000
         Width = 718.110700000000000000
@@ -950,22 +1104,27 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo16: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 41.574830000000000000
           Visibility = [vsPreview, vsExport]
+          Frame.Typ = []
           Fill.BackColor = clGradientActiveCaption
         end
         object fdsRelClientesNOME: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Width = 366.614410000000000000
           Height = 18.897650000000000000
           DataField = 'NOME'
           DataSet = fdsRelClientes
           DataSetName = 'fdsRelClientes'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRelClientes."NOME"]')
         end
         object fdsRelClientesCONTATO: TfrxMemoView
+          AllowVectorExport = True
           Left = 68.031540000000000000
           Top = 22.677180000000000000
           Width = 400.630180000000000000
@@ -973,10 +1132,12 @@ object dtmRelatorios: TdtmRelatorios
           DataField = 'CONTATO'
           DataSet = fdsRelClientes
           DataSetName = 'fdsRelClientes'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsRelClientes."CONTATO"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Width = 49.133890000000000000
           Height = 18.897650000000000000
@@ -985,11 +1146,13 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Nome:')
           ParentFont = False
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 22.677180000000000000
           Width = 60.472480000000000000
@@ -999,6 +1162,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Contato: ')
           ParentFont = False
@@ -1006,6 +1170,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object DetailData1: TfrxDetailData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 219.212740000000000000
         Width = 718.110700000000000000
@@ -1017,41 +1186,49 @@ object dtmRelatorios: TdtmRelatorios
         KeepTogether = True
         RowCount = 0
         object fdsExtratoClienteDTHR_LANCAMENTO: TfrxMemoView
+          AllowVectorExport = True
           Width = 113.385900000000000000
           Height = 18.897650000000000000
           DataField = 'DTHR_LANCAMENTO'
           DataSet = fdsExtratoCliente
           DataSetName = 'fdsExtratoCliente'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsExtratoCliente."DTHR_LANCAMENTO"]')
         end
         object fdsExtratoClienteProduto: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Width = 230.551330000000000000
           Height = 18.897650000000000000
           DataField = 'Produto'
           DataSet = fdsExtratoCliente
           DataSetName = 'fdsExtratoCliente'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsExtratoCliente."Produto"]')
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 132.283550000000000000
           Height = 18.897650000000000000
           DataSet = fdsExtratoCliente
           DataSetName = 'fdsExtratoCliente'
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[IIF(<fdsExtratoCliente."PAGAMENTO">,'#39#39',<fdsExtratoCliente."SIGN' +
               'ATARIO">)]')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 495.118430000000000000
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           DataSet = fdsExtratoCliente
           DataSetName = 'fdsExtratoCliente'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -1059,6 +1236,7 @@ object dtmRelatorios: TdtmRelatorios
               'TIDADE">)]')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 566.929500000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -1069,6 +1247,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsExtratoCliente."VALOR_TOTAL"]')
@@ -1076,6 +1255,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object Header1: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -1086,44 +1270,54 @@ object dtmRelatorios: TdtmRelatorios
         Top = 173.858380000000000000
         Width = 718.110700000000000000
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 2.377860000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
           DisplayFormat.FormatStr = 'dd/mm/yyyy hh:mm'
           DisplayFormat.Kind = fkDateTime
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data Hora')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Top = 2.377860000000000000
           Width = 230.551330000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Produto')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 2.377860000000000000
           Width = 132.283550000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Retirado por')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 495.118430000000000000
           Top = 2.377860000000000000
           Width = 68.031540000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Qtd')
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 566.929500000000000000
           Top = 2.377860000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Valor')
@@ -1131,11 +1325,17 @@ object dtmRelatorios: TdtmRelatorios
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 260.787570000000000000
         Width = 718.110700000000000000
         object Memo13: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Visibility = [vsPreview, vsExport]
@@ -1143,14 +1343,17 @@ object dtmRelatorios: TdtmRelatorios
           Fill.BackColor = clInactiveBorder
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 3.779530000000000000
           Width = 41.574830000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Total:')
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 574.488560000000000000
           Top = 3.779530000000000000
           Width = 143.622140000000000000
@@ -1159,6 +1362,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<fdsExtratoCliente."VALOR_TOTAL">,DetailData1)]')
@@ -1273,6 +1477,7 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = True
     DataSet = fdqRelClientes
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 64
     Top = 168
   end
@@ -1281,6 +1486,7 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = True
     DataSet = fdqExtratoCliente
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 56
     Top = 216
   end
@@ -1501,7 +1707,7 @@ object dtmRelatorios: TdtmRelatorios
     Top = 168
   end
   object frepExtratoDiarioCaderno: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1536,12 +1742,20 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 34.015770000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 34.015770000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1549,6 +1763,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -27
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Extrato Clientes')
@@ -1557,6 +1772,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 158.740260000000000000
         Width = 718.110700000000000000
@@ -1564,22 +1784,27 @@ object dtmRelatorios: TdtmRelatorios
         KeepTogether = True
         object Memo16: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Visibility = [vsPreview, vsExport]
+          Frame.Typ = []
           Fill.BackColor = clGradientActiveCaption
         end
         object fdsExtratoDiarioNOME: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.559060000000000000
           Top = 10.559060000000000000
           Width = 396.850650000000000000
           Height = 18.897650000000000000
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsExtratoDiario."CODIGO"] - [fdsExtratoDiario."NOME"]')
         end
         object fdsExtratoDiarioENDERECO: TfrxMemoView
+          AllowVectorExport = True
           Left = 402.748300000000000000
           Top = 10.559060000000000000
           Width = 120.944960000000000000
@@ -1587,10 +1812,12 @@ object dtmRelatorios: TdtmRelatorios
           DataField = 'ENDERECO'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsExtratoDiario."ENDERECO"]')
         end
         object fdsExtratoDiarioCONTATO: TfrxMemoView
+          AllowVectorExport = True
           Left = 530.472790000000000000
           Top = 11.559060000000000000
           Width = 177.637910000000000000
@@ -1598,16 +1825,23 @@ object dtmRelatorios: TdtmRelatorios
           DataField = 'CONTATO'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsExtratoDiario."CONTATO"]')
         end
       end
       object GroupFooter1: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 7.559060000000000000
         Top = 253.228510000000000000
         Width = 718.110700000000000000
         object Line2: TfrxLineView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
@@ -1615,6 +1849,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 211.653680000000000000
         Width = 718.110700000000000000
@@ -1623,11 +1862,13 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo6: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Visibility = [vsPreview, vsExport]
           StretchMode = smMaxHeight
-          Fill.BackColor = 16119285
+          Frame.Typ = []
+          Fill.BackColor = clWhitesmoke
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -13
@@ -1635,18 +1876,22 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object DebitosAcomDIA_MOV: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'DATA_LANCAMENTO'
           DataSet = fdsExtratoDiario
           DataSetName = 'fdsExtratoDiario'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdsExtratoDiario."DATA_LANCAMENTO"]')
         end
         object DebitosAcomANTERIOR: TfrxMemoView
+          AllowVectorExport = True
           Left = 95.267780000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -1657,11 +1902,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsExtratoDiario."ANTERIOR"]')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 219.992270000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -1672,11 +1919,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsExtratoDiario."VENDAS"]')
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 345.055350000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -1687,11 +1936,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsExtratoDiario."PAGAMENTOS"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 471.590910000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -1702,11 +1953,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsExtratoDiario."ARECEBER"]')
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 598.724800000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -1717,6 +1970,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsExtratoDiario."VENDAS_ACOM"]')
@@ -1724,6 +1978,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -1736,19 +1995,23 @@ object dtmRelatorios: TdtmRelatorios
         Stretched = True
         object Memo2: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 1.645640000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 90.708720000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -1759,11 +2022,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Saldo Anterior')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 215.433210000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -1774,11 +2039,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas do Dia')
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 340.496290000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -1789,11 +2056,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Pagtos do dia')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 467.031850000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -1804,11 +2073,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Saldo A Receber')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 586.606680000000000000
           Top = 1.000000000000000000
           Width = 128.504020000000000000
@@ -1819,6 +2090,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas Acomulado')
@@ -1826,6 +2098,7 @@ object dtmRelatorios: TdtmRelatorios
       end
       object Line1: TfrxLineView
         Align = baBottom
+        AllowVectorExport = True
         Top = 1046.929810000000000000
         Width = 718.110700000000000000
         StretchMode = smMaxHeight
@@ -1839,6 +2112,7 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = True
     DataSet = fdqExtratoDiario
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 184
     Top = 176
   end
@@ -1985,7 +2259,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object frepPagtoTipo: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2025,13 +2299,21 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
           Align = baWidth
+          AllowVectorExport = True
           Width = 1046.929810000000000000
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2039,6 +2321,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Pagamentos')
@@ -2047,6 +2330,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 185.196970000000000000
         Width = 1046.929810000000000000
@@ -2055,8 +2343,10 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo3: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 1046.929810000000000000
           Height = 22.677180000000000000
+          Frame.Typ = []
           Fill.BackColor = cl3DLight
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -2065,8 +2355,10 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object PagamentosTipoDATA: TfrxMemoView
+          AllowVectorExport = True
           Left = 5.220470000000000000
           Top = 2.000000000000000000
           Width = 79.370130000000000000
@@ -2074,10 +2366,12 @@ object dtmRelatorios: TdtmRelatorios
           DataField = 'DATA'
           DataSet = fdsPagamentosTipo
           DataSetName = 'PagamentosTipo'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[PagamentosTipo."DATA"]')
         end
         object PagamentosTipoCHEQUE_BALCAO: TfrxMemoView
+          AllowVectorExport = True
           Left = 88.370130000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2089,11 +2383,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."CHEQUE_BALCAO"]')
         end
         object PagamentosTipoDINHEIRO_BALCAO: TfrxMemoView
+          AllowVectorExport = True
           Left = 190.417440000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2105,11 +2401,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."DINHEIRO_BALCAO"]')
         end
         object PagamentosTipoCREDITO_BALCAO: TfrxMemoView
+          AllowVectorExport = True
           Left = 292.464750000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2121,11 +2419,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."CREDITO_BALCAO"]')
         end
         object PagamentosTipoDEBITO_BALCAO: TfrxMemoView
+          AllowVectorExport = True
           Left = 394.512060000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2137,11 +2437,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."DEBITO_BALCAO"]')
         end
         object PagamentosTipoCHEQUE_CADERNO: TfrxMemoView
+          AllowVectorExport = True
           Left = 496.559370000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2153,11 +2455,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."CHEQUE_CADERNO"]')
         end
         object PagamentosTipoDINHEIRO_CADERNO: TfrxMemoView
+          AllowVectorExport = True
           Left = 598.606680000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2169,11 +2473,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."DINHEIRO_CADERNO"]')
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 925.984850000000000000
           Top = 2.000000000000000000
           Width = 117.165430000000000000
@@ -2182,6 +2488,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -2192,6 +2499,7 @@ object dtmRelatorios: TdtmRelatorios
               '."DEBITO_CADERNO">]')
         end
         object PagamentosTipoCREDITO_CADERNO: TfrxMemoView
+          AllowVectorExport = True
           Left = 704.433520000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2203,11 +2511,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."CREDITO_CADERNO"]')
         end
         object PagamentosTipoDEBITO_CADERNO: TfrxMemoView
+          AllowVectorExport = True
           Left = 806.480830000000000000
           Top = 2.000000000000000000
           Width = 98.267716540000000000
@@ -2219,6 +2529,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[PagamentosTipo."DEBITO_CADERNO"]')
@@ -2227,6 +2538,11 @@ object dtmRelatorios: TdtmRelatorios
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
         Fill.Style = bsClear
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -2237,16 +2553,19 @@ object dtmRelatorios: TdtmRelatorios
         Top = 71.811070000000000000
         Width = 1046.929810000000000000
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 5.220470000000000000
           Top = 31.747990000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataSet = fdsPagamentosTipo
           DataSetName = 'PagamentosTipo'
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 88.370130000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2257,11 +2576,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'CHEQUE')
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 190.417440000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2272,11 +2593,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'DINHEIRO')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 292.464750000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2287,11 +2610,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'CREDITO')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 394.512060000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2302,19 +2627,23 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'DEBITO')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 925.984850000000000000
           Top = 31.747990000000000000
           Width = 117.165430000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             '  TOTAL DO DIA')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2325,11 +2654,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'CHEQUE')
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 600.945270000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2340,11 +2671,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'DINHEIRO')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 702.992580000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2355,11 +2688,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'CREDITO')
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 805.039890000000000000
           Top = 31.747990000000000000
           Width = 98.267716540000000000
@@ -2370,25 +2705,31 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'DEBITO')
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Left = 86.929190000000000000
           Top = 52.913420000000000000
           Height = -52.913420000000000000
           Color = clBlack
+          Frame.Typ = []
           Diagonal = True
         end
         object Line2: TfrxLineView
+          AllowVectorExport = True
           Left = 496.897960000000000000
           Top = 52.913420000000000000
           Height = -52.913420000000000000
           Color = clBlack
+          Frame.Typ = []
           Diagonal = True
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 86.929190000000000000
           Top = 3.779530000000000000
           Width = 408.189176540000000000
@@ -2399,11 +2740,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'BALC'#195'O')
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Top = 3.779530000000000000
           Width = 404.409646540000000000
@@ -2414,15 +2757,18 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '0.00'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'CADERNO')
         end
         object Line3: TfrxLineView
+          AllowVectorExport = True
           Left = 914.646260000000000000
           Top = 52.913420000000000000
           Height = -52.913420000000000000
           Color = clBlack
+          Frame.Typ = []
           Diagonal = True
         end
       end
@@ -2569,6 +2915,7 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSet = fdqPagamentosTipo
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 456
     Top = 128
   end
@@ -2621,11 +2968,12 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSet = fdqDebitosAcom
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 432
     Top = 16
   end
   object frepDebitosAcom: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2660,8 +3008,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -2673,6 +3028,7 @@ object dtmRelatorios: TdtmRelatorios
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2680,6 +3036,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Vendas')
@@ -2688,6 +3045,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -2700,19 +3062,23 @@ object dtmRelatorios: TdtmRelatorios
         Stretched = True
         object Memo7: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 1.645640000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 90.708720000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -2723,11 +3089,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Saldo Anterior')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 215.433210000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -2738,11 +3106,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas do Dia')
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 340.496290000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -2753,11 +3123,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Pagtos do dia')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 467.031850000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -2768,11 +3140,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Saldo A Receber')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 586.606680000000000000
           Top = 1.000000000000000000
           Width = 128.504020000000000000
@@ -2783,6 +3157,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas Acomulado')
@@ -2790,6 +3165,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 154.960730000000000000
         Width = 718.110700000000000000
@@ -2798,11 +3178,13 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo13: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Visibility = [vsPreview, vsExport]
           StretchMode = smMaxHeight
-          Fill.BackColor = 16119285
+          Frame.Typ = []
+          Fill.BackColor = clWhitesmoke
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -13
@@ -2810,18 +3192,22 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object DebitosAcomDIA_MOV: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'DIA_MOV'
           DataSet = fdsDebitosAcom
           DataSetName = 'DebitosAcom'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[DebitosAcom."DIA_MOV"]')
         end
         object DebitosAcomANTERIOR: TfrxMemoView
+          AllowVectorExport = True
           Left = 91.488250000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -2831,11 +3217,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[DebitosAcom."ANTERIOR"]')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 216.212740000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -2846,11 +3234,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[DebitosAcom."VENDAS"]')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 341.275820000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -2861,11 +3251,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[DebitosAcom."PAGAMENTOS"]')
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 467.811380000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -2876,11 +3268,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[DebitosAcom."ARECEBER"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 594.945270000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -2891,6 +3285,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[DebitosAcom."VENDAS_ACOM"]')
@@ -3002,11 +3397,12 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSet = fdqIOS
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 432
     Top = 176
   end
   object frepIOS: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3041,8 +3437,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -3054,6 +3457,7 @@ object dtmRelatorios: TdtmRelatorios
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3061,6 +3465,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Entradas e Sa'#237'das')
@@ -3069,6 +3474,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -3081,21 +3491,25 @@ object dtmRelatorios: TdtmRelatorios
         Stretched = True
         object Memo7: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
         end
         object Memo2: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo9: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 211.346630000000000000
           Top = 3.779530000000000000
           Width = 120.944960000000000000
@@ -3106,12 +3520,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Sa'#237'das')
         end
         object Memo10: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 336.716760000000000000
           Top = 3.779530000000000000
           Width = 120.944960000000000000
@@ -3122,12 +3538,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Pagtos do dia')
         end
         object Memo12: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 597.945270000000000000
           Top = 3.779530000000000000
           Width = 117.165430000000000000
@@ -3138,12 +3556,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Saldo Caixa')
         end
         object Memo3: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 3.779530000000000000
           Width = 128.504020000000000000
@@ -3154,12 +3574,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Difer Dia')
         end
         object Memo6: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 90.708720000000000000
           Top = 3.779530000000000000
           Width = 120.944960000000000000
@@ -3170,6 +3592,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Entradas')
@@ -3177,6 +3600,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 154.960730000000000000
         Width = 718.110700000000000000
@@ -3185,13 +3613,15 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo13: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Visibility = [vsPreview, vsExport]
           StretchMode = smMaxHeight
           DataSet = fdsIOS
           DataSetName = 'IOS'
-          Fill.BackColor = 16119285
+          Frame.Typ = []
+          Fill.BackColor = clWhitesmoke
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -13
@@ -3199,18 +3629,22 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object DebitosAcomDIA_MOV: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'DATA'
           DataSet = fdsIOS
           DataSetName = 'IOS'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[IOS."DATA"]')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 212.126160000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3221,11 +3655,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[IOS."SAIDA"]')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 341.275820000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3236,11 +3672,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[IOS."PAGAMENTOS"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 598.724800000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3251,12 +3689,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[IOS."ACOM"]')
         end
         object Memo11: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 469.441250000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3266,11 +3706,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[IOS."SALDO_CAIXA"]')
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 91.488250000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3281,6 +3723,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[IOS."ENTRADA"]')
@@ -3359,11 +3802,12 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSet = fdqVendaTipos
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 192
     Top = 240
   end
   object frepVendaTipos: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3398,8 +3842,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -3411,6 +3862,7 @@ object dtmRelatorios: TdtmRelatorios
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3418,6 +3870,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Vendas Pagamento/Anotado')
@@ -3426,6 +3879,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -3438,21 +3896,25 @@ object dtmRelatorios: TdtmRelatorios
         Stretched = True
         object Memo7: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
         end
         object Memo2: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo6: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 123.708720000000000000
           Top = 3.779530000000000000
           Width = 120.944960000000000000
@@ -3463,12 +3925,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas Dia')
         end
         object Memo10: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 353.716760000000000000
           Top = 3.779530000000000000
           Width = 120.944960000000000000
@@ -3479,12 +3943,14 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas Pg Balcao')
         end
         object Memo12: TfrxMemoView
           Align = baBottom
+          AllowVectorExport = True
           Left = 597.945270000000000000
           Top = 3.779530000000000000
           Width = 117.165430000000000000
@@ -3495,6 +3961,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Vendas Anotado')
@@ -3502,6 +3969,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 154.960730000000000000
         Width = 718.110700000000000000
@@ -3510,13 +3982,15 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo13: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Visibility = [vsPreview, vsExport]
           StretchMode = smMaxHeight
           DataSet = fdsVendaTipos
           DataSetName = 'fdqVendaTipos'
-          Fill.BackColor = 16119285
+          Frame.Typ = []
+          Fill.BackColor = clWhitesmoke
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -13
@@ -3524,18 +3998,22 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object DebitosAcomDIA_MOV: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataField = 'DIA_MOV'
           DataSet = fdsVendaTipos
           DataSetName = 'fdqVendaTipos'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[fdqVendaTipos."DIA_MOV"]')
         end
         object DebitosAcomANTERIOR: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.708720000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3546,11 +4024,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdqVendaTipos."VENDAS"]')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 358.275820000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3561,11 +4041,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdqVendaTipos."BALCAO"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 598.724800000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -3576,6 +4058,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdqVendaTipos."CONTA"]')
@@ -3932,6 +4415,7 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = True
     DataSource = dtsRelPedidos
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 504
     Top = 232
   end
@@ -3940,6 +4424,7 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSource = dtsPedidoPagto
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 528
     Top = 280
   end
@@ -3948,11 +4433,12 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = False
     DataSource = dtsPedidoProdutos
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 464
     Top = 288
   end
   object frepRelPedidos: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3995,8 +4481,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -4008,6 +4501,7 @@ object dtmRelatorios: TdtmRelatorios
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 30.236240000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4015,6 +4509,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Pedidos')
@@ -4023,6 +4518,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 45.354360000000000000
         Top = 109.606370000000000000
         Width = 718.110700000000000000
@@ -4030,6 +4530,7 @@ object dtmRelatorios: TdtmRelatorios
         DataSetName = 'frxRelPedidos'
         RowCount = 0
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 79.370130000000000000
           Top = 23.677180000000000000
           Width = 120.944960000000000000
@@ -4045,12 +4546,14 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haBlock
           Memo.UTF8W = (
             'Produto')
           ParentFont = False
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 23.677180000000000000
           Width = 86.929190000000000000
@@ -4066,12 +4569,14 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Qtd')
           ParentFont = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 586.165740000000000000
           Top = 23.677180000000000000
           Width = 120.944960000000000000
@@ -4087,22 +4592,26 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Valor')
           ParentFont = False
         end
         object frxRelPedidosDESCRICAO: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Top = 3.779530000000000000
           Width = 207.874150000000000000
           Height = 18.897650000000000000
           DataSet = fdsRelPedidos
           DataSetName = 'frxRelPedidos'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxRelPedidos."DESCRICAO"]')
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 11.338590000000000000
           Top = 3.779530000000000000
           Width = 45.354360000000000000
@@ -4112,11 +4621,13 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'MESA:')
           ParentFont = False
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 272.126160000000000000
           Top = 3.779530000000000000
           Width = 86.929190000000000000
@@ -4132,12 +4643,14 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Data Hora:')
           ParentFont = False
         end
         object frxRelPedidosDTHR_ABERTURA: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Top = 3.779530000000000000
           Width = 272.126160000000000000
@@ -4145,12 +4658,18 @@ object dtmRelatorios: TdtmRelatorios
           DataField = 'DTHR_ABERTURA'
           DataSet = fdsRelPedidos
           DataSetName = 'frxRelPedidos'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxRelPedidos."DTHR_ABERTURA"]')
         end
       end
       object DetailData1: TfrxDetailData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
@@ -4159,9 +4678,11 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo4: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Visibility = [vsPreview, vsExport]
+          Frame.Typ = []
           Fill.BackColor = clMenu
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -4170,18 +4691,22 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object frxPedidoProdutosNOME: TfrxMemoView
+          AllowVectorExport = True
           Left = 79.370130000000000000
           Width = 374.173470000000000000
           Height = 18.897650000000000000
           DataField = 'NOME'
           DataSet = fdsPedidoProdutos
           DataSetName = 'frxPedidoProdutos'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxPedidoProdutos."NOME"]')
         end
         object frxPedidoProdutosVALOR_TOTAL: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -4190,17 +4715,20 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxPedidoProdutos."VALOR_TOTAL"]')
         end
         object frxPedidoProdutosQUANTIDADE: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
           DataField = 'QUANTIDADE'
           DataSet = fdsPedidoProdutos
           DataSetName = 'frxPedidoProdutos'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxPedidoProdutos."QUANTIDADE"]')
@@ -4208,6 +4736,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object DetailData2: TfrxDetailData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
@@ -4215,23 +4748,28 @@ object dtmRelatorios: TdtmRelatorios
         DataSetName = 'frxPedidoPagto'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Width = 468.661720000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Fill.BackColor = 16121825
         end
         object frxPedidoPagtoDESCRICAO: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 170.078850000000000000
           Height = 18.897650000000000000
           DataField = 'DESCRICAO'
           DataSet = fdsPedidoPagto
           DataSetName = 'frxPedidoPagto'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxPedidoPagto."DESCRICAO"]')
         end
         object frxPedidoPagtoVALOR_TOTAL: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -4240,11 +4778,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxPedidoPagto."VALOR_TOTAL"]')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Width = 109.606370000000000000
           Height = 18.897650000000000000
@@ -4255,6 +4795,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
@@ -4267,6 +4808,7 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Fill.BackColor = clWhite
           Highlight.Fill.ForeColor = clWhite
           Highlight.Fill.Style = bsClear
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[IIF(<line> = 1,'#39'Forma Pagto'#39','#39#39')]')
           ParentFont = False
@@ -4274,27 +4816,41 @@ object dtmRelatorios: TdtmRelatorios
       end
       object Header1: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 7.559060000000000000
         Top = 219.212740000000000000
         Width = 718.110700000000000000
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Top = 3.779530000000000000
           Width = 355.275820000000000000
           Color = clBlack
+          Frame.Typ = []
           Diagonal = True
         end
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 11.338590000000000000
         Top = 291.023810000000000000
         Width = 718.110700000000000000
         object Line2: TfrxLineView
           Align = baWidth
+          AllowVectorExport = True
           Top = 3.779530000000000000
           Width = 718.110700000000000000
           Color = clBlack
+          Frame.Typ = []
           Diagonal = True
         end
       end
@@ -4407,11 +4963,12 @@ object dtmRelatorios: TdtmRelatorios
     CloseDataSource = True
     DataSet = fdqSaldo
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 288
     Top = 184
   end
   object frepSaldo: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4446,12 +5003,20 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 34.015770000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 34.015770000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4459,6 +5024,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -27
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Saldo Clientes')
@@ -4467,6 +5033,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 158.740260000000000000
         Width = 718.110700000000000000
@@ -4476,11 +5047,13 @@ object dtmRelatorios: TdtmRelatorios
         Stretched = True
         object Memo6: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Visibility = [vsPreview, vsExport]
           StretchMode = smMaxHeight
-          Fill.BackColor = 16119285
+          Frame.Typ = []
+          Fill.BackColor = clWhitesmoke
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -13
@@ -4488,8 +5061,10 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<Line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 371.512060000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4500,11 +5075,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsSaldo."GASTO"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 471.590910000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -4515,11 +5092,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsSaldo."PAGO"]')
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 598.724800000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -4529,16 +5108,19 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[fdsSaldo."SALDO"]')
         end
         object fdsExtratoDiarioNOME: TfrxMemoView
+          AllowVectorExport = True
           Width = 192.756030000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = fdsSaldo
           DataSetName = 'fdsSaldo'
+          Frame.Typ = []
           HAlign = haBlock
           Memo.UTF8W = (
             '[fdsSaldo."CODIGO"] - [fdsSaldo."NOME"]')
@@ -4549,10 +5131,12 @@ object dtmRelatorios: TdtmRelatorios
             end>
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 219.212740000000000000
           Width = 147.401670000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[fdsSaldo."ENDERECO"] [IIF((<fdsSaldo."CONTATO">)='#39#39','#39#39','#39' ('#39'+Var' +
@@ -4561,6 +5145,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -4573,19 +5162,23 @@ object dtmRelatorios: TdtmRelatorios
         Stretched = True
         object Memo2: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 1.645640000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Cliente')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 226.771800000000000000
           Top = 1.000000000000000000
           Width = 139.842610000000000000
@@ -4596,11 +5189,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haBlock
           Memo.UTF8W = (
             'Endere'#231'o ( Fone )')
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.732530000000000000
           Top = 1.000000000000000000
           Width = 98.267780000000000000
@@ -4611,11 +5206,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Gasto')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 467.031850000000000000
           Top = 1.000000000000000000
           Width = 120.944960000000000000
@@ -4626,11 +5223,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Pago')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 590.386210000000000000
           Top = 1.000000000000000000
           Width = 124.724490000000000000
@@ -4641,6 +5240,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Saldo')
@@ -4648,6 +5248,7 @@ object dtmRelatorios: TdtmRelatorios
       end
       object Line1: TfrxLineView
         Align = baBottom
+        AllowVectorExport = True
         Top = 1046.929810000000000000
         Width = 718.110700000000000000
         StretchMode = smMaxHeight
@@ -4768,11 +5369,12 @@ object dtmRelatorios: TdtmRelatorios
       'USER_DEL=USER_DEL')
     DataSet = fdqRelExluido
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 255
     Top = 251
   end
   object frepRelExcluido: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4808,8 +5410,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -4820,6 +5429,7 @@ object dtmRelatorios: TdtmRelatorios
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 3.779530000000000000
           Width = 139.842610000000000000
@@ -4829,63 +5439,81 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Exclus'#245'es')
           ParentFont = False
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 52.913420000000000000
           Width = 117.165430000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data Lancamento')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 854.173780000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 128.504020000000000000
           Top = 52.913420000000000000
           Width = 124.724490000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data Exlus'#227'o')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 737.008350000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Quantide')
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Conta')
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 952.441560000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Usu'#225'rio')
         end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 1046.929810000000000000
@@ -4894,8 +5522,10 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo13: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 1046.929810000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Fill.BackColor = clBtnFace
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -4904,19 +5534,23 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 128.181200000000000000
           Width = 128.504020000000000000
           Height = 18.897650000000000000
           DataField = 'DATA_HORA_EXC'
           DataSet = fdsRelExcluidos
           DataSetName = 'frxDBrelExcluido'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBrelExcluido."DATA_HORA_EXC"]')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 820.158010000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -4926,47 +5560,57 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           HideZeros = True
           Memo.UTF8W = (
             '[frxDBrelExcluido."VALOR_TOTAL"]')
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Width = 132.283550000000000000
           Height = 18.897650000000000000
           DataSet = fdsRelExcluidos
           DataSetName = 'frxDBrelExcluido'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBrelExcluido."TIPO"]')
         end
         object frxDBProdutosVendidosDIA: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
           DataField = 'DATA_HORA'
           DataSet = fdsRelExcluidos
           DataSetName = 'frxDBrelExcluido'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBrelExcluido."DATA_HORA"]')
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Width = 170.078850000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBrelExcluido."CODIGO"] - [frxDBrelExcluido."NOME"]')
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 578.268090000000000000
           Width = 143.622140000000000000
           Height = 18.897650000000000000
           DataSet = fdsRelExcluidos
           DataSetName = 'frxDBrelExcluido'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBrelExcluido."DESCRICAO"]')
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 737.008350000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
@@ -4976,17 +5620,20 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2f'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           HideZeros = True
           Memo.UTF8W = (
             '[frxDBrelExcluido."QUANTIDADE"]')
         end
         object frxDBrelExcluidoUSER_DEL: TfrxMemoView
+          AllowVectorExport = True
           Left = 952.441560000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           DataSet = fdsRelExcluidos
           DataSetName = 'frxDBrelExcluido'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBrelExcluido."USER_DEL"]')
         end
@@ -4994,7 +5641,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object frepProdutosGrpDia: TfrxReport
-    Version = '5.1.5'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5029,8 +5676,15 @@ object dtmRelatorios: TdtmRelatorios
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -5041,6 +5695,7 @@ object dtmRelatorios: TdtmRelatorios
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 3.779530000000000000
           Width = 139.842610000000000000
@@ -5050,48 +5705,59 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -21
           Font.Name = 'Arial'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Vendas')
           ParentFont = False
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Left = 7.559060000000000000
           Top = 52.913420000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Data')
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 631.181510000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total')
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Top = 52.913420000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'C'#243'digo')
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Top = 52.913420000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Memo.UTF8W = (
             'Produto')
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 472.441250000000000000
           Top = 52.913420000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Quantide')
@@ -5099,6 +5765,11 @@ object dtmRelatorios: TdtmRelatorios
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 196.535560000000000000
         Width = 718.110700000000000000
@@ -5107,8 +5778,10 @@ object dtmRelatorios: TdtmRelatorios
         RowCount = 0
         object Memo12: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
+          Frame.Typ = []
           Fill.BackColor = clGradientInactiveCaption
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
@@ -5117,28 +5790,34 @@ object dtmRelatorios: TdtmRelatorios
           Highlight.Font.Style = []
           Highlight.Condition = '<line> mod 2 = 1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
         end
         object frxDBPagamnetosDINHEIRO: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."CODIGO"]')
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 150.858380000000000000
           Width = 275.905690000000000000
           Height = 18.897650000000000000
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
+          Frame.Typ = []
           HAlign = haBlock
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."NOME"]')
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 593.386210000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -5149,11 +5828,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."VALOR_TOT"]')
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
@@ -5163,28 +5844,37 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%g'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."QUANT_TOTAL"]')
         end
         object frxDBProdutosVendidosDIA: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataSet = fdsProdutosVendidos
           DataSetName = 'frxDBProdutosVendidos'
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBProdutosVendidos."DIA"]')
         end
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
         Condition = 'frxDBProdutosVendidos."DIA"'
         object Memo15: TfrxMemoView
           Align = baClient
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 22.677180000000000000
           Frame.Typ = [ftBottom]
@@ -5192,6 +5882,7 @@ object dtmRelatorios: TdtmRelatorios
         end
         object Memo14: TfrxMemoView
           Align = baCenter
+          AllowVectorExport = True
           Left = 238.110390000000000000
           Width = 241.889920000000000000
           Height = 18.897650000000000000
@@ -5202,6 +5893,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haCenter
           Memo.UTF8W = (
             'Data : [frxDBProdutosVendidos."DIA"]')
@@ -5210,10 +5902,16 @@ object dtmRelatorios: TdtmRelatorios
       end
       object GroupFooter1: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 238.110390000000000000
         Width = 718.110700000000000000
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Width = 109.606370000000000000
           Height = 18.897650000000000000
@@ -5222,12 +5920,14 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total Dia:')
           ParentFont = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Width = 154.960730000000000000
           Height = 18.897650000000000000
@@ -5237,6 +5937,7 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1)]')
@@ -5244,10 +5945,16 @@ object dtmRelatorios: TdtmRelatorios
       end
       object ReportSummary1: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 321.260050000000000000
         Width = 718.110700000000000000
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 563.149970000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -5257,11 +5964,13 @@ object dtmRelatorios: TdtmRelatorios
           DisplayFormat.ThousandSeparator = '.'
           DisplayFormat.FormatStr = '%2.2m'
           DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[SUM(<frxDBProdutosVendidos."VALOR_TOT">,MasterData1,2)]')
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 124.724490000000000000
           Height = 18.897650000000000000
@@ -5270,6 +5979,7 @@ object dtmRelatorios: TdtmRelatorios
           Font.Height = -13
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             'Total Acomulado :')
