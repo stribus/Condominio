@@ -45,7 +45,7 @@ object dtmRelatorios: TdtmRelatorios
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqRelPagamentosCHEQUE: TBCDField
+    object fdqRelPagamentosCHEQUE: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CHEQUE'
       Origin = 'CHEQUE'
@@ -54,7 +54,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosDINHEIRO: TBCDField
+    object fdqRelPagamentosDINHEIRO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DINHEIRO'
       Origin = 'DINHEIRO'
@@ -63,7 +63,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosCARTAO_C: TBCDField
+    object fdqRelPagamentosCARTAO_C: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CARTAO_C'
       Origin = 'CARTAO_C'
@@ -72,7 +72,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosCARTAO_D: TBCDField
+    object fdqRelPagamentosCARTAO_D: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CARTAO_D'
       Origin = 'CARTAO_D'
@@ -81,7 +81,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosDESCONTO: TBCDField
+    object fdqRelPagamentosDESCONTO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
@@ -586,7 +586,7 @@ object dtmRelatorios: TdtmRelatorios
       Origin = 'QUANT_TOTAL'
       Precision = 18
     end
-    object fdqProdutosVendidosVALOR_TOT: TBCDField
+    object fdqProdutosVendidosVALOR_TOT: TFMTBCDField
       FieldName = 'VALOR_TOT'
       Origin = 'VALOR_TOT'
       Precision = 18
@@ -1444,7 +1444,7 @@ object dtmRelatorios: TdtmRelatorios
       Origin = 'PERMITIR_SALDO_NEGATIVO'
       Required = True
     end
-    object fdqRelClientesVALOR_GASTO: TBCDField
+    object fdqRelClientesVALOR_GASTO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_GASTO'
       Origin = 'VALOR_GASTO'
@@ -1453,7 +1453,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelClientesVALOR_PAGO: TBCDField
+    object fdqRelClientesVALOR_PAGO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_PAGO'
       Origin = 'VALOR_PAGO'
@@ -1462,7 +1462,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelClientesSALDO: TBCDField
+    object fdqRelClientesSALDO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SALDO'
       Origin = 'SALDO'
@@ -1601,7 +1601,7 @@ object dtmRelatorios: TdtmRelatorios
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqExtratoClienteVALOR_TOTAL: TBCDField
+    object fdqExtratoClienteVALOR_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
@@ -1625,7 +1625,7 @@ object dtmRelatorios: TdtmRelatorios
       ReadOnly = True
       Size = 150
     end
-    object fdqExtratoClienteSALDO: TBCDField
+    object fdqExtratoClienteSALDO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SALDO'
       Origin = 'SALDO'
@@ -2207,7 +2207,7 @@ object dtmRelatorios: TdtmRelatorios
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqExtratoDiarioANTERIOR: TBCDField
+    object fdqExtratoDiarioANTERIOR: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'ANTERIOR'
       Origin = 'ANTERIOR'
@@ -2216,7 +2216,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqExtratoDiarioVENDAS: TBCDField
+    object fdqExtratoDiarioVENDAS: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VENDAS'
       Origin = 'VENDAS'
@@ -2225,7 +2225,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqExtratoDiarioPAGAMENTOS: TBCDField
+    object fdqExtratoDiarioPAGAMENTOS: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'PAGAMENTOS'
       Origin = 'PAGAMENTOS'
@@ -2234,7 +2234,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqExtratoDiarioARECEBER: TBCDField
+    object fdqExtratoDiarioARECEBER: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'ARECEBER'
       Origin = 'ARECEBER'
@@ -2243,7 +2243,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqExtratoDiarioVENDAS_ACOM: TBCDField
+    object fdqExtratoDiarioVENDAS_ACOM: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VENDAS_ACOM'
       Origin = 'VENDAS_ACOM'
@@ -2837,7 +2837,7 @@ object dtmRelatorios: TdtmRelatorios
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqPagamentosTipoCHEQUE_BALCAO: TBCDField
+    object fdqPagamentosTipoCHEQUE_BALCAO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CHEQUE_BALCAO'
       Origin = 'CHEQUE_BALCAO'
@@ -2846,7 +2846,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoDINHEIRO_BALCAO: TBCDField
+    object fdqPagamentosTipoDINHEIRO_BALCAO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DINHEIRO_BALCAO'
       Origin = 'DINHEIRO_BALCAO'
@@ -2855,7 +2855,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoCREDITO_BALCAO: TBCDField
+    object fdqPagamentosTipoCREDITO_BALCAO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CREDITO_BALCAO'
       Origin = 'CREDITO_BALCAO'
@@ -2864,7 +2864,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoDEBITO_BALCAO: TBCDField
+    object fdqPagamentosTipoDEBITO_BALCAO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DEBITO_BALCAO'
       Origin = 'DEBITO_BALCAO'
@@ -2873,7 +2873,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoCHEQUE_CADERNO: TBCDField
+    object fdqPagamentosTipoCHEQUE_CADERNO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CHEQUE_CADERNO'
       Origin = 'CHEQUE_CADERNO'
@@ -2882,7 +2882,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoDINHEIRO_CADERNO: TBCDField
+    object fdqPagamentosTipoDINHEIRO_CADERNO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DINHEIRO_CADERNO'
       Origin = 'DINHEIRO_CADERNO'
@@ -2891,7 +2891,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoCREDITO_CADERNO: TBCDField
+    object fdqPagamentosTipoCREDITO_CADERNO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CREDITO_CADERNO'
       Origin = 'CREDITO_CADERNO'
@@ -2900,7 +2900,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqPagamentosTipoDEBITO_CADERNO: TBCDField
+    object fdqPagamentosTipoDEBITO_CADERNO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DEBITO_CADERNO'
       Origin = 'DEBITO_CADERNO'
@@ -2932,31 +2932,31 @@ object dtmRelatorios: TdtmRelatorios
       FieldName = 'DIA_MOV'
       Origin = 'DIA_MOV'
     end
-    object fdqDebitosAcomANTERIOR: TBCDField
+    object fdqDebitosAcomANTERIOR: TFMTBCDField
       FieldName = 'ANTERIOR'
       Origin = 'ANTERIOR'
       Precision = 18
       Size = 2
     end
-    object fdqDebitosAcomVENDAS: TBCDField
+    object fdqDebitosAcomVENDAS: TFMTBCDField
       FieldName = 'VENDAS'
       Origin = 'VENDAS'
       Precision = 18
       Size = 2
     end
-    object fdqDebitosAcomPAGAMENTOS: TBCDField
+    object fdqDebitosAcomPAGAMENTOS: TFMTBCDField
       FieldName = 'PAGAMENTOS'
       Origin = 'PAGAMENTOS'
       Precision = 18
       Size = 2
     end
-    object fdqDebitosAcomARECEBER: TBCDField
+    object fdqDebitosAcomARECEBER: TFMTBCDField
       FieldName = 'ARECEBER'
       Origin = 'ARECEBER'
       Precision = 18
       Size = 2
     end
-    object fdqDebitosAcomVENDAS_ACOM: TBCDField
+    object fdqDebitosAcomVENDAS_ACOM: TFMTBCDField
       FieldName = 'VENDAS_ACOM'
       Origin = 'VENDAS_ACOM'
       Precision = 18
@@ -3346,7 +3346,7 @@ object dtmRelatorios: TdtmRelatorios
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqIOSENTRADA: TBCDField
+    object fdqIOSENTRADA: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'ENTRADA'
       Origin = 'ENTRADA'
@@ -3355,7 +3355,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqIOSSAIDA: TBCDField
+    object fdqIOSSAIDA: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SAIDA'
       Origin = 'SAIDA'
@@ -3364,7 +3364,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqIOSPAGAMENTOS: TBCDField
+    object fdqIOSPAGAMENTOS: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'PAGAMENTOS'
       Origin = 'PAGAMENTOS'
@@ -3373,7 +3373,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqIOSSALDO_CAIXA: TBCDField
+    object fdqIOSSALDO_CAIXA: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SALDO_CAIXA'
       Origin = 'SALDO_CAIXA'
@@ -3382,7 +3382,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqIOSACOM: TBCDField
+    object fdqIOSACOM: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'ACOM'
       Origin = 'ACOM'
@@ -3769,7 +3769,7 @@ object dtmRelatorios: TdtmRelatorios
       FieldName = 'DIA_MOV'
       Origin = 'DIA_MOV'
     end
-    object fdqVendaTiposVENDAS: TBCDField
+    object fdqVendaTiposVENDAS: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VENDAS'
       Origin = 'VENDAS'
@@ -3778,7 +3778,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqVendaTiposBALCAO: TBCDField
+    object fdqVendaTiposBALCAO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'BALCAO'
       Origin = 'BALCAO'
@@ -3787,7 +3787,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqVendaTiposCONTA: TBCDField
+    object fdqVendaTiposCONTA: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CONTA'
       Origin = 'CONTA'
@@ -4285,7 +4285,7 @@ object dtmRelatorios: TdtmRelatorios
       Origin = 'PAGAMENTO'
       Required = True
     end
-    object fdqrelPedidoProdutosVALOR_TOTAL: TBCDField
+    object fdqrelPedidoProdutosVALOR_TOTAL: TFMTBCDField
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
       Required = True
@@ -4383,7 +4383,7 @@ object dtmRelatorios: TdtmRelatorios
       Origin = 'PAGAMENTO'
       Required = True
     end
-    object fdqRelPedidosPagtoVALOR_TOTAL: TBCDField
+    object fdqRelPedidosPagtoVALOR_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
@@ -4930,7 +4930,7 @@ object dtmRelatorios: TdtmRelatorios
       Origin = 'CONTATO'
       Size = 150
     end
-    object fdqSaldoGASTO: TBCDField
+    object fdqSaldoGASTO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'GASTO'
       Origin = 'GASTO'
@@ -4939,7 +4939,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqSaldoPAGO: TBCDField
+    object fdqSaldoPAGO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'PAGO'
       Origin = 'PAGO'
@@ -4948,7 +4948,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqSaldoSALDO: TBCDField
+    object fdqSaldoSALDO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SALDO'
       Origin = 'SALDO'
@@ -5258,7 +5258,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqRelExluido: TFDQuery
-    Connection = dtmcon.conexao
+    ConnectionName = 'Condominio'
     SQL.Strings = (
       'SELECT'
       #9'c.CODIGO,'
@@ -5341,7 +5341,7 @@ object dtmRelatorios: TdtmRelatorios
       Required = True
       Precision = 18
     end
-    object fdqRelExluidoVALOR_TOTAL: TBCDField
+    object fdqRelExluidoVALOR_TOTAL: TFMTBCDField
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
       Required = True

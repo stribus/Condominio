@@ -866,6 +866,7 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
+          ExplicitWidth = 916
         end
         object grp5: TGroupBox
           Left = 420
