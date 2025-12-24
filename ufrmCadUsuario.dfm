@@ -91,7 +91,7 @@ inherited frmCadUsuario: TfrmCadUsuario
   end
   inherited fdqEdicao: TFDQuery
     CachedUpdates = False
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     FormatOptions.AssignedValues = [fvSE2Null]
     FormatOptions.StrsEmpty2Null = True
     UpdateOptions.AssignedValues = [uvGeneratorName, uvCheckRequired, uvCheckReadOnly]

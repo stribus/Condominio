@@ -388,8 +388,6 @@ begin
   with dtmcon do
   begin
     conexao.Close;
-    fdmConfigIni.Close;
-    fdmConfigIni.Open;
     conexao.Open();
     atualizaDatasets;
     carregaConfiguracoes;

@@ -452,7 +452,7 @@ object frmConta: TfrmConta
     end
   end
   object fdqCliente: TFDQuery
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT *'
       'FROM CLIENTE'
@@ -517,7 +517,7 @@ object frmConta: TfrmConta
   end
   object fdqTotais: TFDQuery
     BeforeOpen = fdqTotaisBeforeOpen
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       #9'cc.fk_temporada ,'
@@ -591,7 +591,7 @@ object frmConta: TfrmConta
   end
   object fdqCaderneta: TFDQuery
     BeforeOpen = fdqCadernetaBeforeOpen
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       #9'cc.id_caderneta ,'
@@ -803,7 +803,7 @@ object frmConta: TfrmConta
     Top = 136
   end
   object fdspPagar: TFDStoredProc
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     StoredProcName = 'PR_PAGAR_CADERNETA_DIRETO'
     Left = 393
     Top = 256
@@ -1120,7 +1120,7 @@ object frmConta: TfrmConta
     CachedUpdates = True
     MasterSource = dtsCliente
     MasterFields = 'ID_CLIENTE'
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
     UpdateOptions.KeyFields = 'ID_DEPENDENTES'

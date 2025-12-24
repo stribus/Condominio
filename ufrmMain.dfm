@@ -866,7 +866,6 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
-          ExplicitWidth = 916
         end
         object grp5: TGroupBox
           Left = 420
@@ -944,7 +943,7 @@ object frmMain: TfrmMain
   end
   object fdqMesas: TFDQuery
     BeforeOpen = fdqMesasBeforeOpen
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
     UpdateOptions.EnableDelete = False
     UpdateOptions.EnableInsert = False
@@ -1065,7 +1064,7 @@ object frmMain: TfrmMain
   object fdqProdutos: TFDQuery
     AfterInsert = fdqProdutosAfterInsert
     BeforePost = fdqProdutosBeforePost
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     OnError = fdqProdutosError
     SQL.Strings = (
       'select'
@@ -1122,7 +1121,7 @@ object frmMain: TfrmMain
     Top = 192
   end
   object fdqConfiguracoes: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     FormatOptions.AssignedValues = [fvDefaultParamDataType]
     FormatOptions.DefaultParamDataType = ftLargeint
     SQL.Strings = (
@@ -1213,7 +1212,7 @@ object frmMain: TfrmMain
     AfterInsert = fdqProdutosAfterInsert
     BeforePost = fdqProdutosBeforePost
     IndexFieldNames = 'CODIGO'
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     OnError = fdqProdutosError
     SQL.Strings = (
       'select'
@@ -1328,7 +1327,7 @@ object frmMain: TfrmMain
     end
   end
   object fdqEntradasSaidas: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate, uvUpdateChngFields]
     UpdateOptions.EnableDelete = False
     UpdateOptions.EnableInsert = False

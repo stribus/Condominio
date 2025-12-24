@@ -7,13 +7,13 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, frxClass, frxDBSet,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, frxExportPDF,
-  frxExportBaseDialog;
+  frxExportBaseDialog, frxHTML, frxCross;
 
 type
   TdtmRelatorios = class(TDataModule)
-    fdqRelPagamentos: TFDQuery;
-    fdsRelPagamentos: TfrxDBDataset;
-    frepPagamentos: TfrxReport;
+    fdqRelPagamentos_old: TFDQuery;
+    fdsRelPagamentos_old: TfrxDBDataset;
+    frepPagamentos_old: TfrxReport;
     fdqProdutosVendidos: TFDQuery;
     fdsProdutosVendidos: TfrxDBDataset;
     frepProdutosGrpProd: TfrxReport;
@@ -148,12 +148,12 @@ type
     fdqDebitosAcomPAGAMENTOS: TFMTBCDField;
     fdqDebitosAcomARECEBER: TFMTBCDField;
     fdqDebitosAcomVENDAS_ACOM: TFMTBCDField;
-    fdqRelPagamentosDIA: TDateField;
-    fdqRelPagamentosCHEQUE: TFMTBCDField;
-    fdqRelPagamentosDINHEIRO: TFMTBCDField;
-    fdqRelPagamentosCARTAO_C: TFMTBCDField;
-    fdqRelPagamentosCARTAO_D: TFMTBCDField;
-    fdqRelPagamentosDESCONTO: TFMTBCDField;
+    fdqRelPagamentos_oldDIA: TDateField;
+    fdqRelPagamentos_oldCHEQUE: TFMTBCDField;
+    fdqRelPagamentos_oldDINHEIRO: TFMTBCDField;
+    fdqRelPagamentos_oldCARTAO_C: TFMTBCDField;
+    fdqRelPagamentos_oldCARTAO_D: TFMTBCDField;
+    fdqRelPagamentos_oldDESCONTO: TFMTBCDField;
     fdqSaldo: TFDQuery;
     fdsSaldo: TfrxDBDataset;
     frepSaldo: TfrxReport;
@@ -178,10 +178,15 @@ type
     fdqRelExluidoVALOR_TOTAL: TFMTBCDField;
     fdqRelExluidoUSER_DEL: TStringField;
     frepProdutosGrpDia: TfrxReport;
+    frepPagamentos: TfrxReport;
+    fdqRelPagamentos: TFDQuery;
+    fdsRelPagamentos: TfrxDBDataset;
+    frxHTMLObject1: TfrxHTMLObject;
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure AfterConstruction; override;
     procedure fechaTodosDataSets();
   end;
 
@@ -190,11 +195,35 @@ var
 
 implementation
 
+uses
+  udtmCon;
+
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
 
 { TdtmRelatorios }
+
+procedure TdtmRelatorios.AfterConstruction;
+var
+  I: Integer;
+begin
+  inherited;
+  // Força todos os datasets/procs a usarem a conexão compartilhada (embedded)
+  for I := 0 to ComponentCount - 1 do
+  begin
+    if Components[I] is TFDQuery then
+    begin
+      TFDQuery(Components[I]).Connection := dtmcon.conexao;
+      TFDQuery(Components[I]).ConnectionName := '';
+    end
+    else if Components[I] is TFDStoredProc then
+    begin
+      TFDStoredProc(Components[I]).Connection := dtmcon.conexao;
+      TFDStoredProc(Components[I]).ConnectionName := '';
+    end;
+  end;
+end;
 
 procedure TdtmRelatorios.fechaTodosDataSets;
 var
@@ -205,7 +234,8 @@ begin
     if self.Components[i] is TFDQuery then
     begin
       TFDQuery(self.Components[I]).Close;
-      TFDQuery(self.Components[I]).ConnectionName:='Condominio';
+      TFDQuery(self.Components[I]).Connection := dtmcon.conexao;
+      TFDQuery(self.Components[I]).ConnectionName := '';
     end;
   end;
 

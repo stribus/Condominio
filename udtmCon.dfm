@@ -8,24 +8,13 @@ object dtmcon: Tdtmcon
     Top = 96
   end
   object fdqCons: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = conexao
     Left = 96
     Top = 96
   end
-  object fdmConfigIni: TFDManager
-    ConnectionDefFileName = 'F:\projetos\Condominio\config.ini'
-    FormatOptions.AssignedValues = [fvMapRules]
-    FormatOptions.OwnMapRules = True
-    FormatOptions.MapRules = <>
-    Active = True
-    BeforeLoadConnectionDefFile = fdmConfigIniBeforeLoadConnectionDefFile
-    Left = 112
-    Top = 32
-  end
   object conexao: TFDConnection
     Params.Strings = (
-      'CharacterSet=WIN1252'
-      'ConnectionDef=Condominio')
+      'CharacterSet=WIN1252')
     LoginPrompt = False
     Left = 40
     Top = 32

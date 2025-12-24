@@ -697,7 +697,7 @@ object frmPagamento: TfrmPagamento
     end
   end
   object fdspPagar: TFDStoredProc
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     StoredProcName = 'PR_FECHAR_PAGAR'
     Left = 132
     Top = 22
@@ -725,7 +725,7 @@ object frmPagamento: TfrmPagamento
       end>
   end
   object fdspAnotar: TFDStoredProc
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     StoredProcName = 'PR_FECHAR_ANOTAR'
     Left = 52
     Top = 70
@@ -760,7 +760,7 @@ object frmPagamento: TfrmPagamento
   end
   object fdqTotais: TFDQuery
     BeforeOpen = fdqTotaisBeforeOpen
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '  cc.fk_temporada ,'

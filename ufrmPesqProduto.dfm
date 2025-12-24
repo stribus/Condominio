@@ -91,7 +91,7 @@ object frmPesqProduto: TfrmPesqProduto
       end>
   end
   object fdqProdutos: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'select'
       '  p.id_rodutos,'

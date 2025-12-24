@@ -14,7 +14,6 @@ type
   Tdtmcon = class(TDataModule)
     wcs1: TFDGUIxWaitCursor;
     fdqCons: TFDQuery;
-    fdmConfigIni: TFDManager;
     conexao: TFDConnection;
     fdpdl1: TFDPhysFBDriverLink;
     fdtrans1: TFDTransaction;
@@ -69,26 +68,64 @@ begin
 end;
 
 procedure Tdtmcon.DataModuleCreate(Sender: TObject);
+var
+  lBasePath: string;
+  lVendorLib: string;
+  lConfigPath: string;
+  lDatabasePath: string;
+  lRootPath: string;
+  oDef: IFDStanConnectionDef;
 begin
-  if (DebugHook = 0) then
-  begin
-      //fdpdl1.Embedded := True;
-//    FDPhysFBDriverLink1 := TFDPhysFBDriverLink.Create(Self);
-//
-//    with FDPhysFBDriverLink1 do
-//    begin
-//      Name := 'FDPhysFBDriverLink1';
-//      Embedded := True;
-//      VendorLib := 'C:\condominio_novo\Fb3_0_embeded\fbclient.dll';
-//    end;
+  lBasePath := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0)));
+  lRootPath := IncludeTrailingPathDelimiter(ExpandFileName(lBasePath + '..\..\'));
 
+  // Verifica se estamos rodando na estrutura de pastas do projeto (Win32\Debug)
+  // e tenta usar os arquivos da raiz para manter consistência com o TestEmbedded
+  if FileExists(lRootPath + 'fbclient.dll') and FileExists(lRootPath + 'DADOS.FDB') then
+  begin
+    lVendorLib := lRootPath + 'fbclient.dll';
+    lDatabasePath := lRootPath + 'DADOS.FDB';
+    lConfigPath := lRootPath + 'config.ini';
+  end
+  else
+  begin
+    // Produção: usa arquivos locais
+    lVendorLib := lBasePath + 'fbclient.dll';
+    lDatabasePath := lBasePath + 'DADOS.FDB';
+    lConfigPath := lBasePath + 'config.ini';
   end;
 
-  if not fdmConfigIni.Active then
-    fdmConfigIni.Active := True;
-//  ShowMessage(conexao.Params.Database);
-  if not conexao.Connected then
- //   conexao.Connected := True;
+  // O fbclient.dll deve estar na raiz do executável (copiado pelo PostBuild.bat)
+
+  // garante que o driver use o fbclient embedded distribuído com a aplicação
+  fdpdl1.Embedded := True; // Força modo embedded, sem serviço FB externo
+  fdpdl1.VendorLib := lVendorLib;
+
+
+  // força protocolo local para não tentar 127.0.0.1 ao usar embedded
+  conexao.LoginPrompt := False;
+
+  // Define parâmetros explicitamente para não depender de ConnectionDef
+  conexao.Connected := False;
+  conexao.Params.Clear;
+  conexao.Params.Add('DriverID=FB');
+  conexao.Params.Add('Database=' + lDatabasePath);
+  conexao.Params.Add('User_Name=SYSDBA');
+  conexao.Params.Add('Password=masterkey');
+  conexao.Params.Add('CharacterSet=WIN1252');
+  conexao.Params.Add('Protocol=Local');
+
+
+  try
+    conexao.Connected := True;
+  except
+    on E: Exception do
+    begin
+      // Mostra o erro real do modo Embedded para diagnóstico
+      raise Exception.Create('Erro fatal ao conectar em modo Embedded (DLL: ' + lVendorLib + '): ' + E.Message);
+
+    end;
+  end;
 end;
 
 function Tdtmcon.existsCod(AValId, AValCod: Largeint; ATabela, ANomeId, ANomeCod: string): Boolean;
@@ -166,4 +203,7 @@ initialization
 finalization
 
 end.
+
+
+
 

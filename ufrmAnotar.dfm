@@ -257,7 +257,7 @@ object frmAnotar: TfrmAnotar
     end
   end
   object fdsp_lancamentos: TFDStoredProc
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     StoredProcName = 'PR_LANCAR_CADERNETA_DIRETO'
     Left = 352
     Top = 16
@@ -488,7 +488,7 @@ object frmAnotar: TfrmAnotar
   end
   object fdqTotais: TFDQuery
     BeforeOpen = fdqTotaisBeforeOpen
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '  cc.fk_temporada ,'

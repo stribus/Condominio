@@ -1,7 +1,7 @@
 object dtmRelatorios: TdtmRelatorios
-  Height = 368
-  Width = 647
-  object fdqRelPagamentos: TFDQuery
+  Height = 572
+  Width = 756
+  object fdqRelPagamentos_old: TFDQuery
     Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
@@ -38,14 +38,14 @@ object dtmRelatorios: TdtmRelatorios
         ParamType = ptInput
         Value = 43777d
       end>
-    object fdqRelPagamentosDIA: TDateField
+    object fdqRelPagamentos_oldDIA: TDateField
       AutoGenerateValue = arDefault
       FieldName = 'DIA'
       Origin = 'DIA'
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqRelPagamentosCHEQUE: TFMTBCDField
+    object fdqRelPagamentos_oldCHEQUE: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CHEQUE'
       Origin = 'CHEQUE'
@@ -54,7 +54,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosDINHEIRO: TFMTBCDField
+    object fdqRelPagamentos_oldDINHEIRO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DINHEIRO'
       Origin = 'DINHEIRO'
@@ -63,7 +63,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosCARTAO_C: TFMTBCDField
+    object fdqRelPagamentos_oldCARTAO_C: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CARTAO_C'
       Origin = 'CARTAO_C'
@@ -72,7 +72,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosCARTAO_D: TFMTBCDField
+    object fdqRelPagamentos_oldCARTAO_D: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CARTAO_D'
       Origin = 'CARTAO_D'
@@ -81,7 +81,7 @@ object dtmRelatorios: TdtmRelatorios
       Precision = 18
       Size = 2
     end
-    object fdqRelPagamentosDESCONTO: TFMTBCDField
+    object fdqRelPagamentos_oldDESCONTO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
@@ -91,16 +91,16 @@ object dtmRelatorios: TdtmRelatorios
       Size = 2
     end
   end
-  object fdsRelPagamentos: TfrxDBDataset
+  object fdsRelPagamentos_old: TfrxDBDataset
     UserName = 'frxDBPagamnetos'
     CloseDataSource = True
-    DataSet = fdqRelPagamentos
+    DataSet = fdqRelPagamentos_old
     BCDToCurrency = True
     DataSetOptions = []
     Left = 23
     Top = 11
   end
-  object frepPagamentos: TfrxReport
+  object frepPagamentos_old: TfrxReport
     Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -119,7 +119,7 @@ object dtmRelatorios: TdtmRelatorios
     Top = 11
     Datasets = <
       item
-        DataSet = fdsRelPagamentos
+        DataSet = fdsRelPagamentos_old
         DataSetName = 'frxDBPagamnetos'
       end>
     Variables = <>
@@ -257,7 +257,7 @@ object dtmRelatorios: TdtmRelatorios
         Height = 22.677180000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
-        DataSet = fdsRelPagamentos
+        DataSet = fdsRelPagamentos_old
         DataSetName = 'frxDBPagamnetos'
         RowCount = 0
         object Memo18: TfrxMemoView
@@ -281,7 +281,7 @@ object dtmRelatorios: TdtmRelatorios
           Left = 7.559060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.FormatStr = 'dd/mm/yyyy'
           DisplayFormat.Kind = fkDateTime
@@ -295,7 +295,7 @@ object dtmRelatorios: TdtmRelatorios
           Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'DINHEIRO'
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -312,7 +312,7 @@ object dtmRelatorios: TdtmRelatorios
           Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'CHEQUE'
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -329,7 +329,7 @@ object dtmRelatorios: TdtmRelatorios
           Width = 98.267718980000000000
           Height = 18.897650000000000000
           DataField = 'CARTAO_C'
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -346,7 +346,7 @@ object dtmRelatorios: TdtmRelatorios
           Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'DESCONTO'
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -363,7 +363,7 @@ object dtmRelatorios: TdtmRelatorios
           Width = 94.488188980000000000
           Height = 18.897650000000000000
           DataField = 'CARTAO_D'
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.ThousandSeparator = '.'
@@ -379,7 +379,7 @@ object dtmRelatorios: TdtmRelatorios
           Left = 510.236550000000000000
           Width = 102.047253860000000000
           Height = 18.897650000000000000
-          DataSet = fdsRelPagamentos
+          DataSet = fdsRelPagamentos_old
           DataSetName = 'frxDBPagamnetos'
           DisplayFormat.DecimalSeparator = ','
           DisplayFormat.FormatStr = '%2.2m'
@@ -1371,7 +1371,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqRelClientes: TFDQuery
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '  c.nome,'
@@ -1494,7 +1494,7 @@ object dtmRelatorios: TdtmRelatorios
     MasterSource = dtsRelClientes
     MasterFields = 'ID_CLIENTE;FK_TEMPORADA'
     DetailFields = 'ID_CLIENTE;FK_TEMPORADA'
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
     SQL.Strings = (
@@ -1647,7 +1647,7 @@ object dtmRelatorios: TdtmRelatorios
   end
   object fdqProdutoslookup: TFDQuery
     CachedUpdates = True
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'select'
       '  cast(ID_RODUTOS as varchar(20)) ID,'
@@ -2117,7 +2117,7 @@ object dtmRelatorios: TdtmRelatorios
     Top = 176
   end
   object fdqExtratoDiario: TFDQuery
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '  distinct'
@@ -2273,11 +2273,11 @@ object dtmRelatorios: TdtmRelatorios
       'begin'
       ''
       'end.')
-    Left = 280
+    Left = 312
     Top = 64
     Datasets = <
       item
-        DataSet = fdsRelPagamentos
+        DataSet = fdsRelPagamentos_old
         DataSetName = 'frxDBPagamnetos'
       end
       item
@@ -2775,7 +2775,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqPagamentosTipo: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'select'
       '  cast(mp.data_hora as date) data,'
@@ -2920,7 +2920,7 @@ object dtmRelatorios: TdtmRelatorios
     Top = 128
   end
   object fdqDebitosAcom: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       
         'SELECT DIA_MOV, ANTERIOR, VENDAS, PAGAMENTOS, ARECEBER, VENDAS_A' +
@@ -3294,7 +3294,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqIOS: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'with ios as (select'
       '  cast(es.data_hora as date) data,'
@@ -3417,7 +3417,7 @@ object dtmRelatorios: TdtmRelatorios
       ''
       'end.')
     Left = 384
-    Top = 232
+    Top = 248
     Datasets = <
       item
         DataSet = fdsIOS
@@ -3732,7 +3732,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqVendaTipos: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'select distinct'
       '  mv.dia_mov,'
@@ -4067,7 +4067,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqRelPedidos: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'select '
       '  m.id_mesa'
@@ -4096,8 +4096,8 @@ object dtmRelatorios: TdtmRelatorios
       
         '  and cast(p.dthr_fexamento as date) between cast(:datai as date' +
         ') and cast(:dataf as date)')
-    Left = 448
-    Top = 232
+    Left = 520
+    Top = 216
     ParamData = <
       item
         Name = 'DATAI'
@@ -4224,7 +4224,7 @@ object dtmRelatorios: TdtmRelatorios
     MasterSource = dtsRelPedidos
     MasterFields = 'ID_PEDIDO'
     DetailFields = 'ID_PEDIDO'
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
     SQL.Strings = (
@@ -4245,7 +4245,7 @@ object dtmRelatorios: TdtmRelatorios
       '  and not mv.pagamento'
       'ORDER BY  '
       '     mv.data_hora,mv.id_mov_produto')
-    Left = 416
+    Left = 480
     Top = 280
     ParamData = <
       item
@@ -4295,8 +4295,8 @@ object dtmRelatorios: TdtmRelatorios
   end
   object dtsRelPedidos: TDataSource
     DataSet = fdqRelPedidos
-    Left = 480
-    Top = 232
+    Left = 552
+    Top = 216
   end
   object fdqRelPedidosPagto: TFDQuery
     Indexes = <
@@ -4310,7 +4310,7 @@ object dtmRelatorios: TdtmRelatorios
     MasterSource = dtsRelPedidos
     MasterFields = 'ID_PEDIDO'
     DetailFields = 'ID_PEDIDO'
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
     SQL.Strings = (
@@ -4352,7 +4352,7 @@ object dtmRelatorios: TdtmRelatorios
       '    1, 2, 3, 4,5'
       'order by'
       '    4 asc nulls last')
-    Left = 480
+    Left = 544
     Top = 280
     ParamData = <
       item
@@ -4402,12 +4402,12 @@ object dtmRelatorios: TdtmRelatorios
   end
   object dtsPedidoProdutos: TDataSource
     DataSet = fdqrelPedidoProdutos
-    Left = 440
+    Left = 504
     Top = 280
   end
   object dtsPedidoPagto: TDataSource
     DataSet = fdqRelPedidosPagto
-    Left = 504
+    Left = 568
     Top = 280
   end
   object fdsRelPedidos: TfrxDBDataset
@@ -4416,8 +4416,8 @@ object dtmRelatorios: TdtmRelatorios
     DataSource = dtsRelPedidos
     BCDToCurrency = True
     DataSetOptions = []
-    Left = 504
-    Top = 232
+    Left = 584
+    Top = 216
   end
   object fdsPedidoPagto: TfrxDBDataset
     UserName = 'frxPedidoPagto'
@@ -4425,7 +4425,7 @@ object dtmRelatorios: TdtmRelatorios
     DataSource = dtsPedidoPagto
     BCDToCurrency = True
     DataSetOptions = []
-    Left = 528
+    Left = 592
     Top = 280
   end
   object fdsPedidoProdutos: TfrxDBDataset
@@ -4434,8 +4434,8 @@ object dtmRelatorios: TdtmRelatorios
     DataSource = dtsPedidoProdutos
     BCDToCurrency = True
     DataSetOptions = []
-    Left = 464
-    Top = 288
+    Left = 528
+    Top = 352
   end
   object frepRelPedidos: TfrxReport
     Version = '2023.1.3'
@@ -4452,8 +4452,8 @@ object dtmRelatorios: TdtmRelatorios
       'begin'
       ''
       'end.')
-    Left = 552
-    Top = 240
+    Left = 608
+    Top = 216
     Datasets = <
       item
         DataSet = fdsPedidoPagto
@@ -4857,7 +4857,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqSaldo: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '   '#9'c.id_cliente'
@@ -4982,8 +4982,8 @@ object dtmRelatorios: TdtmRelatorios
       'begin'
       ''
       'end.')
-    Left = 256
-    Top = 120
+    Left = 264
+    Top = 128
     Datasets = <
       item
         DataSet = fdsSaldo
@@ -5170,7 +5170,7 @@ object dtmRelatorios: TdtmRelatorios
         object Memo3: TfrxMemoView
           AllowVectorExport = True
           Left = 7.559060000000000000
-          Top = 1.645640000000000000
+          Top = 0.999400000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -5180,7 +5180,7 @@ object dtmRelatorios: TdtmRelatorios
         object Memo9: TfrxMemoView
           AllowVectorExport = True
           Left = 226.771800000000000000
-          Top = 1.000000000000000000
+          Top = 0.999400000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
           DataSet = fdsDebitosAcom
@@ -5197,7 +5197,7 @@ object dtmRelatorios: TdtmRelatorios
         object Memo10: TfrxMemoView
           AllowVectorExport = True
           Left = 370.732530000000000000
-          Top = 1.000000000000000000
+          Top = 0.999400000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
           DataSet = fdsDebitosAcom
@@ -5214,7 +5214,7 @@ object dtmRelatorios: TdtmRelatorios
         object Memo11: TfrxMemoView
           AllowVectorExport = True
           Left = 467.031850000000000000
-          Top = 1.000000000000000000
+          Top = 0.999400000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
           DataSet = fdsDebitosAcom
@@ -5231,7 +5231,7 @@ object dtmRelatorios: TdtmRelatorios
         object Memo12: TfrxMemoView
           AllowVectorExport = True
           Left = 590.386210000000000000
-          Top = 1.000000000000000000
+          Top = 0.999400000000000000
           Width = 124.724490000000000000
           Height = 18.897650000000000000
           DataSet = fdsDebitosAcom
@@ -5258,7 +5258,7 @@ object dtmRelatorios: TdtmRelatorios
     end
   end
   object fdqRelExluido: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       #9'c.CODIGO,'
@@ -5987,5 +5987,261 @@ object dtmRelatorios: TdtmRelatorios
         end
       end
     end
+  end
+  object frepPagamentos: TfrxReport
+    Version = '2023.1.3'
+    DataSet = fdsRelPagamentos
+    DataSetName = 'fdqRelPagamentos'
+    DotMatrixReport = True
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Padr'#227'o'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45778.967552291700000000
+    ReportOptions.LastChange = 45780.543542280100000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      ''
+      
+        'procedure DBCross1OnPrintCell(Memo: TfrxMemoView; RowIndex, Colu' +
+        'mnIndex, CellIndex: Integer; RowValues, ColumnValues, Value: Var' +
+        'iant);'
+      'begin'
+      '  '
+      '  if( vartostr(Value) = '#39#39') then'
+      '  begin'
+      '    Memo.Text := '#39'0,00'#39'            '
+      '  end'
+      '  else'
+      '  begin'
+      '     Memo.Text :=FormatFloat('#39'0,.00'#39', Value);            '
+      '  end                    '
+      'end;'
+      ''
+      'begin'
+      ''
+      'end.')
+    Left = 624
+    Top = 16
+    Datasets = <
+      item
+        DataSet = fdsRelPagamentos
+        DataSetName = 'fdqRelPagamentos'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 356.000000000000000000
+      PaperHeight = 216.000000000000000000
+      PaperSize = 256
+      LeftMargin = 1.000000000000000000
+      TopMargin = 1.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object DBCross1: TfrxDBCrossView
+        AllowVectorExport = True
+        Left = 15.120000000000000000
+        Top = 30.220940000000000000
+        Width = 450.000000000000000000
+        Height = 88.000000000000000000
+        AddWidth = 755.905511811024000000
+        AutoSize = False
+        DownThenAcross = False
+        MaxWidth = 99999999
+        MinWidth = 70
+        OnPrintCell = 'DBCross1OnPrintCell'
+        CellFields.Strings = (
+          'TOTAL')
+        ColumnFields.Strings = (
+          'DESCRICAO')
+        DataSet = fdsRelPagamentos
+        DataSetName = 'fdqRelPagamentos'
+        RowFields.Strings = (
+          'DIA')
+        Memos = {
+          3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D227574
+          662D3822207374616E64616C6F6E653D226E6F223F3E3C63726F73733E3C6365
+          6C6C6D656D6F733E3C546672784D656D6F5669657720416C6C6F77566563746F
+          724578706F72743D225472756522204C6566743D223136352C31322220546F70
+          3D2237342C3232303934222057696474683D2231353022204865696768743D22
+          323222205265737472696374696F6E733D22323422204F6E4166746572446174
+          613D22444243726F73733143656C6C304F6E41667465724461746122204F6E42
+          65666F72655072696E743D22444243726F73733143656C6C304F6E4265666F72
+          655072696E742220416C6C6F7745787072657373696F6E733D2246616C736522
+          204672616D652E5479703D2231352220476170583D22332220476170593D2233
+          222048416C69676E3D2268615269676874222056416C69676E3D22766143656E
+          7465722220546578743D2230222F3E3C546672784D656D6F5669657720416C6C
+          6F77566563746F724578706F72743D225472756522204C6566743D223136352C
+          31322220546F703D2239362C3232303934222057696474683D22313530222048
+          65696768743D22323222205265737472696374696F6E733D2232342220416C6C
+          6F7745787072657373696F6E733D2246616C736522204672616D652E5479703D
+          2231352220476170583D22332220476170593D2233222048416C69676E3D2268
+          615269676874222056416C69676E3D22766143656E7465722220546578743D22
+          30222F3E3C546672784D656D6F5669657720416C6C6F77566563746F72457870
+          6F72743D225472756522204C6566743D223331352C31322220546F703D223734
+          2C3232303934222057696474683D2231353022204865696768743D2232322220
+          5265737472696374696F6E733D2232342220416C6C6F7745787072657373696F
+          6E733D2246616C736522204672616D652E5479703D2231352220476170583D22
+          332220476170593D2233222048416C69676E3D22686152696768742220576F72
+          64577261703D2246616C7365222056416C69676E3D22766143656E7465722220
+          546578743D2230222F3E3C546672784D656D6F5669657720416C6C6F77566563
+          746F724578706F72743D225472756522204C6566743D223331352C3132222054
+          6F703D2239362C3232303934222057696474683D223135302220486569676874
+          3D22323222205265737472696374696F6E733D2232342220416C6C6F77457870
+          72657373696F6E733D2246616C736522204672616D652E5479703D2231352220
+          476170583D22332220476170593D2233222048416C69676E3D22686152696768
+          742220576F7264577261703D2246616C7365222056416C69676E3D2276614365
+          6E7465722220546578743D2230222F3E3C2F63656C6C6D656D6F733E3C63656C
+          6C6865616465726D656D6F733E3C546672784D656D6F5669657720416C6C6F77
+          566563746F724578706F72743D225472756522204C6566743D22302220546F70
+          3D2230222057696474683D223022204865696768743D22302220526573747269
+          6374696F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C
+          736522204672616D652E5479703D2231352220476170583D2233222047617059
+          3D2233222056416C69676E3D22766143656E7465722220546578743D22544F54
+          414C222F3E3C546672784D656D6F5669657720416C6C6F77566563746F724578
+          706F72743D225472756522204C6566743D22302220546F703D22302220576964
+          74683D223022204865696768743D223022205265737472696374696F6E733D22
+          382220416C6C6F7745787072657373696F6E733D2246616C736522204672616D
+          652E5479703D2231352220476170583D22332220476170593D2233222056416C
+          69676E3D22766143656E7465722220546578743D22544F54414C222F3E3C2F63
+          656C6C6865616465726D656D6F733E3C636F6C756D6E6D656D6F733E3C546672
+          784D656D6F5669657720416C6C6F77566563746F724578706F72743D22547275
+          6522204C6566743D223136352C31322220546F703D2235322C32323039342220
+          57696474683D2231353022204865696768743D22323222205265737472696374
+          696F6E733D2232342220537472657463684D6F64653D22736D4D617848656967
+          68742220416C6C6F7745787072657373696F6E733D2246616C73652220467261
+          6D652E5479703D2231352220476170583D22332220476170593D223322204841
+          6C69676E3D22686143656E7465722220576F7264577261703D2246616C736522
+          2056416C69676E3D22766143656E7465722220546578743D22222F3E3C2F636F
+          6C756D6E6D656D6F733E3C636F6C756D6E746F74616C6D656D6F733E3C546672
+          784D656D6F5669657720416C6C6F77566563746F724578706F72743D22547275
+          6522204C6566743D223331352C31322220546F703D2235322C32323039342220
+          57696474683D2231353022204865696768743D22323222205265737472696374
+          696F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C7365
+          2220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D2230
+          2220466F6E742E4865696768743D222D31332220466F6E742E4E616D653D2241
+          7269616C2220466F6E742E5374796C653D223122204672616D652E5479703D22
+          31352220476170583D22332220476170593D2233222048416C69676E3D226861
+          43656E7465722220506172656E74466F6E743D2246616C7365222056416C6967
+          6E3D22766143656E7465722220546578743D22546F74616C222F3E3C2F636F6C
+          756D6E746F74616C6D656D6F733E3C636F726E65726D656D6F733E3C54667278
+          4D656D6F5669657720416C6C6F77566563746F724578706F72743D2254727565
+          22204C6566743D2231352C31322220546F703D2233302C323230393422205769
+          6474683D2231353022204865696768743D22323222205265737472696374696F
+          6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73652220
+          4672616D652E5479703D2231352220476170583D22332220476170593D223322
+          2048416C69676E3D22686143656E746572222056416C69676E3D22766143656E
+          7465722220546578743D22506167616D656E746F222F3E3C546672784D656D6F
+          5669657720416C6C6F77566563746F724578706F72743D225472756522204C65
+          66743D223136352C31322220546F703D2233302C323230393422205769647468
+          3D2233303022204865696768743D22323222205265737472696374696F6E733D
+          22382220416C6C6F7745787072657373696F6E733D2246616C73652220467261
+          6D652E5479703D2231352220476170583D22332220476170593D223322204841
+          6C69676E3D22686143656E746572222056416C69676E3D22766143656E746572
+          2220546578743D225469706F20506167616D656E746F222F3E3C546672784D65
+          6D6F5669657720416C6C6F77566563746F724578706F72743D22547275652220
+          4C6566743D22302220546F703D2230222057696474683D223022204865696768
+          743D223022205265737472696374696F6E733D2238222056697369626C653D22
+          46616C73652220416C6C6F7745787072657373696F6E733D2246616C73652220
+          4672616D652E5479703D2231352220476170583D22332220476170593D223322
+          2048416C69676E3D22686143656E746572222056416C69676E3D22766143656E
+          7465722220546578743D22222F3E3C546672784D656D6F5669657720416C6C6F
+          77566563746F724578706F72743D225472756522204C6566743D2231352C3132
+          2220546F703D2235322C3232303934222057696474683D223135302220486569
+          6768743D22323222205265737472696374696F6E733D22382220416C6C6F7745
+          787072657373696F6E733D2246616C736522204672616D652E5479703D223135
+          2220476170583D22332220476170593D2233222048416C69676E3D2268614365
+          6E746572222056416C69676E3D22766143656E7465722220546578743D224449
+          41222F3E3C2F636F726E65726D656D6F733E3C726F776D656D6F733E3C546672
+          784D656D6F5669657720416C6C6F77566563746F724578706F72743D22547275
+          6522204C6566743D2231352C31322220546F703D2237342C3232303934222057
+          696474683D2231353022204865696768743D2232322220526573747269637469
+          6F6E733D2232342220416C6C6F7745787072657373696F6E733D2246616C7365
+          22204672616D652E5479703D2231352220476170583D22332220476170593D22
+          33222048416C69676E3D22686143656E746572222056416C69676E3D22766143
+          656E7465722220546578743D22222F3E3C2F726F776D656D6F733E3C726F7774
+          6F74616C6D656D6F733E3C546672784D656D6F5669657720416C6C6F77566563
+          746F724578706F72743D225472756522204C6566743D2231352C31322220546F
+          703D2239362C3232303934222057696474683D2231353022204865696768743D
+          22323222205265737472696374696F6E733D22382220416C6C6F774578707265
+          7373696F6E733D2246616C73652220466F6E742E436861727365743D22312220
+          466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D313322
+          20466F6E742E4E616D653D22417269616C2220466F6E742E5374796C653D2231
+          22204672616D652E5479703D2231352220476170583D22332220476170593D22
+          33222048416C69676E3D22686143656E7465722220506172656E74466F6E743D
+          2246616C7365222056416C69676E3D22766143656E7465722220546578743D22
+          546F74616C222F3E3C2F726F77746F74616C6D656D6F733E3C63656C6C66756E
+          6374696F6E733E3C6974656D20312F3E3C2F63656C6C66756E6374696F6E733E
+          3C636F6C756D6E736F72743E3C6974656D20302F3E3C2F636F6C756D6E736F72
+          743E3C726F77736F72743E3C6974656D20302F3E3C2F726F77736F72743E3C2F
+          63726F73733E}
+      end
+    end
+  end
+  object fdqRelPagamentos: TFDQuery
+    Connection = dtmcon.conexao
+    SQL.Strings = (
+      'WITH DATAS AS ('
+      #9'SELECT '
+      #9#9'DISTINCT '
+      #9#9'cast(m.data_hora AS DATE) dia'
+      #9'FROM '
+      #9#9'MOV_PRODUTO m'
+      #9'WHERE '
+      
+        #9#9'cast(m.data_hora as date) between cast(:datainicio as date) an' +
+        'd cast(:datafim as date)'#9
+      ')'
+      'SELECT'
+      #9'D.dia  '
+      #9',tp.descricao'
+      #9',COALESCE(sum(-1*COALESCE(valor_total,0)),0) total'
+      'FROM'
+      #9'DATAS D '
+      #9'JOIN TIPO_PAGAMENTO TP ON TP.ativo '
+      #9'LEFT JOIN MOV_PRODUTO M ON '
+      #9#9'CAST(M.data_hora AS DATE) = D.dia  '
+      ' '#9#9'AND M.pagamento = TRUE'
+      ' '#9#9'AND M.tipo_pagamento = tp.id'
+      '    '#9'AND NOT M.excluido '
+      'GROUP BY  dia,TP.descricao'
+      'ORDER BY dia')
+    Left = 528
+    Top = 16
+    ParamData = <
+      item
+        Name = 'DATAINICIO'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = 42005d
+      end
+      item
+        Name = 'DATAFIM'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = 54789d
+      end>
+  end
+  object fdsRelPagamentos: TfrxDBDataset
+    UserName = 'fdqRelPagamentos'
+    CloseDataSource = True
+    FieldAliases.Strings = (
+      'DIA=DIA'
+      'DESCRICAO=DESCRICAO'
+      'TOTAL=TOTAL')
+    DataSet = fdqRelPagamentos
+    BCDToCurrency = True
+    DataSetOptions = []
+    Left = 544
+    Top = 72
+  end
+  object frxHTMLObject1: TfrxHTMLObject
+    Left = 632
+    Top = 128
   end
 end
