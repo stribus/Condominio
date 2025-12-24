@@ -67,7 +67,7 @@ object frmMain: TfrmMain
           OnClick = btnFecharmesaClick
         end
         object btnNovaMesa: TButton
-          Left = 559
+          Left = 555
           Top = 8
           Width = 105
           Height = 41
@@ -86,7 +86,7 @@ object frmMain: TfrmMain
           OnClick = btn4Click
         end
         object btn1: TButton
-          Left = 670
+          Left = 666
           Top = 8
           Width = 105
           Height = 41
@@ -96,7 +96,7 @@ object frmMain: TfrmMain
           OnClick = btn1Click
         end
         object chkMesasAtivas: TCheckBox
-          Left = 781
+          Left = 777
           Top = 20
           Width = 124
           Height = 17
@@ -108,7 +108,7 @@ object frmMain: TfrmMain
           OnClick = chkMesasAtivasClick
         end
         object btnrefresh: TBitBtn
-          Left = 928
+          Left = 924
           Top = 8
           Width = 113
           Height = 41
@@ -1335,11 +1335,15 @@ object frmMain: TfrmMain
     UpdateOptions.UpdateChangedFields = False
     SQL.Strings = (
       'select'
-      '*'
+      'e.*'
       'from'
-      'ENTRADA_SAIDA'
+      'ENTRADA_SAIDA e'
+      'join temporadas t'
+      '    on t.id_temporadas = e.fk_temporada'
       'where'
-      'not excluido')
+      '  t.ativo   '
+      'and'
+      'not e.excluido')
     Left = 172
     Top = 259
     object fdqEntradasSaidasID: TLargeintField
