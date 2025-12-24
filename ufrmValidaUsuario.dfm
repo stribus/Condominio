@@ -102,7 +102,7 @@ object frmValidaUsuario: TfrmValidaUsuario
     end
   end
   object fdqUsuario: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     FormatOptions.AssignedValues = [fvSE2Null]
     FormatOptions.StrsEmpty2Null = True
     UpdateOptions.AssignedValues = [uvGeneratorName, uvCheckRequired, uvCheckReadOnly]

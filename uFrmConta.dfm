@@ -452,7 +452,7 @@ object frmConta: TfrmConta
     end
   end
   object fdqCliente: TFDQuery
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT *'
       'FROM CLIENTE'
@@ -517,7 +517,7 @@ object frmConta: TfrmConta
   end
   object fdqTotais: TFDQuery
     BeforeOpen = fdqTotaisBeforeOpen
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       #9'cc.fk_temporada ,'
@@ -562,21 +562,21 @@ object frmConta: TfrmConta
       Origin = 'FK_CLIENTE'
       Required = True
     end
-    object fdqTotaisVALOR_GASTO: TBCDField
+    object fdqTotaisVALOR_GASTO: TFMTBCDField
       FieldName = 'VALOR_GASTO'
       Origin = 'VALOR_GASTO'
       currency = True
       Precision = 18
       Size = 2
     end
-    object fdqTotaisVALOR_PAGO: TBCDField
+    object fdqTotaisVALOR_PAGO: TFMTBCDField
       FieldName = 'VALOR_PAGO'
       Origin = 'VALOR_PAGO'
       currency = True
       Precision = 18
       Size = 2
     end
-    object fdqTotaisSALDO: TBCDField
+    object fdqTotaisSALDO: TFMTBCDField
       FieldName = 'SALDO'
       Origin = 'SALDO'
       currency = True
@@ -591,7 +591,7 @@ object frmConta: TfrmConta
   end
   object fdqCaderneta: TFDQuery
     BeforeOpen = fdqCadernetaBeforeOpen
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       #9'cc.id_caderneta ,'
@@ -695,7 +695,7 @@ object frmConta: TfrmConta
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdqCadernetaVALOR_TOTAL: TBCDField
+    object fdqCadernetaVALOR_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
@@ -705,7 +705,7 @@ object frmConta: TfrmConta
       Precision = 18
       Size = 2
     end
-    object fdqCadernetaSALDO: TBCDField
+    object fdqCadernetaSALDO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'SALDO'
       Origin = 'SALDO'
@@ -803,7 +803,7 @@ object frmConta: TfrmConta
     Top = 136
   end
   object fdspPagar: TFDStoredProc
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     StoredProcName = 'PR_PAGAR_CADERNETA_DIRETO'
     Left = 393
     Top = 256
@@ -1120,7 +1120,7 @@ object frmConta: TfrmConta
     CachedUpdates = True
     MasterSource = dtsCliente
     MasterFields = 'ID_CLIENTE'
-    ConnectionName = 'Condominio'
+  Connection = dtmcon.conexao
     FetchOptions.AssignedValues = [evCache]
     FetchOptions.Cache = [fiBlobs, fiMeta]
     UpdateOptions.KeyFields = 'ID_DEPENDENTES'

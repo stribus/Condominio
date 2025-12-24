@@ -6,13 +6,14 @@ uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, frxClass, frxDBSet,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, frxExportPDF;
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, frxExportPDF,
+  frxExportBaseDialog, frxHTML, frxCross;
 
 type
   TdtmRelatorios = class(TDataModule)
-    fdqRelPagamentos: TFDQuery;
-    fdsRelPagamentos: TfrxDBDataset;
-    frepPagamentos: TfrxReport;
+    fdqRelPagamentos_old: TFDQuery;
+    fdsRelPagamentos_old: TfrxDBDataset;
+    frepPagamentos_old: TfrxReport;
     fdqProdutosVendidos: TFDQuery;
     fdsProdutosVendidos: TfrxDBDataset;
     frepProdutosGrpProd: TfrxReport;
@@ -21,7 +22,7 @@ type
     fdqProdutosVendidosCODIGO: TLargeintField;
     fdqProdutosVendidosNOME: TStringField;
     fdqProdutosVendidosQUANT_TOTAL: TBCDField;
-    fdqProdutosVendidosVALOR_TOT: TBCDField;
+    fdqProdutosVendidosVALOR_TOT: TFMTBCDField;
     frxPDFExport1: TfrxPDFExport;
     frepExtratoCaderno: TfrxReport;
     fdqRelClientes: TFDQuery;
@@ -42,14 +43,14 @@ type
     fdqPagamentosTipo: TFDQuery;
     fdsPagamentosTipo: TfrxDBDataset;
     fdqPagamentosTipoDATA: TDateField;
-    fdqPagamentosTipoCHEQUE_BALCAO: TBCDField;
-    fdqPagamentosTipoDINHEIRO_BALCAO: TBCDField;
-    fdqPagamentosTipoCREDITO_BALCAO: TBCDField;
-    fdqPagamentosTipoDEBITO_BALCAO: TBCDField;
-    fdqPagamentosTipoCHEQUE_CADERNO: TBCDField;
-    fdqPagamentosTipoDINHEIRO_CADERNO: TBCDField;
-    fdqPagamentosTipoCREDITO_CADERNO: TBCDField;
-    fdqPagamentosTipoDEBITO_CADERNO: TBCDField;
+    fdqPagamentosTipoCHEQUE_BALCAO: TFMTBCDField;
+    fdqPagamentosTipoDINHEIRO_BALCAO: TFMTBCDField;
+    fdqPagamentosTipoCREDITO_BALCAO: TFMTBCDField;
+    fdqPagamentosTipoDEBITO_BALCAO: TFMTBCDField;
+    fdqPagamentosTipoCHEQUE_CADERNO: TFMTBCDField;
+    fdqPagamentosTipoDINHEIRO_CADERNO: TFMTBCDField;
+    fdqPagamentosTipoCREDITO_CADERNO: TFMTBCDField;
+    fdqPagamentosTipoDEBITO_CADERNO: TFMTBCDField;
     fdqExtratoClienteID_CADERNETA: TLargeintField;
     fdqExtratoClienteDTHR_LANCAMENTO: TSQLTimeStampField;
     fdqExtratoClienteFK_TEMPORADA: TLargeintField;
@@ -59,19 +60,19 @@ type
     fdqExtratoClienteFKS: TStringField;
     fdqExtratoClienteQUANTIDADE: TBCDField;
     fdqExtratoClientePAGAMENTO: TBooleanField;
-    fdqExtratoClienteVALOR_TOTAL: TBCDField;
+    fdqExtratoClienteVALOR_TOTAL: TFMTBCDField;
     fdqExtratoClienteEXCLUIDO: TBooleanField;
     fdqExtratoClienteSIGNATARIO: TStringField;
-    fdqExtratoClienteSALDO: TBCDField;
+    fdqExtratoClienteSALDO: TFMTBCDField;
     fdqRelClientesNOME: TStringField;
     fdqRelClientesENDERECO: TStringField;
     fdqRelClientesCONTATO: TStringField;
     fdqRelClientesFK_TEMPORADA: TLargeintField;
     fdqRelClientesID_CLIENTE: TLargeintField;
     fdqRelClientesPERMITIR_SALDO_NEGATIVO: TBooleanField;
-    fdqRelClientesVALOR_GASTO: TBCDField;
-    fdqRelClientesVALOR_PAGO: TBCDField;
-    fdqRelClientesSALDO: TBCDField;
+    fdqRelClientesVALOR_GASTO: TFMTBCDField;
+    fdqRelClientesVALOR_PAGO: TFMTBCDField;
+    fdqRelClientesSALDO: TFMTBCDField;
     fdqExtratoClienteProduto: TStringField;
     fdqDebitosAcom: TFDQuery;
     fdsDebitosAcom: TfrxDBDataset;
@@ -81,28 +82,28 @@ type
     fdqExtratoDiarioENDERECO: TStringField;
     fdqExtratoDiarioCONTATO: TStringField;
     fdqExtratoDiarioDATA_LANCAMENTO: TDateField;
-    fdqExtratoDiarioANTERIOR: TBCDField;
-    fdqExtratoDiarioVENDAS: TBCDField;
-    fdqExtratoDiarioPAGAMENTOS: TBCDField;
-    fdqExtratoDiarioARECEBER: TBCDField;
-    fdqExtratoDiarioVENDAS_ACOM: TBCDField;
+    fdqExtratoDiarioANTERIOR: TFMTBCDField;
+    fdqExtratoDiarioVENDAS: TFMTBCDField;
+    fdqExtratoDiarioPAGAMENTOS: TFMTBCDField;
+    fdqExtratoDiarioARECEBER: TFMTBCDField;
+    fdqExtratoDiarioVENDAS_ACOM: TFMTBCDField;
     fdqExtratoDiarioCODIGO: TLargeintField;
     fdqIOS: TFDQuery;
     fdsIOS: TfrxDBDataset;
     frepIOS: TfrxReport;
     fdqIOSDATA: TDateField;
-    fdqIOSENTRADA: TBCDField;
-    fdqIOSSAIDA: TBCDField;
-    fdqIOSPAGAMENTOS: TBCDField;
-    fdqIOSSALDO_CAIXA: TBCDField;
-    fdqIOSACOM: TBCDField;
+    fdqIOSENTRADA: TFMTBCDField;
+    fdqIOSSAIDA: TFMTBCDField;
+    fdqIOSPAGAMENTOS: TFMTBCDField;
+    fdqIOSSALDO_CAIXA: TFMTBCDField;
+    fdqIOSACOM: TFMTBCDField;
     fdqVendaTipos: TFDQuery;
     fdsVendaTipos: TfrxDBDataset;
     frepVendaTipos: TfrxReport;
     fdqVendaTiposDIA_MOV: TDateField;
-    fdqVendaTiposVENDAS: TBCDField;
-    fdqVendaTiposBALCAO: TBCDField;
-    fdqVendaTiposCONTA: TBCDField;
+    fdqVendaTiposVENDAS: TFMTBCDField;
+    fdqVendaTiposBALCAO: TFMTBCDField;
+    fdqVendaTiposCONTA: TFMTBCDField;
     fdqRelPedidos: TFDQuery;
     fdqrelPedidoProdutos: TFDQuery;
     dtsRelPedidos: TDataSource;
@@ -111,7 +112,7 @@ type
     fdqrelPedidoProdutosNOME: TStringField;
     fdqrelPedidoProdutosQUANTIDADE: TBCDField;
     fdqrelPedidoProdutosPAGAMENTO: TBooleanField;
-    fdqrelPedidoProdutosVALOR_TOTAL: TBCDField;
+    fdqrelPedidoProdutosVALOR_TOTAL: TFMTBCDField;
     fdqRelPedidosID_MESA: TLargeintField;
     fdqRelPedidosCODIGO: TLargeintField;
     fdqRelPedidosDESCRICAO: TStringField;
@@ -133,7 +134,7 @@ type
     fdqRelPedidosPagtoID_PEDIDO: TLargeintField;
     fdqRelPedidosPagtoDESCRICAO: TStringField;
     fdqRelPedidosPagtoPAGAMENTO: TBooleanField;
-    fdqRelPedidosPagtoVALOR_TOTAL: TBCDField;
+    fdqRelPedidosPagtoVALOR_TOTAL: TFMTBCDField;
     dtsPedidoProdutos: TDataSource;
     dtsPedidoPagto: TDataSource;
     fdsRelPedidos: TfrxDBDataset;
@@ -142,17 +143,17 @@ type
     frepRelPedidos: TfrxReport;
     fdqRelPedidosPagtoATIVO: TBooleanField;
     fdqDebitosAcomDIA_MOV: TDateField;
-    fdqDebitosAcomANTERIOR: TBCDField;
-    fdqDebitosAcomVENDAS: TBCDField;
-    fdqDebitosAcomPAGAMENTOS: TBCDField;
-    fdqDebitosAcomARECEBER: TBCDField;
-    fdqDebitosAcomVENDAS_ACOM: TBCDField;
-    fdqRelPagamentosDIA: TDateField;
-    fdqRelPagamentosCHEQUE: TBCDField;
-    fdqRelPagamentosDINHEIRO: TBCDField;
-    fdqRelPagamentosCARTAO_C: TBCDField;
-    fdqRelPagamentosCARTAO_D: TBCDField;
-    fdqRelPagamentosDESCONTO: TBCDField;
+    fdqDebitosAcomANTERIOR: TFMTBCDField;
+    fdqDebitosAcomVENDAS: TFMTBCDField;
+    fdqDebitosAcomPAGAMENTOS: TFMTBCDField;
+    fdqDebitosAcomARECEBER: TFMTBCDField;
+    fdqDebitosAcomVENDAS_ACOM: TFMTBCDField;
+    fdqRelPagamentos_oldDIA: TDateField;
+    fdqRelPagamentos_oldCHEQUE: TFMTBCDField;
+    fdqRelPagamentos_oldDINHEIRO: TFMTBCDField;
+    fdqRelPagamentos_oldCARTAO_C: TFMTBCDField;
+    fdqRelPagamentos_oldCARTAO_D: TFMTBCDField;
+    fdqRelPagamentos_oldDESCONTO: TFMTBCDField;
     fdqSaldo: TFDQuery;
     fdsSaldo: TfrxDBDataset;
     frepSaldo: TfrxReport;
@@ -161,9 +162,9 @@ type
     fdqSaldoNOME: TStringField;
     fdqSaldoENDERECO: TStringField;
     fdqSaldoCONTATO: TStringField;
-    fdqSaldoGASTO: TBCDField;
-    fdqSaldoPAGO: TBCDField;
-    fdqSaldoSALDO: TBCDField;
+    fdqSaldoGASTO: TFMTBCDField;
+    fdqSaldoPAGO: TFMTBCDField;
+    fdqSaldoSALDO: TFMTBCDField;
     fdqRelExluido: TFDQuery;
     fdsRelExcluidos: TfrxDBDataset;
     frepRelExcluido: TfrxReport;
@@ -174,13 +175,18 @@ type
     fdqRelExluidoDATA_HORA: TSQLTimeStampField;
     fdqRelExluidoDATA_HORA_EXC: TSQLTimeStampField;
     fdqRelExluidoQUANTIDADE: TBCDField;
-    fdqRelExluidoVALOR_TOTAL: TBCDField;
+    fdqRelExluidoVALOR_TOTAL: TFMTBCDField;
     fdqRelExluidoUSER_DEL: TStringField;
     frepProdutosGrpDia: TfrxReport;
+    frepPagamentos: TfrxReport;
+    fdqRelPagamentos: TFDQuery;
+    fdsRelPagamentos: TfrxDBDataset;
+    frxHTMLObject1: TfrxHTMLObject;
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure AfterConstruction; override;
     procedure fechaTodosDataSets();
   end;
 
@@ -189,11 +195,35 @@ var
 
 implementation
 
+uses
+  udtmCon;
+
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
 
 { TdtmRelatorios }
+
+procedure TdtmRelatorios.AfterConstruction;
+var
+  I: Integer;
+begin
+  inherited;
+  // Força todos os datasets/procs a usarem a conexão compartilhada (embedded)
+  for I := 0 to ComponentCount - 1 do
+  begin
+    if Components[I] is TFDQuery then
+    begin
+      TFDQuery(Components[I]).Connection := dtmcon.conexao;
+      TFDQuery(Components[I]).ConnectionName := '';
+    end
+    else if Components[I] is TFDStoredProc then
+    begin
+      TFDStoredProc(Components[I]).Connection := dtmcon.conexao;
+      TFDStoredProc(Components[I]).ConnectionName := '';
+    end;
+  end;
+end;
 
 procedure TdtmRelatorios.fechaTodosDataSets;
 var
@@ -204,7 +234,8 @@ begin
     if self.Components[i] is TFDQuery then
     begin
       TFDQuery(self.Components[I]).Close;
-      TFDQuery(self.Components[I]).ConnectionName:='Condominio';
+      TFDQuery(self.Components[I]).Connection := dtmcon.conexao;
+      TFDQuery(self.Components[I]).ConnectionName := '';
     end;
   end;
 

@@ -56,7 +56,7 @@ type
     fdqPedidoDTHR_FEXAMENTO: TSQLTimeStampField;
     fdqPedidoFK_DEPENDENTE: TLargeintField;
     fdqPedidoDESCONTO: TBooleanField;
-    fdqPedidoVALOR_DESCONTO: TBCDField;
+    fdqPedidoVALOR_DESCONTO: TFMTBCDField;
     fdqPedidoPAGO: TBooleanField;
     fdqPedidoNOME_DEPENDENTE: TStringField;
     fdqPedidoANOTAR: TBooleanField;
@@ -64,7 +64,7 @@ type
     fdqPedidoCOD_CLIENTE: TLargeintField;
     fdqPedidoID_CLIENTE: TLargeintField;
     fdqPedidoTP_PAGAMENTO: TIntegerField;
-    fdqPedidoTOTAL: TBCDField;
+    fdqPedidoTOTAL: TFMTBCDField;
     lbl5: TLabel;
     edtCodigoCliente: TEdit;
     dbcbbCliente: TDBLookupComboBox;
@@ -96,7 +96,7 @@ type
     fdqMovProdutoFK_PEDIDO: TLargeintField;
     fdqMovProdutoQUANTIDADE: TBCDField;
     fdqMovProdutoPAGAMENTO: TBooleanField;
-    fdqMovProdutoVALOR_TOTAL: TBCDField;
+    fdqMovProdutoVALOR_TOTAL: TFMTBCDField;
     fdqMovProdutoTIPO_PAGAMENTO: TIntegerField;
     fdspPagar: TFDStoredProc;
     fdspAnotar: TFDStoredProc;
@@ -106,9 +106,9 @@ type
     fdqTotaisFK_TEMPORADA: TLargeintField;
     fdqTotaisID_CLIENTE: TLargeintField;
     fdqTotaisPERMITIR_SALDO_NEGATIVO: TBooleanField;
-    fdqTotaisVALOR_GASTO: TBCDField;
-    fdqTotaisVALOR_PAGO: TBCDField;
-    fdqTotaisSALDO: TBCDField;
+    fdqTotaisVALOR_GASTO: TFMTBCDField;
+    fdqTotaisVALOR_PAGO: TFMTBCDField;
+    fdqTotaisSALDO: TFMTBCDField;
     procedure btnOkClick(Sender: TObject);
     procedure btnokAnotaClick(Sender: TObject);
     procedure btnAnotarClick(Sender: TObject);

@@ -312,7 +312,7 @@ inherited frmCadClientes: TfrmCadClientes
     end
   end
   inherited fdqEdicao: TFDQuery
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     UpdateOptions.AssignedValues = [uvEInsert, uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_CLIENTE'

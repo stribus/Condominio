@@ -14,7 +14,7 @@ uses
   System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.Components,
   Data.Bind.DBScope, Vcl.DBCtrls, ufrmPagamento, frxClass, frxDBSet, udtmRelatorios,
   frxExportPDF, System.Actions, Vcl.ActnList, JvExExtCtrls, JvRadioGroup, JvBaseDlg, JvLoginForm,
-  ufrmCadEntradasSaidas, Vcl.Buttons;
+  ufrmCadEntradasSaidas, Vcl.Buttons, frxExportBaseDialog, madExceptVcl;
 
 type
   TfrmMain = class(TForm)
@@ -42,7 +42,7 @@ type
     fdqMesasDTHR_ABERTURA: TSQLTimeStampField;
     fdqMesasNOME: TStringField;
     fdqMesasCOD_CLIENTE: TLargeintField;
-    fdqMesasTOTAL: TBCDField;
+    fdqMesasTOTAL: TFMTBCDField;
     chkMesasAtivas: TCheckBox;
     fdqProdutos: TFDQuery;
     dtsprodutos: TDataSource;
@@ -87,7 +87,7 @@ type
     fdqMesasDTHR_FEXAMENTO: TSQLTimeStampField;
     fdqMesasFK_DEPENDENTE: TLargeintField;
     fdqMesasDESCONTO: TBooleanField;
-    fdqMesasVALOR_DESCONTO: TBCDField;
+    fdqMesasVALOR_DESCONTO: TFMTBCDField;
     fdqMesasPAGO: TBooleanField;
     fdqMesasNOME_DEPENDENTE: TStringField;
     fdqMesasANOTAR: TBooleanField;
@@ -112,6 +112,7 @@ type
     Edt_movimento_dataf1: TJvDateEdit;
     btn_relVendas: TButton;
     rgTipoRelVendas: TJvRadioGroup;
+    fdqMesasTP_PAGAMENTO: TIntegerField;
     grp2: TGroupBox;
     btnDebitosClientes: TButton;
     grp4: TGroupBox;
@@ -129,11 +130,12 @@ type
     dtsEntradasSaidas: TDataSource;
     fdqEntradasSaidasID: TLargeintField;
     fdqEntradasSaidasDESCRICAO: TStringField;
-    fdqEntradasSaidasVALOR: TBCDField;
+    fdqEntradasSaidasVALOR: TFMTBCDField;
     fdqEntradasSaidasTIPO: TIntegerField;
     fdqEntradasSaidasDATA_HORA: TSQLTimeStampField;
     fdqEntradasSaidasEXCLUIDO: TBooleanField;
     fdqEntradasSaidasUSER_DEL: TStringField;
+    fdqEntradasSaidasFK_TEMPORADA: TLargeintField;
     fdqEntradasSaidasDATA_HORA_EXC: TSQLTimeStampField;
     rdgCliente: TJvRadioGroup;
     rdgrpRelPagamento: TJvRadioGroup;
@@ -145,6 +147,7 @@ type
     rdgrp1: TJvRadioGroup;
     grp7: TGroupBox;
     btnRelExclusoes: TButton;
+    MadExceptionHandler1: TMadExceptionHandler;
     procedure btnNovaMesaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btn1Click(Sender: TObject);
@@ -386,8 +389,6 @@ begin
   with dtmcon do
   begin
     conexao.Close;
-    fdmConfigIni.Close;
-    fdmConfigIni.Open;
     conexao.Open();
     atualizaDatasets;
     carregaConfiguracoes;

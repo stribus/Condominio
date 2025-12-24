@@ -257,7 +257,7 @@ object frmAnotar: TfrmAnotar
     end
   end
   object fdsp_lancamentos: TFDStoredProc
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     StoredProcName = 'PR_LANCAR_CADERNETA_DIRETO'
     Left = 352
     Top = 16
@@ -488,7 +488,7 @@ object frmAnotar: TfrmAnotar
   end
   object fdqTotais: TFDQuery
     BeforeOpen = fdqTotaisBeforeOpen
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '  cc.fk_temporada ,'
@@ -536,21 +536,21 @@ object frmAnotar: TfrmAnotar
       Origin = 'FK_CLIENTE'
       Required = True
     end
-    object fdqTotaisVALOR_GASTO: TBCDField
+    object fdqTotaisVALOR_GASTO: TFMTBCDField
       FieldName = 'VALOR_GASTO'
       Origin = 'VALOR_GASTO'
       currency = True
       Precision = 18
       Size = 2
     end
-    object fdqTotaisVALOR_PAGO: TBCDField
+    object fdqTotaisVALOR_PAGO: TFMTBCDField
       FieldName = 'VALOR_PAGO'
       Origin = 'VALOR_PAGO'
       currency = True
       Precision = 18
       Size = 2
     end
-    object fdqTotaisSALDO: TBCDField
+    object fdqTotaisSALDO: TFMTBCDField
       FieldName = 'SALDO'
       Origin = 'SALDO'
       currency = True

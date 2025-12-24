@@ -496,7 +496,7 @@ object frmPagamento: TfrmPagamento
       Origin = 'DESCONTO'
       ProviderFlags = [pfInUpdate]
     end
-    object fdqPedidoVALOR_DESCONTO: TBCDField
+    object fdqPedidoVALOR_DESCONTO: TFMTBCDField
       FieldName = 'VALOR_DESCONTO'
       Origin = 'VALOR_DESCONTO'
       ProviderFlags = [pfInUpdate]
@@ -540,7 +540,7 @@ object frmPagamento: TfrmPagamento
       Origin = 'TP_PAGAMENTO'
       ProviderFlags = [pfInUpdate]
     end
-    object fdqPedidoTOTAL: TBCDField
+    object fdqPedidoTOTAL: TFMTBCDField
       FieldName = 'TOTAL'
       Origin = 'TOTAL'
       ProviderFlags = [pfInUpdate]
@@ -684,7 +684,7 @@ object frmPagamento: TfrmPagamento
       Origin = 'PAGAMENTO'
       Required = True
     end
-    object fdqMovProdutoVALOR_TOTAL: TBCDField
+    object fdqMovProdutoVALOR_TOTAL: TFMTBCDField
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
       Required = True
@@ -697,7 +697,7 @@ object frmPagamento: TfrmPagamento
     end
   end
   object fdspPagar: TFDStoredProc
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     StoredProcName = 'PR_FECHAR_PAGAR'
     Left = 132
     Top = 22
@@ -725,7 +725,7 @@ object frmPagamento: TfrmPagamento
       end>
   end
   object fdspAnotar: TFDStoredProc
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     StoredProcName = 'PR_FECHAR_ANOTAR'
     Left = 52
     Top = 70
@@ -760,7 +760,7 @@ object frmPagamento: TfrmPagamento
   end
   object fdqTotais: TFDQuery
     BeforeOpen = fdqTotaisBeforeOpen
-    ConnectionName = 'Condominio'
+    Connection = dtmcon.conexao
     SQL.Strings = (
       'SELECT'
       '  cc.fk_temporada ,'
@@ -813,19 +813,19 @@ object frmPagamento: TfrmPagamento
       Origin = 'PERMITIR_SALDO_NEGATIVO'
       Required = True
     end
-    object fdqTotaisVALOR_GASTO: TBCDField
+    object fdqTotaisVALOR_GASTO: TFMTBCDField
       FieldName = 'VALOR_GASTO'
       Origin = 'VALOR_GASTO'
       Precision = 18
       Size = 2
     end
-    object fdqTotaisVALOR_PAGO: TBCDField
+    object fdqTotaisVALOR_PAGO: TFMTBCDField
       FieldName = 'VALOR_PAGO'
       Origin = 'VALOR_PAGO'
       Precision = 18
       Size = 2
     end
-    object fdqTotaisSALDO: TBCDField
+    object fdqTotaisSALDO: TFMTBCDField
       FieldName = 'SALDO'
       Origin = 'SALDO'
       Precision = 18

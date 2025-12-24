@@ -14,7 +14,7 @@ type
   TfrmEntradasSaidas = class(TfrmCadBase)
     fdqEdicaoID: TLargeintField;
     fdqEdicaoDESCRICAO: TStringField;
-    fdqEdicaoVALOR: TBCDField;
+    fdqEdicaoVALOR: TFMTBCDField;
     fdqEdicaoTIPO: TIntegerField;
     fdqEdicaoDATA_HORA: TSQLTimeStampField;
     fdqEdicaoEXCLUIDO: TBooleanField;

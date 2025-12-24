@@ -54,8 +54,8 @@ type
     fdqCadernetaFKS: TStringField;
     fdqCadernetaQUANTIDADE: TBCDField;
     fdqCadernetaPAGAMENTO: TBooleanField;
-    fdqCadernetaVALOR_TOTAL: TBCDField;
-    fdqCadernetaSALDO: TBCDField;
+    fdqCadernetaVALOR_TOTAL: TFMTBCDField;
+    fdqCadernetaSALDO: TFMTBCDField;
     fdqProdutoslookup: TFDQuery;
     fdqProdutoslookupID: TStringField;
     fdqProdutoslookupCODIGO: TLargeintField;
@@ -66,9 +66,9 @@ type
     fdqCadernetaNomeProduto: TStringField;
     fdqTotaisFK_TEMPORADA: TLargeintField;
     fdqTotaisFK_CLIENTE: TLargeintField;
-    fdqTotaisVALOR_GASTO: TBCDField;
-    fdqTotaisVALOR_PAGO: TBCDField;
-    fdqTotaisSALDO: TBCDField;
+    fdqTotaisVALOR_GASTO: TFMTBCDField;
+    fdqTotaisVALOR_PAGO: TFMTBCDField;
+    fdqTotaisSALDO: TFMTBCDField;
     fdspPagar: TFDStoredProc;
     frepConta: TfrxReport;
     fdsCaderneta: TfrxDBDataset;
